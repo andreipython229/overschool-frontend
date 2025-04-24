@@ -4,8 +4,11 @@
 
 .wrapper {
   display: flex;
+  width: 100%;
+  min-height: 60vh;
+  gap: 1rem;
 
-  @media only screen and (min-width : 320px) and (max-width : 480px) {
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
     padding-top: 2vw;
     flex-direction: column;
     align-items: center;
@@ -16,14 +19,13 @@
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 2%;
-
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,18 +44,18 @@
         }
 
         @include display(flex, row, flex-start, center);
-          margin-top: 10px;
-          width: 100px;
-          height: 36px;
-          border: none;
-          text-align: center;
-          background: #f3f4f6;
-          font-size: 14px;
-          color: #6b728f;
-          border-radius: 6px;
-          padding: 11px 0 11px 16px;
-        }
+        margin-top: 10px;
+        width: 100px;
+        height: 36px;
+        border: none;
+        text-align: center;
+        background: #f3f4f6;
+        font-size: 14px;
+        color: #6b728f;
+        border-radius: 6px;
+        padding: 11px 0 11px 16px;
       }
+    }
 
     &_description {
       &_text {
@@ -66,9 +68,11 @@
   }
 
   &_leftSide {
-    opacity: 0px;
+    height: auto !important;
+    position: sticky;
+    top: 0px;
 
-    @media only screen and (min-width: 1650px){
+    @media only screen and (min-width: 1650px) {
       width: 395px;
       height: 783px;
       top: 237px;
@@ -81,7 +85,7 @@
       height: 48vw;
     }
 
-     @media only screen and (min-width: 320px) and (max-width: 480px) {
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -89,105 +93,102 @@
       height: 48vw;
     }
 
-      &_title {
-        gap: 10px;
-        opacity: 0px;
-        position:relative;
-        overflow: hidden;
-        display:inline-block;
-        background: -moz-linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%);      ; /* FF3.6+ */
-        background: -webkit-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%); /* IE10+ */
-        background: linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+    &_title {
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      background: -moz-linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%); /* FF3.6+ */
+      background: -webkit-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%); /* IE10+ */
+      background: linear-gradient(90deg, #332f36 -5.88%, rgba(51, 47, 54, 0) 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
 
-        @media only screen and (min-width: 1650px){
-          width: 395px;
-          height: 61px;
-          padding: 16px;
-          border-radius: 16px;
-          margin-bottom: 15px;
-        }
+      @media only screen and (min-width: 1650px) {
+        width: 395px;
+        height: 61px;
+        padding: 16px;
+        border-radius: 16px;
+        margin-bottom: 15px;
+      }
 
-        @media only screen and (min-width: 700px) and (max-width: 1650px) {
-          width: 24vw;
-          height: 3.7vw;
-          padding: 1vw;
-          border-radius: 1vw;
-          margin-bottom: 0.2vw;
-        }
+      @media only screen and (min-width: 700px) and (max-width: 1650px) {
+        width: 24vw;
+        height: 3.7vw;
+        padding: 1vw;
+        border-radius: 1vw;
+        margin-bottom: 0.2vw;
+      }
 
-        @media only screen and (min-width: 480px) and (max-width: 700px) {
-          width: 24vw;
-          height: 3.7vw;
-          padding: 1vw;
-          border-radius: 1vw;
-          margin-bottom: -1vw;
+      @media only screen and (min-width: 480px) and (max-width: 700px) {
+        width: 24vw;
+        height: 3.7vw;
+        padding: 1vw;
+        border-radius: 1vw;
+        margin-bottom: -1vw;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 100%;
+        height: 35px;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      img {
+        max-width: 500%;
+        max-height: 500%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+
+        @media only screen and (min-width: 480px) {
+          transform: translateY(-50%) translateX(-50%);
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
-          width: 100%;
-          height: 35px;
-          padding: 12px;
-          border-radius: 8px;
-          margin-bottom: 10px;
-        }
-
-        img{
-          max-width: 500%;
-          max-height: 500%;
-          position:absolute;
-          top:50%;
-          left: 50%;
-          z-index:-1;
-
-          @media only screen and (min-width: 480px){
-            transform: translateY(-50%) translateX(-50%);
-          }
-
-          @media only screen and (min-width: 320px) and (max-width: 480px) {
-            transform: translateY(-50%) translateX(-40%);
-          }
-        }
-        h2{
-          position: absolute;
-          font-weight: 500;
-          height: 100%;
-          gap: 0px;
-          opacity: 0px;
-          font-family: SF Pro Display;
-          text-align: left;
-          justify-content: center;
-          display: flex;
-          text-underline-position: from-font;
-          text-decoration-skip-ink: none;
-          color: rgba(255, 255, 255, 1);
-
-          @media only screen and (min-width: 1650px){
-            font-size: 24px;
-            line-height: 28.64px;
-          }
-
-          @media only screen and (min-width: 480px) and (max-width: 1650px) {
-            font-size: 1.5vw;
-            line-height: 1.6vw;
-          }
-
-           @media only screen and (min-width: 320px) and (max-width: 480px) {
-            font-size: 15px;
-            line-height: 1.6vw;
-          }
+          transform: translateY(-50%) translateX(-40%);
         }
       }
+      h2 {
+        position: absolute;
+        font-weight: 500;
+        height: 100%;
+        gap: 0px;
+        font-family: SF Pro Display;
+        text-align: left;
+        justify-content: center;
+        display: flex;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: rgba(255, 255, 255, 1);
+
+        @media only screen and (min-width: 1650px) {
+          font-size: 24px;
+          line-height: 28.64px;
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 1650px) {
+          font-size: 1.5vw;
+          line-height: 1.6vw;
+        }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          font-size: 15px;
+          line-height: 1.6vw;
+        }
+      }
+    }
 
     &_desc {
       overflow-y: scroll;
       gap: 10px;
-      opacity: 0px;
 
-      @media only screen and (min-width: 1650px){
+      @media only screen and (min-width: 1650px) {
         width: 395px;
         height: 783px;
         margin-left: 8px;
@@ -229,10 +230,10 @@
           height: 30px;
           width: 100%;
           //border: 1px blue solid;
-          @media only screen and (min-width : 320px) and (max-width : 375px) {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
             display: none;
           }
-          @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
             display: none;
           }
 
@@ -277,14 +278,13 @@
       }
 
       &_lessonWrapper {
-        opacity: 0px;
         background-color: rgba(207, 226, 255, 1);
         box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
         cursor: pointer;
         border: none;
         position: relative;
 
-        @media only screen and (min-width: 1650px){
+        @media only screen and (min-width: 1650px) {
           width: 379px;
           height: 41px;
           padding: 10px 26px 10px 26px;
@@ -319,7 +319,7 @@
         &:hover {
           border: 1px solid rgba(53, 126, 235, 1);
 
-          @media only screen and (min-width: 1650px){
+          @media only screen and (min-width: 1650px) {
             border-radius: 10px;
           }
 
@@ -333,12 +333,13 @@
         }
 
         &:focus {
-		      background-color: rgba(53, 126, 235, 1);
-		      box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
-	      }
+          background-color: rgba(53, 126, 235, 1);
+          box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
+        }
 
         &:focus & {
-          &_lesson, &_counter {
+          &_lesson,
+          &_counter {
             color: rgba(255, 255, 255, 1);
           }
         }
@@ -350,57 +351,58 @@
         }
 
         &:hover & {
-          &_lesson, &_counter {
-          -webkit-animation: fadeInFromNone 1s ease-out;
-          -moz-animation: fadeInFromNone 1s ease-out;
-          -o-animation: fadeInFromNone 1s ease-out;
-          animation: fadeInFromNone 1s ease-out;
+          &_lesson,
+          &_counter {
+            -webkit-animation: fadeInFromNone 1s ease-out;
+            -moz-animation: fadeInFromNone 1s ease-out;
+            -o-animation: fadeInFromNone 1s ease-out;
+            animation: fadeInFromNone 1s ease-out;
           }
-        @-webkit-keyframes fadeInFromNone {
-          0% {
-            opacity: 0;
-          }
-          1% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-        @-moz-keyframes fadeInFromNone {
-          0% {
-            opacity: 0;
-          }
-          1% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
+          @-webkit-keyframes fadeInFromNone {
+            0% {
+              opacity: 0;
             }
-        }
-        @-o-keyframes fadeInFromNone {
-          0% {
-            opacity: 0;
-          }
-          1% {
-            opacity: 0;
-          }
-          100% {
-            opacity: 1;
+            1% {
+              opacity: 0;
             }
-        }
-        @keyframes fadeInFromNone {
-          0% {
-            opacity: 0;
+            100% {
+              opacity: 1;
+            }
           }
-          1% {
-            opacity: 0;
+          @-moz-keyframes fadeInFromNone {
+            0% {
+              opacity: 0;
+            }
+            1% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
           }
-          100% {
-            opacity: 1;
+          @-o-keyframes fadeInFromNone {
+            0% {
+              opacity: 0;
+            }
+            1% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+          @keyframes fadeInFromNone {
+            0% {
+              opacity: 0;
+            }
+            1% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
         }
-      }
-    }
         &_wrapTable {
           position: relative;
           animation-name: slidein;
@@ -409,203 +411,328 @@
           &_line {
             list-style-type: none;
 
-             @media only screen and (min-width: 1650px){
-               margin-bottom: 10px;
-             }
+            @media only screen and (min-width: 1650px) {
+              margin-bottom: 10px;
+            }
 
-             @media only screen and (min-width: 900px) and (max-width: 1650px) {
-               margin-bottom: 0.5vw;
-             }
+            @media only screen and (min-width: 900px) and (max-width: 1650px) {
+              margin-bottom: 0.5vw;
+            }
 
-             @media only screen and (min-width: 480px) and (max-width: 600px) {
-               margin-top: -0.8vw;
-             }
+            @media only screen and (min-width: 480px) and (max-width: 600px) {
+              margin-top: -0.8vw;
+            }
 
-             @media only screen and (min-width: 320px) and (max-width: 480px) {
-               display: flex;
-               flex-direction: column;
-               align-items: center;
-               margin-bottom: 5px;
-             }
+            @media only screen and (min-width: 320px) and (max-width: 480px) {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin-bottom: 5px;
+            }
 
-              &_content {
-                opacity: 0px;
-                background-color: rgba(255, 255, 255, 1);
+            &_content {
+              background-color: rgba(255, 255, 255, 1);
+              box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
+              cursor: pointer;
+              border: none;
+              font-family: SF Pro Display;
+              font-weight: 400;
+              letter-spacing: 0.01em;
+              text-align: center;
+              text-underline-position: from-font;
+              text-decoration-skip-ink: none;
+              color: rgba(51, 47, 54, 1);
+
+              @media only screen and (min-width: 1650px) {
+                width: 379px;
+                height: 41px;
+                padding: 10px 26px 10px 26px;
+                gap: 84px;
+                border-radius: 10px;
+                font-size: 16px;
+                line-height: 19.09px;
+              }
+
+              @media only screen and (min-width: 480px) and (max-width: 1650px) {
+                width: 23vw;
+                height: 2.5vw;
+                padding: 0.5vw 1.5vw 0.5vw 1.5vw;
+                border-radius: 0.5vw;
+                font-size: 1vw;
+                line-height: 1.5vw;
+              }
+
+              @media only screen and (min-width: 320px) and (max-width: 480px) {
+                width: 95%;
+                height: 30px;
+                padding: 8px 20px 8px 20px;
+                border-radius: 8px;
+                font-size: 3vw;
+                line-height: 16px;
+              }
+
+              &:hover {
+                border: 1px solid rgba(53, 126, 235, 1);
+              }
+
+              &:focus {
+                background-color: rgba(53, 126, 235, 1);
                 box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
-                cursor: pointer;
-                border: none;
-                font-family: SF Pro Display;
-                font-weight: 400;
-                letter-spacing: 0.01em;
-                text-align: center;
-                text-underline-position: from-font;
-                text-decoration-skip-ink: none;
-                color: rgba(51, 47, 54, 1);
+                color: rgba(255, 255, 255, 1);
+              }
 
-                @media only screen and (min-width: 1650px){
-                  width: 379px;
-                  height: 41px;
-                  padding: 10px 26px 10px 26px;
-                  gap: 84px;
-                  border-radius: 10px;
-                  font-size: 16px;
-                  line-height: 19.09px;
+              &:focus & {
+                &_counter {
+                  color: rgba(255, 255, 255, 1);
+                }
+              }
+
+              &_inside {
+                @media only screen and (min-width: 1650px) {
+                  margin-left: 20px;
                 }
 
                 @media only screen and (min-width: 480px) and (max-width: 1650px) {
-                  width: 23vw;
-                  height: 2.5vw;
-                  padding: 0.5vw 1.5vw 0.5vw 1.5vw;
-                  border-radius: 0.5vw;
-                  font-size: 1vw;
-                  line-height: 1.5vw;
+                  margin-left: 1.3vw;
                 }
 
                 @media only screen and (min-width: 320px) and (max-width: 480px) {
-                  width: 95%;
-                  height: 30px;
-                  padding: 8px 20px 8px 20px;
-                  border-radius: 8px;
-                  font-size: 3vw;
-                  line-height: 16px;
+                  margin-top: -2px;
+                }
+              }
+
+              &_counter {
+                color: rgba(53, 126, 235, 1);
+                font-family: SF Pro Display;
+                font-weight: 400;
+                text-align: center;
+                text-underline-position: from-font;
+                text-decoration-skip-ink: none;
+                float: right;
+
+                @media only screen and (min-width: 1650px) {
+                  width: 19px;
+                  height: 19px;
+                  font-size: 16px;
+                  line-height: 19.09px;
+                  margin-right: 8px;
+                  margin-top: 2px;
                 }
 
-                &:hover {
-                  border: 1px solid rgba(53, 126, 235, 1);
+                @media only screen and (min-width: 480px) and (max-width: 1650px) {
+                  width: 1.1vw;
+                  height: 1.1vw;
+                  font-size: 1vw;
+                  line-height: 1.1vw;
+                  margin-right: 0.5vw;
+                  margin-top: 0.2vw;
                 }
 
-                &:focus {
-                  background-color: rgba(53, 126, 235, 1);
-                  box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
-                  color: rgba(255, 255, 255, 1);
-                }
-
-                &:focus & {
-                  &_counter {
-                    color: rgba(255, 255, 255, 1);
-                  }
-                }
-
-                &_inside{
-                  @media only screen and (min-width: 1650px){
-                    margin-left: 20px;
-                  }
-
-                  @media only screen and (min-width: 480px) and (max-width: 1650px) {
-                    margin-left: 1.3vw;
-                  }
-
-                  @media only screen and (min-width: 320px) and (max-width: 480px) {
-                    margin-top: -2px;
-                  }
-                }
-
-                &_counter{
-                  color: rgba(53, 126, 235, 1);
-                  font-family: SF Pro Display;
-                  font-weight: 400;
-                  text-align: center;
-                  text-underline-position: from-font;
-                  text-decoration-skip-ink: none;
-                  float: right;
-
-                 @media only screen and (min-width: 1650px){
-                   width: 19px;
-                   height: 19px;
-                   font-size: 16px;
-                   line-height: 19.09px;
-                   margin-right: 8px;
-                   margin-top: 2px;
-                  }
-
-                  @media only screen and (min-width: 480px) and (max-width: 1650px) {
-                    width: 1.1vw;
-                    height: 1.1vw;
-                    font-size: 1vw;
-                    line-height: 1.1vw;
-                    margin-right: 0.5vw;
-                    margin-top: 0.2vw;
-                  }
-
-                   @media only screen and (min-width: 320px) and (max-width: 480px) {
-                    width: 1.1vw;
-                    height: 1.1vw;
-                    font-size: 13px;
-                    line-height: 1.1vw;
-                    margin-right: 0.5vw;
-                    margin-top: 5px;
-                  }
+                @media only screen and (min-width: 320px) and (max-width: 480px) {
+                  width: 1.1vw;
+                  height: 1.1vw;
+                  font-size: 13px;
+                  line-height: 1.1vw;
+                  margin-right: 0.5vw;
+                  margin-top: 5px;
                 }
               }
             }
           }
+        }
 
-            @keyframes slidein {
-              from {
-                margin-top: -50px;
-                opacity: 0;
-              }
+        &_wrapTableActive {
+          position: relative;
+          animation-name: slidein;
+          animation-duration: 0.3s;
 
-              25% {
-                margin-top: -40px;
-                }
+          &_line {
+            list-style-type: none;
 
-              45% {
-                margin-top: -30px;
-                opacity: 0.33;
-                }
-
-              70% {
-                margin-top: -20px;
-                }
-
-              to {
-                margin-top: -10px;
-                opacity: 1;
-              }
+            @media only screen and (min-width: 1650px) {
+              margin-bottom: 10px;
             }
 
-        &_stateWrapTable{
+            @media only screen and (min-width: 900px) and (max-width: 1650px) {
+              margin-bottom: 0.5vw;
+            }
+
+            @media only screen and (min-width: 480px) and (max-width: 600px) {
+              margin-top: -0.8vw;
+            }
+
+            @media only screen and (min-width: 320px) and (max-width: 480px) {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              margin-bottom: 5px;
+            }
+
+            &_content {
+              background-color: rgba(53, 126, 235, 1);
+              box-shadow: 0px 0px 4px 0px rgba(50, 65, 149, 0.3);
+              color: rgba(255, 255, 255, 1);
+              cursor: pointer;
+              border: none;
+              font-family: SF Pro Display;
+              font-weight: 400;
+              letter-spacing: 0.01em;
+              text-align: center;
+              text-underline-position: from-font;
+              text-decoration-skip-ink: none;
+
+              @media only screen and (min-width: 1650px) {
+                width: 379px;
+                height: 41px;
+                padding: 10px 26px 10px 26px;
+                gap: 84px;
+                border-radius: 10px;
+                font-size: 16px;
+                line-height: 19.09px;
+              }
+
+              @media only screen and (min-width: 480px) and (max-width: 1650px) {
+                width: 23vw;
+                height: 2.5vw;
+                padding: 0.5vw 1.5vw 0.5vw 1.5vw;
+                border-radius: 0.5vw;
+                font-size: 1vw;
+                line-height: 1.5vw;
+              }
+
+              @media only screen and (min-width: 320px) and (max-width: 480px) {
+                width: 95%;
+                height: 30px;
+                padding: 8px 20px 8px 20px;
+                border-radius: 8px;
+                font-size: 3vw;
+                line-height: 16px;
+              }
+
+              &:hover {
+                border: 1px solid rgba(53, 126, 235, 1);
+              }
+
+              &_inside {
+                @media only screen and (min-width: 1650px) {
+                  margin-left: 20px;
+                }
+
+                @media only screen and (min-width: 480px) and (max-width: 1650px) {
+                  margin-left: 1.3vw;
+                }
+
+                @media only screen and (min-width: 320px) and (max-width: 480px) {
+                  margin-top: -2px;
+                }
+              }
+
+              &_counter {
+                color: rgba(255, 255, 255, 1);
+                font-family: SF Pro Display;
+                font-weight: 400;
+                text-align: center;
+                text-underline-position: from-font;
+                text-decoration-skip-ink: none;
+                float: right;
+
+                @media only screen and (min-width: 1650px) {
+                  width: 19px;
+                  height: 19px;
+                  font-size: 16px;
+                  line-height: 19.09px;
+                  margin-right: 8px;
+                  margin-top: 2px;
+                }
+
+                @media only screen and (min-width: 480px) and (max-width: 1650px) {
+                  width: 1.1vw;
+                  height: 1.1vw;
+                  font-size: 1vw;
+                  line-height: 1.1vw;
+                  margin-right: 0.5vw;
+                  margin-top: 0.2vw;
+                }
+
+                @media only screen and (min-width: 320px) and (max-width: 480px) {
+                  width: 1.1vw;
+                  height: 1.1vw;
+                  font-size: 13px;
+                  line-height: 1.1vw;
+                  margin-right: 0.5vw;
+                  margin-top: 5px;
+                }
+              }
+            }
+          }
+        }
+
+        @keyframes slidein {
+          from {
+            margin-top: -50px;
+            opacity: 0;
+          }
+
+          25% {
+            margin-top: -40px;
+          }
+
+          45% {
+            margin-top: -30px;
+            opacity: 0.33;
+          }
+
+          70% {
+            margin-top: -20px;
+          }
+
+          to {
+            margin-top: -10px;
+            opacity: 1;
+          }
+        }
+
+        &_stateWrapTable {
           position: relative;
           display: block;
-          }
+        }
 
-        &_noWrapTable{
+        &_noWrapTable {
           position: relative;
           animation-name: slideout;
           animation-duration: 0.3s;
           display: none;
+        }
+
+        @keyframes slideout {
+          from {
+            display: block;
+            margin-top: -10px;
+            opacity: 1;
           }
 
-          @keyframes slideout {
-              from {
-                display:block;
-                margin-top: -10px;
-                opacity: 1;
-              }
+          25% {
+            display: block;
+            margin-top: -20px;
+          }
 
-              25% {
-                display:block;
-                margin-top: -20px;
-                }
+          45% {
+            display: block;
+            margin-top: -30px;
+            opacity: 0.33;
+          }
 
-              45% {
-                display:block;
-                margin-top: -30px;
-                opacity: 0.33;
-                }
+          70% {
+            display: block;
+            margin-top: -40px;
+          }
 
-              70% {
-                display:block;
-                margin-top: -40px;
-                }
-
-              to {
-                display:block;
-                margin-top: -50px;
-                opacity: 0;
-              }
-            }
+          to {
+            display: block;
+            margin-top: -50px;
+            opacity: 0;
+          }
+        }
 
         &_lesson {
           font-family: SF Pro Display;
@@ -616,19 +743,19 @@
           color: rgba(51, 47, 54, 1);
           float: left;
 
-         img {
+          img {
             background: url('./images/up.png') no-repeat center center;
             gap: 0px;
-            opacity: 0px;
+
             angle: 180 deg;
 
-            @media only screen and (min-width: 1650px){
+            @media only screen and (min-width: 1650px) {
               width: 14px;
               left: 11.5px;
               margin-right: 10px;
               padding-top: 10px;
               height: 100%;
-             }
+            }
 
             @media only screen and (min-width: 480px) and (max-width: 1650px) {
               left: 0.5vw;
@@ -645,11 +772,11 @@
               padding-top: 10px;
               height: 100%;
             }
-           }
+          }
 
-          @media only screen and (min-width: 1650px){
-           font-size: 18px;
-           line-height: 21.48px;
+          @media only screen and (min-width: 1650px) {
+            font-size: 18px;
+            line-height: 21.48px;
           }
 
           @media only screen and (min-width: 480px) and (max-width: 1650px) {
@@ -657,13 +784,13 @@
             line-height: 1.5vw;
           }
 
-           @media only screen and (min-width: 320px) and (max-width: 480px) {
-             font-size: 3vw;
-             line-height: 1.6vw;
+          @media only screen and (min-width: 320px) and (max-width: 480px) {
+            font-size: 3vw;
+            line-height: 1.6vw;
           }
-         }
+        }
 
-        &_counter{
+        &_counter {
           color: rgba(53, 126, 235, 1);
           font-family: SF Pro Display;
           font-weight: 400;
@@ -672,13 +799,13 @@
           text-decoration-skip-ink: none;
           float: right;
 
-         @media only screen and (min-width: 1650px){
-           width: 19px;
-           height: 19px;
-           font-size: 16px;
-           line-height: 19.09px;
-           margin-right: 8px;
-           margin-top: 2px;
+          @media only screen and (min-width: 1650px) {
+            width: 19px;
+            height: 19px;
+            font-size: 16px;
+            line-height: 19.09px;
+            margin-right: 8px;
+            margin-top: 2px;
           }
 
           @media only screen and (min-width: 480px) and (max-width: 1650px) {
@@ -771,10 +898,9 @@
   }
 
   &_rightSideWrapper {
-    right: 10px;
     min-width: 0;
 
-    @media only screen and (min-width: 480px){
+    @media only screen and (min-width: 480px) {
       width: 95%;
     }
 
@@ -791,7 +917,7 @@
        width: 939px;
        height: 129px;
        padding: 20px 49px 20px 49px;
-       margin-left: 37px;
+       margin-left: 110px;
        border-radius: 20px;
       }
 
@@ -799,7 +925,7 @@
         width: 80%;
         height: 8vw;
         padding: 1.2vw 3vw 1.2vw 3vw;
-        margin-left: 3vw;
+        margin-left: 2vw;
         border-radius: 1vw;
       }
 
@@ -815,41 +941,40 @@
         display: flex;
         justify-content: space-between;
 
-        @media only screen and (min-width: 1650px){
+        @media only screen and (min-width: 1650px) {
           margin-bottom: 20px;
         }
 
         @media only screen and (min-width: 480px) and (max-width: 1650px) {
-           margin-bottom: 2vw;
+          margin-bottom: 2vw;
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
-           margin-bottom: 20px;
+          margin-bottom: 20px;
         }
       }
 
       &_btnBlock {
         display: flex;
-        opacity: 0px;
 
-         @media only screen and (min-width: 1650px){
+        @media only screen and (min-width: 1650px) {
           width: 322px;
           height: 45px;
           gap: 10px;
         }
 
-          @media only screen and (min-width: 480px) and (max-width: 1650px) {
-            width: 20vw;
-            height: 2.6vw;
-            gap: 0.5vw;
-          }
-
-          @media only screen and (min-width: 320px) and (max-width: 480px) {
-            width: 20vw;
-            height: 2.6vw;
-            gap: 0.5vw;
-          }
+        @media only screen and (min-width: 480px) and (max-width: 1650px) {
+          width: 20vw;
+          height: 2.6vw;
+          gap: 0.5vw;
         }
+
+        @media only screen and (min-width: 320px) and (max-width: 480px) {
+          width: 20vw;
+          height: 2.6vw;
+          gap: 0.5vw;
+        }
+      }
 
       &_review {
         display: flex;
@@ -892,7 +1017,7 @@
           &_edit {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
-              border: solid 2px #BA75FF;
+              border: solid 2px #ba75ff;
             }
 
             @include display(flex, row, flex-start, center);
@@ -916,7 +1041,6 @@
           }
 
           &_save {
-            opacity: 0px;
             background-color: rgba(53, 126, 235, 1);
             border: none;
             font-family: SF Pro Display;
@@ -926,7 +1050,7 @@
             text-decoration-skip-ink: none;
             color: rgba(255, 255, 255, 1);
 
-            @media only screen and (min-width: 1650px){
+            @media only screen and (min-width: 1650px) {
               width: 159px;
               height: 45px;
               padding: 0px 40px 0px 40px;
@@ -946,9 +1070,9 @@
             }
           }
 
-          &_cancel{
+          &_cancel {
             border: 2px;
-            opacity: 0px;
+
             border: 2px solid rgba(53, 126, 235, 1);
             background-color: rgba(255, 255, 255, 1);
             text-align: center;
@@ -959,7 +1083,7 @@
             text-decoration-skip-ink: none;
             color: rgba(53, 126, 235, 1);
 
-            @media only screen and (min-width: 1650px){
+            @media only screen and (min-width: 1650px) {
               width: 159px;
               height: 45px;
               padding: 0px 40px 0px 40px;
@@ -982,7 +1106,7 @@
           &_delete {
             &:hover {
               background-color: rgba(190, 190, 190, 0.4);
-              border: solid 2px #BA75FF;
+              border: solid 2px #ba75ff;
             }
 
             @include display(flex, row, flex-start, center);
@@ -1010,7 +1134,7 @@
 
       &_title {
         gap: 0px;
-        opacity: 0px;
+
         font-family: SF Pro Display;
         font-weight: 500;
         text-align: left;
@@ -1018,7 +1142,7 @@
         text-decoration-skip-ink: none;
         color: rgba(0, 0, 0, 1);
 
-        @media only screen and (min-width: 1650px){
+        @media only screen and (min-width: 1650px) {
           width: 841px;
           height: 24px;
           font-size: 20px;
@@ -1030,7 +1154,6 @@
           height: 2vw;
           font-size: 1.2vw;
           line-height: 1.3vw;
-          padding-bottom: 1vw;
         }
 
         @media only screen and (min-width: 320px) and (max-width: 480px) {
@@ -1038,7 +1161,6 @@
           height: 2vw;
           font-size: 10px;
           line-height: 1.3vw;
-          padding-bottom: 1vw;
         }
       }
 
@@ -1047,11 +1169,11 @@
         align-items: center;
         padding-right: 45px;
 
-        @media only screen and (min-width : 320px) and (max-width : 375px) {
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
           flex-direction: column;
           padding: 0 0 5% 0;
         }
-        @media only screen and (min-width : 375px) and (max-width : 480px) {
+        @media only screen and (min-width: 375px) and (max-width: 480px) {
           flex-direction: column;
           padding: 0 0 5% 0;
         }
@@ -1073,7 +1195,7 @@
           text-underline-position: from-font;
           text-decoration-skip-ink: none;
 
-          @media only screen and (min-width: 1650px){
+          @media only screen and (min-width: 1650px) {
             font-size: 28px;
             line-height: 33.41px;
           }
@@ -1088,7 +1210,7 @@
             line-height: 1.8vw;
           }
         }
-     }
+      }
 
       &_functional {
         width: 100%;
@@ -1096,16 +1218,17 @@
         gap: 20px;
         opacity: 0px;
 
+
         &_container {
           display: flex;
           flex-direction: column;
           gap: 40px;
           padding-inline: 3em;
 
-          @media only screen and (min-width : 320px) and (max-width : 375px) {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
             padding-inline: 0;
           }
-          @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
             padding-inline: 0;
           }
         }
@@ -1116,12 +1239,12 @@
           margin-top: 50px;
           padding-right: 45px;
 
-          @media only screen and (min-width : 320px) and (max-width : 375px) {
+          @media only screen and (min-width: 320px) and (max-width: 375px) {
             padding: 0 0 10% 0;
             flex-direction: column;
-            gap: 15px
+            gap: 15px;
           }
-          @media only screen and (min-width : 375px) and (max-width : 480px) {
+          @media only screen and (min-width: 375px) and (max-width: 480px) {
             padding: 0 0 10% 0;
             flex-direction: column;
             gap: 15px;
@@ -1163,10 +1286,8 @@
   }
 }
 
-
-
 .redactorCourse_leftSide_desc::-webkit-scrollbar {
-  @media only screen and (min-width: 1650px){
+  @media only screen and (min-width: 1650px) {
     width: 10px;
   }
 
@@ -1178,9 +1299,8 @@
 .redactorCourse_leftSide_desc::-webkit-scrollbar-thumb {
   background: rgba(53, 126, 235, 1);
   gap: 0px;
-  opacity: 0px;
 
-  @media only screen and (min-width: 1650px){
+  @media only screen and (min-width: 1650px) {
     width: 5px;
     height: 85px;
     border-radius: 30px;
@@ -1271,13 +1391,13 @@ hr {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     gap: 5px;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -1296,7 +1416,6 @@ hr {
     }
   }
 }
-
 
 .check_autotest {
   display: flex;
@@ -1333,7 +1452,7 @@ hr {
       margin-left: 20px;
     }
     & label {
-     color: #9ca3af;
+      color: #9ca3af;
     }
   }
 
@@ -1403,23 +1522,21 @@ hr {
   letter-spacing: 0.06em;
 }
 
-
 .publickButton {
   width: 180px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  @media only screen and (min-width : 320px) and (max-width : 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-left: 50%;
     gap: 10px;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin-left: 50%;
     gap: 10px;
   }
 }
-
 
 .commentContainer {
   display: flex;
@@ -1447,8 +1564,9 @@ hr {
     margin-left: -3vw;
   }
 
-  p{
-    @media only screen and (min-width: 1650px){
+
+  p {
+    @media only screen and (min-width: 1650px) {
       margin-left: 50px;
       font-size: 20px;
     }
@@ -1487,7 +1605,6 @@ hr {
 .publicLabel {
   display: flex;
   align-items: center;
-
 }
 
 .publicLabel p {
@@ -1504,7 +1621,7 @@ hr {
 .commentTable {
   border-collapse: collapse;
 
-  @media only screen and (min-width: 1650px){
+  @media only screen and (min-width: 1650px) {
     width: 939px;
   }
 
@@ -1512,9 +1629,9 @@ hr {
     width: 100%;
   }
 
-  &_title{
+  &_title {
     box-shadow: 0px 0px 18px 0px rgba(50, 65, 149, 0.35);
-    opacity: 0px;
+
     background-color: rgba(207, 226, 255, 1);
     font-family: SF Pro Display;
     font-weight: 500;
@@ -1523,7 +1640,7 @@ hr {
     text-decoration-skip-ink: none;
     color: rgba(0, 0, 0, 1);
 
-    @media only screen and (min-width: 1650px){
+    @media only screen and (min-width: 1650px) {
       width: 939px;
       height: 56px;
       padding: 16px 0px 16px 42px;
@@ -1547,95 +1664,95 @@ hr {
       line-height: 1.2vw;
     }
 
-      &_name{
-        text-align: left;
+    &_name {
+      text-align: left;
 
-        @media only screen and (min-width: 1650px){
-          border-radius: 20px 0 0 0;
-          padding-left: 37px;
-        }
-
-        @media only screen and (min-width: 320px) and (max-width: 1650px) {
-          border-radius: 1vw 0 0 0;
-          padding-left: 2.5vw;
-        }
-      }
-
-      &_date{
-        text-align: left;
-      }
-
-      &_comments {
-        text-align: left;
-
-        @media only screen and (min-width: 1650px){
-          border-radius: 0 20px 0 0;
-          padding-left: 17px;
-        }
-
-        @media only screen and (min-width: 320px) and (max-width: 1650px) {
-          border-radius: 0 1vw 0 0;
-          padding-left: 1.5vw;
-        }
-      }
-    }
-
-    &_user{
-      @media only screen and (min-width: 1650px){
-        padding-left: 20px;
-        min-width: 270px;
-        max-width: 270px;
+      @media only screen and (min-width: 1650px) {
+        border-radius: 20px 0 0 0;
+        padding-left: 37px;
       }
 
       @media only screen and (min-width: 320px) and (max-width: 1650px) {
-        padding-left: 1.2vw;
-        min-width: 11vw;
-        max-width: 11vw;
+        border-radius: 1vw 0 0 0;
+        padding-left: 2.5vw;
       }
     }
 
-    &_date{
-      @media only screen and (min-width: 1650px){
-        max-width: 230px;
-        min-width: 230px;
-      }
-
-      @media only screen and (min-width: 320px) and (max-width: 1650px) {
-        max-width: 9vw;
-        min-width: 9vw;
-      }
+    &_date {
+      text-align: left;
     }
 
-    &_commentWrap{
-      @media only screen and (min-width: 1650px){
-        min-width: 359px;
-        max-width: 359px;
+    &_comments {
+      text-align: left;
+
+      @media only screen and (min-width: 1650px) {
+        border-radius: 0 20px 0 0;
+        padding-left: 17px;
       }
 
       @media only screen and (min-width: 320px) and (max-width: 1650px) {
-        min-width: 15vw;
-        max-width: 15vw;
-      }
-
-      &_comment{
-        @media only screen and (min-width: 1650px){
-          min-width: 300px;
-          max-width: 300px;
-        }
-
-        @media only screen and (min-width: 320px) and (max-width: 1650px) {
-          min-width: 14vw;
-          max-width: 14vw;
-        }
+        border-radius: 0 1vw 0 0;
+        padding-left: 1.5vw;
       }
     }
   }
+
+  &_user {
+    @media only screen and (min-width: 1650px) {
+      padding-left: 20px;
+      min-width: 270px;
+      max-width: 270px;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 1650px) {
+      padding-left: 1.2vw;
+      min-width: 11vw;
+      max-width: 11vw;
+    }
+  }
+
+  &_date {
+    @media only screen and (min-width: 1650px) {
+      max-width: 230px;
+      min-width: 230px;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 1650px) {
+      max-width: 9vw;
+      min-width: 9vw;
+    }
+  }
+
+  &_commentWrap {
+    @media only screen and (min-width: 1650px) {
+      min-width: 359px;
+      max-width: 359px;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 1650px) {
+      min-width: 15vw;
+      max-width: 15vw;
+    }
+
+    &_comment {
+      @media only screen and (min-width: 1650px) {
+        min-width: 300px;
+        max-width: 300px;
+      }
+
+      @media only screen and (min-width: 320px) and (max-width: 1650px) {
+        min-width: 14vw;
+        max-width: 14vw;
+      }
+    }
+  }
+}
 
 .commentTable tr {
   word-wrap: break-word;
   gap: 64px;
   border: 0px 0px 1px 0px;
-  opacity: 0px;
+
   font-family: SF Pro Display;
   font-weight: 400;
   text-align: left;
@@ -1643,7 +1760,7 @@ hr {
   text-decoration-skip-ink: none;
   color: rgba(0, 0, 0, 1);
 
-  @media only screen and (min-width: 1650px){
+  @media only screen and (min-width: 1650px) {
     max-height: 400px;
     padding: 0px 20px 10px 20px;
     font-size: 16px;
@@ -1666,8 +1783,8 @@ hr {
 }
 
 .commentTable tr:nth-child(even) {
-    background-color: rgba(255, 255, 255, 1);
-  }
+  background-color: rgba(255, 255, 255, 1);
+}
 
 .commentTable td {
   max-height: 400px;
@@ -1675,7 +1792,7 @@ hr {
   word-wrap: break-word;
   overflow: hidden;
 
-  @media only screen and (min-width: 1650px){
+  @media only screen and (min-width: 1650px) {
     height: 84px;
   }
 
@@ -1683,32 +1800,29 @@ hr {
     height: 5vw;
   }
 
-  img{
+  img {
     @media only screen and (min-width: 320px) and (max-width: 1650px) {
       width: 4vw;
     }
   }
 }
 
-
 .centeredContent {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0px;
-  opacity: 0px;
 }
 
 .centeredCheckbox {
   margin: 0;
-
 }
 
-.commentTable .publicCheckbox input[type="checkbox"]:checked {
+.commentTable .publicCheckbox input[type='checkbox']:checked {
   background-color: rgba(53, 126, 235, 1);
 }
 
-.paginationTable{
+.paginationTable {
   width: auto;
   margin-left: auto;
   margin-right: auto;
@@ -1719,8 +1833,8 @@ hr {
   fill: $color-white;
 }
 
-.fillColorWhite{
-  @media only screen and (min-width: 1650px){
+.fillColorWhite {
+  @media only screen and (min-width: 1650px) {
     width: 24px;
     height: 24px;
   }
@@ -1731,8 +1845,8 @@ hr {
   }
 }
 
-.fillColorBlue{
-  @media only screen and (min-width: 1650px){
+.fillColorBlue {
+  @media only screen and (min-width: 1650px) {
     width: 24px;
     height: 24px;
   }
@@ -1747,4 +1861,3 @@ hr {
   margin-top: 3px;
   margin-left: 13px;
 }
-
