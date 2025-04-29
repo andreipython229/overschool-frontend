@@ -50,7 +50,7 @@ export const SchoolAppeals: FC = () => {
           lineHeight: '19px',
           letterSpacing: '-0.01em',
           color: '#4d5766',
-          margin: '30px 0 22px 0,',
+          margin: '30px 0 22px 0',
         }}
       >
         Входящие заявки о поступлении на курс
