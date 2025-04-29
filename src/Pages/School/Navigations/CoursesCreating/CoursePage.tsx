@@ -55,7 +55,6 @@ export const CoursePage: FC = () => {
   const [fetchProgress, { data: userProgress, isLoading: progressLoading, isError: progressError }] = useLazyFetchAllProgressQuery()
   const [fetchAppealsData, { data: appealsData }] = useFetchSchoolAppealsMutation()
   const [pendingCount, setPendingCount] = useState(0)
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
