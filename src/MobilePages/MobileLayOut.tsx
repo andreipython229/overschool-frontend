@@ -15,7 +15,7 @@ import { useBoolean as useBooleanHook } from '../customHooks'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { FooterMobile } from 'components/Footer/index_mobile'
 import { Footer } from 'components/Footer'
-import { MobileHeaderАuthorized } from "../Pages/Initial/MobileHeaderАuthorized/MobileHeaderАuthorized";
+import { MobileHeaderAdmin } from "../Pages/Initial/MobileHeaderAdmin/MobileHeaderAdmin";
 
 import { motion } from 'framer-motion'
 
@@ -89,7 +89,7 @@ export const MobileLayOut: FC = memo(() => {
       <main className={styles.main}>
         <Previous />
         <Outlet />
-        <MobileHeaderАuthorized />
+        <MobileHeaderAdmin />
       </main>
 
       {/* <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} /> */}
