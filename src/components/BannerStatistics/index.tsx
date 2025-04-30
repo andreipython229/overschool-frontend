@@ -10,6 +10,7 @@ import { ClickDetail } from 'types/courseStatT'
 import { useAppSelector } from 'store/hooks'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrowDownPoligonPath } from 'config/commonSvgIconsPath'
+import { AspectRatio } from '@mui/icons-material'
 
 Chart.register(ChartDataLabels)
 
@@ -156,6 +157,8 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
   }
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false, 
     scales: {
       x: {
         grid: {
@@ -278,7 +281,9 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
         <p className={styles.clicks_counter_header}>Всего кликов</p>
         <p className={styles.clicks_counter}>{bannerStats?.unique_clicks}</p>
       </div>
+      <div className={styles.chartContainer}>
       <Bar data={chartData} options={options} plugins={[legendMargin]} />
+      </div>
     </div>
   )
 }

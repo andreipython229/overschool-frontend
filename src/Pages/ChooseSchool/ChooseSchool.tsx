@@ -1,8 +1,6 @@
 import { Link, generatePath, useNavigate } from 'react-router-dom'
-
 import { Path } from '../../enum/pathE'
 import logotype from './components/imgs/logo.png'
-
 import styles from './chooseSchool.module.scss'
 import { useEffect, useState } from 'react'
 import { useGetSchoolsMutation } from '../../api/getSchoolService'
@@ -47,7 +45,7 @@ export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isLoading }] = useGetSchoolsMutation()
   const [logout] = useLazyLogoutQuery()
-  const { role: userRole } = useAppSelector(selectUser)
+  const { role: userRole, authState } = useAppSelector(selectUser)
   const { schoolName } = useAppSelector(schoolSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
   const [selectedSchool, setSelectedSchool] = useState<SchoolT>()

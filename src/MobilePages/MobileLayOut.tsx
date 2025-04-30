@@ -13,7 +13,9 @@ import styles from '../components/MainLayout/mainLayOut.module.scss'
 import MobileChatGPT from '../components/ChatGPT'
 import { useBoolean as useBooleanHook } from '../customHooks'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
+import { FooterMobile } from 'components/Footer/index_mobile'
 import { Footer } from 'components/Footer'
+import { MobileHeaderAdmin } from "../Pages/Initial/MobileHeaderAdmin/MobileHeaderAdmin";
 
 import { motion } from 'framer-motion'
 
@@ -87,11 +89,12 @@ export const MobileLayOut: FC = memo(() => {
       <main className={styles.main}>
         <Previous />
         <Outlet />
+        <MobileHeaderAdmin />
       </main>
 
       {/* <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} /> */}
 
-      <Footer schoolTariffPlan={updateTariff} />
+      <FooterMobile schoolTariffPlan={updateTariff} />
       <nav className={styles.mobileFooter}>
         <MobileNavbar />
       </nav>
