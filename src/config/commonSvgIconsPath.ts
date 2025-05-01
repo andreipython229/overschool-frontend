@@ -18,6 +18,8 @@ import {
   groupsIcon,
   settingsIcon,
   arrowLeftIcon,
+  arrowLeftNewIcon,
+  arrowRightNewIcon,
   arrowDownPoligon,
   averageMarkIcon,
   progressIcon,
@@ -155,6 +157,16 @@ export const mailIconPath: pathT[] = [
 ]
 
 export const phoneIconPath = [{ d: phoneIcon, fill: '#357EEB' }]
+
+export const arrowLeftNewIconPath: pathT[] = [
+    { d: 'M32,0 A32,32 0 1,0 32,64 A32,32 0 1,0 32,0 Z', fill: '#CFE2FF', stroke: 'none',  },
+    { d: arrowLeftNewIcon, stroke: '#324195', strokeWidth: '3', strokeLinejoin: 'round', strokeLinecap: 'round', fill: 'none',  },
+]
+
+export const arrowRightNewIconPath: pathT[] = [
+    { d: 'M32,0 A32,32 0 1,0 32,64 A32,32 0 1,0 32,0 Z', fill: '#CFE2FF', stroke: 'none',  },
+    { d: arrowRightNewIcon, stroke: '#324195', strokeWidth: '3', strokeLinejoin: 'round', strokeLinecap: 'round', fill: 'none',  },
+]
 
 export const addIconPath: pathT[] = [
   { d: addIcon.d1, fill: 'white' },
