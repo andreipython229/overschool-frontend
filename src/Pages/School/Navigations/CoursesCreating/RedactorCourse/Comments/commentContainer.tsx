@@ -22,7 +22,10 @@ const ITEMS_ON_PAGE_COUNT = 8
 export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, courseId, error, setError }) => {
   const { schoolName } = useAppSelector(schoolSelector)
   const { data, isFetching } = useFetchLessonQuery(
-    { id: +lessonIdAndType.id, type: lessonIdAndType.type, schoolName, courseId },
+    { id: +lessonIdAndType.id,
+      type: lessonIdAndType.type,
+      schoolName,
+      courseId },
     { refetchOnMountOrArgChange: true },
   )
   const [updateComments] = useUpdateCommentsMutation()
@@ -34,7 +37,6 @@ export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, co
   const [showMore, setShowMore] = useState<number>(ITEMS_ON_PAGE_COUNT)
   const [pageNumber, setPageNumber] = useState<number>(1)
   const [checkedCommentsArr, setCommentsArr] = useState<number[]>([])
-  const [selectedLessonId, setSelectedLessonId] = useState<number>();
 
   const handleCancelChanges = () => {
       checkedCommentsArr.forEach((value: number) => {
@@ -85,8 +87,8 @@ export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, co
         commentsList.comments.forEach((comment: Comment) => {
           commentsToUpdate[comment.id] = comment.public
         })
-        if (selectedLessonId) {
-          await updateComments({ schoolName: schoolName, lesson_id: selectedLessonId, comments: commentsToUpdate, course_id: Number(courseId) });
+        if (lessonIdAndType) {
+          await updateComments({ schoolName: schoolName, lesson_id: Number(lessonIdAndType.baseLessonId), comments: commentsToUpdate, course_id: Number(courseId) });
         } else {
           showErrorForSevenSeconds(`Не удалось получить идентификатор курса`);
         }
