@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, generatePath } from "react-router-dom";
 import { logoHeader, MenuIcon, CloseIcon, Personal, HelpIcon } from "../../../assets/img/common/index";
 import styles from "./mobileHeader.module.scss";
 import StatusUp from '../../../components/common/IconSvg/StatusIcon';
@@ -8,6 +8,7 @@ import Security from '../../../components/common/IconSvg/SecurityIcon';
 import Timer from '../../../components/common/IconSvg/TimerIcon';
 import ChatIcon from '../../../components/common/IconSvg/ChatIcon';
 import MedalStar from '../../../components/common/IconSvg/MedalStarIcon';
+import { Path } from 'enum/pathE'
 
 export const MobileHeader: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +28,24 @@ export const MobileHeader: FC = () => {
     setIsLoginOpen(!isLoginOpen);
   };
 
+  const handleLoginPage = () => {
+      navigate(generatePath(Path.LoginPage))
+    }
+
+    const handleRegistrationUser = () => {
+        const paramsString = localStorage.getItem('utmParams')
+        if (paramsString !== null) {
+          const parsedParams = JSON.parse(paramsString)
+          const queryParams = Object.keys(parsedParams)
+            .map(key => `${key}=${parsedParams[key]}`)
+            .join('&')
+          const pathWithParams = `${Path.CreateSchool}?${queryParams}`
+          navigate(pathWithParams)
+        } else {
+          navigate(Path.CreateSchool)
+        }
+      }
+
   return (
     <header className={`${styles.mobile_header} ${menuOpen ? styles.menu_open : ""}`}>
       <div className={styles.header_container}>
@@ -44,38 +63,38 @@ export const MobileHeader: FC = () => {
             )}
             {isPlatformOpen && (
               <div className={styles.submenu}>
-                <a href="#">
+                <a href="https://coursehb.ru/dlya-nachinayushchih">
                   <StatusUp className={styles.icon} />
                   <h5>Для начинающих экспертов</h5>
                 </a>
-                <a href="#">
+                <a href="https://coursehb.ru/page4">
                   <Book className={styles.icon} />
                   <h5>Для онлайн школ</h5>
                 </a>
-                <a href="#">
+                <a href="https://coursehb.ru/page5">
                   <Security className={styles.icon} />
                   <h5>Для обучения персонала</h5>
                 </a>
-                <a href="#">
+                <a href="https://coursehb.ru/page6">
                   <Timer className={styles.icon} />
                   <h5>Возможности</h5>
                 </a>
-                <a href="#">
+                <a href="https://coursehb.ru/page7">
                   <ChatIcon className={styles.icon} />
                   <h5>Отзывы пользователей</h5>
                 </a>
-                <a href="#">
+                <a href="https://coursehb.ru/page8">
                   <MedalStar className={styles.icon} />
                   <h5>Партнёрская программа</h5>
                 </a>
 
                 <div className={styles.Line}></div>
 
-                <a href="#" className={styles.personal}>
+                <a href="/tariff-plans-info" className={styles.personal}>
                   <h5>Тарифы</h5>
                   <img src={Personal} alt="Personal" className={styles.icon} />
                 </a>
-                <a href="#" className={styles.personal}>
+                <a href="/help" className={styles.personal}>
                   <h5>Помощь</h5>
                   <img src={HelpIcon} alt="HelpIcon" className={styles.icon} />
                 </a>
@@ -87,10 +106,10 @@ export const MobileHeader: FC = () => {
             Войти
             {isLoginOpen && (
               <div className={`${styles.submenu} ${styles.login}`}>
-                <button>
+                <button onClick={handleRegistrationUser}>
                   Создать платформу
                 </button>
-                <button>
+                <button onClick={handleLoginPage}>
                   Вход
                 </button>
               </div>
