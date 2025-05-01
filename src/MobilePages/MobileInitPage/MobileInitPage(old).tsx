@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Button } from 'components/common/Button/Button'
-import { MobileLoginModal } from 'components/Modal'
-
 import styles from './mobileInitPage.module.scss'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { Path } from '../../enum/pathE'
-import { ManageSearch, Menu } from '@mui/icons-material'
 import { logoHeaderLogin } from 'assets/img/common'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'

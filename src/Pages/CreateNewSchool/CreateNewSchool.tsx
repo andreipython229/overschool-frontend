@@ -174,9 +174,9 @@ export const CreateNewSchool = () => {
         <div className={styles.bg_wrap4}></div>
       </div>
       <div className={styles.newCoursePage_btnBack}>
-        <a href={Path.InitialPage}>
+        <button style={{ zIndex: 10, background: 'transparent', border: 'none' }} onClick={() => navigate(generatePath(Path.InitialPage))}>
           <img src={leftArrow} alt="leftArrow" />
-        </a>
+        </button>
       </div>
       <div className={styles.newCoursePage_logoWrapper}>
         <img src={logoHeaderLogin} alt="logoHeaderLogin" />

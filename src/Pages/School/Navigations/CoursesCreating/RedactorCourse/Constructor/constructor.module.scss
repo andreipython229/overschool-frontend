@@ -81,6 +81,12 @@
     width: 100%;
     background: transparent;
 
+    ul,
+    li {
+      list-style: none;
+      position: relative;
+    }
+
     @media screen and (max-width: 1919px) {
       max-width: 360px;
     }
@@ -291,7 +297,7 @@
           position: relative;
           flex: 0 0 auto;
           white-space: nowrap;
-          z-index: -10;
+          z-index: 10;
           background-color: transparent;
         }
 
@@ -720,7 +726,7 @@
   font-weight: 600;
   font-size: 16px;
   text-align: center;
-  z-index: 10;
+  z-index: 12;
 
   &:hover {
     background: #357eeb !important;
@@ -1106,7 +1112,6 @@ hr {
 }
 
 .heightTransition {
-  margin-bottom: 10px;
   max-height: 42px;
   transition: max-height 400ms ease-out;
   &:hover {
@@ -1223,18 +1228,7 @@ hr {
 
   &_test {
     background: url(../../../../../../assets/img/common/questions.png),
-      linear-gradient(
-        140deg, 
-        #c2e0ff 0%,
-        #c2e0ff 11%,
-        #d6eaff 16%,
-        #e5f2ff 25%,
-        #fafcff 57%,
-        #fafcff 82%,
-        #e5f2ff 89%,
-        #d6eaff 93%,
-        #c2e0ff 100%
-      );
+      linear-gradient(140deg, #c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
@@ -1323,18 +1317,7 @@ hr {
   margin: 37px 0 20px 0;
   padding: 20px 20px 30px 21px;
   background: url(../../../../../../assets/img/common/questions.png),
-    linear-gradient(
-      140deg, 
-      #c2e0ff 0%,
-      #c2e0ff 11%,
-      #d6eaff 16%,
-      #e5f2ff 25%,
-      #fafcff 57%,
-      #fafcff 82%,
-      #e5f2ff 89%,
-      #d6eaff 93%,
-      #c2e0ff 100%
-    );
+    linear-gradient(140deg, #c2e0ff 0%, #c2e0ff 11%, #d6eaff 16%, #e5f2ff 25%, #fafcff 57%, #fafcff 82%, #e5f2ff 89%, #d6eaff 93%, #c2e0ff 100%);
   background-repeat: no-repeat;
   background-position: right;
   background-size: contain;

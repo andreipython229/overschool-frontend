@@ -46,24 +46,22 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
   }
 
   const handleUploadFiles = (chosenFiles: File[]) => {
-    const uploaded = [...files]
-    const uploadedUrlFiles = [...urlFiles]
-
-    chosenFiles.some(file => {
-      if (uploaded.findIndex(f => f.name === file.name) === -1) {
-        uploaded.push(file)
-      }
+    setFiles(prevFiles => {
+      const filtered = chosenFiles.filter(
+        newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name)
+      )
+      return [...prevFiles, ...filtered]
     })
-
-    chosenFiles.forEach(file => {
-      const url = URL.createObjectURL(file)
-      uploadedUrlFiles.push({ url, name: file.name })
+  
+    setUrlFiles(prevUrlFiles => {
+      const newUrlFiles = chosenFiles.map(file => ({
+        url: URL.createObjectURL(file),
+        name: file.name,
+      }))
+      return [...prevUrlFiles, ...newUrlFiles]
     })
-
-    setFiles(uploaded)
-    setUrlFiles(uploadedUrlFiles)
   }
-
+  
   const handleDeleteFile = (index: number) => {
     setFiles(files => files.filter((_, id) => id !== index))
     setUrlFiles(files => files.filter((_, id) => id !== index))
@@ -134,6 +132,34 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     setUrlFiles([])
   }, [homeworkId, homework])
 
+  useEffect(() => {
+    const handlePaste = (event: ClipboardEvent) => {
+      if (!event.clipboardData) return
+  
+      const items = event.clipboardData.items
+      const filesToUpload: File[] = []
+      
+      for (const item of items) {
+        if (item.type.indexOf('image') === 0) {
+          const blob = item.getAsFile()
+          if (blob) {
+            const file = new File([blob], `screenshot-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.png`, { type: blob.type })
+            filesToUpload.push(file)
+          }
+        }
+      }
+      if(filesToUpload.length > 0) {
+        handleUploadFiles(filesToUpload)
+      }
+    }
+  
+    window.addEventListener('paste', handlePaste as any)
+  
+    return () => {
+      window.removeEventListener('paste', handlePaste as any)
+    }
+  }, [])  
+
   const handleModalButton = () => {
     if (showSuccess) {
       window.location.reload()
@@ -144,6 +170,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     return <LoaderLayout />
   }
 
+  
   return !hwStatus ? (
     <>
       <h5 className={styles.hwTitle}>Проверка практической работы</h5>
