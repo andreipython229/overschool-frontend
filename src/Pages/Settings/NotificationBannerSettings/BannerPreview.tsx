@@ -56,6 +56,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
     await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
       .unwrap()
       .then(() => {
+        refetch()
         toggleActive()
       })
   }
