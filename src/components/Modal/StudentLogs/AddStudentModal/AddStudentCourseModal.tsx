@@ -189,65 +189,38 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
         setError('Выберите хотя бы одну группу')
         return
       }
-      for (const groupId of groupIds) {
-        const singleGroupFormData = new FormData();
-        singleGroupFormData.append('role', 'Student')
-        singleGroupFormData.append('student_groups', groupId)
-        try {
-          for (const student of students) {
-            await registrationAdmin({
-              email: student.email.toLowerCase(),
-              first_name: student.first_name,
-              last_name: student.last_name,
-              patronymic: student.patronymic,
-            }).unwrap()
-            singleGroupFormData.append('emails', student.email.toLowerCase())
-          }
-          await addStudents({ data: singleGroupFormData, schoolName }).unwrap();
-
-        } catch (error: any) {
-          const htmlError = typeof error?.data === 'string' && error.data.includes('TemplateDoesNotExist');
-          if (htmlError) {
-            console.warn('Шаблон письма не найден, но студент успешно добавлен.');
-          } else {
-            setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...');
-            onToggle();
-          }
-        }
-      }
-      setShowModal();
+      formData.append('student_groups', groupIds.join(','))
     } else {
       if (groupsList && selectedGroup) {
         formData.append('student_groups', selectedGroup)
       } else if (params.group_id) {
         formData.append('student_groups', params.group_id)
       }
-      const emails: string[] = []
-      try {
-        for (const student of students) {
-          await registrationAdmin({
-            email: student.email.toLowerCase(),
-            first_name: student.first_name,
-            last_name: student.last_name,
-            patronymic: student.patronymic,
-          }).unwrap()
-          emails.push(student.email.toLowerCase())
-        }
-        emails.forEach(email => formData.append('emails', email))
-        for (const [key, value] of formData.entries()) {
-          console.log(`${key}:`, value)
-        }
-
-        await addStudents({ data: formData, schoolName }).unwrap();
-        setShowModal();
-      } catch (error: any) {
-        const htmlError = typeof error?.data === 'string' && error.data.includes('TemplateDoesNotExist');
-        if (htmlError) {
-          console.warn('Шаблон письма не найден, но студент успешно добавлен.');
-        } else {
-          setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...');
-          onToggle();
-        }
+    }
+    const emails: string[] = []
+    try {
+      for (const student of students) {
+        await registrationAdmin({
+          email: student.email.toLowerCase(),
+          first_name: student.first_name,
+          last_name: student.last_name,
+          patronymic: student.patronymic,
+        }).unwrap()
+        emails.push(student.email.toLowerCase())
+      }
+      emails.forEach(email => formData.append('emails', email))
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}:`, value, typeof(value))
+      }
+      await addStudents({ data: formData, schoolName }).unwrap();
+      setShowModal();
+    } catch (error: any) {
+      const htmlError = typeof error?.data === 'string' && error.data.includes('TemplateDoesNotExist');
+      if (htmlError) {
+        console.warn('Шаблон письма не найден, но студент успешно добавлен.');
+      } else {
+        setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...');
+        onToggle();
       }
     }
   }
