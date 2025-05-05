@@ -118,6 +118,7 @@ export type CreateGroupModalPropsT = {
 export type AddStudentModalPropsT = {
   setShowModal: () => void
   courses: CoursesDataT[]
+  headerText: string
 }
 
 export type LimitModalPropsT = {
