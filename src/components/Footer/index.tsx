@@ -9,6 +9,7 @@ import styles from './footer.module.scss'
 interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
+import {ScrollToTopButton} from "../ScrollToTopButton/ScrollToTopButton";
 
 export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
   // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
@@ -35,6 +36,7 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
     <footer className={styles.wrapper}>
       <div className={styles.wrapper_img}>
         <img src={footerlogo} alt="footerlogo" />
+        <ScrollToTopButton/>
       </div>
       <div style={{ width: '100%' }}>
         <img src={line} alt="line" style={{ width: '100%', objectFit: 'cover' }} />
