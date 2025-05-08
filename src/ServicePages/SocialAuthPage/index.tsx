@@ -38,7 +38,7 @@ export const SocialAuthPage: FC = () => {
           dispatch(userName(resp[0]?.username))
           dispatch(role(RoleE.Unknown))
         })
-        .catch(() => console.log('Error fetching user data'))
+        .catch(() => navigate(generatePath(Path.LoginPage)))
     }
   }, [isSuccess, isLoading])
 
