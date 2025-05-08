@@ -42,6 +42,7 @@ import google from './Google.png'
 import maillog from './Mail.png'
 import leftArrow from './left-arrow.png'
 import constructor from './construktor.png'
+import constructor_desk from './constructor_desc.png'
 import hat from './hat.png'
 import cam from './cam.png'
 import ok from './ok.png'
@@ -50,6 +51,7 @@ import result from './result.png'
 import mobile from './mobile.png'
 import comp from './comp.png'
 import comp_new from './comp_new.png'
+import comp_new_desktop from './comp_new_desctop.png'
 import android from './android.png'
 import zimer from '../systemLogo/zapier.png'
 import amocmr from '../systemLogo/amocmr.png'
@@ -70,6 +72,7 @@ import appstore from './Appstore.png'
 import line from './line.png'
 import record from './record.png'
 import record_new from './record_new.png'
+import record_new_desktop from './record_new_desk.png'
 import admin from './Admin.png'
 import admin2 from './Admin2.png'
 import teacher from './Teacher.png'
@@ -139,6 +142,7 @@ export {
   mobile,
   comp,
   comp_new,
+  comp_new_desktop,
   student_nobile_cabinet,
   zimer,
   amocmr,
@@ -160,7 +164,9 @@ export {
   line,
   record,
   record_new,
+  record_new_desktop,
   constructor_new,
+  constructor_desk,
   android,
   appstore,
   admin,

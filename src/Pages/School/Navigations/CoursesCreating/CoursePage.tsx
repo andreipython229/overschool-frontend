@@ -1,4 +1,4 @@
-import { FC, Key, useEffect, useState } from 'react'
+import { FC, Key, useEffect, useMemo, useState } from 'react'
 import { useAppSelector } from 'store/hooks'
 import { CoursesCard } from './CoursesCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -25,6 +25,8 @@ import { useLazyFetchAllProgressQuery } from 'api/userProgressService'
 import { SearchIconPath } from 'assets/Icons/svgIconPath'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { Pagination } from 'components/Pagination/Pagination'
+import { useNavigate } from 'react-router-dom'
+import { useFetchSchoolAppealsMutation } from 'api/catalogServices'
 
 export const CoursePage: FC = () => {
   const { role } = useAppSelector(selectUser)
@@ -51,7 +53,9 @@ export const CoursePage: FC = () => {
   const [getBonuses, { data: bonuses, isSuccess: bonusSuccess }] = useLazyFetchBonusesQuery()
   const [updateSchoolTestCourse, { data: isLoading }] = useSetSchoolMutation()
   const [fetchProgress, { data: userProgress, isLoading: progressLoading, isError: progressError }] = useLazyFetchAllProgressQuery()
-
+  const [fetchAppealsData, { data: appealsData }] = useFetchSchoolAppealsMutation()
+  const [pendingCount, setPendingCount] = useState(0)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const dispatchHandlerModal = () => {
@@ -162,7 +166,23 @@ export const CoursePage: FC = () => {
           return course.name.toLowerCase().includes(search.toLowerCase())
         })
 
+  useEffect(() => {
+    if (schoolName) {
+      fetchAppealsData({ schoolName: schoolName, pageToFetch: 1 })
+
+    }
+  }, [schoolName])
+
+  useEffect(() => {
+    if(appealsData && appealsData.results) {
+      const count = appealsData.results.filter((appeal:any) => appeal.is_read === false).length
+      setPendingCount(count)
+    }
+    
+  }, [appealsData])
+
   if (!isSuccess || isFetching) return <LoaderLayout />
+  
   return (
     <div className={styles.container}>
       {role === RoleE.Admin && (
@@ -288,6 +308,7 @@ export const CoursePage: FC = () => {
                     alignItems: 'center',
                     fontSize: '24px',
                     whiteSpace: 'nowrap',
+                    cursor: 'pointer',
                     ...(window.innerWidth <= 1500
                       ? {
                           fontSize: '16px',
@@ -301,8 +322,12 @@ export const CoursePage: FC = () => {
                       : {}),
                   }}
                   className=""
+                  onClick={() => navigate(`/school/${schoolName}/school-appeals/`)}
                 >
-                  Новые заявки <span style={{ color: '#357EEB' }}> ()</span>
+                  Новые заявки 
+                  <span style={{ color: '#357EEB' }}>
+                    {pendingCount > 0 ? ` (+${pendingCount})` : ' (0)'}
+                  </span>
                 </div>
                 <div
                   style={{
