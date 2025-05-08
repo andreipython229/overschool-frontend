@@ -13,15 +13,15 @@ export const HomeworksStatsTableHeader: FC<homeworksStatsTableHeaderT> = ({ hand
   return (
     <tr>
       <th>
-        <span style={{ margin: '0 7px 0 34px' }}>ФИО</span>
-        <IconSvg width={10} height={10} viewBoxSize={'0 0 10 10'} path={tableFilterByNamePath} />
+        <span style={{ margin: '0 7px 0 2px' }}>Имя</span>
+        {/* <IconSvg width={10} height={10} viewBoxSize={'0 0 10 10'} path={tableFilterByNamePath} /> */}
       </th>
-      <th style={{ height: '55px', display: 'flex', alignItems: 'center' }}>
-        <span style={{ margin: '0 3px 0 0' }}>Email</span>
-        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={handleChangeProp}>
+      <th style={{ height: '56px', display: 'flex', alignItems: 'center' }}>
+        <span style={{ margin: '0 7px 0 0' }}>Email</span>
+        {/* <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={handleChangeProp}>
           <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailUpPath} />
           <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailDownPath} />
-        </div>
+        </div> */}
       </th>
       <th>
         <span>Номер телефона</span>
