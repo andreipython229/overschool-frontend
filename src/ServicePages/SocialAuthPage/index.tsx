@@ -1,10 +1,7 @@
-import { useFetchConfiguredDomainsQuery } from 'api/DomainService'
-import { useGetSchoolsMutation } from 'api/getSchoolService'
 import { useAuthSocialQuery, useLazyGetUserInfoQuery } from 'api/userLoginService'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { Path } from 'enum/pathE'
 import { RoleE } from 'enum/roleE'
-import { SchoolT } from 'Pages/ChooseSchool/ChooseSchool'
 import { FC, useEffect } from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { selectUser } from 'selectors'
@@ -39,6 +36,7 @@ export const SocialAuthPage: FC = () => {
         .then(resp => {
           dispatch(auth(true))
           dispatch(userName(resp[0]?.username))
+          dispatch(role(RoleE.Unknown))
         })
         .catch(() => console.log('Error fetching user data'))
     }
