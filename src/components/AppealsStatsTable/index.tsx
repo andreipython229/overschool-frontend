@@ -51,9 +51,11 @@ export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading, r
         {sortedData?.length ? (
           <>
             <thead className={styles.table_head}>
-              <HomeworksStatsTableHeader handleChangeProp={handleChangeProp}
-                                         handleSortByDate={handleSortByDate}
-                                         handleSortByStatus={handleSortByStatus} />
+              <HomeworksStatsTableHeader 
+                handleChangeProp={handleChangeProp}
+                handleSortByDate={handleSortByDate}
+                handleSortByStatus={handleSortByStatus} 
+              />
             </thead>
             <tbody className={styles.table_body}>
               {sortedData?.map((appeal: appealStatT, index) => (

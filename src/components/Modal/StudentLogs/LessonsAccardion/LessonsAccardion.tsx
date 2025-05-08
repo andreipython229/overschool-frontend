@@ -27,6 +27,20 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLes
   const { role } = useAppSelector(selectUser)
   console.log(sectionLessons)
 
+  // Добавим состояние для чекбоксов модулей
+  const [sectionChecks, setSectionChecks] = useState<{ [key: number]: boolean }>({});
+
+  // Синхронизируем состояние чекбоксов модулей с данными
+  useEffect(() => {
+    if (sectionLessons) {
+      const checks: { [key: number]: boolean } = {};
+      sectionLessons.forEach(section => {
+        checks[section.section_id] = section.lessons.every(lesson => lesson.availability);
+      });
+      setSectionChecks(checks);
+    }
+  }, [sectionLessons]);
+
   useEffect(() => {
     if (sectionLessons) {
       const hasUnavailableLesson = sectionLessons.some(section => section.lessons.some(lesson => lesson.availability === false))
@@ -65,6 +79,22 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLes
       )
   }
 
+  // Обработчик для чекбокса модуля
+  const handleSectionCheck = (sectionId: number) => {
+    if (role === RoleE.Admin && sectionLessons) {
+      const newValue = !sectionChecks[sectionId];
+      setLessons(
+        sectionLessons.map(section => ({
+          ...section,
+          lessons: section.section_id === sectionId
+            ? section.lessons.map(lesson => ({ ...lesson, availability: newValue }))
+            : section.lessons,
+        }))
+      );
+      setSectionChecks({ ...sectionChecks, [sectionId]: newValue });
+    }
+  };
+
   return (
     <div className={styles.accardion_content}>
       <div className={styles.accardion_content_check}>
@@ -97,6 +127,17 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLes
           lessons.length > 0 && (
             <div className={styles.accardion_item} key={section_id}>
               <p className={styles.accardion_item_name}>{name}</p>
+              {lessonsAccessSetting && role === RoleE.Admin && (
+                <div className={styles.accardion_module_checkbox}>
+                  <Checkbox
+                    id={`section_${section_id}`}
+                    name={`section_${section_id}`}
+                    checked={!!sectionChecks[section_id]}
+                    onChange={() => handleSectionCheck(section_id)}
+                  />
+                  <span className={styles.accardion_module_checkbox_label}>Выделить модуль</span>
+                </div>
+              )}
               <div className={styles.accardion_lessons_block}>
                 {lessons?.map(
                   (
