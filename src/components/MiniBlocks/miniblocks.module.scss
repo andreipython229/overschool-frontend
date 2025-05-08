@@ -21,21 +21,42 @@
 }
 
 .block {
-  width: 400px;
-  height: 350px;
+  width: min(400px, 30vw);
+  height: 330px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   border-radius: 30px;
   transition: 0.3s ease;
   background: rgb(207, 226, 255);
   color: #324195;
   position: relative;
-  padding-top: 20px;
+  @media only screen and (min-width: 871px) {
+    :first-child {
+      height: 80%;
+    }
+    padding: 1.2rem;
+  }
+  @media only screen and (min-width: 640px) and (max-width: 759px) {
+    height: 290px;
+    padding: 1.2rem;
+    :first-child {
+      height: 50%;
+    }
+  }
+  @media only screen and (min-width: 759px) and (max-width: 870px) {
+    height: 320px;
+    padding: 1.2rem;
+    :first-child {
+      height: 50%;
+    }
+  }
   @media only screen and (min-width: 320px) and (max-width: 639px) {
     width: 300px;
     height: 270px;
     padding-top: 0px;
+    justify-content: center;
   }
 
   h2 {
@@ -45,7 +66,9 @@
     font-size: 24px;
     line-height: 28.64px;
     letter-spacing: 0;
-
+    @media only screen and (min-width: 640px) {
+      text-align: center;
+    }
   }
 
   p {
@@ -55,6 +78,9 @@
     font-size: 16px;
     line-height: 19.09px;
     text-align: left;
+    @media only screen and (min-width: 640px) {
+      text-align: center;
+    }
 
   }
 
@@ -76,9 +102,11 @@
   &_image {
     object-fit: cover;
     max-height: 210px;
-    margin-top: 30px;
     z-index: 1;
     color: rgb(53, 126, 235);
+    @media only screen and (min-width: 640px) {
+      max-width: 75%;
+    }
     @media only screen and (min-width: 320px) and (max-width: 639px) {
       max-height: 180px;
       margin-top: 15px;
