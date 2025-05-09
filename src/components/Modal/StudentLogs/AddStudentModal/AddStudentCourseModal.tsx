@@ -7,6 +7,8 @@ import { crossIconPath } from '../../../../config/commonSvgIconsPath'
 import { addStudentIconPath } from '../config/svgIconsPath'
 import { AddStudentModalPropsT } from '../../ModalTypes'
 import { useLazyFetchStudentGroupQuery, useLazyFetchStudentsGroupByCourseQuery } from '../../../../api/studentsGroupService'
+import { useLazyFetchCoursesGroupsQuery } from '../../../../api/coursesServices'
+import { CourseWithGroupsT } from 'types/CoursesT'
 import { AddNewStudents } from './AddNewStudents'
 import { studentsGroupT, studentsGroupsT } from 'types/studentsGroup'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
@@ -32,12 +34,13 @@ type requestData = {
   [key: string]: any
 }
 
-export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses }) => {
+export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, courses, headerText }) => {
   const params = useParams()
   const { group_id: groupId } = params
   const schoolName = window.location.href.split('/')[4]
   const [fetchGroups, { data: groups, isFetching, isSuccess }] = useLazyFetchStudentsGroupByCourseQuery()
   const [fetchGroup, { data: group, isFetching: groupFetching, isSuccess: groupSuccess }] = useLazyFetchStudentGroupQuery()
+  const [fetchCourses, { data: fetchedCourses, isFetching: coursesFetching, isSuccess: coursesSuccess }] = useLazyFetchCoursesGroupsQuery()
   const [registrationAdmin] = useAdminRegistrationMutation()
   const [addStudents, { isSuccess: studentSuccess, isLoading: studentLoading, isError: studentError }] = useAddUserAccessMutation()
   const [groupsList, setGroupsList] = useState<studentsGroupT>()
@@ -55,9 +58,25 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const [isOpenLimitModal, { onToggle }] = useBoolean()
   const [message, setMessage] = useState<string>('')
   const [error, setError] = useState<string>('')
+  const isSchoolLevel = headerText === 'Все ученики платформы'
+  const [coursesWithGroups, setCoursesWithGroups] = useState<CourseWithGroupsT[]>([])
+  const [selectedCourses, setSelectedCourses] = useState<number[]>([])
+  const [selectedGroups, setSelectedGroups] = useState<{ [courseId: number]: string }>({})
+  const handleCourseToggle = (courseId: number) => {
+    setSelectedCourses(prev =>
+      prev.includes(courseId)
+        ? prev.filter(id => id !== courseId)
+        : [...prev, courseId]
+    )
+  }
+  const handleGroupChange = (courseId: number, groupId: string) => {
+    setSelectedGroups(prev => ({ ...prev, [courseId]: groupId }))
+  }
 
   useEffect(() => {
-    if (groupId) {
+    if (isSchoolLevel) {
+      fetchCourses(schoolName)
+    } else if (groupId) {
       fetchGroup({ id: groupId, schoolName })
         .unwrap()
         .then(data => setCurrentGroup(data))
@@ -78,6 +97,12 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
       setGroupsList(groups)
     }
   }, [isSuccess])
+
+  useEffect(() => {
+    if (coursesSuccess && fetchedCourses) {
+      setCoursesWithGroups(fetchedCourses)
+    }
+  }, [coursesSuccess])
 
   const handleInputEmail = (id: number) => (event: ChangeEvent<HTMLInputElement>) => {
     setError('')
@@ -156,39 +181,50 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   }
 
   const handleSendPermissions = async () => {
-    const formdata = new FormData()
-    formdata.append('role', 'Student')
-    if (groupsList && selectedGroup) {
-      formdata.append('student_groups', selectedGroup)
-    } else if (params.group_id) {
-      formdata.append('student_groups', params.group_id)
+    const formData = new FormData()
+    formData.append('role', 'Student')
+    if (isSchoolLevel) {
+      const groupIds = Object.values(selectedGroups)
+      if (groupIds.length === 0) {
+        setError('Выберите хотя бы одну группу')
+        return
+      }
+      formData.append('student_groups', groupIds.join(','))
+    } else {
+      if (groupsList && selectedGroup) {
+        formData.append('student_groups', selectedGroup)
+      } else if (params.group_id) {
+        formData.append('student_groups', params.group_id)
+      }
     }
-    let count = 0
-    students.map(async student => {
-      await registrationAdmin({
-        email: student.email.toLowerCase(),
-        first_name: student.first_name,
-        last_name: student.last_name,
-        patronymic: student.patronymic,
-      })
-        .unwrap()
-        .then(async () => {
-          count = count + 1
-          formdata.append('emails', student.email.toLowerCase())
-          if (count === students.length) {
-            await addStudents({ data: formdata, schoolName })
-              .unwrap()
-              .then(async () => {
-                setShowModal()
-              })
-              .catch(() => {
-                setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...')
-                onToggle()
-              })
-          }
-        })
-    })
+    const emails: string[] = []
+    try {
+      for (const student of students) {
+        await registrationAdmin({
+          email: student.email.toLowerCase(),
+          first_name: student.first_name,
+          last_name: student.last_name,
+          patronymic: student.patronymic,
+        }).unwrap()
+        emails.push(student.email.toLowerCase())
+      }
+      emails.forEach(email => formData.append('emails', email))
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}:`, value, typeof(value))
+      }
+      await addStudents({ data: formData, schoolName }).unwrap();
+      setShowModal();
+    } catch (error: any) {
+      const htmlError = typeof error?.data === 'string' && error.data.includes('TemplateDoesNotExist');
+      if (htmlError) {
+        console.warn('Шаблон письма не найден, но студент успешно добавлен.');
+      } else {
+        setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...');
+        onToggle();
+      }
+    }
   }
+
 
   const handleSubmitForm = () => {
     if (groupsList) {
@@ -239,6 +275,38 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             <IconSvg width={100} height={100} viewBoxSize="0 0 101 100" path={addStudentIconPath} />
             <span className={styles.container_header_title}>Добавление учеников</span>
           </div>
+          {isSchoolLevel && (
+            <div className={styles.container_header_title_btn}>
+              {coursesWithGroups.map(course => (
+                <div key={course.course_id}>
+                  <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'left', gap: '1rem'}}>
+                    <input
+                      type="checkbox"
+                      value={course.course_id}
+                      checked={selectedCourses.includes(course.course_id)}
+                      onChange={() => handleCourseToggle(course.course_id)}
+                    />
+                    {course.name}
+                  </label>
+                  {selectedCourses.includes(course.course_id) && course.student_groups?.length > 0 && (
+                    <div style={{ marginTop: '5px' }}>
+                      <SelectInput
+                        optionsList={course.student_groups.map(group => ({
+                          label: group.name,
+                          value: String(group.group_id),
+                        }))}
+                        defaultOption="Выберите группу"
+                        selectedOption={selectedGroups[course.course_id]}
+                        setSelectedValue={value => handleGroupChange(course.course_id, value)}
+                      />
+                    </div>
+                  )}
+                </div>
+                )
+              )
+              }
+            </div>
+          )}
           {groupsList && (
             <div className={styles.container_header_title_btn}>
               <SelectInput
