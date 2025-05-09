@@ -60,6 +60,68 @@
   }
 }
 
+.inputTeacher {
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  height: 56px;
+  border: 1px solid rgba(53, 126, 235, 1);
+  gap: 10px;
+  border-radius: 16px;
+  background: rgba(207, 226, 255, 1);
+  font-family: 'SFPRORegular', sans-serif;
+  padding: 0.6rem 1rem;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+
+  & input:focus {
+    background-color: inherit;
+  }
+
+  &:has(input:focus) {
+    background-color: rgba(207, 226, 255, 1);
+    border: 1px solid linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+  }
+
+  &:hover {
+    border-color: #357eeb;
+    // background-color: #ebebeb;
+
+    & input ::placeholder {
+      color: #332f36;
+    }
+  }
+
+  &:focus {
+    border-color: #357eeb;
+  }
+
+  & input {
+    width: 100%;
+    color: #332f36;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    @include font(400, 16px);
+    z-index: 3;
+    background-image: url('images/input.png');
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+
+    &:focus {
+      color: #357eeb;
+      &::placeholder {
+        color: #332f36;
+      }
+    }
+  }
+
+  & input ::placeholder {
+    color: #808080;
+  }
+}
+
 .input_container {
   width: 100%;
 
@@ -69,6 +131,7 @@
     color: $font-color;
     font-weight: 400;
     font-family: 'SFPRORegular', sans-serif;
+
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       width: 95%;
     }

@@ -633,6 +633,7 @@ li {
               @media only screen and (min-width: 320px) and (max-width: 1280px) {
                 font-weight: 500;
                 font-size: 1.4vw;
+                margin: 0 !important;
                 align-items: center;
                 display: flex;
                 justify-content: center;
@@ -661,6 +662,7 @@ li {
                 font-weight: 600;
                 font-size: 16px;
                 align-items: center;
+                margin: 0 !important;
                 display: flex;
                 justify-content: center;
                 color: #fffafa;
@@ -729,10 +731,7 @@ li {
           margin-bottom: 20px;
         }
         img {
-          width: 120%;
-          position: relative;
-          left: 50%;
-          transform: translateX(-50%);
+          width: 140%;
         }
 
         h2 {
@@ -758,6 +757,7 @@ li {
           align-items: center;
           justify-content: space-around;
           gap: 1rem;
+          margin-top: -20%;
 
           &_single {
             width: 40vw;

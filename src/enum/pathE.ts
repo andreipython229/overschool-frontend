@@ -48,6 +48,7 @@ export enum Path {
   Bonus = 'bonus/',
   HelpGidStart = 'help-gid-start/',
   HelpPlatformSettings = 'help-platform-settings/',
+  SocialAuth = '/social-auth-complete/',
 }
 
 export enum SettingsPath {

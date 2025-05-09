@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { auth, authState, id, logoutState, role, userName } from 'store/redux/users/slice'
 import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
 import { Input } from 'components/common/Input/Input/Input'
-import { isSecurity, unSecurity } from '../../assets/img/common'
+import { facebook, google, isSecurity, maillog, unSecurity, yandex } from '../../assets/img/common'
 import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from 'api/forgotPassword'
 import { Toast } from 'primereact/toast'
 import { generatePath, useNavigate } from 'react-router-dom'
@@ -312,16 +312,33 @@ export const LoginPage = () => {
                   Забыли пароль?
                 </a>
               </div>
-              {/* <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
+              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
                 <p>Или</p>
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
-                <img src={facebook} alt="facebook" />
-                <img src={google} alt="google" />
-                <img src={maillog} alt="maillog" />
-              </div> */}
+                {/* <img src={facebook} alt="facebook" /> */}
+                <a
+                  href={`${
+                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                  }/accounts/google/login/`}
+                  className={styles.socialIcon}
+                  style={{ padding: '8px' }}
+                  title="Google"
+                >
+                  <img src={google} alt="google" style={{ objectFit: 'fill', width: '100%' }} />
+                </a>
+                <a
+                  href={`${
+                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                  }/accounts/yandex/login/`}
+                  className={styles.socialIcon}
+                  title="Yandex"
+                >
+                  <img src={yandex} alt="yandex" style={{ objectFit: 'fill', width: '100%' }} />
+                </a>
+              </div>
             </div>
           </form>
         )}

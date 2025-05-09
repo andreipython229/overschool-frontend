@@ -106,7 +106,7 @@ export type InputPropsT = DefaultInputPropsType & {
   onChangePhone?: (value: string, data: any | CountryData, event: ChangeEvent<HTMLInputElement>, formattedValue: string) => void
   onBlur?: (e: FocusEvent) => void
   required?: boolean
-  variant?: 'default' | 'phone' | 'feedback'
+  variant?: 'default' | 'phone' | 'feedback' | 'teacherInput'
   error?: boolean
 }
 export type InputBlockT = {
