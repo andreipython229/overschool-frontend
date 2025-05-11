@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState, ChangeEvent } from 'react'
 
 import { lessonSvgMapper } from 'config'
 import styles from './lessonsAccardion.module.scss'
@@ -29,6 +29,14 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLes
 
   // Добавим состояние для чекбоксов модулей
   const [sectionChecks, setSectionChecks] = useState<{ [key: number]: boolean }>({});
+  const [visibleTimer, setVisibleTimer] = useState<boolean>(true)
+  const [defaultAccessDays, setDefaultAccessDays] = useState<number>(1) // дни по умолчанию
+  const [defaultAccessHours, setDefaultAccessHours] = useState<number>(0) // часы по умолчанию
+
+  // Функция для конвертации дней и часов в общее количество часов
+  const getTotalHours = (days: number, hours: number) => {
+    return days * 24 + hours;
+  };
 
   // Синхронизируем состояние чекбоксов модулей с данными
   useEffect(() => {
@@ -87,11 +95,66 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLes
         sectionLessons.map(section => ({
           ...section,
           lessons: section.section_id === sectionId
-            ? section.lessons.map(lesson => ({ ...lesson, availability: newValue }))
+            ? section.lessons.map(lesson => ({ 
+                ...lesson, 
+                availability: newValue,
+                visible_timer: visibleTimer,
+                access_time: visibleTimer ? getTotalHours(defaultAccessDays, defaultAccessHours) : undefined
+              }))
             : section.lessons,
         }))
       );
       setSectionChecks({ ...sectionChecks, [sectionId]: newValue });
+    }
+  };
+
+  // Обработчик изменения видимости таймера
+  const handleVisibleTimerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setVisibleTimer(checked);
+    if (sectionLessons) {
+      setLessons(
+        sectionLessons.map(section => ({
+          ...section,
+          lessons: section.lessons.map(lesson => ({
+            ...lesson,
+            visible_timer: checked,
+            access_time: checked ? getTotalHours(defaultAccessDays, defaultAccessHours) : undefined
+          }))
+        }))
+      );
+    }
+  };
+
+  // Обработчик изменения дней доступа
+  const handleAccessDaysChange = (days: number) => {
+    setDefaultAccessDays(days);
+    if (sectionLessons && visibleTimer) {
+      setLessons(
+        sectionLessons.map(section => ({
+          ...section,
+          lessons: section.lessons.map(lesson => ({
+            ...lesson,
+            access_time: getTotalHours(days, defaultAccessHours)
+          }))
+        }))
+      );
+    }
+  };
+
+  // Обработчик изменения часов доступа
+  const handleAccessHoursChange = (hours: number) => {
+    setDefaultAccessHours(hours);
+    if (sectionLessons && visibleTimer) {
+      setLessons(
+        sectionLessons.map(section => ({
+          ...section,
+          lessons: section.lessons.map(lesson => ({
+            ...lesson,
+            access_time: getTotalHours(defaultAccessDays, hours)
+          }))
+        }))
+      );
     }
   };
 
@@ -117,9 +180,46 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLes
       )}
 
       {lessonsAccessSetting && sectionLessons?.length && (
-        <div className={styles.accardion_content_checkbox}>
+        <div className={styles.timer_settings}>
           <Checkbox id={`totalAvailability`} name={'check'} checked={totalAvailability} onChange={handleAllCheck} />
-          <span>все уроки доступны</span>
+          <span className={styles.timer_label}>все уроки доступны</span>
+        </div>
+      )}
+      {lessonsAccessSetting && role === RoleE.Admin && (
+        <div className={styles.access_settings}>
+          <div className={styles.timer_settings}>
+            <Checkbox
+              id="visible_timer"
+              name="visible_timer"
+              checked={visibleTimer}
+              onChange={handleVisibleTimerChange}
+            />
+            <span className={styles.timer_label}>Видимый срок доступа</span>
+            {visibleTimer && (
+              <div className={styles.time_input}>
+                <div className={styles.time_input_group}>
+                  <input
+                    type="number"
+                    min="0"
+                    max="30"
+                    value={defaultAccessDays}
+                    onChange={(e) => handleAccessDaysChange(Number(e.target.value))}
+                  />
+                  <span>дней</span>
+                </div>
+                <div className={styles.time_input_group}>
+                  <input
+                    type="number"
+                    min="0"
+                    max="23"
+                    value={defaultAccessHours}
+                    onChange={(e) => handleAccessHoursChange(Number(e.target.value))}
+                  />
+                  <span>часов</span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
       {sectionLessons?.map(
@@ -143,7 +243,6 @@ export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLes
                   (
                     {
                       lesson_id,
-                      // order,
                       type,
                       name,
                       active,
