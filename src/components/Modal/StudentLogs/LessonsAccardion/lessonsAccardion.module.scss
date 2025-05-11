@@ -222,3 +222,42 @@
     }
   }
 }
+
+.info_icon_wrapper {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  cursor: help;
+  position: relative;
+
+  &:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: -500px;
+    bottom: 100%;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    background-color: #2E4454;
+    color: white;
+    font-size: 12px;
+    border-radius: 8px;
+    z-index: 1000;
+    width: 500px;
+    text-align: left;
+    white-space: normal;
+    line-height: 1.4;
+    word-wrap: break-word;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.info_icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+}
