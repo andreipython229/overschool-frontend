@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
-import { useFormik } from 'formik'
-import { LoginParamsT, validateLogin } from 'utils/validationLogin'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, authState, id, logoutState, role, userName } from 'store/redux/users/slice'
-import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
-import { Input } from 'components/common/Input/Input/Input'
-import { facebook, google, isSecurity, maillog, unSecurity, yandex } from '../../assets/img/common'
-import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from 'api/forgotPassword'
-import { Toast } from 'primereact/toast'
-import { generatePath, useNavigate } from 'react-router-dom'
-import { Button } from '../../components/common/Button/Button'
-import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
-import { Path } from '../../enum/pathE'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import {useEffect, useRef, useState} from 'react'
+import {useFormik} from 'formik'
+import {LoginParamsT, validateLogin} from 'utils/validationLogin'
+import {useAppDispatch, useAppSelector} from '../../store/hooks'
+import {auth, authState, id, logoutState, role, userName} from 'store/redux/users/slice'
+import {useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery} from '../../api/userLoginService'
+import {Input} from 'components/common/Input/Input/Input'
+import {facebook, google, isSecurity, maillog, unSecurity, yandex} from '../../assets/img/common'
+import {useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation} from 'api/forgotPassword'
+import {Toast} from 'primereact/toast'
+import {generatePath, useNavigate} from 'react-router-dom'
+import {Button} from '../../components/common/Button/Button'
+import {InputAuth} from '../../components/common/Input/InputAuth/InputAuth'
+import {Path} from '../../enum/pathE'
+import {SimpleLoader} from 'components/Loaders/SimpleLoader'
 import styles from './loginPage.module.scss'
 import {setHeaderId, setSchoolId, setSchoolName} from '../../store/redux/school/schoolSlice'
 import {RoleE} from '../../enum/roleE'
@@ -255,7 +255,20 @@ export const LoginPage = () => {
             <BackgroundAnimation/>
             <div className={styles.loginPage_btnBack}>
                 <a href={Path.InitialPage}>
-                    <img src={leftArrow} alt="leftArrow"/>
+                    <svg className={styles.iconDefault} width="44" height="44" viewBox="0 0 44 44" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect width="44" height="44" rx="14" fill="#CFE2FF"/>
+                        <path
+                            d="M26.2636 9.13464C26.5565 9.13464 26.8495 9.24255 27.0807 9.4738C27.5278 9.92089 27.5278 10.6609 27.0807 11.108L17.029 21.1596C16.289 21.8996 16.289 23.1021 17.029 23.8421L27.0807 33.8938C27.5278 34.3409 27.5278 35.0809 27.0807 35.528C26.6336 35.9751 25.8936 35.9751 25.4465 35.528L15.3949 25.4763C14.6086 24.6901 14.1615 23.6263 14.1615 22.5009C14.1615 21.3755 14.5932 20.3117 15.3949 19.5255L25.4465 9.4738C25.6778 9.25797 25.9707 9.13464 26.2636 9.13464Z"
+                            fill="#332F36"/>
+                    </svg>
+
+                    <svg className={styles.iconHover} width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="44" height="44" rx="14" fill="#357EEB"/>
+                        <path
+                            d="M26.2636 9.13464C26.5565 9.13464 26.8495 9.24255 27.0807 9.4738C27.5278 9.92089 27.5278 10.6609 27.0807 11.108L17.029 21.1596C16.289 21.8996 16.289 23.1021 17.029 23.8421L27.0807 33.8938C27.5278 34.3409 27.5278 35.0809 27.0807 35.528C26.6336 35.9751 25.8936 35.9751 25.4465 35.528L15.3949 25.4763C14.6086 24.6901 14.1615 23.6263 14.1615 22.5009C14.1615 21.3755 14.5932 20.3117 15.3949 19.5255L25.4465 9.4738C25.6778 9.25797 25.9707 9.13464 26.2636 9.13464Z"
+                            fill="white"/>
+                    </svg>
                 </a>
             </div>
             <div className={styles.loginPage_logoWrapper}>
@@ -345,141 +358,153 @@ export const LoginPage = () => {
                   variant={'newLogInHeader'}
                 />
               </div> */}
-              <div className={styles.btn}>
-                <Button type="submit" text={'Вход'} style={{ borderRadius: '10px' }} variant={'newPrimary'} />
-              </div>
-              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
-                <a className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn_a} href="" onClick={forgotPass}>
-                  Забыли пароль?
-                </a>
-              </div>
-              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
-                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
-                <p>Или</p>
-                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
-              </div>
-              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
-                {/* <img src={facebook} alt="facebook" /> */}
-                <a
-                  href={`${
-                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
-                  }/accounts/google/login/`}
-                  className={styles.socialIcon}
-                  style={{ padding: '8px' }}
-                  title="Google"
-                >
-                  <img src={google} alt="google" style={{ objectFit: 'fill', width: '100%' }} />
-                </a>
-                <a
-                  href={`${
-                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
-                  }/accounts/yandex/login/`}
-                  className={styles.socialIcon}
-                  title="Yandex"
-                >
-                  <img src={yandex} alt="yandex" style={{ objectFit: 'fill', width: '100%' }} />
-                </a>
-              </div>
+                            <div className={styles.btn}>
+                                <Button type="submit" text={'Вход'} style={{borderRadius: '10px'}}
+                                        variant={'newPrimary'}/>
+                            </div>
+                            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn}>
+                                <a className={styles.loginPage_formWrapper_form_btnCreateWrapper_btn_a} href=""
+                                   onClick={forgotPass}>
+                                    Забыли пароль?
+                                </a>
+                            </div>
+                            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
+                                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
+                                <p>Или</p>
+                                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
+                            </div>
+                            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
+                                <a
+                                    href={`${
+                                        process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                                    }/accounts/google/login/`}
+                                    className={styles.socialIcon}
+                                    style={{padding: '8px'}}
+                                    title="Google"
+                                >
+                                    <img src={google} alt="google" style={{objectFit: 'fill', width: '100%'}}/>
+                                </a>
+                                <a
+                                    href={`${
+                                        process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                                    }/accounts/yandex/login/`}
+                                    className={styles.socialIcon}
+                                    title="Yandex"
+                                >
+                                    <img src={yandex} alt="yandex" style={{objectFit: 'fill', width: '100%'}}/>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                )}
+                {isShown && step === 1 && (
+                    <div className={styles.loginPage_formWrapper_form}>
+                        <div className={styles.loginPage_formWrapper_form_title} style={{margin: '15px 0 30px 0'}}>
+                            Введите почту:
+                        </div>
+                        <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
+                            <div style={{display: 'flex'}}>
+                                <Input className={styles.input_container} name="email" type="text"
+                                       onChange={handleEmail} value={email} placeholder="Email"/>
+                            </div>
+                            <div className={styles.errors_forgot}>{errorSend && 'Неверная почта'}</div>
+                        </div>
+                        <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
+                            <Button
+                                onClick={submitformikforgot}
+                                variant={email.length === 0 ? 'disabled' : 'primary'}
+                                disabled={email.length === 0 || sendLoading}
+                                text={
+                                    sendLoading ?
+                                        <SimpleLoader style={{position: 'relative', width: '95px', height: '25px'}}
+                                                      loaderColor="white"/> : 'Отправить'
+                                }
+                            />
+                        </div>
+                        <div>
+                            <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
+                                <a href={Path.InitialPage}>Вернуться на главную</a>
+                            </p>
+                        </div>
+                    </div>
+                )}
+                {isShown && step === 2 && (
+                    <div className={styles.loginPage_formWrapper_form}>
+                        <div className={styles.loginPage_formWrapper_form_title_next}
+                             style={{margin: '10px 0 30px 0 '}}>
+                            Введите код подтверждения, который был выслан на Ваш email:
+                        </div>
+                        <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
+                            <div style={{display: 'flex'}}>
+                                <Input name="code" type="text" onChange={handleCode} value={code}
+                                       placeholder="Код подтверждения"/>
+                            </div>
+                            <div className={styles.errors_forgot}>{errorCode && 'Неверный код'}</div>
+                        </div>
+                        <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
+                            <Button
+                                onClick={submitCode}
+                                variant={code.length === 0 ? 'disabled' : 'primary'}
+                                disabled={code.length === 0 || codeLoading}
+                                text={
+                                    codeLoading ?
+                                        <SimpleLoader style={{position: 'relative', width: '95px', height: '25px'}}
+                                                      loaderColor="white"/> : 'Отправить'
+                                }
+                            />
+                        </div>
+                        <div>
+                            <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
+                                <a href={Path.InitialPage}>Вернуться на главную</a>
+                            </p>
+                        </div>
+                    </div>
+                )}
+                {isShown && step === 3 && (
+                    <div className={styles.loginPage_formWrapper_form}>
+                        <div className={styles.loginPage_formWrapper_form_title_next}
+                             style={{margin: '10px 0 30px 0 '}}>
+                            Введите новый пароль для вашей учетной записи:
+                        </div>
+                        <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
+                            <div style={{display: 'flex'}}>
+                                <Input name="newPassword" type="text" onChange={handleNewPassword} value={password}
+                                       placeholder="Новый пароль"/>
+                            </div>
+                        </div>
+                        <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
+                            <div style={{display: 'flex'}}>
+                                <Input
+                                    name="confirmPassword"
+                                    type="text"
+                                    onChange={handleNewPasswordC}
+                                    value={passwordConfirmation}
+                                    placeholder="Подтвердите пароль"
+                                />
+                            </div>
+                            <div className={styles.errors_forgot}>{errorReset && 'Пароли не совпадают'}</div>
+                        </div>
+                        <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
+                            <Button
+                                onClick={submitNewPassword}
+                                variant={(password.length === 0 || passwordConfirmation.length === 0) && password !== passwordConfirmation ? 'disabled' : 'primary'}
+                                disabled={password.length === 0 || passwordConfirmation.length === 0 || password !== passwordConfirmation || resetLoading}
+                                text={
+                                    resetLoading ?
+                                        <SimpleLoader style={{position: 'relative', width: '95px', height: '25px'}}
+                                                      loaderColor="white"/> : 'Отправить'
+                                }
+                            />
+                        </div>
+                        <div>
+                            <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
+                                <a href={Path.InitialPage}>Вернуться на главную</a>
+                            </p>
+                        </div>
+                    </div>
+                )}
+                <Toast position="top-left" ref={toast}/>
             </div>
-          </form>
-        )}
-        {isShown && step === 1 && (
-          <div className={styles.loginPage_formWrapper_form}>
-            <div className={styles.loginPage_formWrapper_form_title} style={{ margin: '15px 0 30px 0' }}>
-              Введите почту:
-            </div>
-            <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
-              <div style={{ display: 'flex' }}>
-                <Input className={styles.input_container} name="email" type="text" onChange={handleEmail} value={email} placeholder="Email" />
-              </div>
-              <div className={styles.errors_forgot}>{errorSend && 'Неверная почта'}</div>
-            </div>
-            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
-              <Button
-                onClick={submitformikforgot}
-                variant={email.length === 0 ? 'disabled' : 'primary'}
-                disabled={email.length === 0 || sendLoading}
-                text={
-                  sendLoading ? <SimpleLoader style={{ position: 'relative', width: '95px', height: '25px' }} loaderColor="white" /> : 'Отправить'
-                }
-              />
-            </div>
-            <div>
-              <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
-                <a href={Path.InitialPage}>Вернуться на главную</a>
-              </p>
-            </div>
-          </div>
-        )}
-        {isShown && step === 2 && (
-          <div className={styles.loginPage_formWrapper_form}>
-            <div className={styles.loginPage_formWrapper_form_title_next} style={{ margin: '10px 0 30px 0 ' }}>
-              Введите код подтверждения, который был выслан на Ваш email:
-            </div>
-            <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
-              <div style={{ display: 'flex' }}>
-                <Input name="code" type="text" onChange={handleCode} value={code} placeholder="Код подтверждения" />
-              </div>
-              <div className={styles.errors_forgot}>{errorCode && 'Неверный код'}</div>
-            </div>
-            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
-              <Button
-                onClick={submitCode}
-                variant={code.length === 0 ? 'disabled' : 'primary'}
-                disabled={code.length === 0 || codeLoading}
-                text={
-                  codeLoading ? <SimpleLoader style={{ position: 'relative', width: '95px', height: '25px' }} loaderColor="white" /> : 'Отправить'
-                }
-              />
-            </div>
-            <div>
-              <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
-                <a href={Path.InitialPage}>Вернуться на главную</a>
-              </p>
-            </div>
-          </div>
-        )}
-        {isShown && step === 3 && (
-          <div className={styles.loginPage_formWrapper_form}>
-            <div className={styles.loginPage_formWrapper_form_title_next} style={{ margin: '10px 0 30px 0 ' }}>
-              Введите новый пароль для вашей учетной записи:
-            </div>
-            <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
-              <div style={{ display: 'flex' }}>
-                <Input name="newPassword" type="text" onChange={handleNewPassword} value={password} placeholder="Новый пароль" />
-              </div>
-            </div>
-            <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
-              <div style={{ display: 'flex' }}>
-                <Input
-                  name="confirmPassword"
-                  type="text"
-                  onChange={handleNewPasswordC}
-                  value={passwordConfirmation}
-                  placeholder="Подтвердите пароль"
-                />
-              </div>
-              <div className={styles.errors_forgot}>{errorReset && 'Пароли не совпадают'}</div>
-            </div>
-            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
-              <Button
-                onClick={submitNewPassword}
-                variant={(password.length === 0 || passwordConfirmation.length === 0) && password !== passwordConfirmation ? 'disabled' : 'primary'}
-                disabled={password.length === 0 || passwordConfirmation.length === 0 || password !== passwordConfirmation || resetLoading}
-                text={
-                  resetLoading ? <SimpleLoader style={{ position: 'relative', width: '95px', height: '25px' }} loaderColor="white" /> : 'Отправить'
-                }
-              />
-            </div>
-            <div>
-              <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>
-                <a href={Path.InitialPage}>Вернуться на главную</a>
-              </p>
-            </div>
-          </div>
-        )}
-        <Toast position="top-left" ref={toast} />
-      </div>
-    </section>
-  )
+        </section>
+    )
 }
