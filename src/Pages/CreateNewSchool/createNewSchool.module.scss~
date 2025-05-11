@@ -383,3 +383,9 @@
     animation: bgAnimate4 10s linear infinite;
   }
 }
+
+.svgLogo {
+  width: 332px;
+  height: 186px;
+  background: #357EEB;
+}
