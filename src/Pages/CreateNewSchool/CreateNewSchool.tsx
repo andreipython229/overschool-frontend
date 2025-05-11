@@ -223,9 +223,7 @@ export const CreateNewSchool = () => {
                           d="M110.333 81.2374L125.663 72.4054C128.14 70.9781 128.14 67.4096 125.663 65.9822L110.333 57.1503C107.856 55.7229 104.759 57.5071 104.759 60.3619V78.0258C104.759 80.8806 107.856 82.6648 110.333 81.2374ZM129.379 78.8287C136.811 74.5465 136.811 63.8411 129.379 59.559L114.05 50.727C106.617 46.4449 97.3266 51.7976 97.3266 60.3619V78.0258C97.3266 86.5901 106.617 91.9428 114.05 87.6606L129.379 78.8287Z"
                           fill="#357EEB"/>
                 </svg>
-
             </div>
-            {/*<img src={logoHeaderLogin} alt="logoHeaderLogin" />*/}
             <div className={styles.newCoursePage_formWrapper}>
         <span className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_return} onClick={returnLogin}>
           Войти
