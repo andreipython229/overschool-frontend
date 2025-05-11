@@ -31,6 +31,7 @@ import { SetupNotificationTelegramAdmin } from '../../components/Modal/ProfileMo
 import { Portal } from 'components/Modal/Portal'
 import { NotificationsIconPath, FilterIconPath } from '../../assets/Icons/svgIconPath'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
+import {input} from 'images/input.png'
 
 type notifForStudentAndTeacher = {
   id: number
@@ -267,7 +268,7 @@ export const Profile = () => {
           ) : (
             <form className={styles.container}>
               <div className={styles.container_notification_toggle} data-ison={isActiveNotification}>
-                <div style={{ display: 'flex', gap: '25px' }}>
+                <div style={{ display: 'flex', gap: '25px', justifyContent: 'center' }}>
                   {isActiveNotification ? (
                     <IconSvg
                       styles={{ cursor: 'pointer' }}
@@ -283,9 +284,9 @@ export const Profile = () => {
                   <IconSvg viewBoxSize="0 0 24 24" height={24} width={24} path={NotificationsIconPath} />
                   <span style={{ fontWeight: '200' }}>
                     {isActiveNotification ? (
-                      <h5 style={{ color: 'white', width: '200px', whiteSpace: 'nowrap', marginTop: '3px' }}>Уведомления включены</h5>
+                      <h5 style={{ color: 'white', width: '234px', whiteSpace: 'nowrap', marginTop: '3px' }}>Уведомления включены</h5>
                     ) : (
-                      <h5 style={{ color: 'black', width: '200px', whiteSpace: 'nowrap', marginTop: '3px' }}>Уведомления выключены</h5>
+                      <h5 style={{ color: 'black', width: '234px', whiteSpace: 'nowrap', marginTop: '3px' }}>Уведомления выключены</h5>
                     )}
                   </span>
                   {!isActiveNotification ? (
@@ -300,17 +301,32 @@ export const Profile = () => {
             </form>
           )}
 
-          {!isRestrictedUser && (
+         {isRestrictedUser && (
             <>
               <form className={styles.container} onSubmit={handlePasswordsSubmit}>
                 <h5 className={styles.profile_block_title}>Смена пароля:</h5>
-                <Input name="" type="text" onChange={event => setOldPassword(event.target.value)} value={oldPassword} placeholder="Старый пароль" />
+                <div>
+                <Input
+                  name=""
+                  type="text"
+                  variant='teacherInput'
+                  onChange={event => setOldPassword(event.target.value)}
+                  value={oldPassword}
+                  placeholder="Старый пароль" />
+                </div>
                 <div className={styles.container_wrapper}>
-                  <Input name="new_password" type="text" onChange={handlePasswordChange} value={new_password} placeholder="Введите новый пароль" />
+                  <Input
+                    name="new_password"
+                    type="text"
+                    variant='teacherInput'
+                    onChange={handlePasswordChange}
+                    value={new_password}
+                    placeholder="Введите новый пароль" />
                 </div>
                 <div className={styles.container_wrapper}>
                   <Input
                     name="new_password_again"
+                    variant='teacherInput'
                     placeholder="Повторить новый пароль"
                     type="text"
                     onChange={handlePasswordChange}
@@ -337,6 +353,7 @@ export const Profile = () => {
                 <h5 className={styles.profile_block_title}>Email:</h5>
                 <Input
                   name="email"
+                  variant='teacherInput'
                   type="text"
                   id={'email-change'}
                   onChange={changeEmail.handleChange}
@@ -360,11 +377,11 @@ export const Profile = () => {
                 </div>
               </form>
               <div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginRight: '30px' }}>
+                <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
                   <Button
-                    variant="delete"
+                    variant='delete'
                     onClick={logOut}
-                    style={{ width: '148px', fontSize: '12px', fontWeight: '500' }}
+                    className={styles.profile_block_delete}
                     text={'Выйти из аккаунта'}
                   />
                   <Button
