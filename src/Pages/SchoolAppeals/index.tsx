@@ -8,6 +8,7 @@ import { useFetchSchoolAppealsMutation } from 'api/catalogServices'
 import { usePagination } from 'customHooks/index'
 
 export const SchoolAppeals: FC = () => {
+  
   const [fetchData, { data: appealsData, isLoading }] = useFetchSchoolAppealsMutation()
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: appealsData?.count as number })
   const schoolName = window.location.href.split('/')[4]
@@ -44,13 +45,14 @@ export const SchoolAppeals: FC = () => {
     >
       <p
         style={{
-          fontStyle: 'normal',
+          fontFamily: 'SF Pro Display',
           fontWeight: '500',
-          fontSize: '16px',
+          fontSize: '36px',
           lineHeight: '19px',
           letterSpacing: '-0.01em',
-          color: '#4d5766',
-          margin: '30px 0 22px 0,',
+          textAlign: 'center',
+          color: '#000000',
+          margin: '54px 0 30px 0',
         }}
       >
         Входящие заявки о поступлении на курс

@@ -44,10 +44,13 @@ export const authApi = createApi({
         }
       },
     }),
+    authSocial: builder.query<IResponse, void>({
+      query: () => '/auth/social-complete/',
+    }),
   }),
 })
 
-export const { useLoginMutation } = authApi
+export const { useLoginMutation, useAuthSocialQuery } = authApi
 
 export const userLoginService = createApi({
   reducerPath: 'userLoginService',
