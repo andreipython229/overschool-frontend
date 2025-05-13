@@ -302,74 +302,81 @@
 
 .signs {
     display: flex;
-    flex-direction: row;
-    position: relative;
-    left: 200px;
-    width: 400px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 2rem;
+    padding: 0 2rem;
 
     &__date {
-        position: relative;
         display: flex;
         flex-direction: column;
-        left: -80px;
-
-       
+        align-items: center;
+        gap: 0.5rem;
 
         &_text {
-            border-bottom: 1px solid black;
-            font-size: 20px;
-            font-weight: 600;
-            line-height: 28px;
-           
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #333;
+        }
 
-
-            &_issue {
-                font-size: 14px;
-                font-weight: 600;
-                color: #969696;
-            }
+        &_issue {
+            font-size: 0.9rem;
+            color: #666;
         }
     }
 
-    // &__content {
-        
-    // }
-}
-
-.sign {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    font-weight: 600;
-    color: #969696;
-
-    &__QR {
-        position: relative;
-        left: -150px;
-        width: 60px;
-        height: 60px;
-    }
-
-    &__signature {
-        position: relative;
-        width: 200px;
-        height: 150px;
-        top: -60px;
-    }
-
-
-    &__signatory {
-        position: absolute;
+    &__content {
         display: flex;
-        flex-direction: row;
-        border-top: 1px solid black;
-        top: 27px;
-        
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
     }
 
-    &__stamp {
-        width: 100px;
-        height: 100px;
+    .sign {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+
+        &__img {
+            position: relative;
+            width: 180px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &__signature {
+            width: 120px;
+            height: auto;
+            object-fit: contain;
+            opacity: 0.9;
+        }
+
+        &__stamp {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            width: 80px;
+            height: 80px;
+            opacity: 0.8;
+            transform: rotate(-15deg);
+        }
+
+        &__signatory {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+    }
+
+    .sign__QR {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
     }
 }
 
