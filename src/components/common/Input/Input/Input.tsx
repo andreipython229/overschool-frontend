@@ -71,6 +71,7 @@ export const Input: FC<InputPropsT> = memo(props => {
                 fontSize: '20px',
               },
             }}
+            specialLabel=""
             onChange={onChangePhone}
             value={value}
             onBlur={props.onBlur}
