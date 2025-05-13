@@ -12,6 +12,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import * as Yup from 'yup'
 import PhoneInput from 'react-phone-input-2'
 import { logoHeaderLogin, facebook, google, maillog, leftArrow } from '../../assets/img/common/index'
+import {LogoHeader} from './LogoHeader'
 
 import 'react-phone-input-2/lib/style.css'
 import { Input } from 'components/common/Input/Input/Input'
@@ -179,7 +180,7 @@ export const CreateNewSchool = () => {
         </button>
       </div>
       <div className={styles.newCoursePage_logoWrapper}>
-        <img src={logoHeaderLogin} alt="logoHeaderLogin" />
+        <LogoHeader/>
       </div>
       <div className={styles.newCoursePage_formWrapper}>
         <span className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_return} onClick={returnLogin}>
