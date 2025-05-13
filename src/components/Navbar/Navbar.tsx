@@ -197,7 +197,7 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
             target="_blank"
             rel="noreferrer"
             href={
-              UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/course_hb'
+              UserRole === RoleE.Admin ? 'https://t.me/coursehub_admin' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/coursehub_admin'
             }
           >
             <span>

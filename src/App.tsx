@@ -41,6 +41,7 @@ import { HelpGidStart } from 'Pages/HelpCenter/HelpGidStart'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
 import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 import { SocialAuthPage } from 'ServicePages/SocialAuthPage'
+import { Toaster } from 'react-hot-toast'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -139,6 +140,7 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
+      <Toaster position="bottom-right" reverseOrder={true} />
       <Routes>
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
