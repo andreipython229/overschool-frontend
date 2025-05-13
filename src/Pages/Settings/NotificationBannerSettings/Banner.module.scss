@@ -282,46 +282,44 @@
   margin: 5% 5%;
 }
 
-
-@media screen and (max-width: 1023px),
-screen and (max-aspect-ratio: 1/1) {
+@media screen and (max-width: 1023px), screen and (max-aspect-ratio: 1/1) {
   .wrapper {
     padding: 20px;
     &_content {
-      width: 100%; 
-      padding: 0
+      width: 100%;
+      padding: 0;
     }
 
     .content_section {
       @include display(flex, column, center, center);
     }
 
-    .image{
+    .image {
       width: 30%;
     }
 
-    
-
-    .banner_go_link_btn{
+    .banner_go_link_btn {
       margin: 0 auto;
 
-      &_container{
+      &_container {
         width: 100%;
       }
     }
 
-    .banner_groups_btn{
+    .banner_groups_btn {
       font-size: 14px;
     }
-  
-    &_buttons{
+
+    &_buttons {
       width: 100%;
       @include display(flex, row, center, center);
     }
-  }
-
-
-  p, span, div, button{
-    font-size: 16px !important;
+    
+    p,
+    span,
+    div,
+    button {
+      font-size: 16px !important;
+    }
   }
 }

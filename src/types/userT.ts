@@ -14,6 +14,7 @@ export type AuthDateT = {
   authDate: string | number
   userId: number
   userName: string
+  email: string
 }
 
 export interface ILoginUserInfo {

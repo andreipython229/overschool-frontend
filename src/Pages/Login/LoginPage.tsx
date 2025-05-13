@@ -1,24 +1,24 @@
-import {useEffect, useRef, useState} from 'react'
-import {useFormik} from 'formik'
-import {LoginParamsT, validateLogin} from 'utils/validationLogin'
-import {useAppDispatch, useAppSelector} from '../../store/hooks'
-import {auth, authState, id, logoutState, role, userName} from 'store/redux/users/slice'
-import {useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery} from '../../api/userLoginService'
-import {Input} from 'components/common/Input/Input/Input'
-import {facebook, google, isSecurity, maillog, unSecurity, yandex} from '../../assets/img/common'
-import {useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation} from 'api/forgotPassword'
-import {Toast} from 'primereact/toast'
-import {generatePath, useNavigate} from 'react-router-dom'
-import {Button} from '../../components/common/Button/Button'
-import {InputAuth} from '../../components/common/Input/InputAuth/InputAuth'
-import {Path} from '../../enum/pathE'
-import {SimpleLoader} from 'components/Loaders/SimpleLoader'
+import { useEffect, useRef, useState } from 'react'
+import { useFormik } from 'formik'
+import { LoginParamsT, validateLogin } from 'utils/validationLogin'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { auth, authState, id, logoutState, role, userEmail, userName } from 'store/redux/users/slice'
+import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
+import { Input } from 'components/common/Input/Input/Input'
+import { facebook, google, isSecurity, maillog, unSecurity, yandex } from '../../assets/img/common'
+import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from 'api/forgotPassword'
+import { Toast } from 'primereact/toast'
+import { generatePath, useNavigate } from 'react-router-dom'
+import { Button } from '../../components/common/Button/Button'
+import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
+import { Path } from '../../enum/pathE'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from './loginPage.module.scss'
-import {setHeaderId, setSchoolId, setSchoolName} from '../../store/redux/school/schoolSlice'
-import {RoleE} from '../../enum/roleE'
-import {SchoolT} from '../ChooseSchool/ChooseSchool'
-import {useFetchConfiguredDomainsQuery} from '../../api/DomainService'
-import {useGetSchoolsMutation} from '../../api/getSchoolService'
+import { setHeaderId, setSchoolId, setSchoolName } from '../../store/redux/school/schoolSlice'
+import { RoleE } from '../../enum/roleE'
+import { SchoolT } from '../ChooseSchool/ChooseSchool'
+import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
+import { useGetSchoolsMutation } from '../../api/getSchoolService'
 
 import {logoHeaderLogin, leftArrow} from '../../assets/img/common/index'
 import {selectUser} from 'selectors'
@@ -28,241 +28,242 @@ import {clearUserProfile} from 'store/redux/users/profileSlice'
 import {LogoHeader} from "./LogoHeader";
 
 interface INotification {
-    state: boolean
-    text: string
+  state: boolean
+  text: string
 }
 
 type FirstFormValuesT = {
-    email: string
+  email: string
 }
 type LoginModalPropsT = {
-    setShowModal: (value: boolean) => void
+  setShowModal: (value: boolean) => void
 }
 
 export const LoginPage = () => {
-    const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by']
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
-    const toast = useRef<Toast>(null)
-    const [step, setStep] = useState<number>(1)
-    const [email, setEmail] = useState<string>('')
-    const [code, setCode] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
-    const [forgotPasswordFunc, {error: errorSend, isLoading: sendLoading}] = useForgotPasswordMutation()
-    const [verifyCode, {error: errorCode, isLoading: codeLoading}] = useVerifyEmailCodeMutation()
-    const [resetPassword, {error: errorReset, isLoading: resetLoading}] = useResetPasswordMutation()
-    const [getSchools, {isLoading: isFetching}] = useGetSchoolsMutation()
-    const {data: DomainData, isSuccess: DomainSuccess} = useFetchConfiguredDomainsQuery()
-    const [logout] = useLazyLogoutQuery()
-    const [security, setSecurity] = useState<boolean>(true)
-    const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
-    const {auth: authetificationState} = useAppSelector(selectUser)
+  const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by']
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const toast = useRef<Toast>(null)
+  const [step, setStep] = useState<number>(1)
+  const [email, setEmail] = useState<string>('')
+  const [code, setCode] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>('')
+  const [forgotPasswordFunc, { error: errorSend, isLoading: sendLoading }] = useForgotPasswordMutation()
+  const [verifyCode, { error: errorCode, isLoading: codeLoading }] = useVerifyEmailCodeMutation()
+  const [resetPassword, { error: errorReset, isLoading: resetLoading }] = useResetPasswordMutation()
+  const [getSchools, { isLoading: isFetching }] = useGetSchoolsMutation()
+  const { data: DomainData, isSuccess: DomainSuccess } = useFetchConfiguredDomainsQuery()
+  const [logout] = useLazyLogoutQuery()
+  const [security, setSecurity] = useState<boolean>(true)
+  const [authVariant, setAuthVariant] = useState<keyof LoginParamsT>('email')
+  const { auth: authetificationState } = useAppSelector(selectUser)
 
-    const [attemptAccess, {error, isSuccess, isLoading}] = useLoginMutation()
-    const [getUserInfo] = useLazyGetUserInfoQuery()
+  const [attemptAccess, { error, isSuccess, isLoading }] = useLoginMutation()
+  const [getUserInfo] = useLazyGetUserInfoQuery()
 
-    const [isShown, setIsShown] = useState(false)
-    const [isHidden, setIsHidden] = useState(true)
-    const currentDomain = window.location.hostname
+  const [isShown, setIsShown] = useState(false)
+  const [isHidden, setIsHidden] = useState(true)
+  const currentDomain = window.location.hostname
 
-    const forgotPass = (event: any) => {
-        event.preventDefault()
-        setIsShown(!isShown)
-        setIsHidden(!isHidden)
+  const forgotPass = (event: any) => {
+    event.preventDefault()
+    setIsShown(!isShown)
+    setIsHidden(!isHidden)
+  }
+
+  const handleEmail = (event: any) => {
+    setEmail(event.target.value)
+  }
+
+  const handleCode = (event: any) => {
+    setCode(event.target.value)
+  }
+
+  const handleNewPassword = (event: any) => {
+    setPassword(event.target.value)
+  }
+
+  const handleNewPasswordC = (event: any) => {
+    setPasswordConfirmation(event.target.value)
+  }
+  const changeSecurityStatus = () => {
+    setSecurity(!security)
+  }
+
+  useEffect(() => {
+    if (authetificationState) {
+      navigate(generatePath(Path.ChooseSchool))
     }
+  }, [authetificationState])
 
-    const handleEmail = (event: any) => {
-        setEmail(event.target.value)
-    }
+  const formik = useFormik({
+    validate: values => validateLogin(values, authVariant),
+    initialValues: {
+      email: '',
+      phone: '',
+      password: '',
+    },
 
-    const handleCode = (event: any) => {
-        setCode(event.target.value)
-    }
+    onSubmit: async () => {
+      const { email, password, phone } = formik.values
+      const user = { login: phone ? phone : email, password }
+      try {
+        await attemptAccess(user)
+          .unwrap()
+          .then(data => {
+            dispatch(authState({ access: data.access, refresh: data.refresh }))
+            dispatch(id(data.user.id))
+            dispatch(userEmail(data.user.email))
+            localStorage.setItem('id', data.user.id.toString())
+          })
+      } catch {
+        console.log('smth went wrong')
+      }
+    },
+  })
+  const handleSchool = (school: SchoolT) => {
+    dispatch(setSchoolName(school.name))
+    dispatch(setSchoolId(school.school_id))
+    dispatch(setHeaderId(school.header_school))
+    const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
+    roleValue && dispatch(role(+roleValue))
+  }
 
-    const handleNewPassword = (event: any) => {
-        setPassword(event.target.value)
-    }
-
-    const handleNewPasswordC = (event: any) => {
-        setPasswordConfirmation(event.target.value)
-    }
-    const changeSecurityStatus = () => {
-        setSecurity(!security)
-    }
-
-    useEffect(() => {
-        if (authetificationState) {
+  useEffect(() => {
+    if (isSuccess) {
+      getUserInfo()
+        .unwrap()
+        .then(resp => {
+          dispatch(auth(true))
+          dispatch(userName(resp[0]?.username))
+          // dispatch(id(resp[0]?.id))
+          if (DefaultDomains.includes(currentDomain)) {
             navigate(generatePath(Path.ChooseSchool))
-        }
-    }, [authetificationState])
-
-    const formik = useFormik({
-        validate: values => validateLogin(values, authVariant),
-        initialValues: {
-            email: '',
-            phone: '',
-            password: '',
-        },
-
-        onSubmit: async () => {
-            const {email, password, phone} = formik.values
-            const user = {login: phone ? phone : email, password}
-            try {
-                await attemptAccess(user)
-                    .unwrap()
-                    .then(data => {
-                        dispatch(authState({access: data.access, refresh: data.refresh}))
-                        dispatch(id(data.user.id))
-                        localStorage.setItem('id', data.user.id.toString())
-                    })
-            } catch {
-                console.log('smth went wrong')
-            }
-        },
-    })
-    const handleSchool = (school: SchoolT) => {
-        dispatch(setSchoolName(school.name))
-        dispatch(setSchoolId(school.school_id))
-        dispatch(setHeaderId(school.header_school))
-        const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
-        roleValue && dispatch(role(+roleValue))
-    }
-
-    useEffect(() => {
-        if (isSuccess) {
-            getUserInfo()
-                .unwrap()
-                .then(resp => {
-                    dispatch(auth(true))
-                    dispatch(userName(resp[0]?.username))
-                    // dispatch(id(resp[0]?.id))
-                    if (DefaultDomains.includes(currentDomain)) {
-                        navigate(generatePath(Path.ChooseSchool))
-                    } else {
-                        if (DomainSuccess && DomainData) {
-                            const currentDomainData = DomainData.find(domain => domain.domain_name === currentDomain)
-                            if (currentDomainData) {
-                                const currentSchoolId = currentDomainData.school
-                                dispatch(role(RoleE.Unknown))
-                                getSchools()
-                                    .unwrap()
-                                    .then((data: SchoolT[]) => {
-                                        const school = data.find(school => school.school_id === currentSchoolId)
-                                        if (school) {
-                                            handleSchool(school)
-                                            navigate(Path.School + Path.Courses)
-                                        }
-                                    })
-                                    .catch(err => {
-                                        if (err.status === 401) {
-                                            localStorage.clear()
-                                            logout()
-                                            dispatch(logoutState())
-                                            dispatch(clearUserProfile())
-                                            navigate(generatePath(Path.InitialPage))
-                                        }
-                                    })
-                            } else {
-                                console.error('No current domain data found.')
-                            }
-                        } else {
-                            console.error('DomainData is not available.')
-                        }
+          } else {
+            if (DomainSuccess && DomainData) {
+              const currentDomainData = DomainData.find(domain => domain.domain_name === currentDomain)
+              if (currentDomainData) {
+                const currentSchoolId = currentDomainData.school
+                dispatch(role(RoleE.Unknown))
+                getSchools()
+                  .unwrap()
+                  .then((data: SchoolT[]) => {
+                    const school = data.find(school => school.school_id === currentSchoolId)
+                    if (school) {
+                      handleSchool(school)
+                      navigate(Path.School + Path.Courses)
                     }
-                })
-                .catch(() => console.log('Error fetching user data'))
-        }
-    }, [isSuccess, isLoading])
-
-    //   const handleClose = () => {
-    // //     setShowModal(false)
-    //   }
-
-    const submitformikforgot = async (event: any) => {
-        event.preventDefault()
-        const formdata = new FormData()
-        formdata.append('email', email)
-        await forgotPasswordFunc(formdata)
-            .unwrap()
-            .then(() => {
-                toast.current?.show({
-                    severity: 'success',
-                    summary: 'Успешно',
-                    detail: `Ссылка для сброса пароля успешно отправлена на почту ${email}`,
-                    life: 5000,
-                })
-                setTimeout(() => navigate(Path.InitialPage), 3000)
-            })
-            .catch(() => {
-                toast.current?.show({
-                    severity: 'error',
-                    summary: 'Ошибка',
-                    detail: `Проверьте правильность ввода email`,
-                    life: 5000,
-                })
-            })
+                  })
+                  .catch(err => {
+                    if (err.status === 401) {
+                      localStorage.clear()
+                      logout()
+                      dispatch(logoutState())
+                      dispatch(clearUserProfile())
+                      navigate(generatePath(Path.InitialPage))
+                    }
+                  })
+              } else {
+                console.error('No current domain data found.')
+              }
+            } else {
+              console.error('DomainData is not available.')
+            }
+          }
+        })
+        .catch(() => console.log('Error fetching user data'))
     }
+  }, [isSuccess, isLoading])
 
-    const submitCode = async (event: any) => {
-        event.preventDefault()
-        const formdata = new FormData()
-        formdata.append('email', email)
-        formdata.append('token', code)
-        await verifyCode(formdata)
-            .unwrap()
-            .then(data => {
-                toast.current?.show({
-                    severity: 'success',
-                    summary: 'Успешно',
-                    detail: `Токен принят и введен верно!`,
-                    life: 3000,
-                })
-                setStep(3)
-            })
-            .catch(error => {
-                toast.current?.show({
-                    severity: 'error',
-                    summary: 'Ошибка',
-                    detail: `Проверьте правильность ввода токена!`,
-                    life: 3000,
-                })
-            })
+  //   const handleClose = () => {
+  // //     setShowModal(false)
+  //   }
+
+  const submitformikforgot = async (event: any) => {
+    event.preventDefault()
+    const formdata = new FormData()
+    formdata.append('email', email)
+    await forgotPasswordFunc(formdata)
+      .unwrap()
+      .then(() => {
+        toast.current?.show({
+          severity: 'success',
+          summary: 'Успешно',
+          detail: `Ссылка для сброса пароля успешно отправлена на почту ${email}`,
+          life: 5000,
+        })
+        setTimeout(() => navigate(Path.InitialPage), 3000)
+      })
+      .catch(() => {
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: `Проверьте правильность ввода email`,
+          life: 5000,
+        })
+      })
+  }
+
+  const submitCode = async (event: any) => {
+    event.preventDefault()
+    const formdata = new FormData()
+    formdata.append('email', email)
+    formdata.append('token', code)
+    await verifyCode(formdata)
+      .unwrap()
+      .then(data => {
+        toast.current?.show({
+          severity: 'success',
+          summary: 'Успешно',
+          detail: `Токен принят и введен верно!`,
+          life: 3000,
+        })
+        setStep(3)
+      })
+      .catch(error => {
+        toast.current?.show({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: `Проверьте правильность ввода токена!`,
+          life: 3000,
+        })
+      })
+  }
+
+  const submitNewPassword = async (event: any) => {
+    event.preventDefault()
+    if (password === passwordConfirmation && password.length !== 0) {
+      const formdata = new FormData()
+      formdata.append('email', email)
+      formdata.append('new_password', password)
+      formdata.append('new_password_again', passwordConfirmation)
+      await resetPassword(formdata)
+        .unwrap()
+        .then(data => {
+          toast.current?.show({
+            severity: 'success',
+            summary: 'Успех',
+            detail: 'Пароль успешно изменен!',
+            life: 3000,
+          })
+        })
     }
+  }
 
-    const submitNewPassword = async (event: any) => {
-        event.preventDefault()
-        if (password === passwordConfirmation && password.length !== 0) {
-            const formdata = new FormData()
-            formdata.append('email', email)
-            formdata.append('new_password', password)
-            formdata.append('new_password_again', passwordConfirmation)
-            await resetPassword(formdata)
-                .unwrap()
-                .then(data => {
-                    toast.current?.show({
-                        severity: 'success',
-                        summary: 'Успех',
-                        detail: 'Пароль успешно изменен!',
-                        life: 3000,
-                    })
-                })
-        }
-    }
-
-    return (
-        <section className={styles.loginPage}>
-            {isFetching || (isLoading && <LoaderLayout/>)}
-            <BackgroundAnimation/>
-            <div className={styles.loginPage_btnBack}>
-                <a href={Path.InitialPage}>
-                    <svg className={styles.iconDefault} width="44" height="44" viewBox="0 0 44 44" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <rect width="44" height="44" rx="14" fill="#CFE2FF"/>
-                        <path
-                            d="M26.2636 9.13464C26.5565 9.13464 26.8495 9.24255 27.0807 9.4738C27.5278 9.92089 27.5278 10.6609 27.0807 11.108L17.029 21.1596C16.289 21.8996 16.289 23.1021 17.029 23.8421L27.0807 33.8938C27.5278 34.3409 27.5278 35.0809 27.0807 35.528C26.6336 35.9751 25.8936 35.9751 25.4465 35.528L15.3949 25.4763C14.6086 24.6901 14.1615 23.6263 14.1615 22.5009C14.1615 21.3755 14.5932 20.3117 15.3949 19.5255L25.4465 9.4738C25.6778 9.25797 25.9707 9.13464 26.2636 9.13464Z"
-                            fill="#332F36"/>
-                    </svg>
+  return (
+    <section className={styles.loginPage}>
+      {isFetching || (isLoading && <LoaderLayout />)}
+      <BackgroundAnimation />
+      <div className={styles.loginPage_btnBack}>
+        <a href={Path.InitialPage}>
+          <svg className={styles.iconDefault} width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="44" height="44" rx="14" fill="#CFE2FF" />
+            <path
+              d="M26.2636 9.13464C26.5565 9.13464 26.8495 9.24255 27.0807 9.4738C27.5278 9.92089 27.5278 10.6609 27.0807 11.108L17.029 21.1596C16.289 21.8996 16.289 23.1021 17.029 23.8421L27.0807 33.8938C27.5278 34.3409 27.5278 35.0809 27.0807 35.528C26.6336 35.9751 25.8936 35.9751 25.4465 35.528L15.3949 25.4763C14.6086 24.6901 14.1615 23.6263 14.1615 22.5009C14.1615 21.3755 14.5932 20.3117 15.3949 19.5255L25.4465 9.4738C25.6778 9.25797 25.9707 9.13464 26.2636 9.13464Z"
+              fill="#332F36"
+            />
+          </svg>
 
                     <svg className={styles.iconHover} width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect width="44" height="44" rx="14" fill="#357EEB"/>

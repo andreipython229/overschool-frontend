@@ -49,6 +49,14 @@ export const schoolService = createApi({
       }),
       invalidatesTags: ['school'],
     }),
+    createSchoolWCredentials: build.mutation<schoolT, { school_name: string; phone_number: string }>({
+      query: data => ({
+        url: `/register-school-owner/`,
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['school'],
+    }),
     fetchSchoolDocument: build.query<any, string>({
       query: schoolName => ({
         url: `/${schoolName}/school_document/`,
@@ -308,4 +316,5 @@ export const {
   useAssignRoleMutation,
   useRemoveRoleMutation,
   useFetchRolesByUserQuery,
+  useCreateSchoolWCredentialsMutation,
 } = schoolService

@@ -185,7 +185,7 @@ export const InitPageHeader: FC = memo(() => {
               <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
               <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
-                <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                <a target="_blank" href="https://t.me/coursehub_admin" rel="noreferrer" style={{ textDecoration: 'none' }}>
                   <TelegramIcon
                     className={styles.animatedIcon}
                     sx={{
