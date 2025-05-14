@@ -10,6 +10,7 @@ import { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } from 'a
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import * as Yup from 'yup'
+import {logoHeaderLogin, facebook, google, maillog, leftArrow} from '../../assets/img/common/index'
 import { Input } from 'components/common/Input/Input/Input'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
@@ -23,10 +24,9 @@ export type ErrorT = {
     }
   }
 }
-import PhoneInput from 'react-phone-input-2'
-import {logoHeaderLogin, facebook, google, maillog, leftArrow} from '../../assets/img/common/index'
 
 import 'react-phone-input-2/lib/style.css'
+
 import {LogoHeader} from './LogoHeader'
 
 export const CreateNewSchool = () => {
