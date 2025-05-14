@@ -175,7 +175,7 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
   }
 
   return (
-    <form className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
+    <form style={{width: '100%'}} className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       {(isSubmitting || isFetching) && (
         <div className={styles.profile_loader}>
           <SimpleLoader style={{ width: '50px', height: '50px' }} />
@@ -194,71 +194,81 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
         </div>
       )}
       <h1 className={styles.profile_title}>Настройка профиля</h1>
-      <div className={styles.profile_block}>
-        <span
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            lineHeight: '19px',
-            gap: '0.5rem',
-            fontSize: '16px',
-            marginBottom: '20px',
-            marginTop: '20px',
-          }}
-        >
-          <strong>Email:</strong>
-          {email}
-        </span>
-        <span style={{ display: 'flex', alignItems: 'center', lineHeight: '19px', gap: '0.5rem', fontSize: '16px' }}>
-          <strong>Имя Пользователя:</strong>
-          {first_name}
-        </span>
-      </div>
-      <div className={formStyles.form_avatarWrapper}>
-        <div className={formStyles.form_avatarWrapper_avatarBlock}>
-          {avatar_url ? (
-            <div className={styles.profile_block}>
-              <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={profileData.avatar} alt="" />
+      <table className={styles.profile_table}>
+        <tr>
+          <td>
+            <div className={formStyles.form_avatarWrapper} style={{marginLeft: '-20px', marginBottom: '30px'}}>
+              <div className={formStyles.form_avatarWrapper_avatarBlock}>
+                {avatar_url ? (
+                  <div className={styles.profile_block}>
+                    <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={profileData.avatar} alt="" />
+                  </div>
+                ) : (
+                  <div className={styles.profile_block_avatarBlock_avatar} />
+                )}
+
+              </div>
+              {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
             </div>
-          ) : (
-            <div className={styles.profile_block_avatarBlock_avatar} />
-          )}
-          <input
-            className={styles.profile_block_avatarBlock_input}
-            value={''}
-            name={'avatar'}
-            type={'file'}
-            onChange={onChangeAvatar}
-            disabled={isRestrictedUser}
+          </td>
+          <td>
+            <tr>
+              <span style={{fontWeight:'500'}}>Имя пользователя:</span>
+              <span style={{fontWeight:'400'}}>{first_name}</span>
+            </tr>
+            <tr>
+              <span style={{fontWeight:'500'}}>Email:</span>
+              <span style={{fontWeight:'400'}}>{email}</span>
+            </tr>
+          </td>
+        </tr>
+      </table>
+      <div style={{marginTop:'20px'}} className={styles.profile_block}>
+        <Input
+          name={'first_name'}
+          variant='teacherInput'
+          type={'text'}
+          label={'Имя:'}
+          onChange={handleChange}
+          value={first_name as string}
+          disabled={isRestrictedUser}
+          placeholder={'Данные пользователя'}
           />
-        </div>
-        {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
       </div>
       <div className={styles.profile_block}>
-        <Input name={'first_name'} type={'text'} label={'Имя:'} onChange={handleChange} value={first_name as string} disabled={isRestrictedUser} />
-      </div>
-      <div className={styles.profile_block}>
-        <Input name={'last_name'} type={'text'} label={'Фамилия:'} onChange={handleChange} value={last_name as string} disabled={isRestrictedUser} />
+        <Input
+          name={'last_name'}
+          variant='teacherInput'
+          type={'text'}
+          label={'Фамилия:'}
+          onChange={handleChange}
+          value={last_name as string}
+          disabled={isRestrictedUser}
+          placeholder={'Данные пользователя'}
+          />
       </div>
       <div className={styles.profile_block}>
         <Input
           name={'patronymic'}
+          variant='teacherInput'
           type={'text'}
           label={'Отчество:'}
           onChange={handleChange}
           value={patronymic as string}
           disabled={isRestrictedUser}
+          placeholder={'Данные пользователя'}
         />
       </div>
       <div className={styles.profile_block}>
         <Input
           name={'phone_number'}
+          variant='teacherInput'
           type={'text'}
           label={'Телефон:'}
           onChange={handleChange}
           onInput={() => setPhoneError('')}
           value={phone_number as string}
-          placeholder={'Введите номер телефона'}
+          placeholder={'Данные пользователя'}
           required={false}
           disabled={isRestrictedUser}
         />

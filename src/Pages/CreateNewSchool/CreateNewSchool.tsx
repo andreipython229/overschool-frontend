@@ -1,7 +1,7 @@
 import { Button } from '../../components/common/Button/Button'
 import styles from './createNewSchool.module.scss'
 import { Path } from '../../enum/pathE'
-import { isSecurity, unSecurity } from '../../assets/img/common'
+import { isSecurity, unSecurity, yandex } from '../../assets/img/common'
 import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
 import { useFormik } from 'formik'
 import { useEffect, useState } from 'react'
@@ -10,15 +10,28 @@ import { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } from 'a
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import * as Yup from 'yup'
+import { Input } from 'components/common/Input/Input/Input'
+import { useAppSelector } from 'store/hooks'
+import { selectUser } from 'selectors'
+import toast, { Toaster } from 'react-hot-toast'
+
+export type ErrorT = {
+  status: number
+  data: {
+    errors: {
+      [key: string]: string[]
+    }
+  }
+}
 import PhoneInput from 'react-phone-input-2'
-import { logoHeaderLogin, facebook, google, maillog, leftArrow } from '../../assets/img/common/index'
-import {LogoHeader} from './LogoHeader'
+import {logoHeaderLogin, facebook, google, maillog, leftArrow} from '../../assets/img/common/index'
 
 import 'react-phone-input-2/lib/style.css'
-import { Input } from 'components/common/Input/Input/Input'
+import {LogoHeader} from './LogoHeader'
 
 export const CreateNewSchool = () => {
   const location = useLocation()
+  const { auth } = useAppSelector(selectUser)
   const [utmParams, setUtmParams] = useState<{
     utm_source?: string
     utm_medium?: string
@@ -118,13 +131,25 @@ export const CreateNewSchool = () => {
             .catch((response: any) => {
               if (response.status === 400) {
                 const errorResponse = JSON.parse(response.data)
-                const errorMessage = errorResponse.errors.phone_number[0]
-                setError(errorMessage)
+                // const errorMessage = errorResponse.errors.phone_number[0]
+                // setError(errorMessage)
+                if ('phone_number' in errorResponse.errors) {
+                  toast.error(errorResponse.errors['phone_number'][0])
+                  setError(errorResponse.errors['phone_number'][0])
+                } else if ('error' in errorResponse.errors) {
+                  toast.error(errorResponse.errors['error'][0])
+                  setError(errorResponse.errors['error'][0])
+                } else {
+                  toast.error('Возникла ошибка при регистрации школы, проверьте правильность введенных данных', { duration: 5000 })
+                }
+              } else {
+                toast.error('Возникла непредвиденная ошибка. Сообщите нам пожалуйста об этом в телеграм @coursehub_admin', { duration: 10000 })
               }
             })
         }
       } else {
-        setError('Проверьте правильность введенных данных')
+        toast.error('Необходимо заполнить все поля')
+        setError('Необходимо заполнить все поля')
       }
     },
   })
@@ -149,6 +174,7 @@ export const CreateNewSchool = () => {
 
   return (
     <section className={styles.newCoursePage}>
+      <Toaster position="bottom-right" reverseOrder={true} />
       <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{'Регистрация произведена успешно!'}</DialogTitle>
         <DialogContent>
@@ -284,9 +310,25 @@ export const CreateNewSchool = () => {
               <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
             </div>
             <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_socialMedia}>
-              <img src={facebook} alt="facebook" />
-              <img src={google} alt="google" />
-              <img src={maillog} alt="maillog" />
+              <a
+                href={`${
+                  process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                }/accounts/google/login/`}
+                className={styles.socialIcon}
+                style={{ padding: '8px' }}
+                title="Google"
+              >
+                <img src={google} alt="google" style={{ objectFit: 'fill', width: '100%' }} />
+              </a>
+              <a
+                href={`${
+                  process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                }/accounts/yandex/login/`}
+                className={styles.socialIcon}
+                title="Yandex"
+              >
+                <img src={yandex} alt="yandex" style={{ objectFit: 'fill', width: '100%' }} />
+              </a>
             </div>
           </div>
         </form>

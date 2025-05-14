@@ -1,3 +1,4 @@
+import yandex from './yandex.svg'
 import arrowUp from './arrow-up.svg'
 import arrowDown from './arrowDown.svg'
 import avatar from './avatar.svg'
@@ -38,7 +39,7 @@ import chatst from './chatst.png'
 import dateInf from './dateInf.png'
 import logoHeaderLogin from './logoHeaderLogin.png'
 import facebook from './Facebook.png'
-import google from './Google.png'
+import google from './Google.svg'
 import maillog from './Mail.png'
 import leftArrow from './left-arrow.png'
 import constructor from './construktor.png'
@@ -179,5 +180,6 @@ export {
   MenuIcon,
   CloseIcon,
   Personal,
-  HelpIcon
+  HelpIcon,
+  yandex,
 }

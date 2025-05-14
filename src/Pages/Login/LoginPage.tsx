@@ -1,18 +1,18 @@
-import {useEffect, useRef, useState} from 'react'
-import {useFormik} from 'formik'
-import {LoginParamsT, validateLogin} from 'utils/validationLogin'
-import {useAppDispatch, useAppSelector} from '../../store/hooks'
-import {auth, authState, id, logoutState, role, userName} from 'store/redux/users/slice'
-import {useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery} from '../../api/userLoginService'
-import {Input} from 'components/common/Input/Input/Input'
-import {isSecurity, unSecurity} from '../../assets/img/common'
-import {useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation} from 'api/forgotPassword'
-import {Toast} from 'primereact/toast'
-import {generatePath, useNavigate} from 'react-router-dom'
-import {Button} from '../../components/common/Button/Button'
-import {InputAuth} from '../../components/common/Input/InputAuth/InputAuth'
-import {Path} from '../../enum/pathE'
-import {SimpleLoader} from 'components/Loaders/SimpleLoader'
+import { useEffect, useRef, useState } from 'react'
+import { useFormik } from 'formik'
+import { LoginParamsT, validateLogin } from 'utils/validationLogin'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { auth, authState, id, logoutState, role, userEmail, userName } from 'store/redux/users/slice'
+import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
+import { Input } from 'components/common/Input/Input/Input'
+import { facebook, google, isSecurity, maillog, unSecurity, yandex } from '../../assets/img/common'
+import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from 'api/forgotPassword'
+import { Toast } from 'primereact/toast'
+import { generatePath, useNavigate } from 'react-router-dom'
+import { Button } from '../../components/common/Button/Button'
+import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
+import { Path } from '../../enum/pathE'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from './loginPage.module.scss'
 import {setHeaderId, setSchoolId, setSchoolName} from '../../store/redux/school/schoolSlice'
 import {RoleE} from '../../enum/roleE'
@@ -25,7 +25,7 @@ import {selectUser} from 'selectors'
 import {LoaderLayout} from 'components/Loaders/LoaderLayout'
 import {BackgroundAnimation} from 'components/BackgroundAnimation'
 import {clearUserProfile} from 'store/redux/users/profileSlice'
-import {LogoHeader} from './LogoHeader'
+import {LogoHeader} from "./LogoHeader";
 
 interface INotification {
     state: boolean
@@ -105,29 +105,30 @@ export const LoginPage = () => {
             password: '',
         },
 
-        onSubmit: async () => {
-            const {email, password, phone} = formik.values
-            const user = {login: phone ? phone : email, password}
-            try {
-                await attemptAccess(user)
-                    .unwrap()
-                    .then(data => {
-                        dispatch(authState({access: data.access, refresh: data.refresh}))
-                        dispatch(id(data.user.id))
-                        localStorage.setItem('id', data.user.id.toString())
-                    })
-            } catch {
-                console.log('smth went wrong')
-            }
-        },
-    })
-    const handleSchool = (school: SchoolT) => {
-        dispatch(setSchoolName(school.name))
-        dispatch(setSchoolId(school.school_id))
-        dispatch(setHeaderId(school.header_school))
-        const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
-        roleValue && dispatch(role(+roleValue))
-    }
+    onSubmit: async () => {
+      const { email, password, phone } = formik.values
+      const user = { login: phone ? phone : email, password }
+      try {
+        await attemptAccess(user)
+          .unwrap()
+          .then(data => {
+            dispatch(authState({ access: data.access, refresh: data.refresh }))
+            dispatch(id(data.user.id))
+            dispatch(userEmail(data.user.email))
+            localStorage.setItem('id', data.user.id.toString())
+          })
+      } catch {
+        console.log('smth went wrong')
+      }
+    },
+  })
+  const handleSchool = (school: SchoolT) => {
+    dispatch(setSchoolName(school.name))
+    dispatch(setSchoolId(school.school_id))
+    dispatch(setHeaderId(school.header_school))
+    const roleValue = Object.entries(RoleE).find(([key, value]) => key === school.role)?.[1]
+    roleValue && dispatch(role(+roleValue))
+  }
 
     useEffect(() => {
         if (isSuccess) {
@@ -316,16 +317,32 @@ export const LoginPage = () => {
                                     Забыли пароль?
                                 </a>
                             </div>
-                            {/* <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
-                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
-                <p>Или</p>
-                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
-              </div>
-              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
-                <img src={facebook} alt="facebook" />
-                <img src={google} alt="google" />
-                <img src={maillog} alt="maillog" />
-              </div> */}
+                            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
+                                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
+                                <p>Или</p>
+                                <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
+                            </div>
+                            <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
+                                <a
+                                    href={`${
+                                        process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                                    }/accounts/google/login/`}
+                                    className={styles.socialIcon}
+                                    style={{padding: '8px'}}
+                                    title="Google"
+                                >
+                                    <img src={google} alt="google" style={{objectFit: 'fill', width: '100%'}}/>
+                                </a>
+                                <a
+                                    href={`${
+                                        process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                                    }/accounts/yandex/login/`}
+                                    className={styles.socialIcon}
+                                    title="Yandex"
+                                >
+                                    <img src={yandex} alt="yandex" style={{objectFit: 'fill', width: '100%'}}/>
+                                </a>
+                            </div>
                         </div>
                     </form>
                 )}
