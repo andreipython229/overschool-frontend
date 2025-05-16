@@ -14,13 +14,9 @@
   height: 100%;
 
   &_btnBack {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
     position: absolute;
     left: 30px;
     top: 93px;
-    background: #CFE2FF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,10 +48,6 @@
         opacity: 1;
       }
     }
-  }
-
-  &_btnBack:hover {
-    background: #357EEB;
   }
 
   &_logoWrapper {
@@ -419,5 +411,17 @@
     img {
       transform: scale(1.1);
     }
+  }
+}
+
+.back:hover {
+  cursor: pointer;
+
+  rect {
+    fill: #357EEB;
+  }
+
+  path {
+    fill: white;
   }
 }

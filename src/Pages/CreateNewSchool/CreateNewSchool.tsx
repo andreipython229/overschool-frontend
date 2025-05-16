@@ -16,6 +16,8 @@ import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 import toast, { Toaster } from 'react-hot-toast'
 
+import {Back} from './Back'
+
 export type ErrorT = {
   status: number
   data: {
@@ -202,7 +204,7 @@ export const CreateNewSchool = () => {
       </div>
       <div className={styles.newCoursePage_btnBack}>
         <button style={{ zIndex: 10, background: 'transparent', border: 'none' }} onClick={() => navigate(generatePath(Path.InitialPage))}>
-          <img src={leftArrow} alt="leftArrow" />
+          <Back className={styles.back}/>
         </button>
       </div>
       <div className={styles.newCoursePage_logoWrapper}>

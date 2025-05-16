@@ -27,6 +27,8 @@ import {BackgroundAnimation} from 'components/BackgroundAnimation'
 import {clearUserProfile} from 'store/redux/users/profileSlice'
 import {LogoHeader} from "./LogoHeader";
 
+import {Back} from "./Back";
+
 interface INotification {
   state: boolean
   text: string
@@ -257,7 +259,8 @@ export const LoginPage = () => {
             <BackgroundAnimation/>
             <div className={styles.loginPage_btnBack}>
                 <a href={Path.InitialPage}>
-                    <img src={leftArrow} alt="leftArrow"/>
+                  <Back className={styles.back}/>
+                  {/*<img src={leftArrow} alt="leftArrow"/>*/}
                 </a>
             </div>
             <div className={styles.loginPage_logoWrapper}>

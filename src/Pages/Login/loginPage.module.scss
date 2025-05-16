@@ -18,23 +18,15 @@
     @media only screen and (min-width: 320px) and (max-width: 1000px) {
       left: 10px;
       top: 13vw;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
       position: absolute;
-      background: #cfe2ff;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
     position: absolute;
     left: 30px;
     top: 93px;
-    background: #cfe2ff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,10 +40,6 @@
         height: 3.5vw;
       }
     }
-  }
-
-  &_btnBack:hover {
-    background: #357EEB;
   }
 
   &_logoWrapper {
@@ -374,5 +362,17 @@
     img {
       transform: scale(1.1);
     }
+  }
+}
+
+.back:hover {
+  cursor: pointer;
+
+  rect {
+    fill: #357EEB;
+  }
+
+  path {
+    fill: white;
   }
 }
