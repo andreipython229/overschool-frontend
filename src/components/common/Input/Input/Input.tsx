@@ -20,6 +20,8 @@ export const Input: FC<InputPropsT> = memo(props => {
           return setInputClass(styles.inputPhone)
         case 'default':
           return setInputClass(styles.inputDefault)
+        case 'teacherInput':
+          return setInputClass(styles.inputTeacher)
         default:
           return setInputClass(styles.inputDefault)
       }
@@ -69,6 +71,7 @@ export const Input: FC<InputPropsT> = memo(props => {
                 fontSize: '20px',
               },
             }}
+            specialLabel=""
             onChange={onChangePhone}
             value={value}
             onBlur={props.onBlur}

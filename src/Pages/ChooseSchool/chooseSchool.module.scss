@@ -140,6 +140,10 @@
     }
   }
 
+  &_btnBack:hover {
+    background: #357EEB;
+  }
+
   &_rolePic {
     display: flex;
     flex-direction: row;
