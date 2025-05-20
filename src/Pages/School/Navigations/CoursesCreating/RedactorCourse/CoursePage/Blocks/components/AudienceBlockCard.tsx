@@ -103,10 +103,17 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapper_imageBox} onClick={handleImageChange}>
-        <Avatar
+        {/* <Avatar
           alt="Overschool"
           src={cardImage}
           sx={{width: 125, height: 125}}
+        /> */}
+        <img
+          src={cardImage}
+          alt={cardImage}
+          width={170}
+          height={170}
+          onError={() => setImgError('Ошибка загрузки изображения')}
         />
         {imgError && <p className={styles.wrapper_imageBox_error}>{imgError}</p>}
       </div>
@@ -124,8 +131,8 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
           value={descriptionValue}
           onChange={handleChangeDescription}
           placeholder="Добавьте описание, если необходимо..."
-          maxRows={3}
-          maxLength={85}
+          maxRows={6}
+          maxLength={150}
         />
       </div>
       <button onClick={onDelete}>
