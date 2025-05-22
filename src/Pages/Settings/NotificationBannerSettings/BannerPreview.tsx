@@ -39,7 +39,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
-  const [showCount, setShowCount] = useState<number>(0)
+  const [showCount, setShowCount] = useState<number>(1) // !!!! ДОБАВИТЬ ИЗ АПИ ЗНАЧЕНИЕ В СТЕЙТ + ПРОКИНУТЬ В ЗАПРОС НА ОБНОВЛЕНИЕ !!!
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
   const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
 
@@ -164,10 +164,10 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                     setShowCount(value)
                   }
                 }}
-                color='primary'
+                color="primary"
                 valueLabelDisplay="auto"
-                min={0}
-                max={100}
+                min={1}
+                max={10}
                 sx={{ ml: 1, color: '#1976d2 !important' }}
               />
             </div>
