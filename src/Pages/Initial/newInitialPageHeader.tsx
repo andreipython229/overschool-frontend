@@ -132,6 +132,7 @@ export const InitPageHeader: FC = memo(() => {
                   </a>
                 </div>
               </div>
+              <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
               <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
                 <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
