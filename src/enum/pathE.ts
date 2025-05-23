@@ -74,6 +74,7 @@ export enum CreateCoursePath {
   Page = 'page',
   Comments = 'comments',
   Materials = 'materials',
+  Certificates = 'certificates',
 }
 
 export enum Student {
