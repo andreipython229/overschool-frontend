@@ -106,6 +106,19 @@ li {
       z-index: 99;
     }
 
+
+/* Добавим стили для экрана 1920px шириной */
+@media only screen and (min-width: 1401px) {
+  .newInitial_init_header__XBfHl {
+    width: 1920px;
+    height: 1065px;
+    top: -321px;
+    opacity: 0.5; /* 50% прозрачность */
+    /* Если нужен fixed или другой position, укажи явно */
+    position: fixed;
+    /* Можно добавить другие свойства, если нужно */
+  }
+}
     &_logo {
       @media only screen and (min-width: 1400px) {
         height: 55px;
