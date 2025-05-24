@@ -40,6 +40,7 @@ import { AdminOrTeacherReplyHomework } from 'Pages/HomeWork/AdminOrTeacherReply'
 import { BonusesPage } from 'Pages/Bonuses'
 import { BonusesSettings } from 'Pages/Settings/Bonuses'
 import { SettingsInvitesProgram } from 'Pages/Settings/InviteProgram'
+import Certificate from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Certificates/Certificate'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -92,6 +93,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
           <Route path={CreateCoursePath.Page} element={<CoursePageConstruct />} />
           <Route path={CreateCoursePath.Comments} element={<Comments />} />
           <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
+          <Route path={CreateCoursePath.Certificates} element={<Certificate />} />
         </Route>
       </Route>
       <Route path={Path.Profile} element={<Profile />} />
