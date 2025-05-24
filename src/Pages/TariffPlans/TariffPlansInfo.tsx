@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { Typography } from '@mui/material'
 
-import { InitPageHeader } from '../Initial/newInitialPageHeader'  // именованный импорт!
+import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
 
@@ -15,7 +15,6 @@ import { useBoolean } from 'customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
 import { Path } from '../../enum/pathE'
-import { logo } from '../../assets/img/common'
 
 export const TariffPlansInfo: FC = () => {
   const { data, isSuccess } = useFetchTariffPlanTableQuery()
@@ -80,22 +79,7 @@ export const TariffPlansInfo: FC = () => {
                 component="div"
               >
                 <p className={styles.TariffPlansPage_header} style={{ fontSize: '1.5rem' }}>
-                  Тарифные планы{' '}
-                  <a
-                    href={Path.InitialPage}
-                    className={styles.headerButton}
-                    style={{
-                      textDecoration: 'none',
-                      color: '#ba75ff',
-                      fontWeight: 'bold',
-                      padding: '0.5rem',
-                      border: '2px solid #ba75ff',
-                      borderRadius: '7px',
-                    }}
-                  >
-                    <img src={logo} alt="Logotype ITOVERONE" />
-                    <span>Overschool.by</span>
-                  </a>
+                  Тарифные планы
                 </p>
               </Typography>
 
@@ -176,7 +160,7 @@ export const TariffPlansInfo: FC = () => {
                 {
                   question: 'Что произойдет, когда оплаченный период закончится?',
                   answer:
-                    'Вам и сотрудникам онлайн-школы будет ограничен доступ к использованию функционала. Для Ваших учеников доступ будет закрыт только через 24 часа после окончания подписки - мы сделали это на случай, если Вы забудете вовремя продлить тариф. Все загруженные на платформу материалы сохранятся в полном порядке. При продлении подписки все доступы моментально откроются.',
+                    'Вам и сотрудникам онлайн-школы будет ограничен доступ к использованию функционала. Для Ваших учеников доступ будет закрыт только через 24 часа после окончания подписки — мы сделали это на случай, если Вы забудете вовремя продлить тариф.',
                 },
                 {
                   question: 'Бесплатный тариф “Intern” действительно бессрочный?',
@@ -234,4 +218,3 @@ export const TariffPlansInfo: FC = () => {
     </>
   )
 }
-
