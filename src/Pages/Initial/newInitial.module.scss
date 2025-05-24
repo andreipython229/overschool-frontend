@@ -91,6 +91,11 @@ li {
       z-index: 99;
     }
 
+   // Центрирование по горизонтали
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
     @media only screen and (min-width: 490px) and (max-width: 1400px) {
       width: auto;
       max-width: 93vw;
@@ -149,7 +154,7 @@ li {
     }
   }
 
-  &_main {
+  .newInitial_main {
     position: relative;
     margin-top: 100px;
     width: 100%;
@@ -1579,7 +1584,7 @@ li {
       }
     }
   }
-}
+
 
 .btn_block {
   display: flex;
