@@ -107,16 +107,16 @@ export const AudienceBlock = () => {
   return (
     <div className={styles.wrapper}>
       <h2>
-        Кому подойдет этот курс?
+        Кому подойдет этот курс ?
       </h2>
-      <div className={styles.wrapper_description}>
+      {/* <div className={styles.wrapper_description}>
         <TextareaAutosize
           placeholder="Добавьте описание, если необходимо..."
           minRows={1}
           value={landing.audience.description}
           onChange={event => setDescription(event.target.value)}
         />
-      </div>
+      </div> */}
       <div className={styles.wrapper_cardContainer}>
         {getChips().map((card, index) => (
           <React.Fragment key={key - card.position}>

@@ -41,7 +41,7 @@ import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice
 import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
-import { useFetchCoursesQuery, useLazyFetchCoursesQuery } from 'api/coursesServices'
+import { useLazyFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
@@ -51,7 +51,6 @@ import HTMLReactParser from 'html-react-parser'
 import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
 import { useFetchSchoolQuery } from '../../api/schoolService'
-import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
@@ -66,7 +65,7 @@ export const Header = memo(() => {
   console.log(authState)
 
   const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
-  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
+  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(true)
   const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
@@ -468,16 +467,18 @@ export const Header = memo(() => {
             <DialogContentText sx={{ marginBottom: '1rem' }} id="alert-dialog-description">
               {typeof banner.description === 'string' && HTMLReactParser(banner.description)}
             </DialogContentText>
-            <a href={banner.link} target="_blank" rel="noreferrer">
-              <Button text={'Перейти по ссылке'} type="button" />
-            </a>
+            {banner.link.length > 0 && (
+              <a href={banner.link} target="_blank" rel="noreferrer">
+                <Button variant="newPrimary" text={'Перейти по ссылке'} type="button" />
+              </a>
+            )}
           </DialogContent>
           <DialogActions>
             <Button
               onClick={handleCloseBanner}
               autoFocus
               text={banner.is_accepted_by_user ? 'Закрыть' : 'Подтвердить и закрыть'}
-              variant={'primary'}
+              variant={'newSecondary'}
             />
           </DialogActions>
         </Dialog>

@@ -6,7 +6,7 @@ import { FC, useEffect } from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { selectUser } from 'selectors'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { auth, authState, id, role, userName } from 'store/redux/users/slice'
+import { auth, authState, id, role, userEmail, userName } from 'store/redux/users/slice'
 
 export const SocialAuthPage: FC = () => {
   const { data: authData, isSuccess, isFetching: isLoading } = useAuthSocialQuery()
@@ -19,6 +19,7 @@ export const SocialAuthPage: FC = () => {
     if (authData) {
       dispatch(authState({ access: authData.access, refresh: authData.refresh }))
       dispatch(id(authData.user.id))
+      dispatch(userEmail(authData.user.email))
       localStorage.setItem('id', authData.user.id.toString())
     }
   }, [authData])

@@ -108,8 +108,8 @@ export const HeaderBlock:FC<HeaderBlockT> = ({openModal}) => {
           value={descriptionValue}
           onChange={handleChangeDescription}
           placeholder="Добавьте описание, если необходимо..."
-          maxRows={3}
-          maxLength={85}
+          maxRows={5}
+          maxLength={150}
         />
       </div>
       <div className={styles.previous_buttonAccept}>
