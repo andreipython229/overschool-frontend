@@ -55,6 +55,10 @@ export const TariffPlansInfo: FC = () => {
     <>
       <InitPageHeader />
 
+      <div className={styles.courseHubTitle}>
+        Тарифные планы для обучения Course Hub
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 1000 }}
         animate={{ opacity: 1, y: 0 }}
@@ -75,11 +79,11 @@ export const TariffPlansInfo: FC = () => {
                 gutterBottom
                 variant="h5"
                 sx={{ width: '100%', textAlign: 'center' }}
-                color="#ba75ff"
+//                      color="black"
                 component="div"
               >
                 <p className={styles.TariffPlansPage_header} style={{ fontSize: '1.5rem' }}>
-                  Тарифные планы
+                  Тарифные планы для обучения Course Hub
                 </p>
               </Typography>
 
