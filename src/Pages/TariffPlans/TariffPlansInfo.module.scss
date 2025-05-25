@@ -575,3 +575,20 @@
   color: #000;
   margin: 20px 0;
 }
+
+
+.savingsBlock {
+  width: 565px;
+  height: 64px;
+  border-radius: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px; /* сверху и снизу 0, слева и справа 24px */
+  background: linear-gradient(90deg, #CFE2FF 0%, #BBCEEB 100%);
+  color: #000; /* цвет текста можно подстроить */
+  font-weight: 600;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
