@@ -42,6 +42,7 @@ export enum Path {
   HelpChat = 'chat/',
   Appeals = 'school-appeals/',
   Meetings = 'meetings/',
+  WebinarPage = '/webinar/:slug/',
   Materials = 'materials/',
   CourseMaterials = 'create-course/:course_id/materials/',
   Rating = 'rating/',
