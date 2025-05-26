@@ -55,6 +55,8 @@ export const TariffPlansInfo: FC = () => {
     <>
       <InitPageHeader />
 
+      <div className={styles.courseHubTitle}>Тарифные планы для обучения Course Hub</div>
+
       <motion.div
         initial={{ opacity: 0, y: 1000 }}
         animate={{ opacity: 1, y: 0 }}
@@ -75,17 +77,30 @@ export const TariffPlansInfo: FC = () => {
                 gutterBottom
                 variant="h5"
                 sx={{ width: '100%', textAlign: 'center' }}
-                color="#ba75ff"
                 component="div"
               >
                 <p className={styles.TariffPlansPage_header} style={{ fontSize: '1.5rem' }}>
-                  Тарифные планы
+                  Тарифные планы для обучения Course Hub
                 </p>
               </Typography>
 
+              {/* Блок с надписями — выводится только один раз под заголовком */}
+              <div className={styles.savingsBlock}>
+                <span>Ежемесячно</span>
+                <span>Годовая</span>
+                <span>Экономия 20%</span>
+              </div>
+
               <div className={styles.TariffPlansPage_plansBlock_cardGroup}>
                 {tariffPlanTable.map((plan, index) => (
-                  <div className={styles.TariffPlansPage_plansBlock_cardGroup_card} key={index}>
+                  <div
+                    className={styles.TariffPlansPage_plansBlock_cardGroup_card}
+                    key={index}
+                    onClick={() => {
+                      setSelected(plan)
+                      openModal()
+                    }}
+                  >
                     <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
                       <h3>{plan.name}</h3>
                       <hr />
@@ -118,7 +133,9 @@ export const TariffPlansInfo: FC = () => {
                         <li>
                           Цена в RUB:{' '}
                           <span>
-                            {plan.price_rf_rub !== 0 ? `${plan.price_rf_rub} рублей/мес.` : 'бесплатно'}
+                            {plan.price_rf_rub !== 0
+                              ? `${plan.price_rf_rub} рублей/мес.`
+                              : 'бесплатно'}
                           </span>
                         </li>
                       </ul>
@@ -183,7 +200,9 @@ export const TariffPlansInfo: FC = () => {
             <div className={styles.TariffPlansPage_banner}>
               <div className={styles.TariffPlansPage_banner_createProject}>
                 <h1>Создайте свой проект на OVERSCHOOL прямо сейчас!</h1>
-                <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
+                <p>
+                  Попробуйте весь функционал в процессе использования и познайте, насколько он удобен
+                </p>
                 <div className={styles.main_btn}>
                   <Button
                     onClick={handleLoginPage}

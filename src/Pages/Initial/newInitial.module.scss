@@ -75,25 +75,27 @@ li {
   height: 100%;
   font-family: 'Manrope', sans-serif;
 
-  &_header {
-    @media only screen and (min-width: 1400px) {
-      width: auto;
-      max-width: 100vw;
-      height: 80px;
-      border: 3px solid #357eeb;
-      border-radius: 30px;
-      background: #cfe2ff;
-      gap: 18px;
-      box-shadow: 0px -2px 4px 0px #357eeb, 0px 2px 4px 0px #357eeb;
-      @include display(flex, row, center, center);
-      padding: 0px 162px 0px 162px;
-  position: fixed;
-z-index: 99;
+&_header {
+  @media only screen and (min-width: 1400px) {
+    width: 1280px;
+    max-width: 100vw;
+    height: 80px;
+    border: 3px solid #357eeb;
+    border-radius: 30px;
+    background: #cfe2ff;
+    gap: 18px;
+    box-shadow: 0px -2px 4px 0px #357eeb, 0px 2px 4px 0px #357eeb;
+    @include display(flex, row, center, center);
+    padding: 0px 162px 0px 162px;
+    position: fixed;
+    z-index: 99;
 
-// Центрирование по горизонтали
-left: 50%;
-transform: translateX(-50%);
+    // Центрирование по горизонтали
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
+
 
 @media only screen and (min-width: 490px) and (max-width: 1400px) {
   width: auto;
@@ -1749,3 +1751,4 @@ transform: translateX(-50%);
     }
   }
 }
+
