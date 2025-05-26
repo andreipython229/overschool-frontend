@@ -199,3 +199,6 @@ export const TariffPlansInfo: FC = () => {
     </>
   )
 }
+
+
+
