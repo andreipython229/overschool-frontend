@@ -62,7 +62,6 @@ export const Header = memo(() => {
   const { role: userRole, userId, authState } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const chats = useAppSelector(state => state.chats.chats)
-  console.log(authState)
 
   const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
   const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(true)
@@ -340,28 +339,28 @@ export const Header = memo(() => {
   }, [unreadAppeals])
 
   // Удаляем AVATAR
-  const omitAvatar = (sender: SenderI): SenderI => {
-    const { avatar, ...rest } = sender
-    return rest
-  }
+  // const omitAvatar = (sender: SenderI): SenderI => {
+  //   const { avatar, ...rest } = sender
+  //   return rest
+  // }
   // Проходимся по всем чатас и у каждого сендера удаляем аватарку
-  const processChats = (chats: ChatI[]): ChatI[] => {
-    return chats.map(chat => ({
-      ...chat,
-      senders: chat.senders.map(omitAvatar),
-    }))
-  }
+  // const processChats = (chats: ChatI[]): ChatI[] => {
+  //   return chats.map(chat => ({
+  //     ...chat,
+  //     senders: chat.senders.map(omitAvatar),
+  //   }))
+  // }
 
-  useEffect(() => {
-    if (chats && fetchedChats) {
-      const chatsWithoutAvatar = processChats(chats)
-      const fetchedChatsWithoutAvatar = processChats(fetchedChats)
-      const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
-      if (!checkChatsDifferent) {
-        dispatch(setChats(fetchedChats))
-      }
-    }
-  }, [chats, fetchedChats])
+  // useEffect(() => {
+  //   if (chats && fetchedChats) {
+  //     const chatsWithoutAvatar = processChats(chats)
+  //     const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+  //     const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+  //     if (!checkChatsDifferent) {
+  //       dispatch(setChats(fetchedChats))
+  //     }
+  //   }
+  // }, [chats, fetchedChats])
   // **************************************************************
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
