@@ -139,22 +139,25 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
   }
 
   const handleCompleteTest = () => {
-    onCompleteTest()
-    setUserPercent(percentage())
+    setUserPercent(percentage());
+
     const testResults = {
       success_percent: percentage(),
       test: test as number,
       user: user,
-    }
+    };
+
     sendTestResults({ body: testResults, schoolName })
       .unwrap()
       .then(() => {
-        setShowResult(true)
+        setShowResult(true); // Сначала показать результат
+        onCompleteTest();    // Потом завершить тест
       })
       .catch((error: { data: any }) => {
-        console.log(error.data)
-      })
-  }
+        console.log(error.data);
+      });
+  };
+
 
   useEffect(() => {
     if (timer && timer <= 0) {
@@ -254,7 +257,7 @@ export const StudentQuestion: FC<StudentQuestionT> = ({
             )}
           </div>
           <div className={styles.questionBlock_question_timer}>
-            <p>Осталось {convertSecondsToTime(String(timer))}</p>
+            {typeof timer === 'number' && !isNaN(timer) && timer > 0 && (<p>Осталось {convertSecondsToTime(String(timer))}</p>)}
             <h2>
               Вопросы {numberTest} из {questionLength}
             </h2>
