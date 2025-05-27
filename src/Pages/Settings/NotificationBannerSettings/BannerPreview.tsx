@@ -39,7 +39,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
-  const [showCount, setShowCount] = useState<number>(1) // !!!! ДОБАВИТЬ ИЗ АПИ ЗНАЧЕНИЕ В СТЕЙТ + ПРОКИНУТЬ В ЗАПРОС НА ОБНОВЛЕНИЕ !!!
+  const [showCount, setShowCount] = useState<number>(banner.clicks_to_accept)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
   const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
 
@@ -70,6 +70,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
       formdata.append('link', link)
+      formdata.append('clicks_to_accept', String(showCount))
       await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
         .unwrap()
         .then(() => {
