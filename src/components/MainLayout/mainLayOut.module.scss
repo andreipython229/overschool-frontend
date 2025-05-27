@@ -17,15 +17,15 @@
   overflow: hidden;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    padding: 1%;
+    padding: 55px 1%;
     width: 100vw;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    padding: 1%;
+    padding: 55px 1%;
     width: 100vw;
   }
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    height: 100%;
+    padding: 55px 1%;
     padding: 36px 16px;
   }
 }
