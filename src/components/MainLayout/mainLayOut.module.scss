@@ -37,10 +37,9 @@
   width: 100%;
   padding-top: calc(2rem + 80px);
 
-  @media screen and (max-width: 1023px),
-          screen and (max-aspect-ratio: 1/1) {
-            max-width: 100%;
-          }
+  @media screen and (max-width: 1023px), screen and (max-aspect-ratio: 1/1) {
+    max-width: 100%;
+  }
 }
 
 .main {
@@ -75,9 +74,11 @@
 }
 
 .mobileFooter {
-  height: 80px;
+  height: 60px;
   width: 100%;
-  background: #ffffff;
+  background-color: rgba(124, 124, 124, 0.352);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(48px);
   position: fixed;
   bottom: 0;
   left: 0;

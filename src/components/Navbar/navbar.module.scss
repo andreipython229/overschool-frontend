@@ -136,6 +136,13 @@
     gap: 0.8vh;
     transition-duration: $trans-dur02;
 
+    @media screen and (max-width: 480px) {
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
     &_mob_empty {
       display: none;
       height: 100px;
@@ -194,10 +201,18 @@
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
     }
 
@@ -440,6 +455,7 @@
       @include display(flex, row, space-between, center);
       height: 100%;
       gap: 0;
+      padding: 0 1rem;
 
       &_mob_empty {
         display: block;
