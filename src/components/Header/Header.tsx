@@ -64,7 +64,7 @@ export const Header = memo(() => {
   const chats = useAppSelector(state => state.chats.chats)
 
   const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
-  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(true)
+  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
   const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
@@ -457,7 +457,7 @@ export const Header = memo(() => {
         duration: 0.5,
       }}
     >
-      {banner && (
+      {banner && !Array.isArray(banner) && (
         <Dialog open={showBanner} onClose={closeBanner} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
           <DialogTitle sx={{ minWidth: 600 }} id="alert-dialog-title">
             {banner.title}

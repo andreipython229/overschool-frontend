@@ -101,7 +101,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         <div className={styles.wrapper_content}>
           <span>{isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}</span>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <CheckboxBall toggleChecked={toggleBanner} isChecked={isActive} />
+            <CheckboxBall toggleChecked={isEditing ? toggleActive : toggleBanner} isChecked={isActive} />
             <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
           </div>
           {!isEditing ? (
