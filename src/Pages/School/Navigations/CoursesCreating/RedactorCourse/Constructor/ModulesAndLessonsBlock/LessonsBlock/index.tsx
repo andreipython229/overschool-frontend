@@ -8,7 +8,7 @@ import { lessonSvgMapper } from 'config'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'
-import { Reorder, useDragControls, motion, isDragActive } from 'framer-motion'
+import { Reorder, useDragControls, motion, isDragActive, useMotionValue } from 'framer-motion'
 import { deleteHoverIconPath, deleteOpenEyeIconPath, eyeCloseIconPath, eyeOpenIconPath } from './config'
 import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
 import { animateVisibility } from './constants/animationConstants'
@@ -18,15 +18,18 @@ import { Portal } from 'components/Modal/Portal'
 import { useAppSelector } from 'store/hooks'
 import { schoolSelector } from 'selectors'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
+import { useRaisedShadow } from './config/raisedShadow'
 
 export const LessonsBlock: FC<LessonsBlockT> = memo(
   ({ setLessonIdAndType, setFocusOnLesson, type, id, lesson, selected, onPush, onOpenModalLesson, sectionId, setInsertAfterOrder }) => {
     const [deleteLesson, { isLoading }] = useDeleteLessonsMutation()
+    const y = useMotionValue(0)
+    const boxShadow = useRaisedShadow(y)
     const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
-    const controls = useDragControls()
     const { schoolName } = useAppSelector(schoolSelector)
     const [isOpenEye, setIsOpenEye] = useState<boolean>(false)
     const [changePublish] = usePatchLessonsMutation()
+    const controls = useDragControls()
 
     useEffect(() => {
       if (lesson) {
@@ -45,6 +48,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
 
     const onPointerDown = (event: PointerEvent<SVGSVGElement | SVGPathElement>) => {
       controls.start(event)
+      // handleChangeLesson()
     }
 
     const handleEyeLesson = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -64,23 +68,31 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
     }
 
     return (
-      <motion.div animate="initial" whileHover="animate" className={`${styles.heightTransition} ${stylesModules.btnWrapper}`}>
-        <Reorder.Item
-          dragControls={controls}
-          dragListener={false}
-          draggable={false}
-          key={lesson.baselesson_ptr_id}
-          value={lesson}
+      <Reorder.Item
+        dragListener={false}
+        dragControls={controls}
+        key={lesson.baselesson_ptr_id}
+        id={lesson.name}
+        value={lesson}
+        draggable={false}
+        style={{ boxShadow, y, marginBottom: '10px' }}
+        whileDrag={{ scale: 1 }}
+        className={` ${styles.heightTransition} ${stylesModules.btnWrapper}`}
+        initial="initial"
+        animate="initial"
+        whileHover="animate"
+      >
+        <motion.div
+          // animate="initial"
+          // whileHover="animate"
           onClick={handleChangeLesson}
           className={
             !isOpenEye
               ? `${styles.redactorCourse_leftSide_desc_lessonWrapper} ${selected ? styles.selectedLesson : ''}`
-              : `${styles.redactorCourse_leftSide_desc_lessonWrapper} ${selected ? styles.selectedLesson : ''} ${styles.openEye}`
+              : `${styles.redactorCourse_leftSide_desc_lessonWrapper} ${selected ? styles.selectedLesson : ''} ${
+                  styles.openEye
+                }`
           }
-          whileDrag={{
-            boxShadow: 'rgba(0,0,0, 0.12) 0px 1px 3px, rgba(0,0,0, 0.24) 0px 1px 2px',
-            borderRadius: '7px',
-          }}
         >
           {showModal && (
             <Portal closeModal={close}>
@@ -175,11 +187,11 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
               </button>
             </div>
           )}
-        </Reorder.Item>
+        </motion.div>
         {!isDragActive() ? (
           <motion.button
             className={styles.btn}
-            transition={{ duration: 0.4, ease: 'easeOut' }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
             variants={animateVisibility}
             onClick={() => {
               setInsertAfterOrder(lesson.order)
@@ -189,7 +201,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
             {'+ Добавить новый урок'}
           </motion.button>
         ) : null}
-      </motion.div>
+      </Reorder.Item>
     )
   },
 )

@@ -59,6 +59,27 @@
     }
     // overflow: hidden;
     // transition: height 0.3s ease;
+
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    &_button {
+      padding: 5px 10px;
+      font-size: 12px;
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #e5e5e5;
+      }
+    }
   }
 
   &_content {
@@ -137,4 +158,106 @@
 
 .accardion_content:hover {
     scrollbar-color: #ba75ff #e0dced80;
+}
+
+.accardion_module_checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &_label {
+    margin-left: 8px;
+    font-size: 16px;
+    color: #4d5766;
+    font-weight: 500;
+    user-select: none;
+  }
+}
+
+.access_settings {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.timer_settings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timer_label {
+  font-size: 16px;
+  color: #4d5766;
+  font-weight: 500;
+}
+
+.time_input {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  &_group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    input {
+      width: 60px;
+      padding: 4px 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+
+      &:focus {
+        outline: none;
+        border-color: #ba75ff;
+      }
+    }
+
+    span {
+      font-size: 14px;
+      color: #4d5766;
+    }
+  }
+}
+
+.info_icon_wrapper {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  cursor: help;
+  position: relative;
+
+  &:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: -500px;
+    bottom: 100%;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    background-color: #2E4454;
+    color: white;
+    font-size: 12px;
+    border-radius: 8px;
+    z-index: 1000;
+    width: 500px;
+    text-align: left;
+    white-space: normal;
+    line-height: 1.4;
+    word-wrap: break-word;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.info_icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
 }

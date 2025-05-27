@@ -193,7 +193,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             </div>
           )}
         </div>
-        {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} />}</Portal>}
+        {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} headerText={headerText}/>}</Portal>}
         {isSettingsOpen && (
               <Portal closeModal={isSettingsOff}>
                 <SettingStudentTable setShowModal={onToggle} tableId={tableId} />

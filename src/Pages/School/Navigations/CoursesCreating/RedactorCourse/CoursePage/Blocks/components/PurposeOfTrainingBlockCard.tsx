@@ -103,20 +103,26 @@ export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onD
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapper_imageBox} onClick={handleImageChange}>
-        <Avatar
+        {/* <Avatar
           alt="Overschool"
           src={cardImage}
-          sx={{width: 125, height: 125}}
+          sx={{width: 100, height: 100}}
+        /> */}
+        <img 
+          src={cardImage}
+          alt={cardImage}
+          width={100}
+          height={100}
         />
         {imgError && <p className={styles.wrapper_imageBox_error}>{imgError}</p>}
       </div>
-      <div className={styles.wrapper_title}>
+      {/* <div className={styles.wrapper_title}>
         <TextareaAutosize
           value={titleValue}
           onChange={handleChangeTitle}
           placeholder="Заголовок карточки"
         />
-      </div>
+      </div> */}
       <div className={styles.wrapper_description}>
         <TextareaAutosize
           value={descriptionValue}

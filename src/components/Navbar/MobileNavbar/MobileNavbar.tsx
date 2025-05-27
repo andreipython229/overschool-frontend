@@ -78,27 +78,25 @@ export const MobileNavbar: FC = memo(() => {
   return (
     <>
       <div className={styles.navbar_setting_account}>
-        {userRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
-          <div style={{ marginTop: '35px' }}>
+        {userRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() && (
+          <div>
             <Tooltip title={`Акции/бонусы. ${studentBonus.text}`} arrow placement={'right'} key={'bonus'}>
-              <a key={'bonus'} href={studentBonus.link}>
+              <a key={'bonus'} href={studentBonus.link} style={{ height: '60px', width: '55px' }}>
                 {studentBonus.logo ? (
-                  <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
-                    <img width={42} height={40} src={studentBonus.logo} alt="Logo" />
+                  <div className={styles.navbar_menu} style={{ fontSize: '3.5em', width: '20px', height: '20px', padding: '5px 0' }}>
+                    <img width={20} height={20} src={studentBonus.logo} alt="Logo" />
                   </div>
                 ) : (
-                  <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
+                  <SvgIcon className={styles.navbar_menu} style={{ fontSize: '3.5em', width: '20px', height: '20px', padding: 0 }}>
                     <RedeemIcon />
                   </SvgIcon>
                 )}
-                <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
+                <div style={{ fontSize: '10px', textAlign: 'center' }}>
                   <Timer targetDate={new Date(studentBonus.expire_date)} target="bonus" />
                 </div>
               </a>
             </Tooltip>
           </div>
-        ) : (
-          <></>
         )}
         {userRole !== 0 &&
           navlinkByRoles[userRole].map(({ path, icon }, index: number) =>
@@ -127,10 +125,10 @@ export const MobileNavbar: FC = memo(() => {
                   <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
                     {Number(unRead) > 0 ? (
                       <Badge badgeContent={unRead} color="error">
-                        <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                        <IconSvg width={32} height={32} viewBoxSize="0 0 50 50" path={chatIconPath} />
                       </Badge>
                     ) : (
-                      <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                      <IconSvg width={32} height={32} viewBoxSize="0 0 50 50" path={chatIconPath} />
                     )}
                   </div>
                 </Tooltip>
@@ -145,7 +143,7 @@ export const MobileNavbar: FC = memo(() => {
                 className={styles.navbar_menu}
                 viewBox={'0 0 508 508'}
                 xmlSpace="preserve"
-                style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em', marginBottom: '-0.5rem' }}
+                style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em', marginBottom: '-0.5rem', width: '32px', height: '32px' }}
               >
                 <circle style={{ fill: '#54C0EB' }} cx="254" cy="254" r="254" />
                 <path
@@ -172,13 +170,13 @@ export const MobileNavbar: FC = memo(() => {
           <React.Fragment>
             <Tooltip title={'Вернуться к выбору платформы'}>
               <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool}>
-                <SvgIcon className={styles.navbar_exit} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}>
+                <SvgIcon className={styles.navbar_exit} style={{ fontSize: '3.5em' }}>
                   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                 </SvgIcon>
               </NavLink>
             </Tooltip>
             <Tooltip title={'Выйти из профиля'} className={styles.navbar_exit}>
-              <IconSvg width={38} height={28} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+              <IconSvg width={32} height={32} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
             </Tooltip>
           </React.Fragment>
         ) : (
@@ -188,11 +186,11 @@ export const MobileNavbar: FC = memo(() => {
                 <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="40"
-                    height="40"
+                    width="32"
+                    height="32"
                     viewBox="0 0 24 24"
                     fill="none"
-                    stroke="#e0dced"
+                    stroke="#111"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"

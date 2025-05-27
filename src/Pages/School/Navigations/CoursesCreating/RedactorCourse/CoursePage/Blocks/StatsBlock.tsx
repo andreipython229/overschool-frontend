@@ -25,7 +25,7 @@ export const StatsBlock:FC<StatsBlockT> = () => {
         </div>
         <div className={styles.courseStats_stat}>
           <div className={styles.courseStats_stat_all}>
-          <IconSvg width={48} height={48} path={PeopleIconPath} />
+            <IconSvg width={48} height={48} path={PeopleIconPath} />
             <div className={styles.courseStats_stat_all_text}>
               <span>Учеников:</span>
               <span>100+</span>

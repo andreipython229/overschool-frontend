@@ -1,7 +1,7 @@
-import { Pagination, EffectCoverflow, Navigation } from 'swiper/modules'
+import { Pagination, EffectCoverflow, Navigation, Autoplay } from 'swiper/modules'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-
+import { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
@@ -17,56 +17,84 @@ import { Portal } from 'components/Modal/Portal'
 import { useBoolean } from 'customHooks'
 import { AnimatePresence } from 'framer-motion'
 import { addFeedbackIconPath } from './config/svgIconPath'
+import { addIconPath, arrowLeftNewIconPath, arrowRightNewIconPath } from 'config/commonSvgIconsPath'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 export const Slider = () => {
   const { data } = useFetchFeedbacksQuery()
   const [showModal, { on: close, off: open, onToggle: setShow }] = useBoolean()
   const paginationRef = useRef<HTMLDivElement | null>(null)
 
+  const swiperRef = useRef<SwiperType | null>(null)
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  const goToSlide = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(index)
+    }
+  }
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveSlide(swiper.activeIndex)
+  }
   if (!data) {
     return <></>
   }
 
   return (
     <>
+      <div className={styles.init_main_feedback_header}>
+        <p className={styles.init_main_header}>Что говорят пользователи Course Hub</p>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+          <div
+            className={styles.init_container_box}
+            style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}
+            onClick={ () => console.log('Click ignored') }
+          >
+            <div className={styles.init_container_box_leave} style={{ background: '#cfe2ff', color: '#357eeb' }}>
+              <p>Читать все отзывы</p>
+            </div>
+          </div>
+          <div
+            className={styles.init_container_box}
+            style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}
+            onClick={open}
+          >
+            <div className={styles.init_container_box_leave}>
+              <IconSvg width={16} height={16} viewBoxSize="0 0 17 16" path={addIconPath} />
+              <p>Написать отзыв</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
+        slidesPerView={'auto'}
+        spaceBetween={15}
         centeredSlides={true}
-        slidesPerView={data.length > 1 ? 3 : 1}
-        spaceBetween={30}
-        centerInsufficientSlides
-        loop={true}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: -25,
-          depth: 100,
-          modifier: 2,
-          slideShadows: false,
+        autoplay={{
+          delay: 2500, //2500
+          disableOnInteraction: false,
         }}
         pagination={{
-          el: paginationRef.current,
-          clickable: true,
+          clickable: true, el: `.${styles.swiperPagination}`,
         }}
-        navigation={{
-          prevEl: '.button_prev',
-          nextEl: '.button_next',
+        modules={[Autoplay, Pagination]}
+        className={styles.swiper}
+        onInit={(swiper: any) => {
+          swiperRef.current = swiper
         }}
-        modules={[EffectCoverflow, Pagination, Navigation]}
-        className="mySwiper"
+        onSlideChange={handleSlideChange}
       >
         {data &&
           data?.map(({ id, name, surname, avatar, position, content, rating, created_at }) => {
             return (
-              <SwiperSlide key={id}>
+              <SwiperSlide key={id} style={{ width: 'clamp(343px, 90vw, 400px)' }}>
                 {({ isActive }) => (
                   <div className={isActive ? styles.init_container : `${styles.init_container} ${styles.inactive}`}>
                     <div className={styles.init_container_box}>
                       <div className={styles.init_container_box_photo}>
-                        <img style={{ opacity: 0 }} src={avatar} alt="avatar" />
+                        <img src={avatar} alt="avatar" />
                       </div>
                       <div className={styles.init_container_box_info}>
                         <p className={styles.init_container_box_info_name}>
@@ -75,7 +103,7 @@ export const Slider = () => {
                         <p className={styles.init_container_box_info_position}>{position}</p>
                       </div>
                       <div className={styles.init_container_box_rev}>
-                        <p>{content}</p>
+                        <p className={styles.init_container_box_rev_content}>{content}</p>
                         <div className={styles.init_container_box_rev_block}>
                           <p className={styles.init_container_box_rev_block_date}>
                             {`${(new Date(created_at).getDate() < 10 ? '0' : '') + new Date(created_at).getDate()}.${
@@ -91,16 +119,6 @@ export const Slider = () => {
               </SwiperSlide>
             )
           })}
-        {data ? (
-          <SwiperSlide className={styles.init_containerLeave} onClick={open}>
-            <div className={styles.init_container_box}>
-              <div className={styles.init_container_box_leave}>
-                <IconSvg width={54} height={54} viewBoxSize="0 0 54 54" path={addFeedbackIconPath} />
-                <p>Написать отзыв</p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ) : null}
         <AnimatePresence>
           {showModal && (
             <Portal closeModal={close}>
@@ -109,20 +127,14 @@ export const Slider = () => {
           )}
         </AnimatePresence>
       </Swiper>
-      <div className={styles.buttons_nav}>
-        <div className="button_prev">
-          <div className={styles.buttons_nav_btn}>
-            <ArrowBackIosNewIcon />
+      <div className={styles.pagination}>
+          <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_prevBtn}`} onClick={() => swiperRef.current?.slidePrev()}>
+            <IconSvg path={arrowLeftNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
           </div>
-        </div>
-        <div className={styles.pagination}>
-          <div ref={paginationRef}></div>
-        </div>
-        <div className="button_next">
-          <div className={styles.buttons_nav_btn}>
-            <ArrowForwardIosIcon />
+          <div className={styles.swiperPagination}></div>
+          <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_nextBtn}`} onClick={() => swiperRef.current?.slideNext()}>
+            <IconSvg path={arrowRightNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
           </div>
-        </div>
       </div>
     </>
   )

@@ -10,44 +10,20 @@ import { headerUserRoleName } from '../../../config'
 import { selectUser } from '../../../selectors'
 import { Button } from '../../../components/common/Button/Button'
 import { Input } from 'components/common/Input/Input/Input'
+import { useMediaQuery } from '@mui/material'
 
 type chatPanelT = {
   chats?: Chats
 }
 
 export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
-  // const [currentUserData, setCurrentUserData] = useState<SenderI>()
   const dispatch = useAppDispatch()
   const { role } = useAppSelector(selectUser)
   const { userId } = useAppSelector(state => state.user)
   const { userProfile } = useAppSelector(state => state.userProfile)
   const { chatId } = useAppSelector(state => state.chat)
   const [chatSearch, setChatSearch] = useState<string>('')
-  //
-  // useEffect(() => {
-  //   if (chats) {
-  //     // const currentUser = chats[0]?.senders.find(sender => sender.id === userId)
-  //     setCurrentUserData(undefined)
-  //   }
-  // }, [chats])
-
-  const mobile = window.screen.width < 1024
-
-  // useEffect(() => {
-  //     return () => {
-  //       if (chatId) {
-  //           dispatch(removeChat());
-  //       }
-  //     }
-  // }, [])
-
-  // useEffect(() => {
-  //     console.log("chat list chatId = ", chatId)
-  // }, [chatId]);
-  //
-  // useEffect(() => {
-  //     console.log("chat panel = ", chats)
-  // }, [chats]);
+  const mobile = useMediaQuery('(max-width: 1024px)')
 
   return mobile && chatId ? null : (
     <div className={styles.chatPanel}>
@@ -60,20 +36,6 @@ export const ChatPanel: FC<chatPanelT> = ({ chats }) => {
           type="search"
           placeholder="Поиск..."
         />
-
-        {/* <div className={styles.chatPanel_user}>
-          <div className={styles.chatPanel_user_avatar}>
-            {userProfile?.avatar ? (
-              <img src={`${userProfile.avatar}`} alt="avatar" />
-            ) : (
-              `${userProfile?.first_name[0] || 'Б'}${userProfile?.last_name[0] || 'И'}`
-            )}
-          </div>
-          <div>
-            <div className={styles.chatPanel_user_avatar_userName_status}>{headerUserRoleName[role]}</div>
-            <p>{!userProfile?.first_name && !userProfile?.last_name ? 'Без Имени' : `${userProfile?.last_name} ${userProfile?.first_name}`}</p>
-          </div>
-        </div> */}
       </div>
       <ChatsList chats={chats} />
     </div>

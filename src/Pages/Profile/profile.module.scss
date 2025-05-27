@@ -1,5 +1,6 @@
 @import 'src/scss/variable';
 @import '../../scss/mixin.scss';
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
 
 .profile {
   position: relative;
@@ -47,12 +48,16 @@
   }
 
   &_title {
-    font-weight: bold;
-    font-size: 25px;
-    line-height: 19px;
-    letter-spacing: -0.02em;
-    margin-bottom: 10px;
-    color: #111111;
+    font-family: SF Pro Display;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: rgba(0, 0, 0, 1);
+    margin-left: 30px;
+    margin-top: 40px;
+
   }
 
   &_block_title {
@@ -68,20 +73,94 @@
     margin-bottom: 16px;
   }
   &_block_btn {
-    font-weight: 600;
-    font-size: 11px;
-    line-height: 13px;
-    min-width: 90px;
-    letter-spacing: 0.05em;
-    color: #fdfcff;
-    padding: 11px 14px;
-    border-radius: 7px;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
+    width: 179px;
+    height: 54px;
+    gap: 10px;
+    border-radius: 10px;
+    padding-top: 16px;
+    padding-right: 40px;
+    padding-bottom: 16px;
+    padding-left: 40px;
+
+  }
+
+  &_table {
+    margin-left: 30px;
+
+    td{
+      width: 70px;
+
+      tr{
+        height: 34px;
+        display: flex;
+        align-items: center;
+
+        span{
+          margin-left: 20px;
+          font-family: SF Pro Display;
+          font-size: 24px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          vertical-align:bottom;
+        }
+      }
+    }
   }
 
   &_block {
     margin-bottom: 10px;
+
+    &_delete{
+      width: 250px;
+      height: 54px;
+      gap: 10px;
+      border-radius: 10px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      background: rgba(236, 135, 135, 1);
+      border: 2px solid rgba(53, 126, 235, 1);
+      font-family: SF Pro Display;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      text-align: center;
+      vertical-align: middle;
+      color: rgba(51, 47, 54, 1);
+
+      &:hover {
+        background-color: #357eeb !important;
+        color: #fff;
+      }
+    }
+
+    &_title{
+      font-family: SF Pro Display;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      vertical-align: middle;
+      color: rgba(0, 0, 0, 1);
+      margin-left: 30px;
+      margin-top: 15px;
+    }
+
+    div{
+      border: none;
+
+      label{
+        font-family: SF Pro Display;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        vertical-align: middle;
+        color: rgba(0, 0, 0, 1);
+        margin-bottom: 10px;
+        margin-left: 50px;
+      }
+    }
 
     &_select {
       -webkit-appearance: none;
@@ -237,26 +316,35 @@
 
 .container_notification_toggle {
   max-width: 100%;
-  padding: 10px 10px;
   background-color: #ffffff;
-  border-radius: 10px;
+  border: 1px solid;
+  border-radius: 16px;
+  border-image-source: linear-gradient(0deg, #FFFAFA 0%, #808080 100%);
   transition: background 2s;
+  height: 72px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
 
-}
+  h5{
+    font-family: SF Pro Display;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    }
+  }
 
 .container_notification_toggle[data-isOn='true'] {
-  justify-content: flex-end;
+  justify-content: center;
   background-color: #357EEB;
 }
 
-
-
-
 .container {
-  max-width: 100%;
-  padding: 15px 44px;
+  width: 100%;
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 16px;
   box-shadow: $box-shadow;
   margin-bottom: 15px;
   margin-top: 15px;
@@ -270,6 +358,8 @@
       border-radius: 5px;
       @include font(600, 10px, 0);
     }
+
+
   }
   &_error {
     margin-top: 10px;
@@ -281,13 +371,10 @@
     margin-top: 16px;
     //margin-right: 48px;
 
-  }
-  & input::placeholder {
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 13px;
-    letter-spacing: 0.05em;
-    color: #d2d7dc;
+    Button{
+      margin-left: 25px;
+      margin-bottom: 15px;
+    }
   }
 }
 

@@ -10,13 +10,15 @@ import { useFetchSchoolHeaderQuery } from '../api/schoolHeaderService'
 import { Path } from '../enum/pathE'
 
 import styles from '../components/MainLayout/mainLayOut.module.scss'
-import MobileChatGPT from '../components/ChatGPT'
+// import MobileChatGPT from '../components/ChatGPT'
 import { useBoolean as useBooleanHook } from '../customHooks'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
+import { FooterMobile } from 'components/Footer/index_mobile'
 import { Footer } from 'components/Footer'
-import { MobileHeaderАuthorized } from "../Pages/Initial/MobileHeaderАuthorized/MobileHeaderАuthorized";
+import { MobileHeaderAdmin } from '../Pages/Initial/MobileHeaderAdmin/MobileHeaderAdmin'
 
 import { motion } from 'framer-motion'
+import ChatGPT from '../components/ChatGPT'
 
 export const MobileLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -28,6 +30,7 @@ export const MobileLayOut: FC = memo(() => {
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const [getGroups, { data: allGroups }] = useLazyFetchStudentsGroupQuery()
   const [showChat, setShowChat] = useState<boolean>(false)
+  const [showOverAI, setShowOverAI] = useState<boolean>(false)
   const [overaiLockExists, setOveraiLockExists] = useState(false)
   const [toggle, handlers] = useBooleanHook()
   const [currentTariff, setCurrentTariff] = useState<any | null>(null)
@@ -88,12 +91,11 @@ export const MobileLayOut: FC = memo(() => {
       <main className={styles.main}>
         <Previous />
         <Outlet />
-        <MobileHeaderАuthorized />
+        <MobileHeaderAdmin />
       </main>
 
-      {/* <MobileChatGPT openChatModal={handlers.onToggle} closeChatModal={handlers.off} /> */}
-
-      <Footer schoolTariffPlan={updateTariff} />
+      {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} setIsDialogOpen={setShowOverAI} />}
+      <FooterMobile schoolTariffPlan={updateTariff} />
       <nav className={styles.mobileFooter}>
         <MobileNavbar />
       </nav>

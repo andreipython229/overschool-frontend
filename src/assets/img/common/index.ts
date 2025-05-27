@@ -1,3 +1,4 @@
+import yandex from './yandex.svg'
 import arrowUp from './arrow-up.svg'
 import arrowDown from './arrowDown.svg'
 import avatar from './avatar.svg'
@@ -31,14 +32,18 @@ import mailfooter from './mailfooter.png'
 import locationfooter from './locationfooter.png'
 import removebg from './removebg.png'
 import analytics from './analytics.png'
+import analytics_new from './analytics_new.png'
+import chat_new from './chat_new.png'
+import constructor_new from './constructor_new.png'
 import chatst from './chatst.png'
 import dateInf from './dateInf.png'
 import logoHeaderLogin from './logoHeaderLogin.png'
 import facebook from './Facebook.png'
-import google from './Google.png'
+import google from './Google.svg'
 import maillog from './Mail.png'
 import leftArrow from './left-arrow.png'
 import constructor from './construktor.png'
+import constructor_desk from './constructor_desc.png'
 import hat from './hat.png'
 import cam from './cam.png'
 import ok from './ok.png'
@@ -46,6 +51,9 @@ import chat from './chat.png'
 import result from './result.png'
 import mobile from './mobile.png'
 import comp from './comp.png'
+import comp_new from './comp_new.png'
+import comp_new_desktop from './comp_new_desctop.png'
+import android from './android.png'
 import zimer from '../systemLogo/zapier.png'
 import amocmr from '../systemLogo/amocmr.png'
 import bitriks from '../systemLogo/bitriks.png'
@@ -59,14 +67,20 @@ import zoom from '../systemLogo/zoom.png'
 import kassa from '../systemLogo/kassa.png'
 import metrika from '../systemLogo/metrika.png'
 import rocketfree from './rocketfree.png'
+import rocket from './rocket.png'
+import rocket_new from './rocket_new.png'
+import appstore from './Appstore.png'
 import line from './line.png'
 import record from './record.png'
+import record_new from './record_new.png'
+import record_new_desktop from './record_new_desk.png'
 import admin from './Admin.png'
 import admin2 from './Admin2.png'
 import teacher from './Teacher.png'
 import teacher2 from './Teacher2.png'
 import student from './Student.png'
 import student2 from './Student2.png'
+import student_nobile_cabinet from './student_nobile_cabinet.png'
 
 import MenuIcon from './menuIcon.png'
 import CloseIcon from './closeIcon.png'
@@ -128,6 +142,9 @@ export {
   result,
   mobile,
   comp,
+  comp_new,
+  comp_new_desktop,
+  student_nobile_cabinet,
   zimer,
   amocmr,
   bitriks,
@@ -141,8 +158,18 @@ export {
   kassa,
   metrika,
   rocketfree,
+  rocket,
+  rocket_new,
+  analytics_new,
+  chat_new,
   line,
   record,
+  record_new,
+  record_new_desktop,
+  constructor_new,
+  constructor_desk,
+  android,
+  appstore,
   admin,
   admin2,
   teacher,
@@ -153,5 +180,6 @@ export {
   MenuIcon,
   CloseIcon,
   Personal,
-  HelpIcon
+  HelpIcon,
+  yandex,
 }

@@ -11,6 +11,7 @@ const initialState: UserT & AuthDateT = {
   authDate: '',
   userId: 0,
   userName: '',
+  email: '',
 }
 
 export const sliceUser = createSlice({
@@ -19,6 +20,9 @@ export const sliceUser = createSlice({
   reducers: {
     authState: (state, action: PayloadAction<{ access: string; refresh: string }>) => {
       state.authState = action.payload
+    },
+    userEmail: (state, action: PayloadAction<string>) => {
+      state.email = action.payload
     },
     auth: (state, action: PayloadAction<boolean>) => {
       state.auth = action.payload
@@ -38,5 +42,5 @@ export const sliceUser = createSlice({
   },
 })
 
-export const { auth, role, id, userName, logoutState, authState } = sliceUser.actions
+export const { auth, role, id, userName, logoutState, authState, userEmail } = sliceUser.actions
 export const authReduce = sliceUser.reducer

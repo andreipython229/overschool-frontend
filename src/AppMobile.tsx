@@ -3,10 +3,7 @@ import { useEffect } from 'react'
 import { Path, Student, FooterPath } from 'enum/pathE'
 import { MobileInitPage } from 'MobilePages/MobileInitPage/MobileInitPage'
 import { MobileLayOut } from './MobilePages/MobileLayOut'
-import { MobileCoursesPage } from 'MobilePages/MobileCoursesPage/MobileCoursesPage'
-import { CourseModules } from 'MobilePages/CourseModules/CourseModules'
 import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
-import { StudentLessonPreview } from './MobilePages/StudentLessonPreview/'
 import { Profile } from 'Pages/Profile/Profile'
 import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import { useAppSelector } from 'store/hooks'
@@ -41,6 +38,7 @@ import { Certificate } from 'Pages/Certificate/Certificate'
 import { CourseCatalogPage } from 'Pages/CourseCatalog'
 import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
 import { LoginPage } from 'Pages/Login/LoginPage'
+import { SocialAuthPage } from 'ServicePages/SocialAuthPage'
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -53,6 +51,7 @@ export const AppMobile = () => {
   useEffect(() => {
     if (
       !isLogin &&
+      pathname !== Path.SocialAuth &&
       pathname !== Path.CreateSchool &&
       pathname.split('/').at(-1) !== 'personalDataTreatmentPolicy' &&
       pathname.split('/').at(-1) !== 'publicOfferAgreement' &&
@@ -139,6 +138,7 @@ export const AppMobile = () => {
           <Route path={Path.HelpDomainLink} element={<HelpDomainLink />} />
         </Route>
         <Route path={Path.LoginPage} element={<LoginPage />} />
+        <Route path={Path.SocialAuth} element={<SocialAuthPage />} />
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
