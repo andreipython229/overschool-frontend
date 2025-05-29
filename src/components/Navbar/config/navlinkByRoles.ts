@@ -15,8 +15,7 @@ export const navlinkByRoles: { [key: number]: navLinkConfigT[] } = {
     { path: Path.Meetings, icon: navlinkIcon[Path.Meetings] },
     { path: Path.CourseStats, icon: navlinkIcon[Path.CourseStats] },
     { path: Path.HomeWork, icon: navlinkIcon[Path.HomeWork] },
-    { path: Path.Settings, icon: navlinkIcon[Path.Settings] },  
-
+    { path: Path.Settings, icon: navlinkIcon[Path.Settings] },
 
     // { path: Path.Courses, icon: navlinkIcon[Path.Courses] },
   ],
@@ -29,10 +28,10 @@ export const navlinkByRoles: { [key: number]: navLinkConfigT[] } = {
 
   [RoleE.SuperAdmin]: [
     { path: Path.Meetings, icon: navlinkIcon[Path.Meetings] },
-      { path: 'doNotPath', icon: navlinkIcon[Path.Chat] },
-      { path: Path.Settings, icon: navlinkIcon[Path.Settings] },
+    { path: 'doNotPath', icon: navlinkIcon[Path.Chat] },
+    { path: Path.Settings, icon: navlinkIcon[Path.Settings] },
   ],
-  
+
   [RoleE.Teacher]: [
     // { path: Path.Courses, icon: navlinkIcon[Path.Courses] },
     { path: Path.Meetings, icon: navlinkIcon[Path.Meetings] },

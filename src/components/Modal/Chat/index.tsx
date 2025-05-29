@@ -1,17 +1,16 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 
 import { ChatPanel } from './ChatPanel'
 import { ChatWorkspace } from './ChatWorkspace'
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { Chats } from 'types/chatsT'
 import { useFetchChatsQuery } from 'api/chatsService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from './chat.module.scss'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { setChats, updateLastMessage, updateUnreadCount } from '../../../store/redux/chats/chatsSlice'
+import { setChats } from '../../../store/redux/chats/chatsSlice'
 import { RootState } from '../../../store/redux/store'
 
 import { motion } from 'framer-motion'
@@ -22,34 +21,17 @@ type chatT = {
 }
 
 export const Chat: FC<chatT> = ({ closeModal }) => {
-  // const [chats, setChats] = useState<Chats>([])
   const { data, isFetching, isSuccess, refetch } = useFetchChatsQuery()
 
   const dispatch = useDispatch()
-  const chats = useSelector((state: RootState) => state.chats.chats)
+  const { chats } = useSelector((state: RootState) => state.chats)
   const { chatId } = useAppSelector(state => state.chat)
-  console.log(chatId)
 
   useEffect(() => {
-    isSuccess && dispatch(setChats(data))
-  }, [isFetching])
-  //
-  // useEffect(() => {
-  //     return () => {
-  //         setChats([]); // очищаем состояние при размонтировании
-  //     };
-  // }, []);
-  //
-  // useEffect(() => {
-  //     if (data && isFetching) {
-  //         dispatch(setChats(data));
-  //         console.log("index = ",data)
-  //     }
-  // }, [data, dispatch])
-  //
-  // useEffect(() => {
-  //     refetch();
-  // }, [])
+    if (data && isSuccess && chats.length === 0) {
+      dispatch(setChats(data))
+    }
+  }, [data, isSuccess])
 
   return (
     <motion.div

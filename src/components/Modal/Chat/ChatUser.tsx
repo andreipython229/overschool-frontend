@@ -61,7 +61,6 @@ export const ChatUser: FC<chatUserT> = ({ openGroup, chatData, usersCount }) => 
 
         if (updateChat.name && updateChat.chat_uuid && updateChat.is_deleted !== undefined) {
           const formdata = formDataConverter(updateChat)
-          console.log(updateChat)
           if (formdata) {
             debounced({ formdata })
           }
