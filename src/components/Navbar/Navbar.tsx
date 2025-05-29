@@ -21,21 +21,21 @@ import Badge from '@mui/material/Badge'
 
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/redux/store'
-import { SvgIcon } from '@mui/material'
+import { SvgIcon, Tooltip } from '@mui/material'
 
 import { motion } from 'framer-motion'
 import { RoleE } from 'enum/roleE'
-
+import Zoom from '@mui/material/Zoom'
 import { coursesNavPath } from '../Navbar/config/svgIconPath'
 import { GiftIconPath } from 'assets/Icons/svgIconPath'
 import { useLazyFetchInvitesProgramQuery, useLazyFetchStudentInvitesProgramLinkQuery } from 'api/schoolService'
 import { setInviteProgram } from 'store/redux/inviteProgram/inviteProgramSlice'
 
 interface NavbarProps {
-  onToggleChat: () => void;
+  onToggleChat: () => void
 }
 
-export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
+export const Navbar: FC<NavbarProps> = memo(({ onToggleChat }) => {
   const { role: UserRole } = useAppSelector(selectUser)
   const { schoolName } = useAppSelector(schoolSelector)
   const inviteLink = useAppSelector(inviteProgramSelector)
@@ -121,22 +121,33 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
           </div>
         </div>
         {UserRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
-          <div style={{ marginTop: 'auto' }}>
-            <a key={'bonus-school'} href={studentBonus.link}>
-              {studentBonus.logo ? (
-                <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
-                  <img width={50} height={50} src={studentBonus.logo} alt="Logo" />
-                </div>
-              ) : (
-                <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
-                  <RedeemIcon sx={{ color: 'black' }} />
-                </SvgIcon>
-              )}
-              <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
-                <Timer targetDate={new Date(studentBonus.expire_date)} target="bonus" />
-              </div>
-            </a>
-          </div>
+          <Tooltip
+            title={studentBonus.text}
+            slots={{
+              transition: Zoom,
+            }}
+            arrow
+          >
+            <div style={{ marginTop: '100px', width: '100%' }}>
+              <a key={'bonus-school'} href={studentBonus.link} target="_blank" rel="noreferrer">
+                {studentBonus.logo ? (
+                  <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
+                    <img width={65} height={65} src={studentBonus.logo} alt="Logo" style={{ marginBottom: '10px' }} />
+                    <div style={{ fontSize: '14px', textAlign: 'center', fontWeight: '600' }}>
+                      <Timer targetDate={new Date(studentBonus.expire_date)} target="bonus" />
+                    </div>
+                  </div>
+                ) : (
+                  <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
+                    <RedeemIcon sx={{ color: 'black' }} />
+                    <div style={{ fontSize: '14px', textAlign: 'center' }}>
+                      <Timer targetDate={new Date(studentBonus.expire_date)} target="bonus" />
+                    </div>
+                  </SvgIcon>
+                )}
+              </a>
+            </div>
+          </Tooltip>
         ) : null}
         {inviteLink && inviteLink.is_active && inviteLink.link && (
           <div style={{ marginTop: 'auto', width: '100%' }} title="Ссылка на программу заработка">
@@ -146,12 +157,12 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
               target="_blank"
               rel="noreferrer"
               className={styles.navbar_menu}
-              style={{ width: '100%', padding: '0 2px', display: 'flex', flexDirection: 'column', textDecoration: 'none' }}
+              style={{ width: '100%', padding: '0 2px 10px', display: 'flex', flexDirection: 'column', textDecoration: 'none' }}
             >
               <SvgIcon style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
                 <MonetizationOnIcon sx={{ color: 'black' }} />
               </SvgIcon>
-              <p style={{ textWrap: 'wrap', textAlign: 'center', fontSize: '12px' }}>Заработок</p>
+              <p style={{ textWrap: 'wrap', textAlign: 'center', fontSize: '14px' }}>Заработок</p>
             </a>
           </div>
         )}
@@ -160,7 +171,7 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
             <div>
               <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
             </div>
-            <p>Главная</p>
+            <p style={{ fontSize: '14px' }}>Главная</p>
             <div className={styles.mobile_active_indicator}></div>
           </NavLink>
         )}
@@ -168,7 +179,13 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
           <div className={styles.navbar_setting_account_mob_empty}></div>
           {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
             path !== 'doNotPath' ? (
-              <NavLink key={index} to={path} className={({ isActive }) => `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`}>
+              <NavLink
+                key={index}
+                to={path}
+                className={({ isActive }) =>
+                  `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`
+                }
+              >
                 <div>{icon}</div>
                 <p>{getPathLabel(path as Path)}</p>
                 <div className={styles.mobile_active_indicator}></div>
@@ -197,7 +214,11 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
             target="_blank"
             rel="noreferrer"
             href={
-              UserRole === RoleE.Admin ? 'https://t.me/course_hb' : contactLink && contactLink.length > 0 ? contactLink : 'https://t.me/course_hb'
+              UserRole === RoleE.Admin
+                ? 'https://t.me/coursehub_admin'
+                : contactLink && contactLink.length > 0
+                ? contactLink
+                : 'https://t.me/coursehub_admin'
             }
           >
             <span>
@@ -206,7 +227,12 @@ export const Navbar: FC<NavbarProps> = memo(({onToggleChat}) => {
             <p>Тех поддержка</p>
           </a>
           {(UserRole === RoleE.Student || UserRole === RoleE.Teacher) && (
-            <NavLink  to={Path.Courses + Path.Bonus} className={({ isActive }) => `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`}>
+            <NavLink
+              to={Path.Courses + Path.Bonus}
+              className={({ isActive }) =>
+                `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`
+              }
+            >
               <div>
                 <IconSvg width={38} height={41} viewBoxSize={'0 0 38 41'} path={GiftIconPath} />
               </div>

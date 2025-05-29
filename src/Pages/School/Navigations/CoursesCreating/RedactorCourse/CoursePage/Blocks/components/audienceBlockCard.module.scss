@@ -8,17 +8,18 @@
 
 .wrapper {
   width: 100%;
-  height: 330px;
+  min-height: 300px;
   border-radius: 20px;
   box-shadow: 0px 0px 8px 0px #3241954D;
-  background-color: #ffffff;
-  display: grid;
-  grid-template-rows: 170px 40px 40px;
-  grid-gap: 15px;
+  background-color: rgba(53, 126, 235, 0.3);
+  backdrop-filter:blur(23px);
+  // display: grid;
+  // grid-template-rows: 170px 40px 40px;
+  // grid-gap: 15px;
   //@include display(flex, column, center, center);
   //gap: 5rem;
   //padding: 2rem;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   position: relative;
 
   button {
@@ -49,13 +50,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
+    bottom: 204px;
+    left: 22px;
 
     img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: rgba(207, 226, 255, 0.12);
+      width: 170px;
+      height: 170px;
+      object-fit: contain;
+      // border-radius: 50%;
+      // background: rgba(207, 226, 255, 0.12);
       border: none;
     }
 
@@ -74,47 +78,136 @@
   }
 
   &_title {
-    width: 100%;
+    // width: 100%;
     display: flex;
     justify-content: center;
+    position: absolute;
+    right: 47px;
+    top: 50px;
 
     textarea {
-      padding: 5px;
-      width: 90%;
-      color: $color-blue;
-      text-align: center;
-      font-weight: bolder;
+      // padding: 5px;
+      // width: 90%;
+      color: $color-darkblue;
+      @include font(700, 30px, normal);
+      text-transform: uppercase;
+      text-align: right;
       border: none;
-      border-radius: 5px;
+      background: none;
+      // border-radius: 5px;
       outline: none;
       font-family: 'SFPRORegular';
       resize: none;
-      font-size: 20px;
     }
-    textarea:hover {
-      background: rgba(207, 226, 255, 0.12);
-    }
+    // textarea:hover {
+    //   background: rgba(207, 226, 255, 0.12);
+    // }
   }
 
   &_description {
-    width: 100%;
+    width: calc(100% - 44px);
     display: flex;
     justify-content: center;
 
     textarea {
-      padding: 5px;
+      // padding: 5px;
+      margin: 140px 0 20px 22px;
       width: 90%;
-      color: #34495e;
-      text-align: center;
+      color: #324195;
+      text-align: left;
       border: none;
-      border-radius: 5px;
+      background: none;
+      @include font(700, 23px, normal);
       outline: none;
       font-family: 'SFPRORegular';
       resize: none;
-      font-size: 17px;
     }
-    textarea:hover {
-      background: rgba(207, 226, 255, 0.12);
+    // textarea:hover {
+    //   background: rgba(207, 226, 255, 0.12);
+    // }
+  }
+}
+
+@media only screen and (min-width: 781px) and (max-width: 1255px) {
+  .wrapper {
+    &_imageBox {
+      top: -10px;
+      img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+    &_title {
+      position: absolute;
+      right: 20px;
+      top: 40px;
+
+      textarea {
+        @include font(700, 24px, normal);
+      }
+    }
+    
+  }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 780px) {
+  .wrapper {
+
+    &_imageBox {
+
+      img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    &_description {
+
+      textarea {
+        @include font(600, 20px, normal);
+        margin: 120px 0 20px 20px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 550px) {
+  .wrapper {
+    width: 100%;
+    min-height: 150px;
+
+    &_imageBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 22px;
+
+      img {
+        width: 100px;
+        height: 100px;
+
+      }
+
+    }
+
+    &_title {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+
+      textarea {
+        @include font(700, 22px, normal);
+      }
+    }
+
+    &_description {
+
+      textarea {
+        @include font(500, 16px, normal);
+        margin: 80px 0 20px 20px;
+      }
     }
   }
 }

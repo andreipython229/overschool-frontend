@@ -41,7 +41,7 @@ import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice
 import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
 import { TgMessage } from 'types/tgNotifications'
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
-import { useFetchCoursesQuery, useLazyFetchCoursesQuery } from 'api/coursesServices'
+import { useLazyFetchCoursesQuery } from 'api/coursesServices'
 import { useLoginMutation } from '../../api/userLoginService'
 import { Button } from 'components/common/Button/Button'
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
@@ -51,7 +51,6 @@ import HTMLReactParser from 'html-react-parser'
 import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
 import { SocialMediaButton } from 'components/SocialMediaButton'
 import { useFetchSchoolQuery } from '../../api/schoolService'
-import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch()
@@ -63,7 +62,6 @@ export const Header = memo(() => {
   const { role: userRole, userId, authState } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const chats = useAppSelector(state => state.chats.chats)
-  console.log(authState)
 
   const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
   const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
@@ -341,28 +339,28 @@ export const Header = memo(() => {
   }, [unreadAppeals])
 
   // Удаляем AVATAR
-  const omitAvatar = (sender: SenderI): SenderI => {
-    const { avatar, ...rest } = sender
-    return rest
-  }
+  // const omitAvatar = (sender: SenderI): SenderI => {
+  //   const { avatar, ...rest } = sender
+  //   return rest
+  // }
   // Проходимся по всем чатас и у каждого сендера удаляем аватарку
-  const processChats = (chats: ChatI[]): ChatI[] => {
-    return chats.map(chat => ({
-      ...chat,
-      senders: chat.senders.map(omitAvatar),
-    }))
-  }
+  // const processChats = (chats: ChatI[]): ChatI[] => {
+  //   return chats.map(chat => ({
+  //     ...chat,
+  //     senders: chat.senders.map(omitAvatar),
+  //   }))
+  // }
 
-  useEffect(() => {
-    if (chats && fetchedChats) {
-      const chatsWithoutAvatar = processChats(chats)
-      const fetchedChatsWithoutAvatar = processChats(fetchedChats)
-      const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
-      if (!checkChatsDifferent) {
-        dispatch(setChats(fetchedChats))
-      }
-    }
-  }, [chats, fetchedChats])
+  // useEffect(() => {
+  //   if (chats && fetchedChats) {
+  //     const chatsWithoutAvatar = processChats(chats)
+  //     const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+  //     const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+  //     if (!checkChatsDifferent) {
+  //       dispatch(setChats(fetchedChats))
+  //     }
+  //   }
+  // }, [chats, fetchedChats])
   // **************************************************************
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -459,7 +457,7 @@ export const Header = memo(() => {
         duration: 0.5,
       }}
     >
-      {banner && (
+      {banner && !Array.isArray(banner) && (
         <Dialog open={showBanner} onClose={closeBanner} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
           <DialogTitle sx={{ minWidth: 600 }} id="alert-dialog-title">
             {banner.title}
@@ -468,16 +466,18 @@ export const Header = memo(() => {
             <DialogContentText sx={{ marginBottom: '1rem' }} id="alert-dialog-description">
               {typeof banner.description === 'string' && HTMLReactParser(banner.description)}
             </DialogContentText>
-            <a href={banner.link} target="_blank" rel="noreferrer">
-              <Button text={'Перейти по ссылке'} type="button" />
-            </a>
+            {banner.link.length > 0 && (
+              <a href={banner.link} target="_blank" rel="noreferrer">
+                <Button variant="newPrimary" text={'Перейти по ссылке'} type="button" />
+              </a>
+            )}
           </DialogContent>
           <DialogActions>
             <Button
               onClick={handleCloseBanner}
               autoFocus
               text={banner.is_accepted_by_user ? 'Закрыть' : 'Подтвердить и закрыть'}
-              variant={'primary'}
+              variant={'newSecondary'}
             />
           </DialogActions>
         </Dialog>
@@ -822,7 +822,7 @@ export const Header = memo(() => {
                 <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Студент</p>
               </MenuItem>
             )}
-            {schoolRoles && schoolRoles.roles.includes('Помощник') && (
+            {schoolRoles && schoolRoles.roles.includes('Учитель') && (
               <MenuItem onClick={() => handleLogin('teacher@coursehub.ru', 'm4OjkNzZPh')}>
                 <img src={TeacherIcon} alt="Teacher Icon" width="18px" height="18px" />
                 <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Учитель</p>

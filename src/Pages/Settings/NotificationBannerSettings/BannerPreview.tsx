@@ -5,7 +5,7 @@ import HubImage from '../../../assets/img/common/present_image.png'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { deletePath, arrowDownPoligonPath } from 'config/commonSvgIconsPath'
 import { settingsIconPath } from 'Pages/School/config/svgIconsPath'
-import { Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip } from '@mui/material'
+import { Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slider, Tooltip } from '@mui/material'
 import { useBoolean } from 'customHooks'
 import { Input } from 'components/common/Input/Input/Input'
 import CheckIcon from '@mui/icons-material/Check'
@@ -22,6 +22,7 @@ import { BannerStatistics } from 'components/BannerStatistics'
 import { BannerGroups } from 'components/Modal/BannerGroups/BannerGroups'
 import { Portal } from 'components/Modal/Portal'
 import { penIconPath } from '../Main/iconComponents'
+import { getNounDeclension } from 'utils/getNounDeclension'
 
 interface IBannerPreview {
   banner: IBanner
@@ -38,6 +39,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
+  const [showCount, setShowCount] = useState<number>(banner.clicks_to_accept)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
   const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
 
@@ -67,6 +69,8 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       formdata.append('title', title)
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
+      formdata.append('link', link)
+      formdata.append('clicks_to_accept', String(showCount))
       await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
         .unwrap()
         .then(() => {
@@ -97,7 +101,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         <div className={styles.wrapper_content}>
           <span>{isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}</span>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <CheckboxBall toggleChecked={toggleBanner} isChecked={isActive} />
+            <CheckboxBall toggleChecked={isEditing ? toggleActive : toggleBanner} isChecked={isActive} />
             <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
           </div>
           {!isEditing ? (
@@ -146,6 +150,29 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
                 </div>
               </>
             ))}
+          {isEditing && (
+            <div className={styles.banner_counterBlock}>
+              <span>
+                Баннер отобразится {showCount} {getNounDeclension(showCount, ['раз', 'раза', 'раз'])} у ученика
+              </span>
+              <Slider
+                aria-label="Количество открытий у ученика"
+                value={showCount}
+                onChange={(event, value) => {
+                  if (Array.isArray(value)) {
+                    setShowCount(value[0])
+                  } else {
+                    setShowCount(value)
+                  }
+                }}
+                color="primary"
+                valueLabelDisplay="auto"
+                min={1}
+                max={10}
+                sx={{ ml: 1, color: '#1976d2 !important' }}
+              />
+            </div>
+          )}
           {groups &&
             (!isEditing ? (
               <div className={styles.wrapper_content_groups}>
