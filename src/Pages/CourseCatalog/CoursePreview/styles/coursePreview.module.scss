@@ -3,9 +3,11 @@
 
 .wrapper {
   padding: 1rem;
-  width: 100vw;
+  margin: 0 auto;
+  max-width: 1040px;
+  width: 100%;
   height: auto;
-  background: #e0dced;
+  // background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +24,7 @@
     width: 1040px;
     padding: 2rem 0 2rem 0;
     border-radius: 7px;
-    margin-top: -20px;
+    // margin-top: -20px;
 
     @media (max-width: 600px) {
       width: 100%;
@@ -271,24 +273,24 @@
   color: #fff;
   text-decoration: none;
   cursor: pointer;
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
     @include position_t_l(absolute, 22px, 16px, 10);
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    @include position_t_l(absolute, 25px, 16px, 10);
-  }
+  // @media only screen and (min-width: 375px) and (max-width: 480px) {
+  //   @include position_t_l(absolute, 25px, 16px, 10);
+  // }
 
   span {
     @include font(500, 12px, 15px);
     margin-left: 13px;
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
       @include font(500, 10px, 12px);
       color: #ffffff;
     }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      @include font(500, 13px, 12px);
-      color: #ffffff;
-    }
+    // @media only screen and (min-width: 375px) and (max-width: 480px) {
+    //   @include font(500, 13px, 12px);
+    //   color: #ffffff;
+    // }
   }
 }
 
@@ -460,6 +462,6 @@
   }
 
   &:focus {
-    border: 2px solid #ba75ff;
+    border: 2px solid #357EEB;
   }
 }
