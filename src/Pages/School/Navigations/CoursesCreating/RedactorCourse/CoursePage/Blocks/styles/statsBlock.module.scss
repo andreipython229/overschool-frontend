@@ -19,13 +19,18 @@
   @include display(flex, row, space-between, center);
   padding: 1.25rem;
 
-  @media screen and (min-width: 375px) and (max-width: 480px) {
-    flex-direction: column;
-    height: auto;
-    margin: -20px auto 0;
+  @media screen and (min-width: 320px) and (max-width: 480px) {
     width: 90%;
-    gap: 20px;
-    padding: 20px;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 15px;
+  }
+
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    width: 90%;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 15px;
   }
 
   &_stat {
@@ -41,6 +46,16 @@
       svg {
         height: 38px;
         width: 48px;
+
+        @media screen and (min-width: 320px) and (max-width: 480px) {
+          height: 20px;
+          width: 24px;
+        }
+
+        @media screen and (min-width: 481px) and (max-width: 768px) {
+          height: 28px;
+          width: 32px;
+        }
       }
 
       &_text {
@@ -50,8 +65,13 @@
         color: #000000;
         padding-left: 12px;
 
-        @media screen and (min-width: 320px) and (max-width: 1450px) {
-          @include font(500, 30px, 35.96px);
+        @media screen and (min-width: 320px) and (max-width: 480px) {
+          @include font(700, 14px, normal);
+          padding-left: 5px;
+        }
+        @media screen and (min-width: 481px) and (max-width: 768px) {
+          @include font(700, 18px, normal);
+          padding-left: 7px;
         }
       }
     }

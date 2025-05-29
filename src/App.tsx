@@ -41,6 +41,7 @@ import { HelpGidStart } from 'Pages/HelpCenter/HelpGidStart'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
 import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
 import { SocialAuthPage } from 'ServicePages/SocialAuthPage'
+import WebinarPage from 'Pages/Webinar/webinarPage'
 import { Toaster } from 'react-hot-toast'
 
 export const App = () => {
@@ -142,6 +143,7 @@ export const App = () => {
     <div className={styles.container}>
       <Toaster position="bottom-right" reverseOrder={true} />
       <Routes>
+        <Route path={Path.WebinarPage} element={<WebinarPage />} />
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />

@@ -66,6 +66,7 @@ export type NewsletterTemplate = {
 }
 
 export interface IBanner {
+  clicks_to_accept: number
   id: number
   clicks_count: string
   unique_clicks_count: string

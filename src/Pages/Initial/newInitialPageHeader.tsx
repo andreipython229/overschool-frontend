@@ -90,9 +90,9 @@ export const InitPageHeader: FC = memo(() => {
   }, [])
 
   return (
-    <header className={styles.init_header}>
+    <header className={styles.newInitial_header}>
       <div className={styles.btn_block}>
-        <div className={styles.init_header_logo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+        <div className={styles.newInitial_header_logo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src={logoHeader} alt="Logotype" />
         </div>
 
@@ -132,6 +132,7 @@ export const InitPageHeader: FC = memo(() => {
                   </a>
                 </div>
               </div>
+              <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
               <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
               <Tooltip title={'Связаться с нами'}>
                 <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>

@@ -39,7 +39,7 @@ import { motion } from 'framer-motion';
 import { w3cwebsocket } from 'websocket';
 import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice';
 import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices';
-import { TgMessage as TgMessageType } from 'types/tgNotifications';
+import { TgMessage } from 'types/tgNotifications';
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService';
 import { useFetchCoursesQuery, useLazyFetchCoursesQuery } from 'api/coursesServices';
 import { useLoginMutation } from '../../api/userLoginService';
@@ -52,7 +52,6 @@ import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons
 import { SocialMediaButton } from 'components/SocialMediaButton';
 import { useFetchSchoolQuery } from '../../api/schoolService';
 import { LoaderLayout } from 'components/Loaders/LoaderLayout';
-
 
 interface ApiError {
   data?: unknown;
@@ -78,12 +77,6 @@ const getErrorMessage = (error: unknown): string => {
   }
   return 'Неизвестная ошибка';
 };
-
-interface TgMessage {
-  message: string;
-  students_groups: number[];
-  send_to_admins?: boolean;
-}
 
 export const Header = memo(() => {
   const dispatch = useAppDispatch();
@@ -377,28 +370,28 @@ export const Header = memo(() => {
   }, [unreadAppeals])
 
   // Удаляем AVATAR
-  const omitAvatar = (sender: SenderI): SenderI => {
-    const { avatar, ...rest } = sender
-    return rest
-  }
+  // const omitAvatar = (sender: SenderI): SenderI => {
+  //   const { avatar, ...rest } = sender
+  //   return rest
+  // }
   // Проходимся по всем чатас и у каждого сендера удаляем аватарку
-  const processChats = (chats: ChatI[]): ChatI[] => {
-    return chats.map(chat => ({
-      ...chat,
-      senders: chat.senders.map(omitAvatar),
-    }))
-  }
+  // const processChats = (chats: ChatI[]): ChatI[] => {
+  //   return chats.map(chat => ({
+  //     ...chat,
+  //     senders: chat.senders.map(omitAvatar),
+  //   }))
+  // }
 
-  useEffect(() => {
-    if (chats && fetchedChats) {
-      const chatsWithoutAvatar = processChats(chats)
-      const fetchedChatsWithoutAvatar = processChats(fetchedChats)
-      const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
-      if (!checkChatsDifferent) {
-        dispatch(setChats(fetchedChats))
-      }
-    }
-  }, [chats, fetchedChats])
+  // useEffect(() => {
+  //   if (chats && fetchedChats) {
+  //     const chatsWithoutAvatar = processChats(chats)
+  //     const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+  //     const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+  //     if (!checkChatsDifferent) {
+  //       dispatch(setChats(fetchedChats))
+  //     }
+  //   }
+  // }, [chats, fetchedChats])
   // **************************************************************
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -558,7 +551,7 @@ export const Header = memo(() => {
       animate={{ x: '-50%' }}
       transition={{ delay: 0.1, ease: 'easeInOut', duration: 0.5 }}
     >
-      {banner && (
+      {banner && !Array.isArray(banner) && (
         <Dialog open={showBanner} onClose={closeBanner} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
           <DialogTitle sx={{ minWidth: 600 }} id="alert-dialog-title">
             {banner.title}
@@ -567,16 +560,18 @@ export const Header = memo(() => {
             <DialogContentText sx={{ marginBottom: '1rem' }} id="alert-dialog-description">
               {typeof banner.description === 'string' && HTMLReactParser(banner.description)}
             </DialogContentText>
-            <a href={banner.link} target="_blank" rel="noreferrer">
-              <Button text={'Перейти по ссылке'} type="button" />
-            </a>
+            {banner.link.length > 0 && (
+              <a href={banner.link} target="_blank" rel="noreferrer">
+                <Button variant="newPrimary" text={'Перейти по ссылке'} type="button" />
+              </a>
+            )}
           </DialogContent>
           <DialogActions>
             <Button
               onClick={handleCloseBanner}
               autoFocus
               text={banner.is_accepted_by_user ? 'Закрыть' : 'Подтвердить и закрыть'}
-              variant={'primary'}
+              variant={'newSecondary'}
             />
           </DialogActions>
         </Dialog>
@@ -1024,6 +1019,6 @@ export const Header = memo(() => {
           />
         </DialogActions>
       </Dialog>
-      </motion.header>
+    </motion.header>
   );
 });

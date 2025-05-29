@@ -1,0 +1,55 @@
+.timedComments {
+  font-family: SF Pro Text, sans-serif;
+  overflow: overlay;
+  width: 100%;
+  aspect-ratio: 16 / 15.2;
+  scrollbar-color: rgb(207, 226, 255);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
+
+  &_comment {
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  margin-bottom: 12px;
+  font-size: 14px;
+  @media only screen and (max-width: 1024px) {
+    margin-bottom: 6px;
+    padding: 4px;
+  }
+
+  &_header {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    &_username {
+      margin-right: 8px;
+      font-size: 14px;
+      @media only screen and (max-width: 1024px) {
+        font-size: 12px;
+      }
+    }
+
+    &_role {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      /* text-transform: uppercase; */
+      font-weight: 500;
+      background-color: #e0e0e0;
+      color: #333;
+    }
+  }
+
+  &_text {
+    white-space: pre-line;
+    font-size: 14px;
+    @media only screen and (max-width: 1024px) {
+      font-size: 12px;
+    }
+  }
+}
+}

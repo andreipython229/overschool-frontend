@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+.webinarPage {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--main-bg);
+  overflow: hidden;
+  padding: 30px 15px 0;
+
+  @media (max-width: 1310px) {
+    padding: 30px 62px 0;
+  }
+
+  @media (max-width: 744px) {
+    padding: 30px 42px 0;
+  }
+
+  @media (max-width: 650px) {
+    padding: 30px 15px 0;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  align-items: center;
+  margin: 0 auto;
+  padding: 24px 2rem;
+
+
+  &_webinar {
+    height: 100%;
+    width: 100%;
+    margin-top: 100px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  &_wrap1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    left: 5%;
+    top: 10%;
+    background: rgba(53, 126, 235, 0.6);
+    filter: blur(120px);
+    animation: bgAnimate1 15s linear infinite alternate;
+  }
+
+  &_wrap2 {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    right: 10%;
+    top: 20%;
+    background: rgba(87, 184, 255, 0.5);
+    filter: blur(110px);
+    animation: bgAnimate2 12s linear infinite alternate;
+  }
+
+  &_wrap3 {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    left: 20%;
+    bottom: 15%;
+    background: rgba(45, 156, 219, 0.4);
+    filter: blur(100px);
+    animation: bgAnimate3 18s linear infinite alternate;
+  }
+
+  &_wrap4 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    right: 15%;
+    bottom: 10%;
+    background: rgba(40, 120, 200, 0.5);
+    filter: blur(105px);
+    animation: bgAnimate4 14s linear infinite alternate;
+  }
+}
+
+
+@keyframes bgAnimate1 {
+  from { transform: translate3d(0, 0, 0); opacity: 0.8; }
+  50% { transform: translate3d(50%, 100%, 0); opacity: 1; }
+  to { transform: translate3d(0, 0, 0); opacity: 0.8; }
+}
+
+@keyframes bgAnimate2 {
+  from { transform: translate3d(0%, 0%, 0); opacity: 0.7; }
+  50% { transform: translate3d(-100%, -100%, 0); opacity: 1; }
+  to { transform: translate3d(0%, 0%, 0); opacity: 0.7; }
+}
+
+@keyframes bgAnimate3 {
+  from { transform: translate3d(0, 0, 0); opacity: 0.6; }
+  50% { transform: translate3d(-300%, 100%, 0); opacity: 1; }
+  to { transform: translate3d(0, 0, 0); opacity: 0.6; }
+}
+
+@keyframes bgAnimate4 {
+  from { transform: translate3d(0, 0, 0); opacity: 0.5; }
+  50% { transform: translate3d(350%, -80%, 0); opacity: 1; }
+  to { transform: translate3d(0, 0, 0); opacity: 0.5; }
+}
+
