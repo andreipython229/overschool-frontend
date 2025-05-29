@@ -12,9 +12,10 @@
   font-family: 'SFPRORegular';
 
   h2 {
-    text-align: center;
+    text-align: left;
     padding: 2rem 0 1rem;
-    color: $color-text;
+    color: $color-blue;
     @include font(700, 28px, 33.41px);
+    margin-bottom: 2rem;
   }
 }

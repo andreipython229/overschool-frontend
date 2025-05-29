@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 interface TimerProps {
-  targetDate: Date;
-  target?: string;
+  targetDate: Date
+  target?: string
 }
 
 const Timer: React.FC<TimerProps> = ({ targetDate, target }) => {
   const calculateTimeLeft = () => {
-    const difference = +new Date(targetDate) - +new Date();
-    let timeLeft: { [key: string]: number } = {};
+    const difference = +new Date(targetDate) - +new Date()
+    let timeLeft: { [key: string]: number } = {}
 
     if (difference > 0) {
       timeLeft = {
@@ -15,58 +15,56 @@ const Timer: React.FC<TimerProps> = ({ targetDate, target }) => {
         hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60),
-      };
+      }
     }
 
-    return timeLeft;
-  };
+    return timeLeft
+  }
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
+      setTimeLeft(calculateTimeLeft())
+    }, 1000)
 
-    return () => clearTimeout(timer);
-  });
+    return () => clearTimeout(timer)
+  })
 
-  const endMin = target === 'bonus' ? ':' : 'мин'
+  const endMin = target === 'bonus' ? ' : ' : 'мин'
   const endSec = target === 'bonus' ? '' : 'сек'
+  const endHours = target === 'bonus' ? ' : ' : 'ч'
 
   const formatTimeUnit = (value: number, unit: string) => {
     const unitForms: { [key: string]: string } = {
-      days: 'дн',
-      hours: 'ч',
+      days: ' дней',
+      hours: endHours,
       minutes: endMin,
       seconds: endSec,
-    };
+    }
 
-    return `${value} ${unitForms[unit]}`;
-  };
+    return `${unit === 'days' ? value : value.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}${unitForms[unit]}`
+  }
 
-  const timerComponents: JSX.Element[] = [];
+  const timerComponents: JSX.Element[] = []
 
-  Object.keys(timeLeft).forEach((interval) => {
+  Object.keys(timeLeft).forEach(interval => {
     if (!timeLeft[interval as keyof typeof timeLeft] && !target) {
-      return;
+      return
     }
 
     timerComponents.push(
-    <>
-      <span key={interval}>
-        {formatTimeUnit(timeLeft[interval as keyof typeof timeLeft], interval)}{(!target || (target === 'bonus' && interval !== 'hours')) && ' '}
-      </span>
-      {target === 'bonus' && interval === 'hours' && <br/>}
-    </>
-    );
-  });
+      <>
+        <span key={interval}>
+          {formatTimeUnit(timeLeft[interval as keyof typeof timeLeft], interval)}
+          {(!target || (target === 'bonus' && interval !== 'hours')) && ' '}
+        </span>
+        {target === 'bonus' && interval === 'days' && <br />}
+      </>,
+    )
+  })
 
-  return (
-    <div>
-      {timerComponents.length ? timerComponents : <span>Время истекло</span>}
-    </div>
-  );
-};
+  return <div style={{ display: 'inline-block' }}>{timerComponents.length ? timerComponents : <span>Время истекло</span>}</div>
+}
 
-export default Timer;
+export default Timer
