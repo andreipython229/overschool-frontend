@@ -822,7 +822,7 @@ export const Header = memo(() => {
                 <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Студент</p>
               </MenuItem>
             )}
-            {schoolRoles && schoolRoles.roles.includes('Помощник') && (
+            {schoolRoles && schoolRoles.roles.includes('Учитель') && (
               <MenuItem onClick={() => handleLogin('teacher@coursehub.ru', 'm4OjkNzZPh')}>
                 <img src={TeacherIcon} alt="Teacher Icon" width="18px" height="18px" />
                 <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Учитель</p>
