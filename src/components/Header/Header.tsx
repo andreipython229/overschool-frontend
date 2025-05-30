@@ -166,9 +166,45 @@ export const Header = memo(() => {
 
   useEffect(() => {
     if (userRole === RoleE.Admin && showTgMessageForm) {
-      fetchGroups({ schoolName: schoolName, params: 's=100' })
+      console.log('Debug info:', {
+        schoolName,
+        userRole,
+        showTgMessageForm,
+        schoolId,
+        headerId
+      });
+      
+      fetchGroups({ 
+        schoolName: schoolName, 
+        params: 's=100' 
+      })
+        .unwrap()
+        .then(data => {
+          console.log('Fetched groups:', data);
+          if (data.results.length === 0) {
+            console.log('No groups found. Please check if:');
+            console.log('1. The school has any groups');
+            console.log('2. You have proper permissions');
+            console.log('3. The school name is correct:', schoolName);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching groups:', error);
+          if (error.data) {
+            console.error('Error details:', error.data);
+          }
+        });
     }
-  }, [showTgMessageForm])
+  }, [showTgMessageForm, schoolName, userRole]);
+
+  useEffect(() => {
+    if (userRole === RoleE.Admin && schoolRoles) {
+      console.log('User roles:', schoolRoles);
+      if (!schoolRoles.roles.includes('Администратор')) {
+        console.warn('User does not have admin permissions in this school');
+      }
+    }
+  }, [userRole, schoolRoles]);
 
   const handleLogin = async (login: string, password: string) => {
     try {
@@ -457,6 +493,13 @@ export const Header = memo(() => {
       return;
     }
 
+    // Проверяем права доступа
+    if (!schoolRoles?.roles.includes('Администратор')) {
+      setSendingLogs(prev => [...prev, 'Ошибка: У вас нет прав администратора в этой школе']);
+      setShowLogsModal(true);
+      return;
+    }
+
     if (!tgMessage.message || (!tgMessage.students_groups.length && !tgMessage.send_to_admins)) {
       setSendingLogs(prev => [...prev, 'Ошибка: Сообщение не может быть пустым и должны быть выбраны группы или администраторы']);
       setShowLogsModal(true);
@@ -470,11 +513,6 @@ export const Header = memo(() => {
     try {
       setSendingLogs(prev => [...prev, 'Начало отправки сообщений...']);
       
-      // Проверяем права доступа перед отправкой
-      if (!schoolRoles?.roles.includes('Администратор')) {
-        throw new Error('У вас недостаточно прав для отправки сообщений. Требуются права администратора.');
-      }
-
       const result = await createTgMessage({ data: tgMessage }).unwrap();
       
       if (!result || !result.tg_chats_ids) {
@@ -706,65 +744,75 @@ export const Header = memo(() => {
                 </div>
 
                 <DialogContent className={styles.MuiDialogContent_root} style={{ padding: '0' }}>
-                  {studentsGroups && (
+                  {studentsGroups ? (
                     <div className={styles.wrapper_content_groups}>
                       {Object.entries(
                         studentsGroups.results.reduce<Record<string, typeof studentsGroups.results>>((acc, group) => {
-                          const courseName = group.course_name
-                          if (courseName) {
-                            if (!acc[courseName]) {
-                              acc[courseName] = []
-                            }
-                            acc[courseName].push(group)
+                          const courseName = group.course_name || 'Без названия';
+                          if (!acc[courseName]) {
+                            acc[courseName] = [];
                           }
-                          return acc
+                          acc[courseName].push(group);
+                          return acc;
                         }, {}),
-                      ).map(([courseName, groups]) => (
-                        <div key={courseName} style={{ marginBlockStart: 'min(2.52px, 0.42vw)' }}>
-                          <Checkbox
-                            className={styles.customCheckbox}
-                            sx={{
-                              '& .MuiSvgIcon-root': {
-                                width: 'min(24px, 3.35vw)',
-                                height: 'min(24px, 3.35vw)',
-                              },
-                            }}
-                            onChange={e => {
-                              const isChecked = e.target.checked
-                              if (isChecked) {
-                                setTgMessage(
-                                  (prevData: TgMessage) =>
-                                    ({
-                                      ...prevData,
-                                      students_groups: [...prevData.students_groups, ...groups.map(group => group.group_id)],
-                                    } as TgMessage),
-                                )
-                              } else {
-                                setAllGroups(false)
-                                setTgMessage((prevData: TgMessage) => ({
-                                  ...prevData,
-                                  students_groups: prevData.students_groups.filter(id => !groups.some(group => group.group_id === id)),
-                                }))
-                              }
-                            }}
-                            checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
-                          />
-                          <b style={{ fontSize: 'clamp(14px, 2.8vw, 16.78px)', fontFamily: "'SFPRORegular', sans-serif", color: 'grey' }}>
-                            {courseName} (групп: {groups.length})
-                          </b>
-                          {groups.some(group => tgMessage.students_groups.includes(group.group_id ?? 0)) &&
-                            groups.map((group, index) => (
-                              <div
-                                key={group.group_id}
-                                style={{
-                                  marginLeft: 'min(12.59px, 2.1vw)',
-                                  fontSize: 'clamp(14px, 2.8vw, 16.78px)',
-                                  fontFamily: "'SFPRORegular', sans-serif",
-                                  color: 'grey',
-                                }}
-                              >
+                      ).map(([courseName, groups], courseIndex) => (
+                        <div key={`course-${courseIndex}-${courseName}`} className={styles.courseFolder}>
+                          <div className={styles.courseFolderHeader}>
+                            <div className={styles.courseFolderInfo}>
+                              <IconSvg 
+                                width={20} 
+                                height={20} 
+                                viewBoxSize="0 0 24 24" 
+                                path={[
+                                  {
+                                    d: "M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z",
+                                    fill: "currentColor"
+                                  }
+                                ]}
+                              />
+                              <span className={styles.courseName}>{courseName}</span>
+                              <span className={styles.groupCount}>({groups.length} групп)</span>
+                            </div>
+                            <Checkbox
+                              className={styles.folderCheckbox}
+                              sx={{
+                                '& .MuiSvgIcon-root': {
+                                  width: 'min(24px, 3.35vw)',
+                                  height: 'min(24px, 3.35vw)',
+                                },
+                              }}
+                              onChange={e => {
+                                const isChecked = e.target.checked;
+                                if (isChecked) {
+                                  setTgMessage(
+                                    (prevData: TgMessage) =>
+                                      ({
+                                        ...prevData,
+                                        students_groups: [...prevData.students_groups, ...groups.map(group => group.group_id)],
+                                      } as TgMessage),
+                                  );
+                                } else {
+                                  setAllGroups(false);
+                                  setTgMessage((prevData: TgMessage) => ({
+                                    ...prevData,
+                                    students_groups: prevData.students_groups.filter(id => !groups.some(group => group.group_id === id)),
+                                  }));
+                                }
+                              }}
+                              checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
+                            />
+                          </div>
+                          <div className={styles.groupsList}>
+                            {groups.map((group, groupIndex) => (
+                              <div key={`group-${groupIndex}-${group.group_id}`} className={styles.groupItem}>
+                                <div className={styles.groupInfo}>
+                                  <span className={styles.groupName}>{group.name}</span>
+                                  <span className={styles.studentsCount}>
+                                    {group.students?.length || 0} студентов
+                                  </span>
+                                </div>
                                 <Checkbox
-                                  className={styles.customCheckbox}
+                                  className={styles.groupCheckbox}
                                   sx={{
                                     '& .MuiSvgIcon-root': {
                                       width: 'min(24px, 3.35vw)',
@@ -772,7 +820,7 @@ export const Header = memo(() => {
                                     },
                                   }}
                                   onChange={e => {
-                                    const isChecked = e.target.checked
+                                    const isChecked = e.target.checked;
                                     if (isChecked) {
                                       setTgMessage(
                                         (prevData: TgMessage) =>
@@ -780,25 +828,26 @@ export const Header = memo(() => {
                                             ...prevData,
                                             students_groups: [...prevData.students_groups, group.group_id],
                                           } as TgMessage),
-                                      )
+                                      );
                                     } else {
-                                      setAllGroups(false)
+                                      setAllGroups(false);
                                       setTgMessage((prevData: TgMessage) => ({
                                         ...prevData,
                                         students_groups: prevData.students_groups.filter(id => id !== group.group_id),
-                                      }))
+                                      }));
                                     }
                                   }}
                                   checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
                                 />
-
-                                <b>
-                                  {group.name} (Кол-во студентов: {group.students.length})
-                                </b>
                               </div>
                             ))}
+                          </div>
                         </div>
                       ))}
+                    </div>
+                  ) : (
+                    <div className={styles.noGroups}>
+                      <p>Загрузка групп...</p>
                     </div>
                   )}
                 </DialogContent>
