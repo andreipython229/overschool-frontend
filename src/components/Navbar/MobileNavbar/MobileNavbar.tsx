@@ -48,17 +48,31 @@ export const MobileNavbar: FC = memo(() => {
   const open = Boolean(anchorMob)
   const dispatchRole = useDispatch()
   const studentBonus = useSelector((state: RootState) => state.bonuses.studentBonus)
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   const logOut = async () => {
-    await logout().then(data => {
+    if (isLoggingOut) return;
+    
+    try {
+      setIsLoggingOut(true)
       dispatch(clearUserProfile())
       dispatch(logoutState())
       dispatch(clearSchoolData())
       removeAccessCookie('access_token')
       removeRefreshCookie('refresh_token')
       localStorage.clear()
-      navigate(generatePath(Path.InitialPage))
-    })
+      
+      await logout()
+      
+      setTimeout(() => {
+        navigate(generatePath(Path.InitialPage), { replace: true })
+        setIsLoggingOut(false)
+      }, 800)
+    } catch (error) {
+      console.error('Logout error:', error)
+      navigate(generatePath(Path.InitialPage), { replace: true })
+      setIsLoggingOut(false)
+    }
   }
 
   const goToChooseSchool = () => {

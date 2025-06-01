@@ -13,6 +13,10 @@ import Profile from '../../../components/common/IconSvg/ProfileIcon';
 import Tariff from '../../../components/common/IconSvg/TariffIcon';
 import Exit from '../../../components/common/IconSvg/ExitIcon';
 import MessageIcon from '../../../components/common/IconSvg/MessageIcon';
+import Notification from '../../../components/common/IconSvg/NotificationIcon';
+import { useAppSelector } from '../../../store/hooks';
+import { selectUser } from '../../../selectors';
+import { RoleE } from '../../../enum/roleE';
 
 export const MobileHeaderAdmin: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,7 +24,9 @@ export const MobileHeaderAdmin: FC = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const [isTariffOpen, setIsTariffOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const navigate = useNavigate();
+  const { role: userRole } = useAppSelector(selectUser);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -76,43 +82,59 @@ export const MobileHeaderAdmin: FC = () => {
             )}
           </div>
 
-          <div className={`${styles.nav_item} ${styles.tariff} ${isTariffOpen ? styles.active : ''}`} onClick={toggleTariffMenu}>
-            <Tariff className={styles.item_icon} />
-            {isTariffOpen && (
-              <div className={`${styles.submenu} ${styles.tariff}`}>
-                <div className={styles.tariff_title}>
-                  Тариф «Senior» 200 дней
+          {userRole === RoleE.Admin && (
+            <div className={`${styles.nav_item} ${styles.tariff} ${isTariffOpen ? styles.active : ''}`} onClick={toggleTariffMenu}>
+              <Tariff className={styles.item_icon} />
+              {isTariffOpen && (
+                <div className={`${styles.submenu} ${styles.tariff}`}>
+                  <div className={styles.tariff_title}>
+                    Тариф «Senior» 200 дней
+                  </div>
+                  <div className={styles.tariff_text}>
+                    Курсов:<span>10/50</span>
+                  </div>
+                  <div className={styles.tariff_text}>
+                    Сотрудников:<span>3/безлимит</span>
+                  </div>
+                  <div className={styles.tariff_text}>
+                    Студентов:<span>20/500</span>
+                  </div>
+                  <div className={styles.tariff_text}>
+                    Студентов в месяц:<span>20/100</span>
+                  </div>
+                  <div className={styles.tariff_button}>
+                    Перейти на тариф
+                    <img src={require("../../../assets/img/common/prizePersonal.png")}alt="Окно входа"/>
+                  </div>
                 </div>
-                <div className={styles.tariff_text}>
-                  Курсов:<span>10/50</span>
-                </div>
-                <div className={styles.tariff_text}>
-                  Сотрудников:<span>3/безлимит</span>
-                </div>
-                <div className={styles.tariff_text}>
-                  Студентов:<span>20/500</span>
-                </div>
-                <div className={styles.tariff_text}>
-                  Студентов в месяц:<span>20/100</span>
-                </div>
-                <div className={styles.tariff_button}>
-                  Перейти на тариф
-                  <img src={require("../../../assets/img/common/prizePersonal.png")}alt="Окно входа"/>
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
 
-          <div className={`${styles.nav_item} ${styles.message} ${isMessageOpen ? styles.active : ''}`} onClick={toggleMessageMenu}>
-            <MessageIcon className={styles.item_icon} />
-            {isMessageOpen && (
-              <div className={`${styles.submenu} ${styles.message}`}>
-                <a href="#">
-                  Отправить сообщение студентам в телеграм
-                </a>
-              </div>
-            )}
-          </div>
+          {userRole === RoleE.Admin && (
+            <div className={`${styles.nav_item} ${styles.message} ${isMessageOpen ? styles.active : ''}`} onClick={toggleMessageMenu}>
+              <MessageIcon className={styles.item_icon} />
+              {isMessageOpen && (
+                <div className={`${styles.submenu} ${styles.message}`}>
+                  <a href="#">
+                    Отправить сообщение студентам в телеграм
+                  </a>
+                </div>
+              )}
+            </div>
+          )}
+
+          {userRole !== RoleE.Admin && (
+            <div
+              className={`${styles.nav_item} ${styles.notification} ${isNotificationOpen ? styles.active : ''}`}
+              onClick={() => setIsNotificationOpen((prev) => !prev)}
+            >
+              <Notification className={styles.item_icon} />
+              {/* Счетчик уведомлений временно скрыт */}
+              {/* <span>1</span> */}
+            </div>
+          )}
+
           <div className={`${styles.nav_item} ${styles.profile_item} ${isProfileOpen ? styles.active : ''}`} onClick={toggleProfileMenu}>
             <Profile className={styles.item_icon} />
             {isProfileOpen && (
@@ -123,9 +145,11 @@ export const MobileHeaderAdmin: FC = () => {
                 <button>
                   Смена школы
                 </button>
-                <button>
-                  Каталог
-                </button>
+                {userRole === RoleE.Admin && (
+                  <button>
+                    Каталог
+                  </button>
+                )}
               </div>
             )}
           </div>
