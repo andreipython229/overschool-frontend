@@ -149,9 +149,9 @@ export const MobileLayOut: FC = memo(() => {
 
   // Стили для иконок в кнопке-ярлыке
   const iconStyle = {
-    color: 'rgba(255, 255, 255, 0.9)', // Белый цвет с небольшой прозрачностью
+    color: 'rgba(50, 50, 60, 0.9)', // Темный цвет вместо белого, соответствует иконкам в навбаре
     fontSize: '12px',
-    filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))' // Усиленная тень для иконки
+    filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2))' // Тень для иконки
   } as React.CSSProperties;
 
   // Функция для эффекта нажатия
