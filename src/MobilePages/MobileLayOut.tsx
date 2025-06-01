@@ -20,6 +20,8 @@ import { MobileHeaderAdmin } from '../Pages/Initial/MobileHeaderAdmin/MobileHead
 
 import { motion } from 'framer-motion'
 import ChatGPT from '../components/ChatGPT'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 export const MobileLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -35,6 +37,12 @@ export const MobileLayOut: FC = memo(() => {
   const [overaiLockExists, setOveraiLockExists] = useState(false)
   const [toggle, handlers] = useBooleanHook()
   const [currentTariff, setCurrentTariff] = useState<any | null>(null)
+  const [isNavbarCollapsed, setIsNavbarCollapsed] = useState<boolean>(true)
+
+  // Функция для переключения состояния навбара
+  const toggleNavbar = () => {
+    setIsNavbarCollapsed(prev => !prev);
+  }
 
   useEffect(() => {
     if (userRole === 1) {
@@ -112,9 +120,54 @@ export const MobileLayOut: FC = memo(() => {
     setCurrentTariff(tariff)
   }
 
+  // Адаптируем стиль для контента
+  const mainStyle = {
+    paddingBottom: '40px'
+  };
+
+  // Стили для кнопки-ярлыка
+  const toggleButtonStyle = {
+    position: 'fixed',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '30px',
+    height: '15px',
+    borderRadius: '15px 15px 0 0', // Оставляем закругление только для кнопки
+    backgroundColor: 'rgba(30, 30, 40, 0.5)', // Такой же цвет как у навбара
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)', // Для поддержки Safari
+    boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.3)', // Усиленная тень
+    zIndex: 9999,
+    display: showOverAI ? 'none' : 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
+    bottom: isNavbarCollapsed ? '0' : '70px',
+    transition: 'bottom 0.3s ease, transform 0.2s ease',
+    border: '1px solid rgba(255, 255, 255, 0.1)', // Более тонкая и менее заметная граница
+  } as React.CSSProperties;
+
+  // Стили для иконок в кнопке-ярлыке
+  const iconStyle = {
+    color: 'rgba(255, 255, 255, 0.9)', // Белый цвет с небольшой прозрачностью
+    fontSize: '12px',
+    filter: 'drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3))' // Усиленная тень для иконки
+  } as React.CSSProperties;
+
+  // Функция для эффекта нажатия
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const target = e.currentTarget as HTMLDivElement;
+    target.style.transform = 'translateX(-50%) scale(0.95)';
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    const target = e.currentTarget as HTMLDivElement;
+    target.style.transform = 'translateX(-50%)';
+  };
+
   return (
     <motion.div
-      className={styles.wrapper}
+      className={`${styles.wrapper} ${isNavbarCollapsed ? styles.navbarCollapsed : ''}`}
       initial={{
         x: -2000,
       }}
@@ -127,7 +180,7 @@ export const MobileLayOut: FC = memo(() => {
         duration: 0.4,
       }}
     >
-      <main className={styles.main}>
+      <main className={`${styles.main} ${isNavbarCollapsed ? styles.mainWithCollapsedNavbar : ''}`} style={mainStyle}>
         <Previous />
         <Outlet />
         <MobileHeaderAdmin />
@@ -142,9 +195,24 @@ export const MobileLayOut: FC = memo(() => {
 
       {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} setIsDialogOpen={setShowOverAI} />}
       <FooterMobile schoolTariffPlan={updateTariff} />
-      <nav className={styles.mobileFooter}>
-        <MobileNavbar />
+      <nav className={`${styles.mobileFooter} ${isNavbarCollapsed ? styles.collapsed : ''}`}>
+        <MobileNavbar isCollapsed={isNavbarCollapsed} toggleCollapse={toggleNavbar} />
       </nav>
+      
+      {/* Независимая кнопка-ярлык для переключения навбара, скрывается при открытом чате AI */}
+      <div 
+        onClick={toggleNavbar}
+        style={toggleButtonStyle}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
+        {isNavbarCollapsed ? (
+          <KeyboardArrowUpIcon style={iconStyle} />
+        ) : (
+          <KeyboardArrowDownIcon style={iconStyle} />
+        )}
+      </div>
     </motion.div>
   )
 })
