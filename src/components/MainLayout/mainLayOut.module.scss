@@ -136,3 +136,50 @@
     }
   }
 }
+
+// Стили для кнопки переключения навбара
+.navbarToggleButton {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 15px;
+  border-radius: 15px 15px 0 0;
+  background-color: rgba(30, 30, 40, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: bottom 0.3s ease, transform 0.2s ease;
+  
+  // Позиционирование в зависимости от состояния навбара
+  &.collapsed {
+    bottom: 0;
+  }
+  
+  &.expanded {
+    bottom: 70px;
+  }
+  
+  // Стили для иконок в кнопке-ярлыке
+  svg {
+    color: rgba(50, 50, 60, 0.9);
+    font-size: 12px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+  }
+  
+  // Эффект нажатия
+  &.pressed {
+    transform: translateX(-50%) scale(0.95);
+  }
+}
+
+// Скрываем кнопку при открытом AI чате
+.hiddenButton {
+  display: none;
+}

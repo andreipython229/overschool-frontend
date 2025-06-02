@@ -169,10 +169,22 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                       <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
                         {Number(unRead) > 0 ? (
                           <Badge badgeContent={unRead} color="error">
-                            <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                            <IconSvg 
+                              width={50} 
+                              height={50} 
+                              viewBoxSize="0 0 50 50" 
+                              path={chatIconPath} 
+                              className={styles.svgIcon}
+                            />
                           </Badge>
                         ) : (
-                          <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                          <IconSvg 
+                            width={50} 
+                            height={50} 
+                            viewBoxSize="0 0 50 50" 
+                            path={chatIconPath} 
+                            className={styles.svgIcon}
+                          />
                         )}
                       </div>
                     </Tooltip>
@@ -184,10 +196,9 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
               <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
                 <a key={'techsupport'} href={'https://t.me/over_school'} target="_blank" rel="noreferrer">
                   <SvgIcon
-                    className={styles.navbar_menu}
+                    className={`${styles.navbar_menu} ${styles.navbarIcon} ${styles.techSupportIcon}`}
                     viewBox={'0 0 508 508'}
                     xmlSpace="preserve"
-                    style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em', marginBottom: '-0.5rem' }}
                   >
                     <circle style={{ fill: '#54C0EB' }} cx="254" cy="254" r="254" />
                     <path
@@ -214,13 +225,20 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
               <React.Fragment>
                 <Tooltip title={'Вернуться к выбору платформы'}>
                   <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool}>
-                    <SvgIcon className={styles.navbar_exit} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.1em' }}>
+                    <SvgIcon className={`${styles.navbar_exit} ${styles.navbarIcon} ${styles.homeIcon}`}>
                       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </SvgIcon>
                   </NavLink>
                 </Tooltip>
                 <Tooltip title={'Выйти из профиля'} className={styles.navbar_exit}>
-                  <IconSvg width={38} height={28} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+                  <IconSvg 
+                    width={38} 
+                    height={28} 
+                    viewBoxSize="0 0 26 25" 
+                    path={logOutIconPath} 
+                    functionOnClick={logOut} 
+                    className={styles.svgIcon}
+                  />
                 </Tooltip>
               </React.Fragment>
             ) : (
@@ -233,11 +251,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                         width="40"
                         height="40"
                         viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#e0dced"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                        className={styles.logoutSvgIcon}
                       >
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                         <polyline points="16 17 21 12 16 7"></polyline>
