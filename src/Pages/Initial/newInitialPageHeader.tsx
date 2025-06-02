@@ -90,9 +90,9 @@ export const InitPageHeader: FC = memo(() => {
   }, [])
 
   return (
-    <header className={styles.init_header}>
+    <header className={styles.newInitial_header}>
       <div className={styles.btn_block}>
-        <div className={styles.init_header_logo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+        <div className={styles.newInitial_header_logo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src={logoHeader} alt="Logotype" />
         </div>
 

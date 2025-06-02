@@ -32,7 +32,6 @@ export const ChatsList: FC<chatsListT> = ({ chats }) => {
 
   return (
     <div className={styles.chatsList}>
-      {/*<div>Chat count = {sortedChats?.length}</div>*/}
       {sortedChats?.map(chat => (
         <div className={styles.chatPreviewWrapper} key={chat.id}>
           <ChatPreview chat={chat} />

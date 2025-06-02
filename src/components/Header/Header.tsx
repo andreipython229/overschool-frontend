@@ -62,10 +62,9 @@ export const Header = memo(() => {
   const { role: userRole, userId, authState } = useAppSelector(selectUser)
   const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
   const chats = useAppSelector(state => state.chats.chats)
-  console.log(authState)
 
   const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
-  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(true)
+  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
   const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
@@ -340,28 +339,28 @@ export const Header = memo(() => {
   }, [unreadAppeals])
 
   // Удаляем AVATAR
-  const omitAvatar = (sender: SenderI): SenderI => {
-    const { avatar, ...rest } = sender
-    return rest
-  }
+  // const omitAvatar = (sender: SenderI): SenderI => {
+  //   const { avatar, ...rest } = sender
+  //   return rest
+  // }
   // Проходимся по всем чатас и у каждого сендера удаляем аватарку
-  const processChats = (chats: ChatI[]): ChatI[] => {
-    return chats.map(chat => ({
-      ...chat,
-      senders: chat.senders.map(omitAvatar),
-    }))
-  }
+  // const processChats = (chats: ChatI[]): ChatI[] => {
+  //   return chats.map(chat => ({
+  //     ...chat,
+  //     senders: chat.senders.map(omitAvatar),
+  //   }))
+  // }
 
-  useEffect(() => {
-    if (chats && fetchedChats) {
-      const chatsWithoutAvatar = processChats(chats)
-      const fetchedChatsWithoutAvatar = processChats(fetchedChats)
-      const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
-      if (!checkChatsDifferent) {
-        dispatch(setChats(fetchedChats))
-      }
-    }
-  }, [chats, fetchedChats])
+  // useEffect(() => {
+  //   if (chats && fetchedChats) {
+  //     const chatsWithoutAvatar = processChats(chats)
+  //     const fetchedChatsWithoutAvatar = processChats(fetchedChats)
+  //     const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
+  //     if (!checkChatsDifferent) {
+  //       dispatch(setChats(fetchedChats))
+  //     }
+  //   }
+  // }, [chats, fetchedChats])
   // **************************************************************
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -458,7 +457,7 @@ export const Header = memo(() => {
         duration: 0.5,
       }}
     >
-      {banner && (
+      {banner && !Array.isArray(banner) && (
         <Dialog open={showBanner} onClose={closeBanner} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
           <DialogTitle sx={{ minWidth: 600 }} id="alert-dialog-title">
             {banner.title}
@@ -823,7 +822,7 @@ export const Header = memo(() => {
                 <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Студент</p>
               </MenuItem>
             )}
-            {schoolRoles && schoolRoles.roles.includes('Помощник') && (
+            {schoolRoles && schoolRoles.roles.includes('Учитель') && (
               <MenuItem onClick={() => handleLogin('teacher@coursehub.ru', 'm4OjkNzZPh')}>
                 <img src={TeacherIcon} alt="Teacher Icon" width="18px" height="18px" />
                 <p style={{ fontWeight: '600', fontSize: '15px', color: '#324195' }}>Сменить роль на Учитель</p>
