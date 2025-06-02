@@ -27,6 +27,7 @@ import { useCookies } from 'react-cookie';
 import { Path } from 'enum/pathE';
 import { useDispatch } from 'react-redux';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Tooltip from '@mui/material/Tooltip';
 
 export const MobileHeaderAdmin: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -123,12 +124,22 @@ export const MobileHeaderAdmin: FC = () => {
     // Активируем изменение цвета иконки для всех ролей
     setIsExitActive(!isExitActive);
     
-    // Открываем или закрываем меню только для администраторов
     if (userRole === RoleE.Admin) {
+      // Для администраторов открываем/закрываем меню при клике
       if (anchorEl) {
         setAnchorEl(null); // Закрываем меню при повторном клике
       } else {
         setAnchorEl(event.currentTarget); // Открываем меню
+      }
+    } else if (userRole === RoleE.Student) {
+      // Для студентов сразу выполняем выход
+      logOut();
+    } else {
+      // Для остальных ролей открываем меню как у администраторов
+      if (anchorEl) {
+        setAnchorEl(null);
+      } else {
+        setAnchorEl(event.currentTarget);
       }
     }
   };
@@ -248,48 +259,53 @@ export const MobileHeaderAdmin: FC = () => {
             onClick={handleExitClick}
           >
             <Exit className={styles.item_icon} />
-            {userRole === RoleE.Admin && (
-              <Menu
-                anchorEl={anchorEl}
-                id="exit-menu"
-                open={open}
-                onClose={handleMenuClose}
-                onClick={handleMenuClose}
-                PaperProps={{
-                  elevation: 0,
-                  sx: {
-                    overflow: 'visible',
-                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.15))',
-                    mt: 1.5,
-                    bgcolor: 'rgba(207, 226, 255, 1)',
-                    borderRadius: '14px',
-                    '& .MuiMenuItem-root': {
-                      px: 2,
-                      py: 1,
-                    },
+            <Menu
+              anchorEl={anchorEl}
+              id="exit-menu"
+              open={open}
+              onClose={handleMenuClose}
+              onClick={handleMenuClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.15))',
+                  mt: 1.5,
+                  bgcolor: userRole === RoleE.Admin ? 'rgba(207, 226, 255, 1)' : '#f8f6ff',
+                  borderRadius: '14px',
+                  '& .MuiMenuItem-root': {
+                    px: 2,
+                    py: 1,
                   },
-                }}
-                transformOrigin={{ horizontal: 'center', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-                // Добавляем автоматическое закрытие при клике вне меню
-                disablePortal
-                disableScrollLock
-                disableRestoreFocus
-                disableAutoFocus
-                onBackdropClick={handleMenuClose}
-              >
-                <MenuItem onClick={goToChooseSchool}>
-                  <Link to={Path.ChooseSchool} style={{ color: '#324195', textDecoration: 'none' }}>
-                    Вернуться к выбору платформы
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={logOut}>
-                  <Link to={Path.InitialPage} style={{ color: '#324195', textDecoration: 'none' }}>
-                    Выйти из профиля
-                  </Link>
-                </MenuItem>
-              </Menu>
-            )}
+                },
+              }}
+              transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+              disablePortal
+              disableScrollLock
+              disableRestoreFocus
+              disableAutoFocus
+              onBackdropClick={handleMenuClose}
+            >
+              <MenuItem onClick={goToChooseSchool}>
+                <Link to={Path.ChooseSchool} style={{ 
+                  color: userRole === RoleE.Admin ? '#324195' : '#ba75ff', 
+                  textDecoration: 'none',
+                  paddingLeft: userRole === RoleE.Admin ? '0' : '1rem'
+                }}>
+                  Вернуться к выбору платформы
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={logOut}>
+                <Link to={Path.InitialPage} style={{ 
+                  color: userRole === RoleE.Admin ? '#324195' : '#ba75ff', 
+                  textDecoration: 'none',
+                  paddingLeft: userRole === RoleE.Admin ? '0' : '1rem'
+                }}>
+                  Выйти из профиля
+                </Link>
+              </MenuItem>
+            </Menu>
           </div>
         </div>
 
