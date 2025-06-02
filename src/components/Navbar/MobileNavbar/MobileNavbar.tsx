@@ -221,7 +221,8 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
               </Tooltip>
             )}
 
-            {userRole === RoleE.Student ? (
+            {/* Восстановлена кнопка возврата к выбору платформы для студентов */}
+            {userRole === RoleE.Student && (
               <React.Fragment>
                 <Tooltip title={'Вернуться к выбору платформы'}>
                   <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool}>
@@ -230,6 +231,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                     </SvgIcon>
                   </NavLink>
                 </Tooltip>
+                {/* Кнопка выхода из профиля закомментирована, так как эта функциональность перенесена в хедер
                 <Tooltip title={'Выйти из профиля'} className={styles.navbar_exit}>
                   <IconSvg 
                     width={38} 
@@ -240,8 +242,12 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                     className={styles.svgIcon}
                   />
                 </Tooltip>
+                */}
               </React.Fragment>
-            ) : (
+            )}
+
+            {/* Закомментирован блок с кнопкой выхода для администраторов и других пользователей */}
+            {/* {userRole !== RoleE.Student && userRole !== 0 && (
               <React.Fragment>
                 <div className={styles.navbar_exit}>
                   <Tooltip title={'Выход'}>
@@ -273,7 +279,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                   </Menu>
                 </div>
               </React.Fragment>
-            )}
+            )} */}
           </>
         )}
       </div>
