@@ -1,5 +1,5 @@
-import { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, useState, useEffect } from "react";
+import { Link, useNavigate, generatePath } from "react-router-dom";
 import { logoHeader, MenuIcon, CloseIcon } from "../../../assets/img/common/index";
 import styles from "./MobileHeaderAdmin.module.scss";
 import Social from '../../../components/common/IconSvg/SocialIcon';
@@ -14,9 +14,19 @@ import Tariff from '../../../components/common/IconSvg/TariffIcon';
 import Exit from '../../../components/common/IconSvg/ExitIcon';
 import MessageIcon from '../../../components/common/IconSvg/MessageIcon';
 import Notification from '../../../components/common/IconSvg/NotificationIcon';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { selectUser } from '../../../selectors';
 import { RoleE } from '../../../enum/roleE';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useLazyLogoutQuery } from 'api/userLoginService';
+import { logoutState, role } from 'store/redux/users/slice';
+import { clearUserProfile } from 'store/redux/users/profileSlice';
+import { clearSchoolData } from 'store/redux/school/schoolSlice';
+import { useCookies } from 'react-cookie';
+import { Path } from 'enum/pathE';
+import { useDispatch } from 'react-redux';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 export const MobileHeaderAdmin: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,8 +36,34 @@ export const MobileHeaderAdmin: FC = () => {
   const [isTariffOpen, setIsTariffOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isExitActive, setIsExitActive] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  
   const navigate = useNavigate();
   const { role: userRole } = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+  const dispatchRole = useDispatch();
+  const [logout] = useLazyLogoutQuery();
+  const [, , removeAccessCookie] = useCookies(['access_token']);
+  const [, , removeRefreshCookie] = useCookies(['refresh_token']);
+  const open = Boolean(anchorEl);
+
+  // Добавляем обработчик клика вне меню
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (anchorEl && !anchorEl.contains(event.target as Node)) {
+        handleMenuClose();
+      }
+    };
+
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [anchorEl, open]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -49,8 +85,56 @@ export const MobileHeaderAdmin: FC = () => {
     setIsTariffOpen(!isTariffOpen);
   };
   
-  const toggleExitActive = () => {
+  // Функция для выхода из системы
+  const logOut = async () => {
+    if (isLoggingOut) return;
+    
+    try {
+      setIsLoggingOut(true);
+      dispatch(clearUserProfile());
+      dispatch(logoutState());
+      dispatch(clearSchoolData());
+      removeAccessCookie('access_token');
+      removeRefreshCookie('refresh_token');
+      localStorage.clear();
+      
+      await logout();
+      
+      setTimeout(() => {
+        navigate(generatePath(Path.InitialPage), { replace: true });
+        setIsLoggingOut(false);
+      }, 800);
+    } catch (error) {
+      console.error('Logout error:', error);
+      navigate(generatePath(Path.InitialPage), { replace: true });
+      setIsLoggingOut(false);
+    }
+  };
+
+  // Функция для перехода к выбору школы
+  const goToChooseSchool = () => {
+    dispatchRole(role(RoleE.Unknown));
+    navigate(Path.ChooseSchool);
+    setAnchorEl(null);
+  };
+
+  // Обработчик клика на иконку выхода
+  const handleExitClick = (event: React.MouseEvent<HTMLElement>) => {
+    // Активируем изменение цвета иконки для всех ролей
     setIsExitActive(!isExitActive);
+    
+    // Открываем или закрываем меню только для администраторов
+    if (userRole === RoleE.Admin) {
+      if (anchorEl) {
+        setAnchorEl(null); // Закрываем меню при повторном клике
+      } else {
+        setAnchorEl(event.currentTarget); // Открываем меню
+      }
+    }
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -161,9 +245,51 @@ export const MobileHeaderAdmin: FC = () => {
 
           <div 
             className={`${styles.nav_item} ${styles.exit_item} ${isExitActive ? styles.active : ''}`} 
-            onClick={toggleExitActive}
+            onClick={handleExitClick}
           >
             <Exit className={styles.item_icon} />
+            {userRole === RoleE.Admin && (
+              <Menu
+                anchorEl={anchorEl}
+                id="exit-menu"
+                open={open}
+                onClose={handleMenuClose}
+                onClick={handleMenuClose}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.15))',
+                    mt: 1.5,
+                    bgcolor: 'rgba(207, 226, 255, 1)',
+                    borderRadius: '14px',
+                    '& .MuiMenuItem-root': {
+                      px: 2,
+                      py: 1,
+                    },
+                  },
+                }}
+                transformOrigin={{ horizontal: 'center', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+                // Добавляем автоматическое закрытие при клике вне меню
+                disablePortal
+                disableScrollLock
+                disableRestoreFocus
+                disableAutoFocus
+                onBackdropClick={handleMenuClose}
+              >
+                <MenuItem onClick={goToChooseSchool}>
+                  <Link to={Path.ChooseSchool} style={{ color: '#324195', textDecoration: 'none' }}>
+                    Вернуться к выбору платформы
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={logOut}>
+                  <Link to={Path.InitialPage} style={{ color: '#324195', textDecoration: 'none' }}>
+                    Выйти из профиля
+                  </Link>
+                </MenuItem>
+              </Menu>
+            )}
           </div>
         </div>
 
