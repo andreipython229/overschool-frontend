@@ -25,6 +25,7 @@
   .generate_meeting_btn_wrapper {
     @include display(flex, row, flex-end, flex-start);
     position: relative;
+    width: max-content;
 
     .generateMeetingButton {
       font-weight: 500;
@@ -47,24 +48,25 @@
     svg {
       pointer-events: none;
       position: absolute;
-      right: 347px;
-      top: 15px;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
 
       path {
         fill: #fff;
       }
-
-
-      @media screen and (max-width: 1023px),
-      screen and (max-aspect-ratio: 1/1) {
-        right: 0;
-        left: 30px;
-      }
-
-
     }
+  }
 
-
+  .buttons_container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: flex-end;
+    @media screen and (max-width: 640px){
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   .meetingList {
