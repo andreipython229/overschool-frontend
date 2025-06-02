@@ -25,6 +25,7 @@ export const MobileHeaderAdmin: FC = () => {
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const [isTariffOpen, setIsTariffOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isExitActive, setIsExitActive] = useState(false);
   const navigate = useNavigate();
   const { role: userRole } = useAppSelector(selectUser);
 
@@ -46,6 +47,10 @@ export const MobileHeaderAdmin: FC = () => {
 
   const toggleTariffMenu = () => {
     setIsTariffOpen(!isTariffOpen);
+  };
+  
+  const toggleExitActive = () => {
+    setIsExitActive(!isExitActive);
   };
 
   return (
@@ -154,7 +159,10 @@ export const MobileHeaderAdmin: FC = () => {
             )}
           </div>
 
-          <div className={styles.nav_item}>
+          <div 
+            className={`${styles.nav_item} ${styles.exit_item} ${isExitActive ? styles.active : ''}`} 
+            onClick={toggleExitActive}
+          >
             <Exit className={styles.item_icon} />
           </div>
         </div>
