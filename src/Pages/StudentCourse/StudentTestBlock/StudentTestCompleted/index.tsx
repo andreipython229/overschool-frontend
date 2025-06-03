@@ -72,15 +72,18 @@ export const CompletedTest: React.FC<TestCompleted> = ({ lessons, activeLessonIn
             </div>
           </div>
           <div className={styles.questionBlock_question_buttons} style={{ width: '290px' }}>
-            <Button
-              text={'Далее'}
-              onClick={() =>
-                navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type}/${lessonForward?.id}`)
-              }
-              variant="newPrimary"
-              disabled={!lessonForward}
-              className={styles.button_complete}
-            />
+            {lessonForward && (
+              <Button
+                text="Далее"
+                onClick={() =>
+                  navigate(
+                    `/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward.type}/${lessonForward.id}`
+                  )
+                }
+                variant="newPrimary"
+                className={styles.button_complete}
+              />
+            )}
           </div>
         </div>
       </div>
