@@ -674,3 +674,30 @@ li img {
   width: 100%;
   z-index: 1000; /* должно быть больше, чем у других элементов */
 }
+
+
+
+.TariffPlansInfo_yearPrice__gK-jv {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+/* Дополнительные стили по ролям */
+.junior {
+    color: #4d5766;
+    background-color: #f0f0f0;
+}
+
+.middle {
+    color: #4d5766;
+    background-color: #e0e0e0;
+}
+
+.senior {
+    color: white;
+    background-color: #4d5766;
+}
