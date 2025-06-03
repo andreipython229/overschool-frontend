@@ -182,27 +182,11 @@ export const TariffPlansInfo: FC = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div className={styles.yearPrice}>
+  <div className={`${styles.yearPrice} ${styles.junior}`}>Junior</div>
+  <div className={`${styles.yearPrice} ${styles.middle}`}>Middle</div>
+  <div className={`${styles.yearPrice} ${styles.senior}`}>Senior</div>
+</div>
 
 
 
