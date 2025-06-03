@@ -166,7 +166,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                 ) : (
                   <>
                     <Tooltip title={'Чаты'} arrow placement={'right'}>
-                      <div className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`} onClick={off}>
+                      <div className={`${styles.chatIcon}`} onClick={off} style={{ outline: 'none' }}>
                         {Number(unRead) > 0 ? (
                           <Badge badgeContent={unRead} color="error">
                             <IconSvg 
@@ -195,9 +195,14 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
             {userRole === RoleE.Admin && (
               <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
                 <a key={'techsupport'} href={'https://t.me/over_school'} target="_blank" rel="noreferrer">
-                  <SvgIcon
-                    className={`${styles.navbar_menu} ${styles.navbarIcon} ${styles.techSupportIcon}`}
-                    viewBox={'0 0 508 508'}
+                  <svg
+                    className={styles.svgIcon}
+                    width={16}
+                    height={16}
+                    style={{ transform: 'scale(0.8)' }}
+                    viewBox="0 0 508 508"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                     xmlSpace="preserve"
                   >
                     <circle style={{ fill: '#54C0EB' }} cx="254" cy="254" r="254" />
@@ -216,7 +221,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
         s-3,14.3,6.7,19.2c8.6,4.3,21.6,5.2,27,0.5c13.9,4.3,26.9,6.5,39,6.5c15,0,28.5-3.3,40.4-10c27.5-15.3,38.8-43.7,42.8-57.2h9.9
         c5.4,0,9.8-4.4,9.8-9.8v-47.9C411.4,186.7,407,182.3,401.6,182.3z"
                     />
-                  </SvgIcon>
+                  </svg>
                 </a>
               </Tooltip>
             )}
@@ -226,7 +231,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
               <React.Fragment>
                 <Tooltip title={'Вернуться к выбору платформы'}>
                   <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool}>
-                    <SvgIcon className={`${styles.navbar_exit} ${styles.navbarIcon} ${styles.homeIcon}`}>
+                    <SvgIcon className={`${styles.navbar_exit} ${styles.navbarIcon} ${styles.homeIcon}`} style={{ transform: 'scale(2.8)', transformOrigin: 'center center', marginRight: '15px' }}>
                       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </SvgIcon>
                   </NavLink>
