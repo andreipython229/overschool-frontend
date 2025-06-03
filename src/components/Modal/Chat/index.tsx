@@ -17,56 +17,38 @@ import { RootState } from '../../../store/redux/store'
 import { motion } from 'framer-motion'
 import { useAppSelector } from 'store/hooks'
 
-type chatT = {
-  closeModal: () => void
+type ChatProps = {
+  closeModal: () => void;
+  studentId?: number;  // Делаем необязательным, если нужно сохранить обратную совместимость
+  // или
+  // studentId: number; // Если ID обязателен
 }
 
-export const Chat: FC<chatT> = ({ closeModal }) => {
-  // const [chats, setChats] = useState<Chats>([])
-  const { data, isFetching, isSuccess, refetch } = useFetchChatsQuery()
+export const Chat: FC<ChatProps> = ({ closeModal, studentId }) => {
+  const { data, isFetching, isSuccess, refetch } = useFetchChatsQuery();
+  const dispatch = useDispatch();
+  const chats = useSelector((state: RootState) => state.chats.chats);
+  const { chatId } = useAppSelector(state => state.chat);
 
-  const dispatch = useDispatch()
-  const chats = useSelector((state: RootState) => state.chats.chats)
-  const { chatId } = useAppSelector(state => state.chat)
-  console.log(chatId)
+  // Логируем полученный studentId
+  useEffect(() => {
+    if (studentId) {
+      console.log('Chat opened for student ID:', studentId);
+      // Здесь можно добавить логику загрузки чата для конкретного студента
+    }
+  }, [studentId]);
 
   useEffect(() => {
-    isSuccess && dispatch(setChats(data))
-  }, [isFetching])
-  //
-  // useEffect(() => {
-  //     return () => {
-  //         setChats([]); // очищаем состояние при размонтировании
-  //     };
-  // }, []);
-  //
-  // useEffect(() => {
-  //     if (data && isFetching) {
-  //         dispatch(setChats(data));
-  //         console.log("index = ",data)
-  //     }
-  // }, [data, dispatch])
-  //
-  // useEffect(() => {
-  //     refetch();
-  // }, [])
+    isSuccess && dispatch(setChats(data));
+  }, [isFetching]);
 
   return (
     <motion.div
       className={styles.chat}
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{
-        opacity: 0,
-      }}
-      transition={{
-        delay: 0.5,
-        duration: 0.4,
-      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 0.5, duration: 0.4 }}
     >
       {isFetching && (
         <div className={styles.chat_loader}>
@@ -79,5 +61,66 @@ export const Chat: FC<chatT> = ({ closeModal }) => {
       <ChatPanel chats={chats} />
       <ChatWorkspace />
     </motion.div>
-  )
-}
+  );
+};
+
+// export const Chat: FC<chatT> = ({ closeModal }) => {
+//   // const [chats, setChats] = useState<Chats>([])
+//   const { data, isFetching, isSuccess, refetch } = useFetchChatsQuery()
+//
+//   const dispatch = useDispatch()
+//   const chats = useSelector((state: RootState) => state.chats.chats)
+//   const { chatId } = useAppSelector(state => state.chat)
+//   console.log(chatId)
+//
+//   useEffect(() => {
+//     isSuccess && dispatch(setChats(data))
+//   }, [isFetching])
+//   //
+//   // useEffect(() => {
+//   //     return () => {
+//   //         setChats([]); // очищаем состояние при размонтировании
+//   //     };
+//   // }, []);
+//   //
+//   // useEffect(() => {
+//   //     if (data && isFetching) {
+//   //         dispatch(setChats(data));
+//   //         console.log("index = ",data)
+//   //     }
+//   // }, [data, dispatch])
+//   //
+//   // useEffect(() => {
+//   //     refetch();
+//   // }, [])
+//
+//   return (
+//     <motion.div
+//       className={styles.chat}
+//       initial={{
+//         opacity: 0,
+//       }}
+//       animate={{
+//         opacity: 1,
+//       }}
+//       exit={{
+//         opacity: 0,
+//       }}
+//       transition={{
+//         delay: 0.5,
+//         duration: 0.4,
+//       }}
+//     >
+//       {isFetching && (
+//         <div className={styles.chat_loader}>
+//           <SimpleLoader style={{ width: '50px', height: '50px' }} />
+//         </div>
+//       )}
+//       <button className={styles.chat_close} onClick={closeModal}>
+//         <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
+//       </button>
+//       <ChatPanel chats={chats} />
+//       <ChatWorkspace />
+//     </motion.div>
+//   )
+// }
