@@ -1,14 +1,14 @@
 import React, { FC, memo, useState, useEffect } from 'react'
-import { Link, NavLink, generatePath, useNavigate } from 'react-router-dom'
+import { /*Link,*/ NavLink, /*generatePath,*/ useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
-import { useLazyLogoutQuery } from 'api/userLoginService'
-import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { /*useLazyLogoutQuery*/ } from 'api/userLoginService'
+import { /*useAppDispatch,*/ useAppSelector } from '../../../store/hooks'
 import RedeemIcon from '@mui/icons-material/Redeem'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import MenuIcon from '@mui/icons-material/Menu'
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+// import MenuIcon from '@mui/icons-material/Menu'
 
-import { logoutState, role } from 'store/redux/users/slice'
+import { /*logoutState,*/ role } from 'store/redux/users/slice'
 import { Chat } from 'components/Modal/Chat'
 import { useBoolean } from 'customHooks'
 import { chatIconPath } from 'components/Navbar/config/svgIconPath'
@@ -23,15 +23,15 @@ import { navlinkByRoles } from '../config/navlinkByRoles'
 import { SvgIcon } from '@mui/material'
 
 import styles from '../navbar.module.scss'
-import { clearUserProfile } from 'store/redux/users/profileSlice'
-import { useCookies } from 'react-cookie'
+import { /*clearUserProfile*/ } from 'store/redux/users/profileSlice'
+import { /*useCookies*/ } from 'react-cookie'
 import { RoleE } from 'enum/roleE'
-import { logOutIconPath } from './svgIconsPath'
+// import { logOutIconPath } from './svgIconsPath'
 
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
+// import Menu from '@mui/material/Menu'
+// import MenuItem from '@mui/material/MenuItem'
 import Timer from '../../Timer/Timer'
-import { clearSchoolData } from 'store/redux/school/schoolSlice'
+import { /*clearSchoolData*/ } from 'store/redux/school/schoolSlice'
 
 interface IIsActive {
   isActive?: boolean
@@ -46,17 +46,17 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
   const { role: userRole } = useAppSelector(selectUser)
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
-  const [logout] = useLazyLogoutQuery()
-  const dispatch = useAppDispatch()
+  // const [logout] = useLazyLogoutQuery()
+  // const dispatch = useAppDispatch()
   const [isChatOpen, { on, off }] = useBoolean()
-  const [, , removeAccessCookie] = useCookies(['access_token'])
-  const [, , removeRefreshCookie] = useCookies(['refresh_token'])
+  // const [, , removeAccessCookie] = useCookies(['access_token'])
+  // const [, , removeRefreshCookie] = useCookies(['refresh_token'])
   const navigate = useNavigate()
-  const [anchorMob, setAnchorMob] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorMob)
+  // const [anchorMob, setAnchorMob] = useState<null | HTMLElement>(null)
+  // const open = Boolean(anchorMob)
   const dispatchRole = useDispatch()
   const studentBonus = useSelector((state: RootState) => state.bonuses.studentBonus)
-  const [isLoggingOut, setIsLoggingOut] = useState(false)
+  // const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [localIsCollapsed, setLocalIsCollapsed] = useState(isCollapsed)
 
   // Синхронизируем локальное состояние с пропсами
@@ -64,52 +64,53 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
     setLocalIsCollapsed(isCollapsed);
   }, [isCollapsed]);
 
-  const toggleNavbar = () => {
-    if (toggleCollapse) {
-      toggleCollapse();
-    } else {
-      setLocalIsCollapsed(!localIsCollapsed);
-    }
-  }
+  // const toggleNavbar = () => {
+  //   if (toggleCollapse) {
+  //     toggleCollapse();
+  //   } else {
+  //     setLocalIsCollapsed(!localIsCollapsed);
+  //   }
+  // }
 
-  const logOut = async () => {
-    if (isLoggingOut) return;
+  // Сохраняем logOut в закомментированном виде, так как он может понадобиться в будущем
+  // const logOut = async () => {
+  //   if (isLoggingOut) return;
     
-    try {
-      setIsLoggingOut(true)
-      dispatch(clearUserProfile())
-      dispatch(logoutState())
-      dispatch(clearSchoolData())
-      removeAccessCookie('access_token')
-      removeRefreshCookie('refresh_token')
-      localStorage.clear()
+  //   try {
+  //     setIsLoggingOut(true)
+  //     dispatch(clearUserProfile())
+  //     dispatch(logoutState())
+  //     dispatch(clearSchoolData())
+  //     removeAccessCookie('access_token')
+  //     removeRefreshCookie('refresh_token')
+  //     localStorage.clear()
       
-      await logout()
+  //     await logout()
       
-      setTimeout(() => {
-        navigate(generatePath(Path.InitialPage), { replace: true })
-        setIsLoggingOut(false)
-      }, 800)
-    } catch (error) {
-      console.error('Logout error:', error)
-      navigate(generatePath(Path.InitialPage), { replace: true })
-      setIsLoggingOut(false)
-    }
-  }
+  //     setTimeout(() => {
+  //       navigate(generatePath(Path.InitialPage), { replace: true })
+  //       setIsLoggingOut(false)
+  //     }, 800)
+  //   } catch (error) {
+  //     console.error('Logout error:', error)
+  //     navigate(generatePath(Path.InitialPage), { replace: true })
+  //     setIsLoggingOut(false)
+  //   }
+  // }
 
   const goToChooseSchool = () => {
     dispatchRole(role(RoleE.Unknown))
     navigate(Path.ChooseSchool)
-    setAnchorMob(null)
+    // setAnchorMob(null)
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorMob(event.currentTarget)
-  }
+  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  //   setAnchorMob(event.currentTarget)
+  // }
 
-  const handleClose = () => {
-    setAnchorMob(null)
-  }
+  // const handleClose = () => {
+  //   setAnchorMob(null)
+  // }
 
   // Используем либо проп isCollapsed, либо локальное состояние
   const effectiveIsCollapsed = toggleCollapse ? isCollapsed : localIsCollapsed;
