@@ -33,6 +33,32 @@ import { RoleE } from 'enum/roleE'
 import Timer from '../../Timer/Timer'
 import { /*clearSchoolData*/ } from 'store/redux/school/schoolSlice'
 
+// Компонент-обертка для применения стилей к иконкам
+const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const iconStyle = {
+    display: 'inline-block', // Сохраняем инлайн поведение
+    color: '#212121',
+  };
+
+  return (
+    <div style={iconStyle}>
+      {React.Children.map(children, child => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child as React.ReactElement, {
+            // Применяем стили только к SVG элементам
+            style: {
+              ...(child.props.style || {}),
+              color: '#212121',
+              fill: '#212121',
+            }
+          });
+        }
+        return child;
+      })}
+    </div>
+  );
+};
+
 interface IIsActive {
   isActive?: boolean
 }
@@ -63,6 +89,26 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
   useEffect(() => {
     setLocalIsCollapsed(isCollapsed);
   }, [isCollapsed]);
+
+  // Добавляем CSS для переопределения цветов всех SVG элементов в навбаре
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      .${styles.navbar_setting_account} svg,
+      .${styles.navbar_setting_account} svg path,
+      .${styles.navbar_setting_account} svg rect,
+      .${styles.navbar_setting_account} svg circle {
+        fill: #212121 !important;
+        stroke: #212121 !important;
+        color: #212121 !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   // const toggleNavbar = () => {
   //   if (toggleCollapse) {
@@ -118,7 +164,14 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
   return (
     <>
       {/* Навигационная панель */}
-      <div className={`${styles.navbar_setting_account} ${effectiveIsCollapsed ? styles.collapsed : ''}`}>
+      <div className={`${styles.navbar_setting_account} ${effectiveIsCollapsed ? styles.collapsed : ''}`} 
+           style={{ 
+             display: 'flex', 
+             justifyContent: 'space-evenly', 
+             alignItems: 'center',
+             paddingLeft: '10px',
+             paddingRight: '10px'
+           }}>
         {!effectiveIsCollapsed && (
           <>
             {userRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
@@ -160,14 +213,16 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                     arrow
                     placement={'right'}
                   >
-                    <NavLink key={index} to={path} className={isActive}>
-                      {icon}
+                    <NavLink key={index} to={path} className={isActive} style={{ padding: '0 10px' }}>
+                      <DarkIconWrapper>
+                        {icon}
+                      </DarkIconWrapper>
                     </NavLink>
                   </Tooltip>
                 ) : (
                   <>
                     <Tooltip title={'Чаты'} arrow placement={'right'}>
-                      <div className={`${styles.chatIcon}`} onClick={off} style={{ outline: 'none' }}>
+                      <div className={`${styles.chatIcon}`} onClick={off} style={{ outline: 'none', padding: '0 10px' }}>
                         {Number(unRead) > 0 ? (
                           <Badge badgeContent={unRead} color="error">
                             <IconSvg 
@@ -176,6 +231,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                               viewBoxSize="0 0 50 50" 
                               path={chatIconPath} 
                               className={styles.svgIcon}
+                              styles={{ color: '#212121' }}
                             />
                           </Badge>
                         ) : (
@@ -185,6 +241,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                             viewBoxSize="0 0 50 50" 
                             path={chatIconPath} 
                             className={styles.svgIcon}
+                            styles={{ color: '#212121' }}
                           />
                         )}
                       </div>
@@ -195,7 +252,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
 
             {userRole === RoleE.Admin && (
               <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
-                <a key={'techsupport'} href={'https://t.me/coursehub_admin'} target="_blank" rel="noreferrer" style={{ marginRight: '10px' }}>
+                <a key={'techsupport'} href={'https://t.me/coursehub_admin'} target="_blank" rel="noreferrer" style={{ padding: '0 10px' }}>
                   <div style={{ transform: 'scale(1.1)', transformOrigin: 'center center' }}>
                     <IconSvg 
                       width={60} 
@@ -203,7 +260,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                       viewBoxSize="0 0 50 50" 
                       path={tgNavPath} 
                       className={styles.svgIcon}
-                      styles={{ color: '#332F36' }} 
+                      styles={{ color: '#212121' }} 
                     />
                   </div>
                 </a>
@@ -214,8 +271,8 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
             {userRole === RoleE.Student && (
               <React.Fragment>
                 <Tooltip title={'Вернуться к выбору платформы'}>
-                  <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool}>
-                    <SvgIcon className={`${styles.navbar_exit} ${styles.navbarIcon} ${styles.homeIcon}`} style={{ transform: 'scale(2.8)', transformOrigin: 'center center', marginRight: '15px' }}>
+                  <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool} style={{ padding: '0 10px' }}>
+                    <SvgIcon className={`${styles.navbar_exit} ${styles.navbarIcon} ${styles.homeIcon}`} style={{ transform: 'scale(2.8)', transformOrigin: 'center center', color: '#212121' }}>
                       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </SvgIcon>
                   </NavLink>
