@@ -31,8 +31,8 @@ export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
         return <TrainingProgram />;
       case blocksNamesE.trainingPurpose:
         return <PurposeTrainingViewBlock />;
-      case blocksNamesE.linkButton:
-        return <LinkViewBlock />;
+      // case blocksNamesE.linkButton:
+      //   return <LinkViewBlock />;
       default:
         return null;
     }

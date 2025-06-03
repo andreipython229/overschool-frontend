@@ -18,7 +18,7 @@ export const HeaderViewBlock: FC<HeaderBlockT> = ({ openModal }) => {
         <div className={styles.previous_title_name_description}>{landing.header.description}</div>
       </div>
       <div className={styles.previous_buttonAccept}>
-        <Button variant="primary" onClick={openModal} text="Оставить заявку" />
+        <Button variant="newPrimary" onClick={openModal} text="Оставить заявку" />
       </div>
     </div>
   )
