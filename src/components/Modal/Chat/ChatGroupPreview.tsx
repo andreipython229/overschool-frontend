@@ -77,7 +77,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
             <span>Чат</span>
           </div>
           <div className={styles.chatGroup_header_preview}>
-            <span>{chatData.name || 'Группа без имени '}</span>
+            <span>{chatData.name ?? 'Группа без имени '}</span>
             <span>{usersList && ` - ${usersList.length} ${getNounDeclension(usersList.length, ['участник', 'участника', 'участников'])}`}</span>
           </div>
         </div>

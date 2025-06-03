@@ -16,7 +16,8 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { ListMessagesIconPath } from 'assets/Icons/svgIconPath'
 import { aiButtonNavIcon, messageNavIcon, userNavIcon, aiMobileButtonNavIcon } from './svg/svgIconPath'
 import styles from './chatgpt.module.scss'
-import { log } from 'console'
+import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { CodeRenderer } from 'utils/gptChatTextRenderer'
 
 interface Chat {
   id: number
@@ -24,32 +25,32 @@ interface Chat {
 }
 
 interface ChatGPTProps {
-  isDialogOpen: boolean; 
-  setIsDialogOpen: (isDialogOpen: boolean) => void; 
+  isDialogOpen: boolean
+  setIsDialogOpen: (isDialogOpen: boolean) => void
 }
 
 const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
-  const [messageInput, setMessageInput] = useState('');
-  const messageContainerRef = useRef<HTMLDivElement>(null);
-  const [showChatListForm, setShowChatListForm] = useState(false);
-  const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({});
-  const [selectedChatId, setCreatedChatId] = useState<number>();
-  const [isChatSelected, setIsChatSelected] = useState(false);
+  const [messageInput, setMessageInput] = useState('')
+  const messageContainerRef = useRef<HTMLDivElement>(null)
+  const [showChatListForm, setShowChatListForm] = useState(false)
+  const [chatData, setChatData] = useState<{ [id: number]: { order: number; chat_name: string } }>({})
+  const [selectedChatId, setCreatedChatId] = useState<number>()
+  const [isChatSelected, setIsChatSelected] = useState(false)
   // const [isDialogOpen, setIsDialogOpen] = useState(false);
   // const [isNewChat, setIsNewChat] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [warning, setWarning] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isFetchingChats, setIsFetchingChats] = useState(false);
-  const [isLoadingMessages, setIsLoadingMessages] = useState(false);
-  const [chatsLoaded, setChatsLoaded] = useState(false);
-  const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false);
-  const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false);
-  const [isDeletingChatDisabled, setIsDeletingChatDisabled] = useState(false);
-  const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true);
-  const [draggedChatId, setDraggedChatId] = useState<number | null>(null);
-  const [draggedOverChatId, setDraggedOverChatId] = useState<number | null>(null);
-  const [selectedLanguage, setSelectedLanguage] = useState('RU');
+  const [error, setError] = useState<string | null>(null)
+  const [warning, setWarning] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isFetchingChats, setIsFetchingChats] = useState(false)
+  const [isLoadingMessages, setIsLoadingMessages] = useState(false)
+  const [chatsLoaded, setChatsLoaded] = useState(false)
+  const [isChatSelectionDisabled, setIsChatSelectionDisabled] = useState(false)
+  const [isCreatingChatDisabled, setIsCreatingChatDisabled] = useState(false)
+  const [isDeletingChatDisabled, setIsDeletingChatDisabled] = useState(false)
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState<boolean>(true)
+  const [draggedChatId, setDraggedChatId] = useState<number | null>(null)
+  const [draggedOverChatId, setDraggedOverChatId] = useState<number | null>(null)
+  const [selectedLanguage, setSelectedLanguage] = useState('RU')
 
   const [refetchChats, { data: latestChats }] = useLazyFetchLatestChatsQuery()
   const [refetchMessages, { data: latestMessages }] = useLazyFetchLatestMessagesQuery()
@@ -74,7 +75,6 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   const [userQuestions, setUserQuestions] = useState<Array<{ sender_question: string }>>([])
   const [botAnswers, setBotAnswers] = useState<Array<{ answer: string }>>([])
 
-
   useEffect(() => {
     if (latestMessages) {
       if (latestMessages[0] && Array.isArray(latestMessages[0])) {
@@ -90,10 +90,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
       }
     }
     // console.log(userQuestions);
-
-  }, [latestMessages]);
-
-
+  }, [latestMessages])
 
   useEffect(() => {
     scrollMessagesToBottom()
@@ -110,16 +107,16 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   }, [])
 
   useEffect(() => {
-    const savedChatId = Number(localStorage.getItem('selectedChatId'));
+    const savedChatId = Number(localStorage.getItem('selectedChatId'))
     if (savedChatId) {
-      setCreatedChatId(savedChatId);
-      selectChat(savedChatId);
+      setCreatedChatId(savedChatId)
+      selectChat(savedChatId)
     }
     setTextAreaFocus()
     scrollToSelectedChat()
 
     const fetchData = async () => {
-      if (!isDialogOpen) return;
+      if (!isDialogOpen) return
 
       setError(null)
       setWarning(null)
@@ -143,11 +140,11 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
       } else {
         setIsLoadingMessages(false)
       }
-    };
-    fetchData();
-    console.log(Object.keys(chatData).length === 0, !isLoading, !isFetchingChats);
-    setShowWelcomeMessage(Object.keys(chatData).length === 0 && !isLoading && !isFetchingChats && !isCreatingChatDisabled);
-  }, [selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, isDialogOpen, isFetchingChats]);
+    }
+    fetchData()
+    console.log(Object.keys(chatData).length === 0, !isLoading, !isFetchingChats)
+    setShowWelcomeMessage(Object.keys(chatData).length === 0 && !isLoading && !isFetchingChats && !isCreatingChatDisabled)
+  }, [selectedChatId, refetchMessages, isChatSelected, chatsLoaded, showWelcomeMessage, isDialogOpen, isFetchingChats])
 
   const setTextAreaFocus = () => {
     setTimeout(() => {
@@ -234,8 +231,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   const selectChat = async (chatId: number | undefined) => {
     // setShowWelcomeMessage(false)
     if (!isChatSelectionDisabled) {
-
-      let selectedChatId: number | undefined = chatId;
+      let selectedChatId: number | undefined = chatId
       // setIsNewChat(false);
       if (chatId === undefined || chatId === 1) {
         for (const [id, chat] of Object.entries(chatData)) {
@@ -304,8 +300,8 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   const createChat = async () => {
     try {
       setCreatedChatId(undefined)
-      setIsChatSelected(true);
-      setIsCreatingChatDisabled(true);
+      setIsChatSelected(true)
+      setIsCreatingChatDisabled(true)
       // setIsNewChat(true);
 
       setUserQuestions([])
@@ -340,9 +336,9 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   const handleCreateChat = async () => {
     if (!isLoadingMessages) {
       // setIsNewChat(true);
-      setShowWelcomeMessage(false);
-      await createChat();
-      setShowWelcomeMessage(false);
+      setShowWelcomeMessage(false)
+      await createChat()
+      setShowWelcomeMessage(false)
     }
   }
 
@@ -366,18 +362,18 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
 
   const handleDeleteChat = async (chatId: number) => {
     setIsDeletingChatDisabled(true)
-    const previousChatData = { ...chatData }; // Сохраняем копию состояния
-    const isDeletingSelectedChat = chatId === selectedChatId;
+    const previousChatData = { ...chatData } // Сохраняем копию состояния
+    const isDeletingSelectedChat = chatId === selectedChatId
 
     if (isDeletingSelectedChat) {
       let minOrder = Infinity
       let firstChatId = selectedChatId
       for (const [id, chat] of Object.entries(chatData)) {
         if (Number(id) !== chatId && chat.order < minOrder) {
-          minOrder = chat.order;
-          firstChatId = Number(id);
+          minOrder = chat.order
+          firstChatId = Number(id)
           // setIsNewChat(false);
-          localStorage.setItem('selectedChatId', firstChatId.toString());
+          localStorage.setItem('selectedChatId', firstChatId.toString())
           selectChat(firstChatId)
         }
       }
@@ -410,8 +406,7 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
     } catch (error) {
       setChatData(previousChatData)
       setError('Ошибка при удалении чата.')
-    }
-    finally {
+    } finally {
       setIsDeletingChatDisabled(false)
     }
 
@@ -499,7 +494,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
                 ) : (
                   <>
                     <div className={`${styles.listOfChatSection} ${showWelcomeMessage ? styles.listOfChatSectionDisabled : ''}`}>
-                      <button className={`${styles.createChatButtonModal} ${isCreatingChatDisabled || showWelcomeMessage ? styles.createChatButtonModalDisabled : ''}`} onClick={handleCreateChat} disabled={isCreatingChatDisabled}>
+                      <button
+                        className={`${styles.createChatButtonModal} ${
+                          isCreatingChatDisabled || showWelcomeMessage ? styles.createChatButtonModalDisabled : ''
+                        }`}
+                        onClick={handleCreateChat}
+                        disabled={isCreatingChatDisabled}
+                      >
                         <b>+</b>
                       </button>
                       <div className={styles.listOfChatContainer} ref={listOfChatContainerRef}>
@@ -531,10 +532,13 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
                                     {`${chatValue.chat_name.length > 25 ? chatValue.chat_name.substring(0, 25) + '...' : chatValue.chat_name}`}
                                   </span>
                                 </div>
-                                <button className={`${styles.deleteChatBtn} ${isDeletingChatDisabled ? styles.deleteChatBtnDisabled : ''}`} onClick={(e) => {
-                                  // e.stopPropagation(); // Предотвращаем всплытие события
-                                  handleDeleteChat(Number(chatId));
-                                }}>
+                                <button
+                                  className={`${styles.deleteChatBtn} ${isDeletingChatDisabled ? styles.deleteChatBtnDisabled : ''}`}
+                                  onClick={e => {
+                                    // e.stopPropagation(); // Предотвращаем всплытие события
+                                    handleDeleteChat(Number(chatId))
+                                  }}
+                                >
                                   <div className={styles.close_cross}></div>
                                 </button>
                               </div>
@@ -630,7 +634,10 @@ const ChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
                                       </div>
                                       <div className={styles.messageContainer_bot} key={index} style={{ wordWrap: 'break-word' }}>
                                         <p>OverAi bot</p>
-                                        <div className={styles.messageContainer_bot_answer}>{formatBotAnswer(botAnswers[index].answer)}</div>
+                                        {/* <div className={styles.messageContainer_bot_answer}>{formatBotAnswer(botAnswers[index].answer)}</div> */}
+                                        <div className={styles.messageContainer_bot_answer}>
+                                          <CodeRenderer inputText={botAnswers[index].answer} />
+                                        </div>
                                       </div>
                                     </div>
                                   )}
