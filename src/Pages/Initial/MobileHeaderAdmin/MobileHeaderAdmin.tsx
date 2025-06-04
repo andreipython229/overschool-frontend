@@ -113,7 +113,7 @@ export const MobileHeaderAdmin: FC = () => {
     }
   };
 
-  // Функция для перехода к выбору школы
+  // Функция для перехода к выбору профиля
   const goToChooseSchool = () => {
     dispatchRole(role(RoleE.Unknown));
     navigate(Path.ChooseSchool);
@@ -124,6 +124,12 @@ export const MobileHeaderAdmin: FC = () => {
   //   navigate('/profile'); // путь к странице профиля, не реализовано
   //   setIsProfileOpen(false);
   // };
+
+  // Функция перехода на страницу каталога (курсов) по пути path.courses
+  const goToCatalog = () => {
+    navigate(Path.Courses);
+    setIsProfileOpen(false);
+  };
 
   // Обработчик клика на иконку выхода
   const handleExitClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -245,10 +251,11 @@ export const MobileHeaderAdmin: FC = () => {
             <Profile className={styles.item_icon} />
             {isProfileOpen && (
               <div className={`${styles.submenu} ${styles.profile}`}>
-                {/* <button onClick={goToProfile}>Открыть профиль</button>  // для админа и пользователей, не реализовано */}
+                {/* <button onClick={goToProfile}>Открыть профиль</button>  // пункт для админа и пользователей, не реализовано */}
                 <button onClick={goToChooseSchool}>Смена платформы</button>
                 {userRole === RoleE.Admin && (
-                  <button>
+                   // кнопка перехода на страницу каталога (курсов) по пути path.courses
+                   <button onClick={goToCatalog}> 
                     Каталог
                   </button>
                 )}
