@@ -15,7 +15,7 @@ import Exit from '../../../components/common/IconSvg/ExitIcon';
 import MessageIcon from '../../../components/common/IconSvg/MessageIcon';
 import Notification from '../../../components/common/IconSvg/NotificationIcon';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
-import { selectUser } from '../../../selectors';
+import { selectUser, schoolSelector } from '../../../selectors';
 import { RoleE } from '../../../enum/roleE';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -28,6 +28,7 @@ import { Path } from 'enum/pathE';
 import { useDispatch } from 'react-redux';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Tooltip from '@mui/material/Tooltip';
+import { useFetchSchoolQuery } from '../../../api/schoolService';
 
 export const MobileHeaderAdmin: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -48,6 +49,8 @@ export const MobileHeaderAdmin: FC = () => {
   const [, , removeAccessCookie] = useCookies(['access_token']);
   const [, , removeRefreshCookie] = useCookies(['refresh_token']);
   const open = Boolean(anchorEl);
+  const { schoolId } = useAppSelector(schoolSelector);
+  const { data: schoolData } = useFetchSchoolQuery(Number(schoolId));
 
   // Добавляем обработчик клика вне меню
   useEffect(() => {
@@ -157,25 +160,25 @@ export const MobileHeaderAdmin: FC = () => {
 
         <div className={`${styles.nav_links} ${menuOpen ? styles.hidden : ""}`}>
           <div className={`${styles.nav_item} ${styles.social} ${isSocialOpen ? styles.active : ''}`} onClick={togglePlatformMenu}>
-          <Social_meniu className={styles.item_icon} />
+            <Social_meniu className={styles.item_icon} />
             {isSocialOpen && (
               <div className={styles.submenu}>
-                <a href="#">
+                <a href={schoolData?.extra_link || '#'} target={schoolData?.extra_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.extra_link ? undefined : -1} aria-disabled={!schoolData?.extra_link}>
                   <Social className={styles.icon} />
                 </a>
-                <a href="#">
+                <a href={schoolData?.telegram_link || '#'} target={schoolData?.telegram_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.telegram_link ? undefined : -1} aria-disabled={!schoolData?.telegram_link}>
                   <Telegram className={styles.icon} />
                 </a>
-                <a href="#">
+                <a href={schoolData?.instagram_link || '#'} target={schoolData?.instagram_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.instagram_link ? undefined : -1} aria-disabled={!schoolData?.instagram_link}>
                   <Instagram className={styles.icon} />
                 </a>
-                <a href="#">
+                <a href={schoolData?.twitter_link || '#'} target={schoolData?.twitter_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.twitter_link ? undefined : -1} aria-disabled={!schoolData?.twitter_link}>
                   <X className={styles.icon} />
                 </a>
-                <a href="#">
+                <a href={schoolData?.youtube_link || '#'} target={schoolData?.youtube_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.youtube_link ? undefined : -1} aria-disabled={!schoolData?.youtube_link}>
                   <Youtube className={styles.icon} />
                 </a>
-                <a href="#">
+                <a href={schoolData?.vk_link || '#'} target={schoolData?.vk_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.vk_link ? undefined : -1} aria-disabled={!schoolData?.vk_link}>
                   <VK className={styles.icon} />
                 </a>
               </div>
