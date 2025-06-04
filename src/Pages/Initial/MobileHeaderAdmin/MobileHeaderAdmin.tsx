@@ -26,8 +26,8 @@ import { clearSchoolData } from 'store/redux/school/schoolSlice';
 import { useCookies } from 'react-cookie';
 import { Path } from 'enum/pathE';
 import { useDispatch } from 'react-redux';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Tooltip from '@mui/material/Tooltip';
+// import ClickAwayListener from '@mui/material/ClickAwayListener';
+// import Tooltip from '@mui/material/Tooltip';
 import { useFetchSchoolQuery } from '../../../api/schoolService';
 
 export const MobileHeaderAdmin: FC = () => {
