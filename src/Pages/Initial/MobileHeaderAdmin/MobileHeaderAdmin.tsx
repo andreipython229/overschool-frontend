@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { useNavigate, generatePath } from "react-router-dom";
 import { logoHeader, MenuIcon, CloseIcon } from "../../../assets/img/common/index";
 import styles from "./MobileHeaderAdmin.module.scss";
@@ -25,6 +25,7 @@ import { useCookies } from 'react-cookie';
 import { Path } from 'enum/pathE';
 import { useDispatch } from 'react-redux';
 import { useFetchSchoolQuery } from '../../../api/schoolService';
+import { useFetchCurrentTariffPlanQuery } from 'api/tariffPlanService';
 
 export const MobileHeaderAdmin: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,6 +46,26 @@ export const MobileHeaderAdmin: FC = () => {
   const [, , removeRefreshCookie] = useCookies(['refresh_token']);
   const { schoolId } = useAppSelector(schoolSelector);
   const { data: schoolData } = useFetchSchoolQuery(Number(schoolId));
+  
+  // Загружаем данные текущего тарифного плана
+  // Используем schoolData?.name как параметр запроса
+  // skip: true если schoolData?.name еще не доступен
+  const { 
+    data: currentTariffData,
+    refetch: refetchTariff
+  } = useFetchCurrentTariffPlanQuery(schoolData?.name as string, { 
+    skip: !schoolData?.name 
+  });
+
+  // Эффект для повторной загрузки тарифных данных при изменении schoolId или schoolData?.name
+  useEffect(() => {
+    if (schoolId !== null && currentTariffData === undefined && schoolData?.name) {
+      console.log('schoolId updated, currentTariffData is undefined, and schoolData?.name is available. Attempting to refetch tariff...');
+      refetchTariff();
+    } else if (schoolId !== null && !schoolData?.name) {
+      console.log('Tariff query is likely skipped because schoolData?.name is not available. schoolId:', schoolId);
+    }
+  }, [schoolId, currentTariffData, refetchTariff, schoolData?.name]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -158,20 +179,25 @@ export const MobileHeaderAdmin: FC = () => {
               <Tariff className={styles.item_icon} />
               {isTariffOpen && (
                 <div className={`${styles.submenu} ${styles.tariff}`}>
+                  {/* Отображаем название тарифа и оставшееся количество дней */}
                   <div className={styles.tariff_title}>
-                    Тариф «Senior» 200 дней
+                    Тариф:<span> {currentTariffData?.tariff_name} {currentTariffData?.days_left} {currentTariffData?.days_left ? 'дней' : 'дней'}</span>
                   </div>
+                  {/* Отображаем количество использованных/доступных курсов */}
                   <div className={styles.tariff_text}>
-                    Курсов:<span>10/50</span>
+                    Курсов:<span>{currentTariffData?.number_of_courses}/{currentTariffData?.tariff_details?.number_of_courses || '∞'}</span>
                   </div>
+                  {/* Отображаем количество использованных/доступных сотрудников */}
                   <div className={styles.tariff_text}>
-                    Сотрудников:<span>3/безлимит</span>
+                    Сотрудников:<span>{currentTariffData?.staff}/{currentTariffData?.tariff_details?.number_of_staff || '∞'}</span>
                   </div>
+                  {/* Отображаем количество использованных/доступных студентов */}
                   <div className={styles.tariff_text}>
-                    Студентов:<span>20/500</span>
+                    Студентов:<span>{currentTariffData?.students}/{currentTariffData?.tariff_details?.total_students || '∞'}</span>
                   </div>
+                  {/* Отображаем количество студентов в месяц */}
                   <div className={styles.tariff_text}>
-                    Студентов в месяц:<span>20/100</span>
+                    Студентов в месяц:<span>{currentTariffData?.tariff_details?.student_count_by_month || 0}/{currentTariffData?.tariff_details?.students_per_month || '∞'}</span>
                   </div>
                   <div className={styles.tariff_button}>
                     Перейти на тариф
