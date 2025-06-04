@@ -23,7 +23,7 @@ import { useAppDispatch } from 'store/hooks'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ba75ff', //this overide blue color
+      main: '#357EEB', //this overide blue color
       light: '#e0dced', //overides light blue
       dark: 'rgb(0, 0, 0)', //overides dark blue color
     },
@@ -87,10 +87,10 @@ export const CoureCatalogPreview: FC = () => {
         <div className={styles.wrapper_banner}>
           <div className={styles.wrapper_banner_content}>
             <div className={styles.wrapper_banner_content_createProject}>
-              <h1>Присоединяйтесь к платформе OVERSCHOOL прямо сейчас!</h1>
+              <h1>Присоединяйтесь к платформе COURSEHUB прямо сейчас!</h1>
               <h1>Освойте одну из самых востребованных профессий!</h1>
               <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
-              <Button variant="primary" onClick={openModal} text="Оставить заявку" />
+              <Button variant="newPrimary" onClick={openModal} text="Оставить заявку" />
             </div>
             <div className={styles.wrapper_banner_content_images}>
               <img src={firstStep} alt="Подать заявку" className={styles.wrapper_banner_content_images_firstStep} />
@@ -126,7 +126,7 @@ export const CoureCatalogPreview: FC = () => {
           >
             {step === 1 ? (
               <>
-                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#357EEB' }}>
                   {'Оставьте Ваши данные и с Вами свяжется менеджер'}
                 </DialogTitle>
                 <DialogContent sx={{ padding: '1rem 4rem', display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1rem 0' }}>
@@ -163,7 +163,7 @@ export const CoureCatalogPreview: FC = () => {
               </>
             ) : (
               <>
-                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#357EEB' }}>
                   {`Заявка о поступлении на курс ${f_landing.header.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной платформы`}
                 </DialogTitle>
                 <DialogContent>

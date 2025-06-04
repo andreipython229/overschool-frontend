@@ -614,6 +614,7 @@
             color: #332F36;
             font-size: 14px;
             font-weight: 400;
+            max-width: 98%;
 
             p {
               line-height: 24px*$ai-window-ratio;
@@ -627,6 +628,7 @@
               @include display(flex, row, center, start);
               justify-self: start;
               gap: 8px*$ai-window-ratio;
+              max-width: 98%;
 
               .chatIndicatorContainer {
                 div {

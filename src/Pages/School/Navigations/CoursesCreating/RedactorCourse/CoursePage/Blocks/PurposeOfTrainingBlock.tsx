@@ -3,9 +3,11 @@ import styles from "./styles/purposeOfTrainingBlock.module.scss";
 import { CardDataT } from "./types/audienceBlockT";
 import { PurposeOfTrainingBlockCard } from "./components/PurposeOfTrainingBlockCard";
 import { Add } from "@mui/icons-material";
-import { TextareaAutosize } from '@mui/material';
+import { TextareaAutosize, useMediaQuery } from '@mui/material';
 import {useAppDispatch, useAppSelector,} from "store/hooks";
 import {changeBlocks, changeKeys, changeKeysAfterDel, removeFile} from 'store/redux/landing/constructorSlice';
+import arrowImage from '../../../../../../../assets/img/common/arrow.png'
+import arrowImageMobile from '../../../../../../../assets/img/common/arrowMobile.png'
 
 export const PurposeOfTrainingBlock = () => {
   const dispatch = useAppDispatch()
@@ -13,6 +15,8 @@ export const PurposeOfTrainingBlock = () => {
 
   // изменение этой переменной тригерит перерендеринг списка карточек
   const [key, setKey] = useState<number>(0)
+
+  const isMobile = useMediaQuery('(max-width: 767px)');
 
   const setDescription = (val: string) => {
     const lndng = {
@@ -103,24 +107,31 @@ export const PurposeOfTrainingBlock = () => {
   const getChips = () => {
     return landing.trainingPurpose.chips;
   }
-
+  console.log(landing.trainingPurpose.chips, 'chips');
+  
   return (
     <div className={styles.wrapper}>
       <h2>
-        Чему Вы научитесь?
+        Твой результа после курса
       </h2>
-      <div className={styles.wrapper_description}>
+      {/* <div className={styles.wrapper_description}>
         <TextareaAutosize
           placeholder="Добавьте описание, если необходимо..."
           minRows={1}
           value={landing.trainingPurpose.description}
           onChange={event => setDescription(event.target.value)}
         />
-      </div>
+      </div> */}
       <div className={styles.wrapper_cardContainer}>
         {getChips().map((card, index) => (
           <React.Fragment key={key - card.position}>
-            <div className={styles.wrapper_cardContainer_chip}>
+            <div 
+              className={`
+                ${styles.wrapper_cardContainer_chip}
+                ${card.position % 2 === 0 ? styles.wrapper_cardContainer_chip_leftChip : styles.wrapper_cardContainer_chip_rightChip}
+              `}
+              
+            >
               <button
                 className={styles.wrapper_cardContainer_chip_addButtonBefor}
                 onClick={() => addCardAtIndex(card.position)}
@@ -151,6 +162,14 @@ export const PurposeOfTrainingBlock = () => {
           </button>
         )}
       </div>
+      {landing.trainingPurpose.chips.length === 8 && (
+        <div className={styles.wrapper_arrow}>
+          <img 
+            src={isMobile ? arrowImageMobile : arrowImage} 
+            alt="arrowImage" 
+          />
+        </div>
+      )}
     </div>
   );
 };

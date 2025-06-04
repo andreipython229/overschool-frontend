@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  max-width: min(70.84vw, 1360px);
+  gap: 1rem;
+  @media only screen and (min-width: 490px) and (max-width: 1400px) {
+    max-width: 93vw;
+  }
+
+  &_player {
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_message {
+      font-size: 1rem;
+    }
+  }
+
+  &_comments {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+  }
+}
+
+.youtubeIframe {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+}

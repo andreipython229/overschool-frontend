@@ -40,7 +40,9 @@ export const CoursePage: FC = () => {
   const [nameCourses, foundCourses, filterData] = useDebouncedFilter(courses?.results as any, 'name' as keyof object)
   const [search, setSearch] = useState('')
   const [foldersVisible, { on: hideFolders, off: showFolders, onToggle: toggleFolders }] = useBoolean(false)
-  const [activeFolder, setActiveFolder] = useState<string>('')
+  const [activeFolders, setActiveFolders] = useState<string[]>([])
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
+  const [sortBy, setSortBy] = useState<'name' | 'date'>('name')
   const [showModal, { onToggle: toggleModal }] = useBoolean(false)
   const [deleting, { onToggle: toggleDeleting }] = useBoolean(false)
   const [alertOpen, { on: closeAlert, off: openAlert }] = useBoolean(false)
@@ -107,15 +109,60 @@ export const CoursePage: FC = () => {
     }
   }, [role, schoolName, userProgress, progressLoading])
 
-  const filterCoursesByFolders = (folderId: number) => {
+  const filterCoursesByFolders = (folderId: number, folderName: string) => {
     if (coursesData) {
-      const filteredArray = coursesData.results.filter(course => {
-        return course.folder && course.folder.id === folderId
+      let filteredArray = coursesData.results
+      
+      // Фильтрация по папкам
+      if (folderId) {
+        filteredArray = filteredArray.filter(course => {
+          return course.folder && course.folder.id === folderId
+        })
+      }
+
+      // Сортировка
+      filteredArray.sort((a, b) => {
+        if (sortBy === 'name') {
+          return sortOrder === 'asc' 
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name)
+        } else {
+          return sortOrder === 'asc'
+            ? new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+            : new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        }
       })
 
-      if (filteredArray) {
-        setCourses({ ...courses, results: filteredArray })
-      }
+      setCourses({ ...courses, results: filteredArray })
+    }
+  }
+
+  const toggleFolder = (folderId: number, folderName: string) => {
+    if (activeFolders.includes(folderName)) {
+      setActiveFolders(activeFolders.filter(f => f !== folderName))
+      setCourses(coursesData)
+    } else {
+      setActiveFolders([...activeFolders, folderName])
+      filterCoursesByFolders(folderId, folderName)
+    }
+  }
+
+  const handleSort = (type: 'name' | 'date') => {
+    setSortBy(type)
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+    if (courses) {
+      const sortedCourses = [...courses.results].sort((a, b) => {
+        if (type === 'name') {
+          return sortOrder === 'asc' 
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name)
+        } else {
+          return sortOrder === 'asc'
+            ? new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+            : new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        }
+      })
+      setCourses({ ...courses, results: sortedCourses })
     }
   }
 
@@ -187,259 +234,121 @@ export const CoursePage: FC = () => {
     <div className={styles.container}>
       {role === RoleE.Admin && (
         <AnimatePresence>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '1rem',
-              padding: '1rem',
-              justifyContent: 'space-between',
-              ...(window.innerWidth <= 480
-                ? {
-                    margin: '30px 0 0 0',
-                  }
-                : {}),
-            }}
-          >
-            {activeFolder.length > 0 && (
-              <Chip
-                label={'Убрать фильтрацию'}
-                icon={<Delete />}
-                variant="outlined"
-                onClick={() => {
-                  setActiveFolder('')
-                  setCourses(coursesData)
-                  hideFolders()
-                }}
-              />
-            )}
-
-            <div
-              style={{
-                display: 'flex',
-                WebkitFlexWrap: 'wrap',
-                gap: ' 20px 50px',
-                ...(window.innerWidth <= 1200
-                  ? {
-                      gap: '10px',
-                    }
-                  : {}),
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  WebkitFlexWrap: 'wrap',
-                  gap: '20px',
-
-                  ...(window.innerWidth <= 850
-                    ? {
-                        display: 'none',
-                      }
-                    : {}),
-                }}
-              >
+          <div className={styles.filtersContainer}>
+            <div className={styles.folderFilters}>
+              {activeFolders.length > 0 && (
                 <Chip
-                  // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
-                  label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
-                  variant="filled"
-                  // sx={deleting ? { background: '#ff3131' } : {}}
-                  sx={{
-                    background: 'transparent',
-                    border: '2px solid #357EEB',
-                    borderRadius: '10px',
-                    padding: '30px 40px',
-                    width: 'fit-content',
-                    color: '#357EEB',
-                    fontSize: '20px',
-                    lineHeight: '23.87px',
-                    '@media (max-width: 1500px)': {
-                      padding: '20px 20px',
-                      fontSize: '14px',
-                      lineHeight: 'normal',
-                    },
-                    '@media (max-width: 1200px)': {
-                      padding: '8px 15px',
-                    },
+                  label="Сбросить фильтры"
+                  icon={<Delete />}
+                  variant="outlined"
+                  onClick={() => {
+                    setActiveFolders([])
+                    setCourses(coursesData)
                   }}
-                  onClick={() => toggleTestCourseVisibility(!showTestCourse)}
                 />
-
-                <Chip
-                  sx={{
-                    background: 'transparent',
-                    border: '2px solid #357EEB',
-                    borderRadius: '10px',
-                    padding: '30px 40px',
-                    width: 'fit-content',
-                    color: '#357EEB',
-                    fontSize: '20px',
-                    lineHeight: '23.87px',
-                    '@media (max-width: 1500px)': {
-                      padding: '20px 20px',
-                      fontSize: '14px',
-                      lineHeight: 'normal',
-                    },
-                    '@media (max-width: 1200px)': {
-                      padding: '8px 15px',
-                    },
-                  }}
-                  label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
-                  variant="filled"
-                  onClick={toggleFolders}
-                />
-              </div>
-
-              <div
-                style={{
-                  display: 'flex',
-                  WebkitFlexWrap: 'wrap',
-                  gap: '20px',
-                  ...(window.innerWidth <= 1500
-                    ? {
-                        gap: '10px',
-                      }
-                    : {}),
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    fontSize: '24px',
-                    whiteSpace: 'nowrap',
-                    cursor: 'pointer',
-                    ...(window.innerWidth <= 1500
-                      ? {
-                          fontSize: '16px',
-                        }
-                      : {}),
-
-                    ...(window.innerWidth <= 1200
-                      ? {
-                          fontSize: '14px',
-                        }
-                      : {}),
-                  }}
-                  className=""
-                  onClick={() => navigate(`/school/${schoolName}/school-appeals/`)}
-                >
-                  Новые заявки 
-                  <span style={{ color: '#357EEB' }}>
-                    {pendingCount > 0 ? ` (+${pendingCount})` : ' (0)'}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    fontSize: '24px',
-                    whiteSpace: 'nowrap',
-                    ...(window.innerWidth <= 1500
-                      ? {
-                          fontSize: '16px',
-                        }
-                      : {}),
-
-                    ...(window.innerWidth <= 1200
-                      ? {
-                          fontSize: '14px',
-                        }
-                      : {}),
-                  }}
-                  className=""
-                >
-                  Корзина <span style={{ color: '#357EEB' }}> ()</span>
-                </div>
-              </div>
+              )}
+              
+              {foldersVisible && folders && (
+                <motion.div className={styles.foldersList}>
+                  {folders.map((folder: any, index: Key) => (
+                    <div key={index} className={styles.folderItem}>
+                      <Chip
+                        label={folder.name}
+                        variant={activeFolders.includes(folder.name) ? "filled" : "outlined"}
+                        sx={{
+                          background: activeFolders.includes(folder.name) ? '#ba75ff' : 'transparent',
+                          color: activeFolders.includes(folder.name) ? 'white' : 'inherit'
+                        }}
+                        onClick={() => toggleFolder(folder.id, folder.name)}
+                      />
+                      <button
+                        className={styles.deleteFolderButton}
+                        onClick={() => startDeleteModal(folder)}
+                      >
+                        <Delete fontSize="small" />
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    className={styles.addFolderButton}
+                    onClick={toggleModal}
+                  >
+                    <span>+</span>
+                  </button>
+                </motion.div>
+              )}
             </div>
-            <button
-              type="button"
-              onClick={dispatchHandlerModal}
-              className={styles.course_button_add}
-              style={{
-                ...(window.innerWidth <= 1500
-                  ? {
-                      fontSize: '16px',
-                    }
-                  : {}),
-                ...(window.innerWidth <= 1200
-                  ? {
-                      padding: '8px 10px',
-                      fontSize: '12px',
-                    }
-                  : {}),
-              }}
-            >
-              <span>Создать курс</span>
-            </button>
 
-            {foldersVisible && folders && (
-              <motion.div
-                style={{ display: 'flex', WebkitFlexWrap: 'wrap', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}
-                initial={{
-                  x: -50,
-                  opacity: 0,
+            <div className={styles.sortControls}>
+              <Button
+                variant="newSecondary"
+                onClick={() => handleSort('name')}
+                text={`По названию ${sortBy === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}`}
+              />
+              <Button
+                variant="newSecondary"
+                onClick={() => handleSort('date')}
+                text={`По дате ${sortBy === 'date' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}`}
+              />
+            </div>
+
+            <div className={styles.actionButtons}>
+              <Chip
+                label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
+                variant="filled"
+                sx={{
+                  background: 'transparent',
+                  border: '2px solid #357EEB',
+                  borderRadius: '10px',
+                  padding: '30px 40px',
+                  width: 'fit-content',
+                  color: '#357EEB',
+                  fontSize: '20px',
+                  lineHeight: '23.87px',
+                  '@media (max-width: 1500px)': {
+                    padding: '20px 20px',
+                    fontSize: '14px',
+                    lineHeight: 'normal',
+                  },
+                  '@media (max-width: 1200px)': {
+                    padding: '8px 15px',
+                  },
                 }}
-                animate={{
-                  x: 0,
-                  opacity: 1,
+                onClick={() => toggleTestCourseVisibility(!showTestCourse)}
+              />
+
+              <Chip
+                sx={{
+                  background: 'transparent',
+                  border: '2px solid #357EEB',
+                  borderRadius: '10px',
+                  padding: '30px 40px',
+                  width: 'fit-content',
+                  color: '#357EEB',
+                  fontSize: '20px',
+                  lineHeight: '23.87px',
+                  '@media (max-width: 1500px)': {
+                    padding: '20px 20px',
+                    fontSize: '14px',
+                    lineHeight: 'normal',
+                  },
+                  '@media (max-width: 1200px)': {
+                    padding: '8px 15px',
+                  },
                 }}
-                transition={{
-                  delay: 0.2,
-                }}
+                label={activeFolders.length > 0 ? activeFolders.join(', ') : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
+                variant="filled"
+                onClick={toggleFolders}
+              />
+
+              <button
+                type="button"
+                onClick={dispatchHandlerModal}
+                className={styles.course_button_add}
               >
-                {folders.map((folder: any, index: Key | null | undefined) => (
-                  <Chip
-                    key={index}
-                    label={folder.name}
-                    variant="outlined"
-                    sx={deleting ? { background: '#ff3131' } : {}}
-                    onClick={() => {
-                      if (deleting) {
-                        startDeleteModal(folder)
-                      } else {
-                        filterCoursesByFolders(folder.id)
-                        setActiveFolder(folder.name)
-                        hideFolders()
-                      }
-                    }}
-                  />
-                ))}
-                <button
-                  style={{
-                    width: '1.8rem',
-                    height: '1.8rem',
-                    borderRadius: '50%',
-                    background: '#ba75ff',
-                    border: 'none',
-                    color: 'white',
-                    fontSize: '30px',
-                    position: 'relative',
-                  }}
-                  onClick={toggleModal}
-                >
-                  <span style={{ position: 'absolute', top: '-0.28rem', left: '0.28rem' }}>+</span>
-                </button>
-                <button
-                  style={{
-                    width: '1.8rem',
-                    height: '1.8rem',
-                    borderRadius: '50%',
-                    background: 'transparent',
-                    border: 'none',
-                    color: 'white',
-                    fontSize: '30px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  onClick={toggleDeleting}
-                >
-                  <Delete sx={{ color: 'red' }} />
-                </button>
-              </motion.div>
-            )}
+                <span>Создать курс</span>
+              </button>
+            </div>
           </div>
         </AnimatePresence>
       )}
@@ -462,85 +371,6 @@ export const CoursePage: FC = () => {
           </IconSvg>
         </Input>
       </div>
-
-      {role === RoleE.Admin && (
-        <div
-          style={{
-            display: 'none',
-            WebkitFlexWrap: 'wrap',
-            gap: '10px',
-
-            ...(window.innerWidth <= 850
-              ? {
-                  display: 'grid',
-
-                  gridTemplateColumns: '1fr 1fr',
-                  justifyContent: 'center',
-                  margin: '20px 0 0 0',
-                }
-              : {}),
-
-            ...(window.innerWidth <= 475
-              ? {
-                  margin: '0',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }
-              : {}),
-          }}
-        >
-          <Chip
-            // icon={showTestCourse ? <VisibilityOff /> : <Visibility />}
-            label={showTestCourse ? 'Скрыть тестовый курс' : 'Показать тестовый курс'}
-            variant="filled"
-            // sx={deleting ? { background: '#ff3131' } : {}}
-            sx={{
-              background: 'transparent',
-              border: '2px solid #357EEB',
-              borderRadius: '10px',
-              padding: '30px 40px',
-              width: '100%',
-              color: '#357EEB',
-              fontSize: '20px',
-              lineHeight: '23.87px',
-              '@media (max-width: 1500px)': {
-                padding: '20px 20px',
-                fontSize: '14px',
-                lineHeight: 'normal',
-              },
-              '@media (max-width: 1200px)': {
-                padding: '10px ',
-              },
-            }}
-            onClick={() => toggleTestCourseVisibility(!showTestCourse)}
-          />
-
-          <Chip
-            sx={{
-              background: 'transparent',
-              border: '2px solid #357EEB',
-              borderRadius: '10px',
-              padding: '30px 40px',
-              width: '100%',
-              color: '#357EEB',
-              fontSize: '20px',
-              lineHeight: '23.87px',
-
-              '@media (max-width: 1500px)': {
-                padding: '20px 20px',
-                fontSize: '14px',
-                lineHeight: 'normal',
-              },
-              '@media (max-width: 1200px)': {
-                padding: '10px ',
-              },
-            }}
-            label={activeFolder ? activeFolder : foldersVisible ? 'Скрыть папки' : 'Показать папки материалов'}
-            variant="filled"
-            onClick={toggleFolders}
-          />
-        </div>
-      )}
 
       {/* <div className={styles.search}>
                     <p color="gray">По результатам поиска ничего не найдено...</p>

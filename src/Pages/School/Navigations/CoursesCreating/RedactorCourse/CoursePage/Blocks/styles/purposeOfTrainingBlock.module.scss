@@ -10,11 +10,12 @@
   position: relative;
   width: 1040px;
   font-family: 'SFPRORegular';
+  margin-bottom: 60px;
 
   h2 {
-    text-align: center;
+    text-align: left;
     padding: 2rem 0 1rem;
-    color: $color-text;
+    color: $color-blue;
     @include font(700, 28px, 33.41px);
   }
 
@@ -41,8 +42,12 @@
   }
 
   &_cardContainer {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    display: grid;
+    // flex-direction: column;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 260px;
+
     justify-content: center;
     align-items: center;
     min-height: 50px;
@@ -66,13 +71,20 @@
     &_chip {
       position: relative;
       width: 100%;
-      min-height: 150px;
-      margin-bottom: 40px;
+      // min-height: 150px;
+      // margin-bottom: 40px;
+
+      &_leftChip,
+      &_rightChip {
+        z-index: 1;
+      }
 
       &_addButtonBefor,
       &_addButtonAfter {
         position: absolute;
-        left: 520px;
+        // left: 520px;
+        top: 50%;
+        transform: translateY(-50%);
         width: 40px;
         height: 40px;
         display: flex;
@@ -88,11 +100,11 @@
       }
 
       &_addButtonBefor {
-        top: -40px;
+        left: -40px;
       }
 
       &_addButtonAfter {
-        bottom: -40px;
+        right: -40px;
       }
 
       &_addButtonBefor:hover,
@@ -130,4 +142,67 @@
       opacity: 1;
     }
   }
+
+  &_arrow {
+    z-index: -1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 130px;
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .wrapper {
+  position: relative;
+  max-width: 480px;
+  width: 100%;
+
+
+  &_cardContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px 0;
+
+    &_chip {
+      position: relative;
+      width: 48%;
+      height: 124px;
+
+      &_leftChip {
+        align-self: flex-start;
+        margin-top: 0;
+      }
+      &_rightChip {
+        align-self: flex-start;
+        margin-top: 60px;
+      }
+
+    }
+
+  }
+
+  &_arrow {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 200px;
+    z-index: -1;
+  }
+}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1361px) {
+  .wrapper {
+  position: relative;
+  max-width: 1024px;
+  width: 100%;
+
+
+  &_cardContainer {
+    gap: 20px 160px;
+  }
+}
 }

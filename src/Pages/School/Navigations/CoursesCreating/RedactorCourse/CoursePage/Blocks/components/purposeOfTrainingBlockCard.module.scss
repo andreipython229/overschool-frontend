@@ -8,13 +8,18 @@
 
 .wrapper {
   width: 100%;
-  min-height: 150px;
-  border-radius: 20px;
+  height: 124px;
+  border-radius: 12px;
+  padding: 0 1.25rem;
   box-shadow: 0px 0px 8px 0px #3241954D;
-  background-color: #ffffff;
-  display: grid;
-  grid-template: auto auto / 150px auto;
-  grid-gap: 5px;
+  background-color: rgba(207, 226, 255, 0.12);
+  // background-color: #CFE2FF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // display: grid;
+  // grid-template: auto auto / 150px auto;
+  // grid-gap: 5px;
   //@include display(flex, column, center, center);
   //gap: 5rem;
   //padding: 2rem;
@@ -52,9 +57,10 @@
     grid-row: 1 / span 2;
 
     img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      // border-radius: 50%;
       background: rgba(207, 226, 255, 0.12);
       border: none;
     }
@@ -104,21 +110,77 @@
     min-height: 70px;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
 
     textarea {
-      padding: 10px;
-      width: 90%;
-      color: #34495e;
+      box-sizing: border-box;
+      padding-left: 20px;
+      // padding: 10px 20px;
+      width: 100%;
+      color: $color-darkblue;
       border: none;
-      border-radius: 10px;
+      background: none;
+      // border-radius: 10px;
       outline: none;
       font-family: 'SFPRORegular';
       resize: none;
-      font-size: 17px;
+      font-size: 20px;
+      font-weight: 500;
     }
-    textarea:hover {
-      background: rgba(207, 226, 255, 0.12);
+    // textarea:hover {
+    //   background: rgba(207, 226, 255, 0.12);
+    // }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .wrapper {
+    padding: 0;
+
+  &_imageBox {
+    display: block;
+    position: absolute;
+    top: -20px;
+    right: 0;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+  }
+
+  &_description {
+    width: 100%;
+
+    textarea {
+      text-align: left;
+      font-size: 16px;
     }
   }
+}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1361px) {
+  .wrapper {
+    padding-left: 10;
+
+  &_imageBox {
+
+    img {
+      width: 70px;
+      height: 70px;
+    }
+
+  }
+
+  &_description {
+    width: 100%;
+
+    textarea {
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+  }
+}
 }
