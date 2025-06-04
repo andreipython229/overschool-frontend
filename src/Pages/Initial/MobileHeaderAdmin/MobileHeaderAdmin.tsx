@@ -13,7 +13,7 @@ import Profile from '../../../components/common/IconSvg/ProfileIcon';
 import Tariff from '../../../components/common/IconSvg/TariffIcon';
 import Exit from '../../../components/common/IconSvg/ExitIcon';
 import MessageIcon from '../../../components/common/IconSvg/MessageIcon';
-import Notification from '../../../components/common/IconSvg/NotificationIcon';
+// import Notification from '../../../components/common/IconSvg/NotificationIcon';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { selectUser, schoolSelector } from '../../../selectors';
 import { RoleE } from '../../../enum/roleE';
@@ -26,8 +26,6 @@ import { clearSchoolData } from 'store/redux/school/schoolSlice';
 import { useCookies } from 'react-cookie';
 import { Path } from 'enum/pathE';
 import { useDispatch } from 'react-redux';
-// import ClickAwayListener from '@mui/material/ClickAwayListener';
-// import Tooltip from '@mui/material/Tooltip';
 import { useFetchSchoolQuery } from '../../../api/schoolService';
 
 export const MobileHeaderAdmin: FC = () => {
@@ -227,16 +225,16 @@ export const MobileHeaderAdmin: FC = () => {
             </div>
           )}
 
-          {userRole !== RoleE.Admin && (
+          {/* {userRole !== RoleE.Admin && ( */}
             <div
               className={`${styles.nav_item} ${styles.notification} ${isNotificationOpen ? styles.active : ''}`}
               onClick={() => setIsNotificationOpen((prev) => !prev)}
             >
-              <Notification className={styles.item_icon} />
+              {/* <Notification className={styles.item_icon} /> */}
               {/* Счетчик уведомлений временно скрыт */}
               {/* <span>1</span> */}
             </div>
-          )}
+          {/* )} */}
 
           <div className={`${styles.nav_item} ${styles.profile_item} ${isProfileOpen ? styles.active : ''}`} onClick={toggleProfileMenu}>
             <Profile className={styles.item_icon} />

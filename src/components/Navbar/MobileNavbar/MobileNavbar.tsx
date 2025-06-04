@@ -1,14 +1,9 @@
 import React, { FC, memo, useState, useEffect } from 'react'
-import { /*Link,*/ NavLink, /*generatePath,*/ useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
-import { /*useLazyLogoutQuery*/ } from 'api/userLoginService'
-import { /*useAppDispatch,*/ useAppSelector } from '../../../store/hooks'
+import { useAppSelector } from '../../../store/hooks'
 import RedeemIcon from '@mui/icons-material/Redeem'
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-// import MenuIcon from '@mui/icons-material/Menu'
-
-import { /*logoutState,*/ role } from 'store/redux/users/slice'
+import { role } from 'store/redux/users/slice'
 import { Chat } from 'components/Modal/Chat'
 import { useBoolean } from 'customHooks'
 import { chatIconPath, tgNavPath } from 'components/Navbar/config/svgIconPath'
@@ -23,15 +18,8 @@ import { navlinkByRoles } from '../config/navlinkByRoles'
 import { SvgIcon } from '@mui/material'
 
 import styles from '../navbar.module.scss'
-import { /*clearUserProfile*/ } from 'store/redux/users/profileSlice'
-import { /*useCookies*/ } from 'react-cookie'
 import { RoleE } from 'enum/roleE'
-// import { logOutIconPath } from './svgIconsPath'
-
-// import Menu from '@mui/material/Menu'
-// import MenuItem from '@mui/material/MenuItem'
 import Timer from '../../Timer/Timer'
-import { /*clearSchoolData*/ } from 'store/redux/school/schoolSlice'
 
 // Компонент-обертка для применения стилей к иконкам
 const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -72,17 +60,10 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
   const unRead = useSelector((state: RootState) => state.unread.totalUnread)
   const { role: userRole } = useAppSelector(selectUser)
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
-  // const [logout] = useLazyLogoutQuery()
-  // const dispatch = useAppDispatch()
   const [isChatOpen, { on, off }] = useBoolean()
-  // const [, , removeAccessCookie] = useCookies(['access_token'])
-  // const [, , removeRefreshCookie] = useCookies(['refresh_token'])
   const navigate = useNavigate()
-  // const [anchorMob, setAnchorMob] = useState<null | HTMLElement>(null)
-  // const open = Boolean(anchorMob)
   const dispatchRole = useDispatch()
   const studentBonus = useSelector((state: RootState) => state.bonuses.studentBonus)
-  // const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [localIsCollapsed, setLocalIsCollapsed] = useState(isCollapsed)
 
   // Синхронизируем локальное состояние с пропсами
@@ -110,53 +91,11 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
     };
   }, []);
 
-  // const toggleNavbar = () => {
-  //   if (toggleCollapse) {
-  //     toggleCollapse();
-  //   } else {
-  //     setLocalIsCollapsed(!localIsCollapsed);
-  //   }
-  // }
-
-  // Сохраняем logOut в закомментированном виде, так как он может понадобиться в будущем
-  // const logOut = async () => {
-  //   if (isLoggingOut) return;
-    
-  //   try {
-  //     setIsLoggingOut(true)
-  //     dispatch(clearUserProfile())
-  //     dispatch(logoutState())
-  //     dispatch(clearSchoolData())
-  //     removeAccessCookie('access_token')
-  //     removeRefreshCookie('refresh_token')
-  //     localStorage.clear()
-      
-  //     await logout()
-      
-  //     setTimeout(() => {
-  //       navigate(generatePath(Path.InitialPage), { replace: true })
-  //       setIsLoggingOut(false)
-  //     }, 800)
-  //   } catch (error) {
-  //     console.error('Logout error:', error)
-  //     navigate(generatePath(Path.InitialPage), { replace: true })
-  //     setIsLoggingOut(false)
-  //   }
-  // }
-
+  
   const goToChooseSchool = () => {
     dispatchRole(role(RoleE.Unknown))
     navigate(Path.ChooseSchool)
-    // setAnchorMob(null)
   }
-
-  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorMob(event.currentTarget)
-  // }
-
-  // const handleClose = () => {
-  //   setAnchorMob(null)
-  // }
 
   // Используем либо проп isCollapsed, либо локальное состояние
   const effectiveIsCollapsed = toggleCollapse ? isCollapsed : localIsCollapsed;
@@ -277,55 +216,10 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                     </SvgIcon>
                   </NavLink>
                 </Tooltip>
-                {/* Кнопка выхода из профиля закомментирована, так как эта функциональность перенесена в хедер
-                <Tooltip title={'Выйти из профиля'} className={styles.navbar_exit}>
-                  <IconSvg 
-                    width={38} 
-                    height={28} 
-                    viewBoxSize="0 0 26 25" 
-                    path={logOutIconPath} 
-                    functionOnClick={logOut} 
-                    className={styles.svgIcon}
-                  />
-                </Tooltip>
-                */}
               </React.Fragment>
             )}
 
-            {/* Закомментирован блок с кнопкой выхода для администраторов и других пользователей */}
-            {/* {userRole !== RoleE.Student && userRole !== 0 && (
-              <React.Fragment>
-                <div className={styles.navbar_exit}>
-                  <Tooltip title={'Выход'}>
-                    <div className={styles.tariffPlan} style={{ textDecoration: 'none' }} onClick={handleClick}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="40"
-                        height="40"
-                        viewBox="0 0 24 24"
-                        className={styles.logoutSvgIcon}
-                      >
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                        <polyline points="16 17 21 12 16 7"></polyline>
-                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                      </svg>
-                    </div>
-                  </Tooltip>
-                  <Menu anchorEl={anchorMob} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
-                    <MenuItem onClick={goToChooseSchool}>
-                      <Link to={Path.ChooseSchool} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
-                        Вернуться к выбору платформы
-                      </Link>
-                    </MenuItem>
-                    <MenuItem onClick={logOut}>
-                      <Link to={Path.InitialPage} style={{ color: '#ba75ff', paddingLeft: '1rem' }}>
-                        Выйти из профиля
-                      </Link>
-                    </MenuItem>
-                  </Menu>
-                </div>
-              </React.Fragment>
-            )} */}
+            
           </>
         )}
       </div>
