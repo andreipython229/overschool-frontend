@@ -22,7 +22,7 @@ import { logoutState, role } from 'store/redux/users/slice';
 import { clearUserProfile } from 'store/redux/users/profileSlice';
 import { clearSchoolData } from 'store/redux/school/schoolSlice';
 import { useCookies } from 'react-cookie';
-import { Path } from 'enum/pathE';
+import { Path, FooterPath } from 'enum/pathE';
 import { useDispatch } from 'react-redux';
 import { useFetchSchoolQuery } from '../../../api/schoolService';
 import { useFetchCurrentTariffPlanQuery } from 'api/tariffPlanService';
@@ -140,6 +140,12 @@ export const MobileHeaderAdmin: FC = () => {
     logOut();
   };
 
+  // Функция для перехода на страницу тарифных планов
+  const goToTariffPlans = () => {
+    navigate(FooterPath.TariffPlans);
+    setIsTariffOpen(false); // Закрываем выпадающее меню тарифа после перехода
+  };
+
   return (
     <header className={`${styles.mobile_header} ${styles.authorized} ${menuOpen ? styles.menu_open : ""}`}>
       <div className={styles.header_container}>
@@ -199,7 +205,7 @@ export const MobileHeaderAdmin: FC = () => {
                   <div className={styles.tariff_text}>
                     Студентов в месяц:<span>{currentTariffData?.tariff_details?.student_count_by_month || 0}/{currentTariffData?.tariff_details?.students_per_month || '∞'}</span>
                   </div>
-                  <div className={styles.tariff_button}>
+                  <div className={styles.tariff_button} onClick={goToTariffPlans}>
                     Перейти на тариф
                     <img src={require("../../../assets/img/common/prizePersonal.png")}alt="Окно входа"/>
                   </div>
