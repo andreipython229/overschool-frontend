@@ -119,11 +119,11 @@ export const MobileHeaderAdmin: FC = () => {
     navigate(Path.ChooseSchool);
     setIsProfileOpen(false);
   };
-  // // Функция смены профиля для админа и пользователей, не реализована
-  //   const goToProfile = () => {
-  //   navigate('/profile'); // путь к странице профиля, не реализовано
-  //   setIsProfileOpen(false);
-  // };
+  // Функция смены профиля для админа и пользователей
+  const goToProfile = () => {
+    navigate(Path.Profile); // путь к странице профиля
+    setIsProfileOpen(false);
+  };
 
   // Функция перехода на страницу каталога (курсов) по пути path.courses
   const goToCatalog = () => {
@@ -242,7 +242,7 @@ export const MobileHeaderAdmin: FC = () => {
             <Profile className={styles.item_icon} />
             {isProfileOpen && (
               <div className={`${styles.submenu} ${styles.profile}`}>
-                {/* <button onClick={goToProfile}>Открыть профиль</button>  // пункт для админа и пользователей, не реализовано */}
+                <button onClick={goToProfile}>Открыть профиль</button>
                 <button onClick={goToChooseSchool}>Смена платформы</button>
                 {userRole === RoleE.Admin && (
                    // кнопка перехода на страницу каталога (курсов) по пути path.courses
