@@ -171,7 +171,6 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
                 const student = students.find((_, index) => index === studentId) || null
                 if (student?.chat_uuid) {
                     dispatch(selectChat(student?.chat_uuid))
-                    // console.log('чат для студента');
                     chatModalOn()
                 } else if (student?.student_id) {
                     const personalChatData = new FormData()

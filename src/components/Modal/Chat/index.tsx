@@ -1,52 +1,55 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { ChatPanel } from './ChatPanel'
 import { ChatWorkspace } from './ChatWorkspace'
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { Chats } from 'types/chatsT'
 import { useFetchChatsQuery } from 'api/chatsService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
 import styles from './chat.module.scss'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { setChats } from '../../../store/redux/chats/chatsSlice'
+import { setChats, updateLastMessage, updateUnreadCount } from '../../../store/redux/chats/chatsSlice'
 import { RootState } from '../../../store/redux/store'
 
 import { motion } from 'framer-motion'
 import { useAppSelector } from 'store/hooks'
 
-type ChatProps = {
-  closeModal: () => void;
-  studentId?: number;  // Делаем необязательным, если нужно сохранить обратную совместимость
-  // или
-  // studentId: number; // Если ID обязателен
+type chatT = {
+  closeModal: () => void
 }
 
-export const Chat: FC<ChatProps> = ({ closeModal, studentId }) => {
-  const { data, isFetching, isSuccess, refetch } = useFetchChatsQuery();
-  const dispatch = useDispatch();
-  const chats = useSelector((state: RootState) => state.chats.chats);
-  const { chatId } = useAppSelector(state => state.chat);
+export const Chat: FC<chatT> = ({ closeModal }) => {
+  // const [chats, setChats] = useState<Chats>([])
+  const { data, isFetching, isSuccess, refetch } = useFetchChatsQuery()
 
   const dispatch = useDispatch()
-  const { chats } = useSelector((state: RootState) => state.chats)
+  const chats = useSelector((state: RootState) => state.chats.chats)
   const { chatId } = useAppSelector(state => state.chat)
+  console.log(chatId)
 
   useEffect(() => {
-    if (studentId) {
-      console.log('Chat opened for student ID:', studentId);
-      // Здесь можно добавить логику загрузки чата для конкретного студента
-    }
-  }, [studentId]);
-
-  useEffect(() => {
-    isSuccess && dispatch(setChats(data));
-  }, [isFetching]);
-    if (data && isSuccess && chats.length === 0) {
-      dispatch(setChats(data))
-    }
-  }, [data, isSuccess])
+    isSuccess && dispatch(setChats(data))
+  }, [isFetching])
+  //
+  // useEffect(() => {
+  //     return () => {
+  //         setChats([]); // очищаем состояние при размонтировании
+  //     };
+  // }, []);
+  //
+  // useEffect(() => {
+  //     if (data && isFetching) {
+  //         dispatch(setChats(data));
+  //         console.log("index = ",data)
+  //     }
+  // }, [data, dispatch])
+  //
+  // useEffect(() => {
+  //     refetch();
+  // }, [])
 
   return (
     <motion.div
