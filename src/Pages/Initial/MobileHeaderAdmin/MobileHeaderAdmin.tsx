@@ -119,6 +119,11 @@ export const MobileHeaderAdmin: FC = () => {
     navigate(Path.ChooseSchool);
     setAnchorEl(null);
   };
+  // // Функция смены профиля для админа и пользователей, не реализована
+  //   const goToProfile = () => {
+  //   navigate('/profile'); // путь к странице профиля, не реализовано
+  //   setIsProfileOpen(false);
+  // };
 
   // Обработчик клика на иконку выхода
   const handleExitClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -240,12 +245,8 @@ export const MobileHeaderAdmin: FC = () => {
             <Profile className={styles.item_icon} />
             {isProfileOpen && (
               <div className={`${styles.submenu} ${styles.profile}`}>
-                <button>
-                  Открыть профиль
-                </button>
-                <button>
-                  Смена школы
-                </button>
+                {/* <button onClick={goToProfile}>Открыть профиль</button>  // для админа и пользователей, не реализовано */}
+                <button onClick={goToChooseSchool}>Смена платформы</button>
                 {userRole === RoleE.Admin && (
                   <button>
                     Каталог

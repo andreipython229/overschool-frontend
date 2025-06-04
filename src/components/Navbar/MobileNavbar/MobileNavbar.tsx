@@ -1,14 +1,13 @@
 import React, { FC, memo, useState, useEffect } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import { useAppSelector } from '../../../store/hooks'
 import RedeemIcon from '@mui/icons-material/Redeem'
-import { role } from 'store/redux/users/slice'
 import { Chat } from 'components/Modal/Chat'
 import { useBoolean } from 'customHooks'
 import { chatIconPath, tgNavPath } from 'components/Navbar/config/svgIconPath'
 import Tooltip from '@mui/material/Tooltip'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '../../../store/redux/store'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import Badge from '@mui/material/Badge'
@@ -61,8 +60,6 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
   const { role: userRole } = useAppSelector(selectUser)
   const isActive = ({ isActive }: IIsActive) => (isActive ? styles.isActive : '')
   const [isChatOpen, { on, off }] = useBoolean()
-  const navigate = useNavigate()
-  const dispatchRole = useDispatch()
   const studentBonus = useSelector((state: RootState) => state.bonuses.studentBonus)
   const [localIsCollapsed, setLocalIsCollapsed] = useState(isCollapsed)
 
@@ -91,11 +88,6 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
     };
   }, []);
 
-  
-  const goToChooseSchool = () => {
-    dispatchRole(role(RoleE.Unknown))
-    navigate(Path.ChooseSchool)
-  }
 
   // Используем либо проп isCollapsed, либо локальное состояние
   const effectiveIsCollapsed = toggleCollapse ? isCollapsed : localIsCollapsed;
@@ -206,16 +198,8 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
               </Tooltip>
             )}
 
-            {/* Восстановлена кнопка возврата к выбору платформы для студентов */}
             {userRole === RoleE.Student && (
               <React.Fragment>
-                <Tooltip title={'Вернуться к выбору платформы'}>
-                  <NavLink to={Path.ChooseSchool} onClick={goToChooseSchool} style={{ padding: '0 10px' }}>
-                    <SvgIcon className={`${styles.navbar_exit} ${styles.navbarIcon} ${styles.homeIcon}`} style={{ transform: 'scale(2.8)', transformOrigin: 'center center', color: '#212121' }}>
-                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                    </SvgIcon>
-                  </NavLink>
-                </Tooltip>
               </React.Fragment>
             )}
 
