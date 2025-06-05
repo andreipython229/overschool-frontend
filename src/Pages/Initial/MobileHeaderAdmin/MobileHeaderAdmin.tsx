@@ -12,7 +12,7 @@ import Social_meniu from '../../../components/common/IconSvg/Social_meniu_Icon';
 import Profile from '../../../components/common/IconSvg/ProfileIcon';
 import Tariff from '../../../components/common/IconSvg/TariffIcon';
 import Exit from '../../../components/common/IconSvg/ExitIcon';
-import MessageIcon from '../../../components/common/IconSvg/MessageIcon';
+// import MessageIcon from '../../../components/common/IconSvg/MessageIcon';
 // import Notification from '../../../components/common/IconSvg/NotificationIcon';
 import { useAppSelector, useAppDispatch } from '../../../store/hooks';
 import { selectUser, schoolSelector } from '../../../selectors';
@@ -31,9 +31,9 @@ export const MobileHeaderAdmin: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isSocialOpen, setIsPlatformOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isMessageOpen, setIsMessageOpen] = useState(false);
+  // const [isMessageOpen, setIsMessageOpen] = useState(false);
   const [isTariffOpen, setIsTariffOpen] = useState(false);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  // const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isExitActive, setIsExitActive] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   
@@ -78,10 +78,10 @@ export const MobileHeaderAdmin: FC = () => {
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
   };
-
-  const toggleMessageMenu = () => {
-    setIsMessageOpen(!isMessageOpen);
-  };
+  // Временно закомментирован функционал отправки сообщений студентам в телеграм, так как он специфичен и не соответствует общей модали из десктопной версии.
+  // const toggleMessageMenu = () => {
+  //   setIsMessageOpen(!isMessageOpen);
+  // };
 
   const toggleTariffMenu = () => {
     setIsTariffOpen(!isTariffOpen);
@@ -208,7 +208,8 @@ export const MobileHeaderAdmin: FC = () => {
             </div>
           )}
 
-          {userRole === RoleE.Admin && (
+          {/* Временно закомментирован функционал отправки сообщений студентам в телеграм, так как он специфичен и не соответствует общей модали из десктопной версии. */}
+          {/* {userRole === RoleE.Admin && (
             <div className={`${styles.nav_item} ${styles.message} ${isMessageOpen ? styles.active : ''}`} onClick={toggleMessageMenu}>
               <MessageIcon className={styles.item_icon} />
               {isMessageOpen && (
@@ -219,17 +220,19 @@ export const MobileHeaderAdmin: FC = () => {
                 </div>
               )}
             </div>
-          )}
-
+          )} */}
+          
+          
+          {/* Временно закомментирован функционал уведомлений, так как он специфичен и не соответствует общей модали из десктопной версии. */}
           {/* {userRole !== RoleE.Admin && ( */}
-            <div
+            {/* <div
               className={`${styles.nav_item} ${styles.notification} ${isNotificationOpen ? styles.active : ''}`}
               onClick={() => setIsNotificationOpen((prev) => !prev)}
-            >
+            > */}
               {/* <Notification className={styles.item_icon} /> */}
               {/* Счетчик уведомлений временно скрыт */}
               {/* <span>1</span> */}
-            </div>
+            {/* </div> */}
           {/* )} */}
 
           <div className={`${styles.nav_item} ${styles.profile_item} ${isProfileOpen ? styles.active : ''}`} onClick={toggleProfileMenu}>
