@@ -132,8 +132,8 @@ export const TariffPlansInfo: FC = () => {
   }, [data, isSuccess])
 
   return (
-    <>
-      <InitPageHeader />
+ <>
+ <InitPageHeader />
       <div className={styles.courseHubTitle}>Тарифные планы для обучения Course Hub</div>
 
       <motion.div
@@ -187,76 +187,3 @@ export const TariffPlansInfo: FC = () => {
   <div className={`${styles.yearPrice} ${styles.middle}`}>Middle</div>
   <div className={`${styles.yearPrice} ${styles.senior}`}>Senior</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

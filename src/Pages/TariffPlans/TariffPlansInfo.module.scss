@@ -26,6 +26,8 @@
 }
 
 .TariffPlansPage_header {
+  margin-top: 80px; /* Отступ сверху заголовка, чтобы опустить его */
+  margin-bottom: 60px;
   font-weight: 800;
   font-family: 'SF Pro Text', sans-serif;
   font-size: 46px;
@@ -33,12 +35,15 @@
   letter-spacing: 0;
   text-align: center;
   color: #000 !important;
-  margin: 20px auto;
   max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  scroll-margin-top: 60px;
+
 }
-
-
-
+.main-content {
+  padding-top: 60px; /* высота навигации */
+}
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .TariffPlansPage_header {
     padding: 0 1rem;
@@ -151,6 +156,7 @@
   transform: translateY(-4px);
   background: linear-gradient(135deg, #f8f1ff, #ffffff);
 }
+
 
 .TariffPlansPage_banner {
   margin-top: 65px;
@@ -625,8 +631,11 @@ li img {
 
 
 .planLabel {
-  font-weight: 600;
-  font-size: 16px;
+  font-family: "SF Pro Display", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0;
 }
 
 .junior {
@@ -662,9 +671,12 @@ li img {
 
 .navbar {
   position: fixed;
+  height: 60px;
   top: 0;
   width: 100%;
-  z-index: 1000; /* должно быть больше, чем у других элементов */
+  z-index: 1100;
+  background-color: #fff; /* белый фон */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* тень для отделения от контента */
 }
 
 
@@ -691,4 +703,85 @@ li img {
 .senior {
   color: white !important; // <== Принудительно перебьёт любой наследуемый стиль
   background-color: #4d5766;
+}
+
+
+
+
+.yearPrice {
+  font-weight: bold;      /* Делает шрифт жирным */
+  font-size: 27px;        /* Увеличивает размер шрифта */
+}
+.TariffPlansInfo_yearPrice__gK-jv {
+    font-family: "SF Pro Display", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 10px;
+    width: 200px;
+    height: 38px;
+}
+
+.junior {
+  color: #007bff; // синий
+}
+
+.middle {
+  color: #000000; // чёрный
+}
+
+.senior {
+  color: #ffffff; // белый
+}
+@media (max-width: 768px) {
+  .TariffPlansPage_plansBlock_cardGroup {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
+
+.courseHubTitle {
+  text-align: center;
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    font-family: 'SF Pro Display', sans-serif;
+  }
+}
+
+
+.highlighted {
+  background-color: #fff176; // жёлтый, можно заменить на нужный из Figma
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+
+/* Добавляем отступ снизу навигации */
+.InitPageHeader {
+  margin-bottom: 40px; /* или сколько нужно */
+}
+
+/* Отступ сверху у заголовка */
+.TariffPlansPage_header {
+  margin-top: 1px; /* увеличиваем чтобы опустить ниже */
+  margin-bottom: 30px;
+  /* остальные стили */
+}
+
+
+
+
+.navigationWrapper {
+  margin-bottom: 20px; /* Отступ под навигацией, чтобы заголовок был ниже */
+}
+
+
+.main-content {
+  padding-top: 80px; /* увеличено, чтобы заголовок был ниже */
 }
