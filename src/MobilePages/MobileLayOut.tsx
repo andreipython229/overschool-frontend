@@ -37,7 +37,7 @@ export const MobileLayOut: FC = memo(() => {
   const [overaiLockExists, setOveraiLockExists] = useState(false)
   const [toggle, handlers] = useBooleanHook()
   const [currentTariff, setCurrentTariff] = useState<any | null>(null)
-  const [isNavbarCollapsed, setIsNavbarCollapsed] = useState<boolean>(true)
+  const [isNavbarCollapsed, setIsNavbarCollapsed] = useState(!isLogin)
   const [isButtonPressed, setIsButtonPressed] = useState<boolean>(false)
 
   // Функция для переключения состояния навбара
