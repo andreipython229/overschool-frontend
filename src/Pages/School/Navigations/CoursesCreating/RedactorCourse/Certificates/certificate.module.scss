@@ -48,6 +48,12 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    width: 100%;
+    height: 130vw;
+
+  }
 }
 
 .headerBlock {
@@ -60,6 +66,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 0;
+
 }
 
 .headerImg {
@@ -67,6 +74,11 @@
   margin-top: 18px;
   margin-bottom: -8px;
   z-index: 2;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    width: 50vw;
+
+  }
 }
 
 .ribbonText {
@@ -93,6 +105,20 @@
   justify-content: center;
   align-items: flex-start;
   z-index: 2;
+
+  @media only screen and (min-width: 490px) and (max-width: 850px) {
+    height: auto;
+    min-height: 400px;
+    box-sizing: border-box;
+    width: 90%;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 490px) {
+    height: auto;
+    min-height: 310px;
+    box-sizing: border-box;
+    width: 90%;
+  }
 }
 
 .certificateFrame {
@@ -103,6 +129,24 @@
   transform: rotate(7deg);
   box-shadow: 0 16px 48px 0 rgba(0,0,0,0.25), 0 2px 12px rgba(58, 123, 224, 0.10);
   margin-top: 180px;
+
+  @media only screen and (min-width: 490px) and (max-width: 850px) {
+    width: 85%;
+    height: auto;
+    min-height: 400px;
+    transform: rotate(7deg);
+    box-sizing: border-box;
+    margin-top: 100px;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 490px) {
+    width: 85%;
+    height: auto;
+    min-height: 270px;
+    transform: rotate(7deg);
+    box-sizing: border-box;
+    margin-top: 100px;
+  }
 }
 
 .certificateCard {
@@ -119,6 +163,24 @@
   overflow: visible;
   padding: 0;
   font-family: 'Montserrat', Arial, sans-serif;
+
+  @media only screen and (min-width: 490px) and (max-width: 850px) {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 490px) {
+    width: 100%;
+    height: auto;
+    min-height: 270px;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+  }
 }
 
 .certificateHeaderRow {
@@ -136,6 +198,13 @@
   margin-top: 38px;
   margin-bottom: 0;
   text-align: center;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 0 15px;
+    text-align: center;
+  }
 }
 .certificateTitle {
   font-size: 44px;
@@ -143,6 +212,11 @@
   color: #222;
   letter-spacing: 2px;
   line-height: 1;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    font-size: 4.5vw;
+    letter-spacing: 100%;
+  }
 }
 .certificateSubtitle {
   font-size: 26px;
@@ -150,6 +224,11 @@
   color: #1a2a4d;
   margin-top: 6px;
   letter-spacing: 1px;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    font-size: 3vw;
+    letter-spacing: 100%;
+  }
 }
 .logoImg {
   position: absolute;
@@ -158,6 +237,12 @@
   width: 70px;
   margin: 0;
   z-index: 10;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    width: 8vw;
+    top: 3vw;
+    right: 3vw;
+  }
 }
 .certificateSchoolRibbon {
   margin: 18px auto 0 auto;
@@ -170,6 +255,13 @@
   display: block;
   letter-spacing: 1px;
   text-align: center;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    font-size: 1.6vw;
+    padding: 2px 16px;
+    margin: 15px auto 0 auto;
+    max-width: 90%;
+  }
 }
 .certificateName {
   margin: 22px auto 0 auto;
@@ -178,6 +270,14 @@
   color: #3383e2;
   letter-spacing: 2px;
   text-align: center;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    font-size: 2.5vw;
+    margin: 18px auto 0 auto;
+    text-align: center;
+    padding: 0 15px;
+    letter-spacing: 0.5px;
+  }
 }
 .certificateLine {
   margin: 8px auto 0 auto;
@@ -185,6 +285,11 @@
   height: 2px;
   background: #3383e2;
   border-radius: 1px;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    width: 80%;
+    margin: 10px auto 0 auto;
+  }
 }
 .certificateDesc {
   margin: 14px auto 0 auto;
@@ -193,6 +298,12 @@
   color: #222;
   text-align: center;
   line-height: 1.4;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    font-size: 1.7vw;
+    width: 90%;
+    margin: 1.5vw auto 0 auto;
+  }
 }
 .certificateFooterRow {
   display: flex;
@@ -202,6 +313,10 @@
   margin: 24px auto 0 auto;
   width: 90%;
   text-align: center;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    margin: 2vw auto 0 auto;
+  }
 }
 .certificateFooterLeft, .certificateFooterCenter, .certificateFooterRight {
   display: flex;
@@ -213,6 +328,10 @@
   font-size: 16px;
   font-weight: 700;
   color: #222;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+     font-size: 1.7vw;
+  }
 }
 .certificateDate::after {
   content: '';
@@ -227,10 +346,19 @@
   font-size: 13px;
   color: #222;
   margin-top: 2px;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+     font-size: 1.5vw;
+  }
 }
 .stampImg {
   width: 90px;
   opacity: 0.97;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    width: 12vw;
+    margin-top: 4vw;
+  }
 }
 .certificateFooterRight {
   position: absolute;
@@ -240,16 +368,38 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
+
+  @media only screen and (min-width: 490px) and (max-width: 850px) {
+    right: 15vw;
+    bottom: 30px;
+  }
+
+   @media only screen and (min-width: 320px) and (max-width: 490px) {
+    right: 15vw;
+    bottom: 10px;
+  }
 }
 .signatureBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
 .signatureImg {
   width: 70px;
   margin-bottom: 2px;
+
+  @media only screen and (min-width: 490px) and (max-width: 850px) {
+    width: 12vw;
+    font-size: 1.2vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 490px) {
+    width: 10vw;
+    font-size: 1vw;
+  }
 }
+
 .signatureLabel {
   font-size: 13px;
   color: #222;
@@ -257,7 +407,17 @@
   width: 70px;
   text-align: center;
   margin-top: 2px;
+
+  @media only screen and (min-width: 490px) and (max-width: 850px) {
+    width: 12vw;
+    font-size: 1.2vw;
+  }
+  @media only screen and (min-width: 320px) and (max-width: 490px) {
+    width: 10vw;
+    font-size: 1vw;
+  }
 }
+
 .characterImg {
   position: absolute;
   left: 0;
@@ -265,6 +425,14 @@
   width: 170px;
   z-index: 5;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
+
+  @media only screen and (min-width: 490px) and (max-width: 850px) {
+    width: 120px;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 490px) {
+    width: 20vw;
+  }
 }
 .certificateFooterLeft {
   position: absolute;
@@ -273,6 +441,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    left: 20vw;
+    bottom: 10vw;
+  }
 }
 .pencilsImg {
   position: absolute;
@@ -281,4 +454,12 @@
   width: 280px;
   z-index: 5;
   filter: drop-shadow(0 4px 12px rgba(0,0,0,0.10));
-} 
+
+  @media only screen and (min-width: 320px) and (max-width: 850px) {
+    width: 25vw;
+    position: absolute;
+    right: -5vw;
+    bottom: -5vw;
+  }
+}
+
