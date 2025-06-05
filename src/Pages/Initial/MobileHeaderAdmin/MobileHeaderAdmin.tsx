@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { useNavigate, generatePath } from "react-router-dom";
 import { logoHeader, MenuIcon, CloseIcon } from "../../../assets/img/common/index";
 import styles from "./MobileHeaderAdmin.module.scss";
@@ -37,6 +37,10 @@ export const MobileHeaderAdmin: FC = () => {
   const [isExitActive, setIsExitActive] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   
+  const socialMenuRef = useRef<HTMLDivElement>(null);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+  const tariffMenuRef = useRef<HTMLDivElement>(null);
+
   const navigate = useNavigate();
   const { role: userRole } = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
@@ -67,16 +71,52 @@ export const MobileHeaderAdmin: FC = () => {
     }
   }, [schoolId, currentTariffData, refetchTariff, schoolData?.name]);
 
+  // Эффект для закрытия меню по клику вне его области
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Проверяем, был ли клик вне всех открытых меню
+      const clickedOutsideSocial = socialMenuRef.current && !socialMenuRef.current.contains(event.target as Node);
+      const clickedOutsideProfile = profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node);
+      const clickedOutsideTariff = userRole === RoleE.Admin && tariffMenuRef.current && !tariffMenuRef.current.contains(event.target as Node);
+
+      // Проверяем, если клик был вне всех *видимых* меню
+      if (
+        (socialMenuRef.current === null || clickedOutsideSocial) &&
+        (profileMenuRef.current === null || clickedOutsideProfile) &&
+        (userRole !== RoleE.Admin || (tariffMenuRef.current === null || clickedOutsideTariff))
+      ) {
+        // Сбрасываем только те состояния, чьи меню были открыты
+        if (isSocialOpen) setIsPlatformOpen(false);
+        if (isProfileOpen) setIsProfileOpen(false);
+        if (isTariffOpen) setIsTariffOpen(false);
+      }
+    };
+
+    // Добавляем слушатель события клика
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Удаляем слушатель события при размонтировании компонента
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [socialMenuRef, profileMenuRef, tariffMenuRef, isSocialOpen, isProfileOpen, isTariffOpen]); // Зависимости эффекта
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
   const togglePlatformMenu = () => {
     setIsPlatformOpen(!isSocialOpen);
+    setIsProfileOpen(false);
+    setIsTariffOpen(false);
+    setIsExitActive(false);
   };
 
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
+    setIsPlatformOpen(false);
+    setIsTariffOpen(false);
+    setIsExitActive(false);
   };
   // Временно закомментирован функционал отправки сообщений студентам в телеграм, так как он специфичен и не соответствует общей модали из десктопной версии.
   // const toggleMessageMenu = () => {
@@ -85,6 +125,9 @@ export const MobileHeaderAdmin: FC = () => {
 
   const toggleTariffMenu = () => {
     setIsTariffOpen(!isTariffOpen);
+    setIsPlatformOpen(false);
+    setIsProfileOpen(false);
+    setIsExitActive(false);
   };
   
   // Функция для выхода из системы
@@ -129,6 +172,9 @@ export const MobileHeaderAdmin: FC = () => {
   const handleExitClick = (/* event: React.MouseEvent<HTMLElement> */) => {
     // Активируем изменение цвета иконки для всех ролей
     setIsExitActive(!isExitActive);
+    setIsPlatformOpen(false);
+    setIsProfileOpen(false);
+    setIsTariffOpen(false);
     
     // Выполняем выход из профиля для всех ролей при клике на иконку выхода
     logOut();
@@ -148,7 +194,7 @@ export const MobileHeaderAdmin: FC = () => {
         </div>
 
         <div className={`${styles.nav_links} ${menuOpen ? styles.hidden : ""}`}>
-          <div className={`${styles.nav_item} ${styles.social} ${isSocialOpen ? styles.active : ''}`} onClick={togglePlatformMenu}>
+          <div className={`${styles.nav_item} ${styles.social} ${isSocialOpen ? styles.active : ''}`} onClick={togglePlatformMenu} ref={socialMenuRef}>
             <Social_meniu className={styles.item_icon} />
             {isSocialOpen && (
               <div className={styles.submenu}>
@@ -175,7 +221,7 @@ export const MobileHeaderAdmin: FC = () => {
           </div>
 
           {userRole === RoleE.Admin && (
-            <div className={`${styles.nav_item} ${styles.tariff} ${isTariffOpen ? styles.active : ''}`} onClick={toggleTariffMenu}>
+            <div className={`${styles.nav_item} ${styles.tariff} ${isTariffOpen ? styles.active : ''}`} onClick={toggleTariffMenu} ref={tariffMenuRef}>
               <Tariff className={styles.item_icon} />
               {isTariffOpen && (
                 <div className={`${styles.submenu} ${styles.tariff}`}>
@@ -235,7 +281,7 @@ export const MobileHeaderAdmin: FC = () => {
             {/* </div> */}
           {/* )} */}
 
-          <div className={`${styles.nav_item} ${styles.profile_item} ${isProfileOpen ? styles.active : ''}`} onClick={toggleProfileMenu}>
+          <div className={`${styles.nav_item} ${styles.profile_item} ${isProfileOpen ? styles.active : ''}`} onClick={toggleProfileMenu} ref={profileMenuRef}>
             <Profile className={styles.item_icon} />
             {isProfileOpen && (
               <div className={`${styles.submenu} ${styles.profile}`}>
