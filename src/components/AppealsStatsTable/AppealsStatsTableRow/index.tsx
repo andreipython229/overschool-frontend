@@ -54,7 +54,19 @@ export const AppealsStatsTableRow: FC<appealsStatsTableRowT> = memo(({ appealDat
       </tr>
       {isModalOpen && (
         <Portal closeModal={close}>
-          <ModalCheckAppeal id={id} closeModal={close} refetch={refetchTable} />
+          <ModalCheckAppeal 
+            isOpen={isModalOpen} 
+            onClose={close} 
+            appeal={{ id, description: '' }} 
+            onApprove={() => {
+              refetchTable();
+              close();
+            }}
+            onReject={() => {
+              refetchTable();
+              close();
+            }}
+          />
         </Portal>
       )}
     </>
