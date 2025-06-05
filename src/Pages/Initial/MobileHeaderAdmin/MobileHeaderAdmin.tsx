@@ -125,12 +125,6 @@ export const MobileHeaderAdmin: FC = () => {
     setIsProfileOpen(false);
   };
 
-  // Функция перехода на страницу каталога (курсов) по пути path.courses
-  const goToCatalog = () => {
-    navigate(Path.Courses);
-    setIsProfileOpen(false);
-  };
-
   // Обработчик клика на иконку выхода
   const handleExitClick = (/* event: React.MouseEvent<HTMLElement> */) => {
     // Активируем изменение цвета иконки для всех ролей
@@ -244,12 +238,6 @@ export const MobileHeaderAdmin: FC = () => {
               <div className={`${styles.submenu} ${styles.profile}`}>
                 <button onClick={goToProfile}>Открыть профиль</button>
                 <button onClick={goToChooseSchool}>Смена платформы</button>
-                {userRole === RoleE.Admin && (
-                   // кнопка перехода на страницу каталога (курсов) по пути path.courses
-                   <button onClick={goToCatalog}> 
-                    Каталог
-                  </button>
-                )}
               </div>
             )}
           </div>
