@@ -143,7 +143,7 @@ export const MobileHeaderAdmin: FC = () => {
   return (
     <header className={`${styles.mobile_header} ${styles.authorized} ${menuOpen ? styles.menu_open : ""}`}>
       <div className={styles.header_container}>
-        <div className={styles.logo} onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+        <div className={styles.logo} onClick={() => navigate(generatePath(Path.Courses))} style={{ cursor: "pointer" }}>
           <img src={logoHeader} alt="Logotype" />
         </div>
 
