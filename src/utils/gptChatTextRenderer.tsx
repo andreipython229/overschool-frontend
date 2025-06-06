@@ -19,9 +19,13 @@ export const CodeRenderer: FC<IRenderer> = ({ inputText }) => {
           </SyntaxHighlighter>
         )
       }
-      return <p key={index}>{part}</p>
+      return (
+        <p key={index} style={{ whiteSpace: 'pre-line' }}>
+          {part}
+        </p>
+      )
     })
   }
 
-  return <div>{renderTextWithCode()}</div>
+  return <div style={{ whiteSpace: 'pre-line' }}>{renderTextWithCode()}</div>
 }

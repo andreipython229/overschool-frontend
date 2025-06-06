@@ -21,12 +21,9 @@ import MenuItem from '@mui/material/MenuItem';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Checkbox from '@mui/material/Checkbox';
 import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@mui/material';
-import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT';
+import { ChatI, UserInformAppealsI, UserInformI } from 'types/chatsT';
 import { setTotalUnread } from '../../store/redux/chats/unreadSlice';
-import { setChats } from '../../store/redux/chats/chatsSlice';
-import { ITariff } from '../../types/userT';
 import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice';
-import { isEqual } from 'lodash';
 import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath';
 import TeacherIcon from '../../assets/img/common/teacher.svg';
 import StudentIcon from '../../assets/img/common/student.svg';
@@ -41,7 +38,7 @@ import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice
 import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices';
 import { TgMessage } from 'types/tgNotifications';
 import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService';
-import { useFetchCoursesQuery, useLazyFetchCoursesQuery } from 'api/coursesServices';
+import { useLazyFetchCoursesQuery } from 'api/coursesServices';
 import { useLoginMutation } from '../../api/userLoginService';
 import { Button } from 'components/common/Button/Button';
 import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice';
@@ -51,7 +48,7 @@ import HTMLReactParser from 'html-react-parser';
 import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath';
 import { SocialMediaButton } from 'components/SocialMediaButton';
 import { useFetchSchoolQuery } from '../../api/schoolService';
-import { LoaderLayout } from 'components/Loaders/LoaderLayout';
+import { ITariff } from 'types/userT';
 
 interface ApiError {
   data?: unknown;
@@ -584,7 +581,7 @@ export const Header = memo(() => {
 
   return (
     <motion.header
-      className={`${isMenuHover && styles.headerActive} ${styles.header}`}
+      className={`${isMenuHover ?? styles.headerActive} ${styles.header}`}
       initial={{ x: -1000 }}
       animate={{ x: '-50%' }}
       transition={{ delay: 0.1, ease: 'easeInOut', duration: 0.5 }}

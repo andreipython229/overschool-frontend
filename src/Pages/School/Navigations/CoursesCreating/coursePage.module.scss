@@ -514,7 +514,7 @@
   justify-content: center;
 
   &:hover {
-    background: #ba75ff;
+    background: #1563d8;
   }
 
   span {
@@ -529,7 +529,7 @@
   align-items: center;
   margin-top: 1rem;
   padding: 0.5rem;
-  background: #f5f5f5;
+  background: transparent;
   border-radius: 8px;
 
   button {
@@ -557,7 +557,7 @@
   flex-wrap: wrap;
   margin-top: 1rem;
   padding: 0.5rem;
-  background: #f5f5f5;
+  background: transparent;
   border-radius: 8px;
 
   @media (max-width: 850px) {
@@ -570,7 +570,7 @@
   color: white;
   border: none;
   border-radius: 10px;
-  padding: 30px 40px;
+  padding: 20px 40px;
   font-size: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
