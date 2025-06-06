@@ -359,7 +359,7 @@ screen and (max-aspect-ratio: 1/1) {
     max-height: 70px;
     border-radius: 0;
     padding: 9px;
-    background: $color-white;
+    background: linear-gradient(90deg, #ffffff 0%, #f3f6fb 100%) !important;
     
     &_show_btn {
       display: none;
