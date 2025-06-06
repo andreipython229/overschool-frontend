@@ -112,7 +112,7 @@ export const CoursePage: FC = () => {
   const filterCoursesByFolders = (folderId: number, folderName: string) => {
     if (coursesData) {
       let filteredArray = coursesData.results
-      
+
       // Фильтрация по папкам
       if (folderId) {
         filteredArray = filteredArray.filter(course => {
@@ -123,9 +123,7 @@ export const CoursePage: FC = () => {
       // Сортировка
       filteredArray.sort((a, b) => {
         if (sortBy === 'name') {
-          return sortOrder === 'asc' 
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name)
+          return sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
         } else {
           return sortOrder === 'asc'
             ? new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
@@ -153,9 +151,7 @@ export const CoursePage: FC = () => {
     if (courses) {
       const sortedCourses = [...courses.results].sort((a, b) => {
         if (type === 'name') {
-          return sortOrder === 'asc' 
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name)
+          return sortOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
         } else {
           return sortOrder === 'asc'
             ? new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
@@ -216,81 +212,62 @@ export const CoursePage: FC = () => {
   useEffect(() => {
     if (schoolName) {
       fetchAppealsData({ schoolName: schoolName, pageToFetch: 1 })
-
     }
   }, [schoolName])
 
   useEffect(() => {
-    if(appealsData && appealsData.results) {
-      const count = appealsData.results.filter((appeal:any) => appeal.is_read === false).length
+    if (appealsData && appealsData.results) {
+      const count = appealsData.results.filter((appeal: any) => appeal.is_read === false).length
       setPendingCount(count)
     }
-    
   }, [appealsData])
 
   if (!isSuccess || isFetching) return <LoaderLayout />
-  
+
   return (
     <div className={styles.container}>
       {role === RoleE.Admin && (
         <AnimatePresence>
           <div className={styles.filtersContainer}>
-            <div className={styles.folderFilters}>
-              {activeFolders.length > 0 && (
-                <Chip
-                  label="Сбросить фильтры"
-                  icon={<Delete />}
-                  variant="outlined"
-                  onClick={() => {
-                    setActiveFolders([])
-                    setCourses(coursesData)
-                  }}
-                />
-              )}
-              
-              {foldersVisible && folders && (
-                <motion.div className={styles.foldersList}>
-                  {folders.map((folder: any, index: Key) => (
-                    <div key={index} className={styles.folderItem}>
-                      <Chip
-                        label={folder.name}
-                        variant={activeFolders.includes(folder.name) ? "filled" : "outlined"}
-                        sx={{
-                          background: activeFolders.includes(folder.name) ? '#ba75ff' : 'transparent',
-                          color: activeFolders.includes(folder.name) ? 'white' : 'inherit'
-                        }}
-                        onClick={() => toggleFolder(folder.id, folder.name)}
-                      />
-                      <button
-                        className={styles.deleteFolderButton}
-                        onClick={() => startDeleteModal(folder)}
-                      >
-                        <Delete fontSize="small" />
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    className={styles.addFolderButton}
-                    onClick={toggleModal}
-                  >
-                    <span>+</span>
-                  </button>
-                </motion.div>
-              )}
-            </div>
+            {foldersVisible && folders && (
+              <div className={styles.folderFilters}>
+                {activeFolders.length > 0 && (
+                  <Chip
+                    label="Сбросить фильтры"
+                    icon={<Delete />}
+                    variant="outlined"
+                    onClick={() => {
+                      setActiveFolders([])
+                      setCourses(coursesData)
+                    }}
+                  />
+                )}
 
-            <div className={styles.sortControls}>
-              <Button
-                variant="newSecondary"
-                onClick={() => handleSort('name')}
-                text={`По названию ${sortBy === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}`}
-              />
-              <Button
-                variant="newSecondary"
-                onClick={() => handleSort('date')}
-                text={`По дате ${sortBy === 'date' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}`}
-              />
-            </div>
+                {foldersVisible && folders && (
+                  <motion.div className={styles.foldersList}>
+                    {folders.map((folder: any, index: Key) => (
+                      <div key={index} className={styles.folderItem}>
+                        <Chip
+                          label={folder.name}
+                          variant={activeFolders.includes(folder.name) ? 'filled' : 'outlined'}
+                          sx={{
+                            background: activeFolders.includes(folder.name) ? '#ba75ff' : 'transparent',
+                            color: activeFolders.includes(folder.name) ? 'white' : 'inherit',
+                          }}
+                          onClick={() => toggleFolder(folder.id, folder.name)}
+                        />
+                        <button className={styles.deleteFolderButton} onClick={() => startDeleteModal(folder)}>
+                          <Delete fontSize="small" />
+                        </button>
+                      </div>
+                    ))}
+                    <button className={styles.addFolderButton} onClick={toggleModal}>
+                      <span>+</span>
+                    </button>
+                  </motion.div>
+                )}
+              </div>
+            )}
 
             <div className={styles.actionButtons}>
               <Chip
@@ -341,13 +318,21 @@ export const CoursePage: FC = () => {
                 onClick={toggleFolders}
               />
 
-              <button
-                type="button"
-                onClick={dispatchHandlerModal}
-                className={styles.course_button_add}
-              >
+              <button type="button" onClick={dispatchHandlerModal} className={styles.course_button_add}>
                 <span>Создать курс</span>
               </button>
+            </div>
+            <div className={styles.sortControls}>
+              <Button
+                variant="newSecondary"
+                onClick={() => handleSort('name')}
+                text={`По названию ${sortBy === 'name' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}`}
+              />
+              <Button
+                variant="newSecondary"
+                onClick={() => handleSort('date')}
+                text={`По дате ${sortBy === 'date' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}`}
+              />
             </div>
           </div>
         </AnimatePresence>

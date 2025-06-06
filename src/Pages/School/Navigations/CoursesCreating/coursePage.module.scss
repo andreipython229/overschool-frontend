@@ -10,6 +10,10 @@
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 1rem;
+  }
 }
 
 .skeleton {
@@ -463,12 +467,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0 0 1rem;
   width: 100%;
-
-  @media (max-width: 480px) {
-    margin: 30px 0 0 0;
-  }
 }
 
 .folderFilters {
@@ -527,8 +527,8 @@
   display: flex;
   gap: 1rem;
   align-items: center;
-  margin-top: 1rem;
-  padding: 0.5rem;
+  // margin-top: 1rem;
+  // padding: 0.5rem;
   background: transparent;
   border-radius: 8px;
 
@@ -555,8 +555,8 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
-  padding: 0.5rem;
+  // margin-top: 1rem;
+  // padding: 0.5rem;
   background: transparent;
   border-radius: 8px;
 

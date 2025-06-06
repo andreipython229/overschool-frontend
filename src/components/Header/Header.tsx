@@ -1,94 +1,96 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
-import { Link, generatePath, useNavigate } from 'react-router-dom';
-import { useLazyFetchProfileDataQuery } from '../../api/profileService';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { logoutState, role, id, authState as setAuthState } from 'store/redux/users/slice';
-import { Path } from 'enum/pathE';
-import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '../../api/schoolHeaderService';
-import { IconSvg } from '../common/IconSvg/IconSvg';
-import { logOutIconPath } from './config/svgIconsPath';
-import { useLazyLogoutQuery } from 'api/userLoginService';
-import { schoolProgressSelector, schoolSelector, selectUser, selectUserProfile, tariffSelector } from '../../selectors';
-import { logoHeader } from '../../assets/img/common';
-import CloseIcon from '../../assets/img/common/close.svg';
-import { headerUserRoleName } from 'config/index';
-import { additionalRoleT } from 'types/profileT';
-import styles from './header.module.scss';
-import { SimpleLoader } from '../Loaders/SimpleLoader';
-import tariffImg from './config/image.png';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Checkbox from '@mui/material/Checkbox';
-import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@mui/material';
-import { ChatI, UserInformAppealsI, UserInformI } from 'types/chatsT';
-import { setTotalUnread } from '../../store/redux/chats/unreadSlice';
-import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice';
-import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath';
-import TeacherIcon from '../../assets/img/common/teacher.svg';
-import StudentIcon from '../../assets/img/common/student.svg';
-import { RoleE } from 'enum/roleE';
-import { useLazyFetchCurrentTariffPlanQuery } from 'api/tariffPlanService';
-import { setTariff } from 'store/redux/tariff/tariffSlice';
-import { clearSchoolData } from '../../store/redux/school/schoolSlice';
-import { useDispatch } from 'react-redux';
-import { motion } from 'framer-motion';
-import { w3cwebsocket } from 'websocket';
-import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice';
-import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices';
-import { TgMessage } from 'types/tgNotifications';
-import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService';
-import { useLazyFetchCoursesQuery } from 'api/coursesServices';
-import { useLoginMutation } from '../../api/userLoginService';
-import { Button } from 'components/common/Button/Button';
-import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice';
-import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService';
-import { useBoolean } from 'customHooks';
-import HTMLReactParser from 'html-react-parser';
-import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath';
-import { SocialMediaButton } from 'components/SocialMediaButton';
-import { useFetchSchoolQuery } from '../../api/schoolService';
-import { ITariff } from 'types/userT';
+import React, { useState, useEffect, useRef, memo } from 'react'
+import { Link, generatePath, useNavigate } from 'react-router-dom'
+import { useLazyFetchProfileDataQuery } from '../../api/profileService'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { logoutState, role, id, authState as setAuthState } from 'store/redux/users/slice'
+import { Path } from 'enum/pathE'
+import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '../../api/schoolHeaderService'
+import { IconSvg } from '../common/IconSvg/IconSvg'
+import { logOutIconPath } from './config/svgIconsPath'
+import { useLazyLogoutQuery } from 'api/userLoginService'
+import { schoolProgressSelector, schoolSelector, selectUser, selectUserProfile, tariffSelector } from '../../selectors'
+import { logoHeader } from '../../assets/img/common'
+import CloseIcon from '../../assets/img/common/close.svg'
+import { headerUserRoleName } from 'config/index'
+import { additionalRoleT } from 'types/profileT'
+import styles from './header.module.scss'
+import { SimpleLoader } from '../Loaders/SimpleLoader'
+import tariffImg from './config/image.png'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import TextareaAutosize from '@mui/material/TextareaAutosize'
+import Checkbox from '@mui/material/Checkbox'
+import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@mui/material'
+import { ChatI, SenderI, UserInformAppealsI, UserInformI } from 'types/chatsT'
+import { setTotalUnread } from '../../store/redux/chats/unreadSlice'
+import { setUserProfile, clearUserProfile } from '../../store/redux/users/profileSlice'
+import { orangeTariffPlanIconPath, purpleTariffPlanIconPath, redTariffPlanIconPath } from 'config/commonSvgIconsPath'
+import TeacherIcon from '../../assets/img/common/teacher.svg'
+import StudentIcon from '../../assets/img/common/student.svg'
+import { RoleE } from 'enum/roleE'
+import { useLazyFetchCurrentTariffPlanQuery } from 'api/tariffPlanService'
+import { setTariff } from 'store/redux/tariff/tariffSlice'
+import { clearSchoolData } from '../../store/redux/school/schoolSlice'
+import { useDispatch } from 'react-redux'
+import { motion } from 'framer-motion'
+import { w3cwebsocket } from 'websocket'
+import { setTotalUnreadAppeals } from '../../store/redux/info/unreadAppealsSlice'
+import { useUpdateTgMessageMutation } from 'api/tgNotificationsServices'
+import { TgMessage } from 'types/tgNotifications'
+import { useLazyFetchStudentsGroupWithParamsQuery } from 'api/studentsGroupService'
+import { useLazyFetchCoursesQuery } from 'api/coursesServices'
+import { useLoginMutation } from '../../api/userLoginService'
+import { Button } from 'components/common/Button/Button'
+import { updateSchoolTask } from 'store/redux/newSchoolProgression/slice'
+import { useAcceptBannerMutation, useLazyGetStudentBannerQuery } from 'api/schoolBonusService'
+import { useBoolean } from 'customHooks'
+import HTMLReactParser from 'html-react-parser'
+import { HomeIconPath, MessageConvertIconPath, UserIconPath } from 'assets/Icons/svgIconPath'
+import { SocialMediaButton } from 'components/SocialMediaButton'
+import { useFetchSchoolQuery } from '../../api/schoolService'
+import { ITariff } from 'types/userT'
+import { isEqual } from 'lodash'
+import { setChats } from 'store/redux/chats/chatsSlice'
 
 interface ApiError {
-  data?: unknown;
-  status?: number;
-  originalStatus?: number;
+  data?: unknown
+  status?: number
+  originalStatus?: number
 }
 
 interface ServerError {
-  data: unknown;
-  [key: string]: unknown;
+  data: unknown
+  [key: string]: unknown
 }
 
 const isServerError = (error: unknown): error is ServerError => {
-  return typeof error === 'object' && error !== null && 'data' in error;
-};
+  return typeof error === 'object' && error !== null && 'data' in error
+}
 
 const getErrorMessage = (error: unknown): string => {
   if (error instanceof Error) {
-    return `Ошибка: ${error.message}`;
+    return `Ошибка: ${error.message}`
   }
   if (isServerError(error)) {
-    return `Ошибка сервера: ${JSON.stringify(error.data)}`;
+    return `Ошибка сервера: ${JSON.stringify(error.data)}`
   }
-  return 'Неизвестная ошибка';
-};
+  return 'Неизвестная ошибка'
+}
 
 export const Header = memo(() => {
-  const dispatch = useAppDispatch();
-  const dispatchRole = useDispatch();
-  const navigate = useNavigate();
-  const { schoolId, headerId, schoolName } = useAppSelector(schoolSelector);
-  const tariffPlan = useAppSelector(tariffSelector);
-  const { userProfile } = useAppSelector(selectUserProfile);
-  const { role: userRole, userId, authState } = useAppSelector(selectUser);
-  const { data: schoolProgress } = useAppSelector(schoolProgressSelector);
-  const chats = useAppSelector(state => state.chats.chats);
+  const dispatch = useAppDispatch()
+  const dispatchRole = useDispatch()
+  const navigate = useNavigate()
+  const { schoolId, headerId, schoolName } = useAppSelector(schoolSelector)
+  const tariffPlan = useAppSelector(tariffSelector)
+  const { userProfile } = useAppSelector(selectUserProfile)
+  const { role: userRole, userId, authState } = useAppSelector(selectUser)
+  const { data: schoolProgress } = useAppSelector(schoolProgressSelector)
+  const { chats } = useAppSelector(state => state.chats)
 
-  const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false);
-  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false);
-  const [socketConnect, setSocketConnect] = useState<boolean>(false);
+  const [isMenuHover, { onToggle: toggleHover }] = useBoolean(false)
+  const [showBanner, { off: openBanner, on: closeBanner }] = useBoolean(false)
+  const [socketConnect, setSocketConnect] = useState<boolean>(false)
   const [currentTariff, setCurrentTariff] = useState<ITariff>({
     tariff_name: '',
     days_left: null,
@@ -108,42 +110,42 @@ export const Header = memo(() => {
       student_count_by_month: null,
       discount_12_months_byn: 0,
     },
-  });
-  const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0);
-  const [unreadAppeals, setUnreadAppeals] = useState<number>(0);
-  const [fetchedChats, setFetchedChats] = useState<ChatI[]>([]);
-  const [schoolRoles, setSchoolRoles] = useState<additionalRoleT | undefined>(undefined);
-  const [logotype, setLogo] = useState<string | undefined>('');
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
-  const open2 = Boolean(anchorEl2);
+  })
+  const [totalUnreadMessages, setTotalUnreadMessages] = useState<number>(0)
+  const [unreadAppeals, setUnreadAppeals] = useState<number>(0)
+  const [fetchedChats, setFetchedChats] = useState<ChatI[]>([])
+  const [schoolRoles, setSchoolRoles] = useState<additionalRoleT | undefined>(undefined)
+  const [logotype, setLogo] = useState<string | undefined>('')
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null)
+  const open2 = Boolean(anchorEl2)
   const [tgMessage, setTgMessage] = useState<TgMessage>({
     message: '',
     students_groups: [],
-    send_to_admins: false
-  });
-  const [allGroups, setAllGroups] = useState<boolean>(false);
-  const [showTgMessageForm, setShowTgMessageForm] = useState(false);
-  const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId));
-  const [logout, { isLoading }] = useLazyLogoutQuery();
-  const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery();
-  const [refetchUser, { isSuccess: profileIsSuccess, isError, error }] = useLazyFetchProfileDataQuery();
-  const [fetchCurrentTarrif] = useLazyFetchCurrentTariffPlanQuery();
-  const { data: schoolData } = useFetchSchoolQuery(Number(schoolId));
-  const [loginUser] = useLoginMutation();
-  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation();
-  const [fetchGroups, { data: studentsGroups, isFetching: fetchingGroups }] = useLazyFetchStudentsGroupWithParamsQuery();
-  const [fetchCourses, { data: Courses, isFetching, isSuccess: coursesSuccess }] = useLazyFetchCoursesQuery();
-  const [acceptBanner] = useAcceptBannerMutation();
-  const [createTgMessage] = useUpdateTgMessageMutation();
-  const [sendingProgress, setSendingProgress] = useState<number>(0);
-  const [sendingLog, setSendingLog] = useState<string[]>([]);
-  const [showLogsModal, setShowLogsModal] = useState(false);
-  const [sendingLogs, setSendingLogs] = useState<string[]>([]);
+    send_to_admins: false,
+  })
+  const [allGroups, setAllGroups] = useState<boolean>(false)
+  const [showTgMessageForm, setShowTgMessageForm] = useState(false)
+  const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
+  const [logout, { isLoading }] = useLazyLogoutQuery()
+  const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
+  const [refetchUser, { isSuccess: profileIsSuccess, isError, error }] = useLazyFetchProfileDataQuery()
+  const [fetchCurrentTarrif] = useLazyFetchCurrentTariffPlanQuery()
+  const { data: schoolData } = useFetchSchoolQuery(Number(schoolId))
+  const [loginUser] = useLoginMutation()
+  const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
+  const [fetchGroups, { data: studentsGroups, isFetching: fetchingGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
+  const [fetchCourses, { data: Courses, isFetching, isSuccess: coursesSuccess }] = useLazyFetchCoursesQuery()
+  const [acceptBanner] = useAcceptBannerMutation()
+  const [createTgMessage] = useUpdateTgMessageMutation()
+  const [sendingProgress, setSendingProgress] = useState<number>(0)
+  const [sendingLog, setSendingLog] = useState<string[]>([])
+  const [showLogsModal, setShowLogsModal] = useState(false)
+  const [sendingLogs, setSendingLogs] = useState<string[]>([])
 
-  const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru'];
-  const canChangePlatform = userProfile?.email ? !restrictedEmails.includes(userProfile.email) : false;
+  const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
+  const canChangePlatform = userProfile?.email ? !restrictedEmails.includes(userProfile.email) : false
 
   const logOut = async () => {
     await logout().then(() => {
@@ -168,40 +170,40 @@ export const Header = memo(() => {
         userRole,
         showTgMessageForm,
         schoolId,
-        headerId
-      });
-      
-      fetchGroups({ 
-        schoolName: schoolName, 
-        params: 's=100' 
+        headerId,
+      })
+
+      fetchGroups({
+        schoolName: schoolName,
+        params: 's=100',
       })
         .unwrap()
         .then(data => {
-          console.log('Fetched groups:', data);
+          console.log('Fetched groups:', data)
           if (data.results.length === 0) {
-            console.log('No groups found. Please check if:');
-            console.log('1. The school has any groups');
-            console.log('2. You have proper permissions');
-            console.log('3. The school name is correct:', schoolName);
+            console.log('No groups found. Please check if:')
+            console.log('1. The school has any groups')
+            console.log('2. You have proper permissions')
+            console.log('3. The school name is correct:', schoolName)
           }
         })
         .catch(error => {
-          console.error('Error fetching groups:', error);
+          console.error('Error fetching groups:', error)
           if (error.data) {
-            console.error('Error details:', error.data);
+            console.error('Error details:', error.data)
           }
-        });
+        })
     }
-  }, [showTgMessageForm, schoolName, userRole]);
+  }, [showTgMessageForm, schoolName, userRole])
 
   useEffect(() => {
     if (userRole === RoleE.Admin && schoolRoles) {
-      console.log('User roles:', schoolRoles);
+      console.log('User roles:', schoolRoles)
       if (!schoolRoles.roles.includes('Администратор')) {
-        console.warn('User does not have admin permissions in this school');
+        console.warn('User does not have admin permissions in this school')
       }
     }
-  }, [userRole, schoolRoles]);
+  }, [userRole, schoolRoles])
 
   const handleLogin = async (login: string, password: string) => {
     try {
@@ -402,12 +404,12 @@ export const Header = memo(() => {
     dispatch(setTotalUnreadAppeals(unreadAppeals || 0))
   }, [unreadAppeals])
 
-  // Удаляем AVATAR
+  // // Удаляем AVATAR
   // const omitAvatar = (sender: SenderI): SenderI => {
   //   const { avatar, ...rest } = sender
   //   return rest
   // }
-  // Проходимся по всем чатас и у каждого сендера удаляем аватарку
+  // // Проходимся по всем чатас и у каждого сендера удаляем аватарку
   // const processChats = (chats: ChatI[]): ChatI[] => {
   //   return chats.map(chat => ({
   //     ...chat,
@@ -425,7 +427,7 @@ export const Header = memo(() => {
   //     }
   //   }
   // }, [chats, fetchedChats])
-  // **************************************************************
+  // // **************************************************************
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -483,85 +485,85 @@ export const Header = memo(() => {
     }
   }
 
- const handleSendTgMessage = async () => {
+  const handleSendTgMessage = async () => {
     if (userRole !== RoleE.Admin) {
-      setSendingLogs(prev => [...prev, 'Ошибка: Отправка сообщений доступна только администраторам']);
-      setShowLogsModal(true);
-      return;
+      setSendingLogs(prev => [...prev, 'Ошибка: Отправка сообщений доступна только администраторам'])
+      setShowLogsModal(true)
+      return
     }
 
     // Проверяем права доступа
     if (!schoolRoles?.roles.includes('Администратор')) {
-      setSendingLogs(prev => [...prev, 'Ошибка: У вас нет прав администратора в этой школе']);
-      setShowLogsModal(true);
-      return;
+      setSendingLogs(prev => [...prev, 'Ошибка: У вас нет прав администратора в этой школе'])
+      setShowLogsModal(true)
+      return
     }
 
     if (!tgMessage.message || (!tgMessage.students_groups.length && !tgMessage.send_to_admins)) {
-      setSendingLogs(prev => [...prev, 'Ошибка: Сообщение не может быть пустым и должны быть выбраны группы или администраторы']);
-      setShowLogsModal(true);
-      return;
+      setSendingLogs(prev => [...prev, 'Ошибка: Сообщение не может быть пустым и должны быть выбраны группы или администраторы'])
+      setShowLogsModal(true)
+      return
     }
-    
-    setSendingProgress(0);
-    setSendingLog([]);
-    setSendingLogs([]);
-    
+
+    setSendingProgress(0)
+    setSendingLog([])
+    setSendingLogs([])
+
     try {
-      setSendingLogs(prev => [...prev, 'Начало отправки сообщений...']);
-      
-      const result = await createTgMessage({ data: tgMessage }).unwrap();
-      
+      setSendingLogs(prev => [...prev, 'Начало отправки сообщений...'])
+
+      const result = await createTgMessage({ data: tgMessage }).unwrap()
+
       if (!result || !result.tg_chats_ids) {
-        throw new Error('Не получен ответ от сервера');
+        throw new Error('Не получен ответ от сервера')
       }
 
-      const studentsCount = result.tg_chats_ids.length;
-      setSendingLogs(prev => [...prev, `Найдено ${studentsCount} получателей`]);
-      
-      let sentCount = 0;
-      
+      const studentsCount = result.tg_chats_ids.length
+      setSendingLogs(prev => [...prev, `Найдено ${studentsCount} получателей`])
+
+      let sentCount = 0
+
       const progressInterval = setInterval(() => {
-        sentCount += 1;
-        const progress = Math.round((sentCount / studentsCount) * 100);
-        setSendingProgress(progress);
-        
+        sentCount += 1
+        const progress = Math.round((sentCount / studentsCount) * 100)
+        setSendingProgress(progress)
+
         if (sentCount >= studentsCount) {
-          clearInterval(progressInterval);
-          const successMessage = `Отправка завершена. Всего отправлено: ${studentsCount} сообщений`;
-          setSendingLog(prev => [...prev, successMessage]);
-          setSendingLogs(prev => [...prev, successMessage]);
-          
+          clearInterval(progressInterval)
+          const successMessage = `Отправка завершена. Всего отправлено: ${studentsCount} сообщений`
+          setSendingLog(prev => [...prev, successMessage])
+          setSendingLogs(prev => [...prev, successMessage])
+
           setTimeout(() => {
-            setShowTgMessageForm(false);
-            setShowLogsModal(true);
-          }, 1000);
+            setShowTgMessageForm(false)
+            setShowLogsModal(true)
+          }, 1000)
         }
-      }, 100);
+      }, 100)
     } catch (error) {
-      console.error('Ошибка отправки:', error);
-      let errorMessage = 'Ошибка при отправке сообщений';
-      
+      console.error('Ошибка отправки:', error)
+      let errorMessage = 'Ошибка при отправке сообщений'
+
       if (error instanceof Error) {
-        errorMessage = `Ошибка: ${error.message}`;
+        errorMessage = `Ошибка: ${error.message}`
       } else if (typeof error === 'object' && error !== null) {
-        const errorObj = error as { data?: any };
+        const errorObj = error as { data?: any }
         if (errorObj.data?.detail) {
-          errorMessage = `Ошибка сервера: ${errorObj.data.detail}`;
+          errorMessage = `Ошибка сервера: ${errorObj.data.detail}`
         } else {
-          errorMessage = `Ошибка сервера: ${JSON.stringify(errorObj.data || error)}`;
+          errorMessage = `Ошибка сервера: ${JSON.stringify(errorObj.data || error)}`
         }
       }
-      
-      setSendingLog(prev => [...prev, errorMessage]);
-      setSendingLogs(prev => [...prev, errorMessage]);
-      
+
+      setSendingLog(prev => [...prev, errorMessage])
+      setSendingLogs(prev => [...prev, errorMessage])
+
       setTimeout(() => {
-        setShowTgMessageForm(false);
-        setShowLogsModal(true);
-      }, 2000);
+        setShowTgMessageForm(false)
+        setShowLogsModal(true)
+      }, 2000)
     }
-  };
+  }
 
   const handleAddTgMessageForm = () => {
     setTgMessage({
@@ -682,7 +684,7 @@ export const Header = memo(() => {
                       <input
                         type="checkbox"
                         checked={tgMessage.send_to_admins}
-                        onChange={(e) => setTgMessage(prev => ({ ...prev, send_to_admins: e.target.checked }))}
+                        onChange={e => setTgMessage(prev => ({ ...prev, send_to_admins: e.target.checked }))}
                         className={styles.checkbox}
                       />
                       Отправить всем администраторам
@@ -745,26 +747,26 @@ export const Header = memo(() => {
                     <div className={styles.wrapper_content_groups}>
                       {Object.entries(
                         studentsGroups.results.reduce<Record<string, typeof studentsGroups.results>>((acc, group) => {
-                          const courseName = group.course_name || 'Без названия';
+                          const courseName = group.course_name || 'Без названия'
                           if (!acc[courseName]) {
-                            acc[courseName] = [];
+                            acc[courseName] = []
                           }
-                          acc[courseName].push(group);
-                          return acc;
+                          acc[courseName].push(group)
+                          return acc
                         }, {}),
                       ).map(([courseName, groups], courseIndex) => (
                         <div key={`course-${courseIndex}-${courseName}`} className={styles.courseFolder}>
                           <div className={styles.courseFolderHeader}>
                             <div className={styles.courseFolderInfo}>
-                              <IconSvg 
-                                width={20} 
-                                height={20} 
-                                viewBoxSize="0 0 24 24" 
+                              <IconSvg
+                                width={20}
+                                height={20}
+                                viewBoxSize="0 0 24 24"
                                 path={[
                                   {
-                                    d: "M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z",
-                                    fill: "currentColor"
-                                  }
+                                    d: 'M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z',
+                                    fill: 'currentColor',
+                                  },
                                 ]}
                               />
                               <span className={styles.courseName}>{courseName}</span>
@@ -779,7 +781,7 @@ export const Header = memo(() => {
                                 },
                               }}
                               onChange={e => {
-                                const isChecked = e.target.checked;
+                                const isChecked = e.target.checked
                                 if (isChecked) {
                                   setTgMessage(
                                     (prevData: TgMessage) =>
@@ -787,13 +789,13 @@ export const Header = memo(() => {
                                         ...prevData,
                                         students_groups: [...prevData.students_groups, ...groups.map(group => group.group_id)],
                                       } as TgMessage),
-                                  );
+                                  )
                                 } else {
-                                  setAllGroups(false);
+                                  setAllGroups(false)
                                   setTgMessage((prevData: TgMessage) => ({
                                     ...prevData,
                                     students_groups: prevData.students_groups.filter(id => !groups.some(group => group.group_id === id)),
-                                  }));
+                                  }))
                                 }
                               }}
                               checked={groups.every(group => new Set(tgMessage.students_groups).has(Number(group.group_id)))}
@@ -804,9 +806,7 @@ export const Header = memo(() => {
                               <div key={`group-${groupIndex}-${group.group_id}`} className={styles.groupItem}>
                                 <div className={styles.groupInfo}>
                                   <span className={styles.groupName}>{group.name}</span>
-                                  <span className={styles.studentsCount}>
-                                    {group.students?.length || 0} студентов
-                                  </span>
+                                  <span className={styles.studentsCount}>{group.students?.length || 0} студентов</span>
                                 </div>
                                 <Checkbox
                                   className={styles.groupCheckbox}
@@ -817,7 +817,7 @@ export const Header = memo(() => {
                                     },
                                   }}
                                   onChange={e => {
-                                    const isChecked = e.target.checked;
+                                    const isChecked = e.target.checked
                                     if (isChecked) {
                                       setTgMessage(
                                         (prevData: TgMessage) =>
@@ -825,13 +825,13 @@ export const Header = memo(() => {
                                             ...prevData,
                                             students_groups: [...prevData.students_groups, group.group_id],
                                           } as TgMessage),
-                                      );
+                                      )
                                     } else {
-                                      setAllGroups(false);
+                                      setAllGroups(false)
                                       setTgMessage((prevData: TgMessage) => ({
                                         ...prevData,
                                         students_groups: prevData.students_groups.filter(id => id !== group.group_id),
-                                      }));
+                                      }))
                                     }
                                   }}
                                   checked={new Set(tgMessage.students_groups).has(Number(group.group_id))}
@@ -1026,30 +1026,33 @@ export const Header = memo(() => {
           </button>
         </DialogTitle>
         <DialogContent>
-          <div style={{ 
-            maxHeight: '400px', 
-            overflowY: 'auto',
-            backgroundColor: '#f8f9fa',
-            padding: '15px',
-            borderRadius: '5px',
-            marginTop: '20px'
-          }}>
+          <div
+            style={{
+              maxHeight: '400px',
+              overflowY: 'auto',
+              backgroundColor: '#f8f9fa',
+              padding: '15px',
+              borderRadius: '5px',
+              marginTop: '20px',
+            }}
+          >
             {sendingLogs.length > 0 ? (
               sendingLogs.map((log, index) => (
-                <div key={index} style={{ 
-                  marginBottom: '10px',
-                  padding: '8px',
-                  backgroundColor: log.includes('Ошибка') ? '#fff3f3' : '#f0f7ff',
-                  borderRadius: '4px',
-                  borderLeft: `4px solid ${log.includes('Ошибка') ? '#ff4d4d' : '#357EEB'}`
-                }}>
+                <div
+                  key={index}
+                  style={{
+                    marginBottom: '10px',
+                    padding: '8px',
+                    backgroundColor: log.includes('Ошибка') ? '#fff3f3' : '#f0f7ff',
+                    borderRadius: '4px',
+                    borderLeft: `4px solid ${log.includes('Ошибка') ? '#ff4d4d' : '#357EEB'}`,
+                  }}
+                >
                   {log}
                 </div>
               ))
             ) : (
-              <div style={{ textAlign: 'center', color: '#666' }}>
-                Нет доступных логов
-              </div>
+              <div style={{ textAlign: 'center', color: '#666' }}>Нет доступных логов</div>
             )}
           </div>
         </DialogContent>
@@ -1066,5 +1069,5 @@ export const Header = memo(() => {
         </DialogActions>
       </Dialog>
     </motion.header>
-  );
-});
+  )
+})

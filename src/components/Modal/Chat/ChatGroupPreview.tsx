@@ -101,7 +101,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
                       {showCreateChatButton && (
                         <Button
                           text="Создать чат"
-                          variant="primary"
+                          variant="newPrimary"
                           onClick={e => {
                             createChatHundler(sender, userId, chatData.id)
                           }}
@@ -111,7 +111,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
                   ) : (
                     <Button
                       text="Перейти в чат"
-                      variant="primary"
+                      variant="newPrimary"
                       onClick={e => {
                         goToChatHundler(sender, userId)
                       }}
