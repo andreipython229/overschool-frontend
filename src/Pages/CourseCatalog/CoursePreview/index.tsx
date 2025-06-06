@@ -19,6 +19,7 @@ import PhoneInput from 'react-phone-input-2'
 import { LandingBlocks } from './LandingBlocks'
 import { changeBlocks } from 'store/redux/landing/constructorSlice'
 import { useAppDispatch } from 'store/hooks'
+import { Modal } from 'components/common/Modal/Modal'
 
 const theme = createTheme({
   palette: {
@@ -29,6 +30,51 @@ const theme = createTheme({
     },
   },
 })
+
+type CoursePreviewProps = {
+  isOpen: boolean
+  onClose: () => void
+  course: any
+}
+
+export const CoursePreview: FC<CoursePreviewProps> = ({ isOpen, onClose, course }) => {
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={course?.name || 'Предпросмотр курса'}
+      variant="gradient"
+      width="800px"
+    >
+      <div className={styles.content}>
+        {course?.description && (
+          <div className={styles.section}>
+            <h3>Описание курса</h3>
+            <p>{course.description}</p>
+          </div>
+        )}
+
+        {course?.lessons && course.lessons.length > 0 && (
+          <div className={styles.section}>
+            <h3>Уроки курса</h3>
+            <ul className={styles.lessonsList}>
+              {course.lessons.map((lesson: any) => (
+                <li key={lesson.id}>
+                  <h4>{lesson.title}</h4>
+                  <p>{lesson.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className={styles.actions}>
+          <Button onClick={onClose} color="primary" text="Закрыть" />
+        </div>
+      </div>
+    </Modal>
+  )
+}
 
 export const CoureCatalogPreview: FC = () => {
   const params = useParams()

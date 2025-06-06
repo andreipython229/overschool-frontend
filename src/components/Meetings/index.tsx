@@ -123,7 +123,16 @@ export const SchoolMeetings: FC = () => {
               text="Добавить видеоконференцию"
             />
           </div>
-          <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
+          <AddMeeting 
+            isOpen={showAddMeetingForm}
+            onClose={() => setShowAddMeetingForm(false)}
+            onAdd={(meetingData) => {
+              // Здесь будет логика добавления встречи
+              setShowAddMeetingForm(false);
+            }}
+            setShowAddMeetingForm={setShowAddMeetingForm}
+            showAddMeetingForm={showAddMeetingForm}
+          />
           {renderMeetingLinks()}
         </>
       )}
