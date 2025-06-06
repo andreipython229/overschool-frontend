@@ -10,7 +10,7 @@ import { Path } from '../../enum/pathE'
 import styles from './mainLayOut.module.scss'
 import { Footer } from 'components/Footer'
 import { useBoolean as useBooleanHook } from '../../customHooks/useBoolean'
-import { ChatGPT } from '../../components/ChatGPT/ChatGPT'
+import ChatGPT from '../../components/ChatGPT'
 import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
@@ -129,7 +129,7 @@ export const MainLayOut: FC = memo(() => {
           {!routesWithoutPrevious.includes(location.pathname) && <Previous />}
           <Outlet />
         </motion.main>
-        {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} onClose={() => setShowOverAI(false)} />}
+        {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} setIsDialogOpen={setShowOverAI} />}
         <Footer />
       </div>
     </>

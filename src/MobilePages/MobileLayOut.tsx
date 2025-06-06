@@ -18,7 +18,7 @@ import { Footer } from 'components/Footer'
 import { MobileHeaderAdmin } from '../Pages/Initial/MobileHeaderAdmin/MobileHeaderAdmin'
 
 import { motion } from 'framer-motion'
-import { ChatGPT } from '../components/ChatGPT/ChatGPT'
+import ChatGPT from '../components/ChatGPT'
 
 export const MobileLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -94,7 +94,7 @@ export const MobileLayOut: FC = memo(() => {
         <MobileHeaderAdmin />
       </main>
 
-      {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} onClose={() => setShowOverAI(false)} />}
+      {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} setIsDialogOpen={setShowOverAI} />}
       <FooterMobile schoolTariffPlan={updateTariff} />
       <nav className={styles.mobileFooter}>
         <MobileNavbar />

@@ -1,57 +1,93 @@
-import React, { FC } from 'react'
-import { Button } from 'components/common/Button/Button'
-import { Modal } from 'components/common/Modal/Modal'
+import { FC, memo, useEffect } from 'react'
+import { IconSvg } from '../../common/IconSvg/IconSvg'
+import { convertDate } from 'utils/convertDate'
+import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { closeHwModalPath } from './config/svgIconsPsth'
+
 import styles from './modalCheckAppeal.module.scss'
+import { useFetchCurrentAppealMutation } from 'api/catalogServices'
 
-type ModalCheckAppealProps = {
-  isOpen: boolean
-  onClose: () => void
-  appeal: any
-  onApprove: () => void
-  onReject: () => void
+type modalAppealT = {
+  id: number
+  closeModal: () => void
+  refetch: () => void
 }
 
-export const ModalCheckAppeal: FC<ModalCheckAppealProps> = ({
-  isOpen,
-  onClose,
-  appeal,
-  onApprove,
-  onReject
-}) => {
-  return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Проверка апелляции"
-      variant="gradient"
-      width="600px"
-    >
-      <div className={styles.content}>
-        <div className={styles.section}>
-          <h3>Информация об апелляции</h3>
-          <p>{appeal?.description}</p>
-        </div>
+export const ModalCheckAppeal: FC<modalAppealT> = memo(({ id, closeModal, refetch }) => {
+  const schoolName = window.location.href.split('/')[4]
 
-        {appeal?.attachments && appeal.attachments.length > 0 && (
-          <div className={styles.section}>
-            <h3>Прикрепленные файлы</h3>
-            <ul className={styles.attachmentsList}>
-              {appeal.attachments.map((attachment: any) => (
-                <li key={attachment.id}>
-                  <a href={attachment.url} target="_blank" rel="noopener noreferrer">
-                    {attachment.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+  const [fetchData, { data: appeal, isLoading }] = useFetchCurrentAppealMutation()
 
-        <div className={styles.actions}>
-          <Button onClick={onReject} color="primary" text="Отклонить" />
-          <Button onClick={onApprove} color="primary" text="Одобрить" />
-        </div>
+  useEffect(() => {
+    if (!appeal && !isLoading && id) {
+      fetchData({ schoolName, id })
+    }
+  }, [appeal, fetchData, id])
+
+  const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(appeal?.created_at || ''))
+
+  if (!appeal || isLoading) {
+    return (
+      <div className={styles.modal_content} role="dialog" aria-modal="true">
+        <button className={styles.modal_content_close} onClick={closeModal}>
+          <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
+        </button>
+        <SimpleLoader style={{ margin: '50px', height: '50px' }} />
       </div>
-    </Modal>
+    )
+  }
+
+  return (
+    <div className={styles.modal_content} role="dialog" aria-modal="true">
+      {isLoading && (
+        <div className={styles.loader_wrapper}>
+          <SimpleLoader style={{ margin: '50px', height: '50px' }} />
+        </div>
+      )}
+      <button
+        className={styles.modal_content_close}
+        onClick={() => {
+          closeModal()
+          refetch()
+        }}
+      >
+        <IconSvg width={17} height={17} viewBoxSize="0 0 17 17" path={closeHwModalPath} />
+      </button>
+      <div className={styles.header_info}>
+        <p className={styles.task_status}>
+          Заявка на поступление, идентификационный №{appeal.id} от {mmddyyyy} в {hoursAndMinutes}
+        </p>
+      </div>
+      <div
+        style={{
+          borderRadius: '1rem',
+          backgroundColor: '#f1f0f5',
+          padding: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5rem',
+          fontSize: '18px',
+        }}
+      >
+        <span>
+          <strong>ФИО:</strong> {appeal.name}
+        </span>
+        <span>
+          <strong>Электронная почта:</strong> {appeal.email}
+        </span>
+        <span>
+          <strong>№ телефона:</strong> {appeal.phone}
+        </span>
+        <span>
+          <strong>Курс:</strong> {appeal.course_name}
+        </span>
+        <span style={{ display: 'flex', flex: '1', gap: '0.5rem' }}>
+          <strong>Статус:</strong>{' '}
+          <p style={appeal.is_read ? { color: 'green', fontWeight: 'bold' } : { fontWeight: 'bold' }}>
+            {appeal.is_read ? 'Обработана' : 'В обработке'}
+          </p>
+        </span>
+      </div>
+    </div>
   )
-}
+})

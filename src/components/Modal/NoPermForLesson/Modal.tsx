@@ -1,30 +1,23 @@
-import React, { FC } from 'react'
-import { Button } from 'components/common/Button/Button'
-import { Modal } from 'components/common/Modal/Modal'
-import styles from './noPermForLesson.module.scss'
+import React from "react";
+import styles from "./Modal.module.scss";
 
-type NoPermForLessonProps = {
-  isOpen: boolean
-  onClose: () => void
-  children?: React.ReactNode
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
 }
 
-export const NoPermForLesson: FC<NoPermForLessonProps> = ({ isOpen, onClose, children }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Нет доступа к уроку"
-      variant="warning"
-      width="500px"
-    >
-      <div className={styles.content}>
-        {children}
-        <div className={styles.actions}>
-          <Button onClick={onClose} color="primary" text="Закрыть" />
-        </div>
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.closeButton} onClick={onClose}>
+          ×
+        </button>
+        <div className={styles.modalContent}>{children}</div>
       </div>
-    </Modal>
-  )
-}
+    </div>
+  );
+};
 

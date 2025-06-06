@@ -19,12 +19,12 @@ import styles from './mobilechatgpt.module.scss'
 import { useAppSelector } from 'store/hooks'
 import { selectUser } from 'selectors'
 
-interface ChatGPTProps {
-  isDialogOpen: boolean;
-  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+interface mobileChatGPTProps {
+  openChatModal: () => void
+  closeChatModal: () => void
 }
 
-const MobileChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {
+const MobileChatGPT: React.FC<mobileChatGPTProps> = ({ openChatModal, closeChatModal }) => {
   const [messageInput, setMessageInput] = useState('')
   const messageContainerRef = useRef<HTMLDivElement>(null)
   const { userId } = useAppSelector(selectUser)
@@ -32,6 +32,7 @@ const MobileChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }
   const [selectedChatId, setCreatedChatId] = useState<number>()
   const [isChatSelected, setIsChatSelected] = useState(false)
   const [chatList, setChatList] = useState<Array<number>>([])
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isFetchingChats, setIsFetchingChats] = useState(false)
@@ -124,7 +125,7 @@ const MobileChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }
     setIsDialogOpen(!isDialogOpen)
     setCreatedChatId(undefined)
     setFocusToBottom()
-    isDialogOpen ? setIsDialogOpen(false) : setIsDialogOpen(true)
+    isDialogOpen ? closeChatModal() : openChatModal()
     const response = await fetchWelcomeMessage()
     if (response.data) {
       setShowWelcomeMessage(response.data.show_welcome_message)
@@ -144,6 +145,7 @@ const MobileChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setIsDialogOpen(false)
+      closeChatModal()
     }
   }
 
