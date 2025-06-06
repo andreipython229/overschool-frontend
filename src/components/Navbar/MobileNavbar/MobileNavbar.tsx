@@ -144,10 +144,10 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                     arrow
                     placement={'right'}
                   >
-                    <NavLink key={index} to={path} className={isActive} style={{ padding: '0 10px' }}>
-                      <DarkIconWrapper>
-                        {icon}
-                      </DarkIconWrapper>
+                    <NavLink key={index} to={path} className={isActive}>
+                      <div className={styles.navIconContainer}>
+                        <div className={styles.navIcon}>{icon}</div>
+                      </div>
                     </NavLink>
                   </Tooltip>
                 ) : (
@@ -156,24 +156,10 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                       <div className={`${styles.chatIcon}`} onClick={off} style={{ outline: 'none', padding: '0 10px' }}>
                         {Number(unRead) > 0 ? (
                           <Badge badgeContent={unRead} color="error">
-                            <IconSvg 
-                              width={50} 
-                              height={50} 
-                              viewBoxSize="0 0 50 50" 
-                              path={chatIconPath} 
-                              className={styles.svgIcon}
-                              styles={{ color: '#212121' }}
-                            />
+                            <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} className={styles.navIcon} />
                           </Badge>
                         ) : (
-                          <IconSvg 
-                            width={50} 
-                            height={50} 
-                            viewBoxSize="0 0 50 50" 
-                            path={chatIconPath} 
-                            className={styles.svgIcon}
-                            styles={{ color: '#212121' }}
-                          />
+                          <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} className={styles.navIcon} />
                         )}
                       </div>
                     </Tooltip>
@@ -185,14 +171,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
               <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
                 <a key={'techsupport'} href={'https://t.me/coursehub_admin'} target="_blank" rel="noreferrer" style={{ padding: '0 10px' }}>
                   <div style={{ transform: 'scale(1.1)', transformOrigin: 'center center' }}>
-                    <IconSvg 
-                      width={60} 
-                      height={60} 
-                      viewBoxSize="0 0 50 50" 
-                      path={tgNavPath} 
-                      className={styles.svgIcon}
-                      styles={{ color: '#212121' }} 
-                    />
+                    <IconSvg width={60} height={60} viewBoxSize="0 0 50 50" path={tgNavPath} className={styles.navIcon} />
                   </div>
                 </a>
               </Tooltip>
