@@ -3,553 +3,53 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .container {
   position: relative;
   height: auto;
-  width: 100vw;
+  max-width: 1200px; /* или любой нужный предел */
+  margin: 0 auto;
+  padding: 0 16px; /* добавь, если нужны отступы слева/справа */
+  width: 100%;
 }
+
+
+
 .TariffPlansPage {
   height: 100%;
-  h1 {
-    margin: 23px;
-    color: #4d5766;
-    font-size: 35px;
-  }
+}
 
-  &_header{
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 14px; 
+.TariffPlansPage h1 {
+  margin: 23px;
+  color: #4d5766;
+  font-size: 35px;
+}
 
-    @media only screen and (min-width: 320px) and (max-width: 375px) {
-      padding: 0 1rem 0 1rem;
-    }
-    @media only screen and (min-width: 375px) and (max-width: 480px) {
-      padding: 0 1rem 0 1rem;
-    }
-  }
+.TariffPlansPage_header {
+  font-weight: 800;
+  font-family: 'SF Pro Text', sans-serif;
+  font-size: 46px;
+  line-height: 46px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #000 !important;
+  margin: 20px auto;
+  max-width: 1200px;
+}
 
-  &_plansBlock {
-    align-items: center;
-    flex-direction: column;
-    display: flex;
-    margin-top: 75px;
 
-    p {
-      color: #ba75ff;
-      font-size: 16px;
-    }
-    h1 {
-      margin-top: 18px;
-    }
-    &_typeSelect {
-      display: inline-flex;
-      align-items: center;
-      h5 {
-        margin-right: 45px;
-        font-size: 14px;
-      }
-      hr {
-        width: 150px;
-        margin-top: 6px;
-      }
-      &_courseEnabled {
-        width: 220px;
-        h5 {
-          float: right;
-          color: #ba75ff;
-        }
-        hr {
-          border: 1px solid #ba75ff;
-          float: right;
-        }
-      }
-      &_webinarDisabled {
-        width: 220px;
-        h5 {
-          color: #d6d6d6;
-          margin-left: 45px;
-        }
-        hr {
-          border: 1px solid #d6d6d6;
-        }
-      }
-      &_courseDisabled {
-        width: 220px;
-        h5 {
-          float: right;
-          color: #d6d6d6;
-        }
-        hr {
-          border: 1px solid #d6d6d6;
-          float: right;
-        }
-      }
-      &_webinarEnabled {
-        width: 220px;
-        h5 {
-          color: #ba75ff;
-          margin-left: 45px;
-        }
-        hr {
-          border: 1px solid #ba75ff;
-        }
-      }
-    }
-    &_cardGroup {
-      margin-top: 45px;
-      display: inline-flex;
-      align-items: center;
-      width: 90%;
-      justify-content: space-around;
 
-      &_card:hover {
-        //background-color: #ebe8f5;
-        border: 3px #ba75ff solid;
-        button {
-          color: #ba75ff;
-          background-color: #ffffff;
-        }
-      }
-
-      &_card {
-        position: relative;
-        width: 304px;
-        height: 373px;
-
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-        margin-bottom: 80px;
-
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
-          margin-bottom: 2rem;
-      
-        }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
-          margin-bottom: 2rem;
-        }
-
-        &_text {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          height: 100%;
-          width: 100%;
-          min-width: 100%;
-          min-height: 100%;
-
-          h3 {
-            color: #4d5766;
-            font-weight: 600;
-            font-size: 27px;
-            text-align: center;
-          }
-          hr {
-            border: 1px solid #ba75ff;
-            width: 150px;
-            height: 0;
-            margin: 10px auto 0 auto;
-            text-align: center;
-          }
-          ul {
-            padding-left: 10px;
-            padding-top: 29px;
-            list-style: none;
-
-            li::before {
-              content: '\2022';
-              color: #ba75ff;
-              font-weight: bold;
-              display: inline-block;
-              width: 1em;
-              margin-left: -1em;
-            }
-            li {
-              font-size: 14px;
-              padding-bottom: 15px;
-
-              span {
-                font-weight: 600;
-                margin-left: 0.3em;
-                color: #ba75ff;
-              }
-            }
-          }
-          button {
-            width: 184px;
-            height: 43px;
-            font-size: 15px;
-            position: relative;
-            font-weight: 500;
-          }
-        }
-      }
-      @media (min-width: 767px) and (max-width: 1024px) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        &_card {
-          margin: 0 auto 80px auto;
-        }
-      }
-      @media (min-width: 320px) and (max-width: 767px) {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-  }
-  &_banner {
-    margin-top: 65px;
-    width: 100%;
-    background: #e0dced;
-    height: 379px;
-    display: inline-flex;
-    &_createProject {
-      padding-top: 120px;
-      margin-left: 120px;
-      h1 {
-        margin: 0;
-      }
-      p {
-        margin-top: 11px;
-        color: #4d5766;
-        font-size: 14px;
-        width: 80%;
-      }
-      button {
-        margin: 46px 0 0 27px;
-        width: 241px;
-        height: 52px;
-        font-size: 12px;
-      }
-    }
-    &_images {
-      position: relative;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      &_firstStep {
-        width: 280px;
-        height: 209px;
-        margin-top: 133px;
-        z-index: 1;
-        position: absolute;
-      }
-      &_secondStep {
-        width: 308px;
-        height: 231px;
-        margin-left: 200px;
-        position: absolute;
-        margin-top: 36px;
-      }
-    }
-    @media (min-width: 320px) and (max-width: 1024px) {
-      &_images {
-        display: none;
-      }
-      height: 100%;
-      &_createProject {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        margin: 20px;
-        padding-top: 50px;
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
-          
-          align-items: center;
-          text-align: center;
-                
-        }
-        @media only screen and (min-width: 375px) and (max-width: 480px) {
-       
-          align-items: center;
-          text-align: center;
-          
-        }
-
-        h1 {
-          font-size: 32px;
-        }
-      }
-    }
-    @media (min-width: 320px) and (max-width: 481px) {
-      h1 {
-        font-size: 23px;
-      }
-      button {
-        width: 150px;
-        margin: 30px auto 0 auto;
-      }
-    }
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .TariffPlansPage_header {
+    padding: 0 1rem;
   }
 }
 
-.questions {
-  margin: auto;
+.TariffPlansPage_plansBlock {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: baseline;
-  width: 50%;
-  margin-top: 2em;
-
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    width: 100%;
-    padding: 0 1rem 0 1rem;
-
-  }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    width: 100%;
-    padding: 0 1rem 0 1rem;
-  }
-
-  &_element {
-    margin-bottom: 2em;
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-
-    &_mark {
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      background-color: #ba75ff;
-      border-radius: 1.7em;
-      width: 1.7em;
-      min-width: 1.7em;
-      height: 1.7em;
-      min-height: 1.7em;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      color: #fff;
-      font-weight: 1000;
-      text-align: center;
-      padding: auto;
-    }
-
-    &_text {
-      color: #808080;
-      font-weight: 800;
-
-      &_description {
-        color: #a3a3a3;
-        margin-top: 1.5em;
-        font-size: 12px;
-        font-weight: 400;
-      }
-    }
-  }
-}
-
-@keyframes bgAnimate1 {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  20% {
-    transform: translate3d(50%, 100%, 0);
-  }
-
-  30% {
-    transform: translate3d(150%, 150%, 0);
-  }
-
-  50% {
-    transform: translate3d(400%, 200%, 0);
-  }
-
-  70% {
-    transform: translate3d(300%, 70%, 0);
-  }
-
-  90% {
-    transform: translate3d(100%, 30%, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes bgAnimate2 {
-  from {
-    transform: translate3d(0%, 0%, 0);
-  }
-  20% {
-    transform: translate3d(-100%, -100%, 0);
-  }
-  30% {
-    transform: translate3d(-200%, -150%, 0);
-  }
-  50% {
-    transform: translate3d(-400%, -200%, 0);
-  }
-  70% {
-    transform: translate3d(-300%, -60%, 0);
-  }
-  90% {
-    transform: translate3d(-100%, -10%, 0);
-  }
-  to {
-    transform: translate3d(0%, 0%, 0);
-  }
-}
-
-@keyframes bgAnimate3 {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  20% {
-    transform: translate3d(-150%, 10%, 0);
-  }
-
-  30% {
-    transform: translate3d(-300%, 100%, 0);
-  }
-
-  50% {
-    transform: translate3d(-400%, 200%, 0);
-  }
-
-  70% {
-    transform: translate3d(-250%, 150%, 0);
-  }
-
-  90% {
-    transform: translate3d(-50%, 100%, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes bgAnimate4 {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  20% {
-    transform: translate3d(150%, -10%, 0);
-  }
-
-  30% {
-    transform: translate3d(350%, -80%, 0);
-  }
-
-  50% {
-    transform: translate3d(400%, -150%, 0);
-  }
-
-  70% {
-    transform: translate3d(250%, -140%, 0);
-  }
-
-  90% {
-    transform: translate3d(100%, -80%, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-.bg {
-  z-index: -1;
-  height: 100%;
-
-  &_wrap1 {
-    z-index: -1;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background: #8034c7;
-    border-radius: 50%;
-    scale: 10;
-    filter: blur(25px);
-    animation: bgAnimate1 10s linear infinite;
-  }
-
-  &_wrap2 {
-    z-index: -1;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    left: 100%;
-    top: 100%;
-    scale: 10;
-    background: #5048d8;
-    border-radius: 50%;
-    filter: blur(25px);
-    animation: bgAnimate2 10s linear infinite;
-  }
-
-  &_wrap3 {
-    z-index: -1;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    left: 100%;
-    top: 0%;
-    scale: 10;
-    background: #cd99ff;
-    border-radius: 50%;
-    filter: blur(25px);
-    animation: bgAnimate3 10s linear infinite;
-  }
-
-  &_wrap4 {
-    z-index: -1;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    scale: 10;
-    left: 0%;
-    top: 100%;
-    background: #60a0ec;
-    border-radius: 50%;
-    filter: blur(25px);
-    animation: bgAnimate4 10s linear infinite;
-  }
-}
-
-
-.headerButton {
-  background-color: inherit;
-  transition: all ease-in 0.4s;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  max-width: max-content;
-  gap: 5px;
-
-  &:hover {
-    background-color: #dab3ff;
-    p {
-      background: linear-gradient(to right, #61a3ed, #5048d8, #9228ff, #ec40ff);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-  }
-}
-
-.main {
-
-  &_btn{
-    display: flex;
-  }
-
-}
-
-.btnCreate {
-  display: flex;
-  justify-content: space-evenly;
-  margin-bottom: 2rem;
+  margin-top: 75px;
 }
 
 .courseHubTitle {
@@ -562,19 +62,338 @@
   text-align: center;
   margin: 20px 0;
 }
-.TariffPlansPage_header {
-  color: #000 !important;
+
+
+.TariffPlansPage_plansBlock h1 {
+  margin-top: 18px;
 }
-.TariffPlansPage_header {
-  font-family: 'SF Pro Text', sans-serif;
-  font-weight: 800;
-  font-size: 46px;
-  line-height: 46px;
-  letter-spacing: 0;
+
+.TariffPlansPage_plansBlock_typeSelect {
+  display: inline-flex;
+  align-items: center;
+}
+
+.TariffPlansPage_plansBlock_typeSelect h5 {
+  margin-right: 45px;
+  font-size: 14px;
+}
+
+.TariffPlansPage_plansBlock_typeSelect hr {
+  width: 150px;
+  margin-top: 6px;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_courseEnabled,
+.TariffPlansPage_plansBlock_typeSelect_webinarDisabled,
+.TariffPlansPage_plansBlock_typeSelect_courseDisabled,
+.TariffPlansPage_plansBlock_typeSelect_webinarEnabled {
+  width: 220px;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_courseEnabled h5,
+.TariffPlansPage_plansBlock_typeSelect_webinarEnabled h5 {
+  color: #ba75ff;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_courseDisabled h5,
+.TariffPlansPage_plansBlock_typeSelect_webinarDisabled h5 {
+  color: #d6d6d6;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_courseEnabled h5 {
+  float: right;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_webinarDisabled h5 {
+  margin-left: 45px;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_courseEnabled hr,
+.TariffPlansPage_plansBlock_typeSelect_webinarEnabled hr {
+  border: 1px solid #ba75ff;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_courseDisabled hr,
+.TariffPlansPage_plansBlock_typeSelect_webinarDisabled hr {
+  border: 1px solid #d6d6d6;
+}
+
+.TariffPlansPage_plansBlock_typeSelect_courseDisabled h5 {
+  float: right;
+}
+
+.TariffPlansPage_plansBlock_cardGroup {
+  margin-top: 45px;
+  display: inline-flex;
+  align-items: center;
+  width: 90%;
+  justify-content: space-around;
+}
+.TariffPlansPage_plansBlock_cardGroup_card {
+  width: 340px;          /* фиксированная ширина */
+  height: 764px;         /* высота */
+  border-radius: 24px;
+  padding: 32px 16px 32px 16px; /* сверху, справа, снизу, слева */
+  gap: 40px;
+  background: #E8F1FF;
+  box-shadow: 0 0 8px rgba(50, 65, 149, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+
+
+
+.TariffPlansPage_plansBlock_cardGroup_card:hover {
+  box-shadow: 0 6px 12px rgba(186, 117, 255, 0.2), 0 12px 24px rgba(186, 117, 255, 0.25);
+  transform: translateY(-4px);
+  background: linear-gradient(135deg, #f8f1ff, #ffffff);
+}
+
+.TariffPlansPage_banner {
+  margin-top: 65px;
+  width: 100%;
+  background: #e0dced;
+  height: 379px;
+  display: inline-flex;
+}
+
+.TariffPlansPage_banner_createProject {
+  padding-top: 120px;
+  margin-left: 120px;
+}
+
+.TariffPlansPage_banner_createProject h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.TariffPlansPage_banner_createProject p {
+  margin-top: 11px;
+  color: #4d5766;
+  font-size: 14px;
+  width: 80%;
+}
+
+.TariffPlansPage_banner_createProject button {
+  margin: 46px 0 0 27px;
+  width: 241px;
+  height: 52px;
+  font-size: 12px;
+}
+
+.TariffPlansPage_banner_images {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.TariffPlansPage_banner_images_firstStep {
+  width: 280px;
+  height: 209px;
+  margin-top: 133px;
+  position: absolute;
+  z-index: 1;
+}
+
+.TariffPlansPage_banner_images_secondStep {
+  width: 308px;
+  height: 231px;
+  margin-left: 200px;
+  margin-top: 36px;
+  position: absolute;
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
+  .TariffPlansPage_banner_images {
+    display: none;
+  }
+  .TariffPlansPage_banner {
+    height: 100%;
+  }
+  .TariffPlansPage_banner_createProject {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 20px;
+    padding-top: 50px;
+    align-items: center;
+    text-align: center;
+  }
+  .TariffPlansPage_banner_createProject h1 {
+    font-size: 23px;
+  }
+  .TariffPlansPage_banner_createProject button {
+    width: 150px;
+    margin: 30px auto 0 auto;
+  }
+}
+
+.questions {
+  margin: 2em auto 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 50%;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .questions {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+.questions_element {
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.questions_element_mark {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: #ba75ff;
+  border-radius: 1.7em;
+  width: 1.7em;
+  height: 1.7em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 1000;
   text-align: center;
-  color: #000;
-  margin: 20px 0;
 }
+
+.questions_element_text {
+  color: #808080;
+  font-weight: 800;
+}
+
+.questions_element_text_description {
+  color: #a3a3a3;
+  margin-top: 1.5em;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+@keyframes bgAnimate1 {
+  from { transform: translate3d(0, 0, 0); }
+  20% { transform: translate3d(50%, 100%, 0); }
+  30% { transform: translate3d(150%, 150%, 0); }
+  50% { transform: translate3d(400%, 200%, 0); }
+  70% { transform: translate3d(300%, 70%, 0); }
+  90% { transform: translate3d(100%, 30%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes bgAnimate2 {
+  from { transform: translate3d(0%, 0%, 0); }
+  20% { transform: translate3d(-100%, -100%, 0); }
+  30% { transform: translate3d(-200%, -150%, 0); }
+  50% { transform: translate3d(-400%, -200%, 0); }
+  70% { transform: translate3d(-300%, -60%, 0); }
+  90% { transform: translate3d(-100%, -10%, 0); }
+  to   { transform: translate3d(0%, 0%, 0); }
+}
+
+@keyframes bgAnimate3 {
+  from { transform: translate3d(0, 0, 0); }
+  20% { transform: translate3d(-150%, 10%, 0); }
+  30% { transform: translate3d(-300%, 100%, 0); }
+  50% { transform: translate3d(-400%, 200%, 0); }
+  70% { transform: translate3d(-250%, 150%, 0); }
+  90% { transform: translate3d(-50%, 100%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes bgAnimate4 {
+  from { transform: translate3d(0, 0, 0); }
+  20% { transform: translate3d(150%, -10%, 0); }
+  30% { transform: translate3d(350%, -80%, 0); }
+  50% { transform: translate3d(400%, -150%, 0); }
+  70% { transform: translate3d(250%, -140%, 0); }
+  90% { transform: translate3d(100%, -80%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+.bg {
+  z-index: -1;
+  height: 100%;
+}
+
+.bg_wrap1, .bg_wrap2, .bg_wrap3, .bg_wrap4 {
+  z-index: -1;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  scale: 10;
+  filter: blur(25px);
+}
+
+.bg_wrap1 {
+  background: #8034c7;
+  animation: bgAnimate1 10s linear infinite;
+}
+
+.bg_wrap2 {
+  background: #5048d8;
+  left: 100%;
+  top: 100%;
+  animation: bgAnimate2 10s linear infinite;
+}
+
+.bg_wrap3 {
+  background: #cd99ff;
+  left: 100%;
+  top: 0%;
+  animation: bgAnimate3 10s linear infinite;
+}
+
+.bg_wrap4 {
+  background: #60a0ec;
+  left: 0%;
+  top: 100%;
+  animation: bgAnimate4 10s linear infinite;
+}
+
+.headerButton {
+  background-color: inherit;
+  transition: all ease-in 0.4s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: max-content;
+  gap: 5px;
+}
+
+.headerButton:hover {
+  background-color: #dab3ff;
+}
+
+.headerButton:hover p {
+  background: linear-gradient(to right, #61a3ed, #5048d8, #9228ff, #ec40ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.main_btn {
+  display: flex;
+}
+
+.btnCreate {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+}
+
 
 
 .savingsBlock {
@@ -584,11 +403,292 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px; /* сверху и снизу 0, слева и справа 24px */
+  padding: 0 24px;
   background: linear-gradient(90deg, #CFE2FF 0%, #BBCEEB 100%);
-  color: #000; /* цвет текста можно подстроить */
+  color: #000;
   font-weight: 600;
   font-size: 18px;
   box-sizing: border-box;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 304px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px 0;
+  margin-bottom: 80px;
+}
+
+.cardImage {
+  width: 100%;
+  height: auto;
+  border-radius: 20px 20px 0 0;
+  object-fit: cover;
+}
+
+
+
+.buttonConnect {
+  width: 195px;
+  height: 54px;
+  border-radius: 10px;
+  padding: 16px 40px;
+  gap: 10px;
+  background-color: #357EEB;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.buttonConnect:hover {
+  background-color: #2a65c1;
+}
+
+
+
+.TariffPlansPage_plansBlock_cardGroup_card button {
+  background-color: #005BFF; // синий цвет кнопки
+  color: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+
+
+.TariffPlansPage_plansBlock_cardGroup_card_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем содержимое по горизонтали */
+  text-align: center;  /* Для текста */
+}
+
+.tariffIcon {
+  display: block;
+  margin: 0 auto 10px auto; /* Центрируем картинку и даём отступ снизу */
+  max-width: 100px; /* или нужный размер */
+  height: auto;
+}
+
+
+.TariffPlansPage_plansBlock_cardGroup_card {
+  background: #CFE2FF;
+  border-radius: 24px;
+  box-shadow: 0 0 8px rgba(50, 65, 149, 0.3);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрирует всё содержимое по горизонтали */
+}
+
+.disabled {
+  color: #A0A0A0;
+  text-decoration: line-through;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: black; /* Добавлено свойство для белого цвета текста */
+}
+.seniorList li {
+  color: white;
+}
+li img {
+  width: 20px;
+  height: 20px;
+}
+
+
+
+.custom-header {
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 600; /* SemiBold */
+  font-size: 20px;
+  line-height: 100%; /* или 1 */
+  letter-spacing: 0;
+  text-align: center;
+}
+
+
+
+.cardJunior {
+  background: #E8F1FF; /* голубой */
+}
+
+.cardMiddle {
+  background: #CFE2FF; /* синий */
+}
+
+.cardSenior {
+  background: #324195; /* розовый */
+}
+
+
+
+.cardJunior {
+  color: #000000; // белый текст
+}
+
+.cardMiddle {
+  color: #000000; // зеленый текст
+}
+
+.cardSenior {
+  color: #ffffff; // оранжевый текст
+}
+
+.listItemDisabled {
+  opacity: 0.4;
+}
+.tariffLabelTopLeft {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #000;
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+
+
+
+
+
+.card-title {
+    font-family: 'SF Pro Display', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 0;
+    margin: 0;
+}
+
+
+.savingsBlock {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1.5em;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.monthly {
+  background-color: #a8d8ff; // голубой
+  color: black;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.yearlyBlock {
+  background-color: #357eeb; // синий
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    margin: 0;
+  }
+}
+
+
+
+.planLabel {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.junior {
+  color: black;
+}
+
+// .middle {
+//   color: black;
+// }
+
+.senior {
+  color: white;
+}
+
+.hitIconTopRight {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 155px;
+  height: auto;
+  z-index: 2;
+}
+
+.cardDivider {
+  width: 260px;
+  height: 1px;
+  background-color: #888888; // темно-серый
+  border: none;
+  margin: 16px auto;
+}
+
+
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* должно быть больше, чем у других элементов */
+}
+
+
+
+.plansLabelGroup div {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.junior {
+  color: #4d5766;
+  background-color: #f0f0f0;
+}
+
+.middle {
+  color: #4d5766;
+  background-color: #e0e0e0;
+}
+
+.senior {
+  color: white !important; // <== Принудительно перебьёт любой наследуемый стиль
+  background-color: #4d5766;
+}

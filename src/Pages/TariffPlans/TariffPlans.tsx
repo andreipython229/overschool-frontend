@@ -91,3 +91,4 @@ export const TariffPlans: FC = () => {
     </motion.div>
   )
 }
+
