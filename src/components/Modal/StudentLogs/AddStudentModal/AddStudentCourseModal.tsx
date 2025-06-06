@@ -63,11 +63,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
   const [selectedCourses, setSelectedCourses] = useState<number[]>([])
   const [selectedGroups, setSelectedGroups] = useState<{ [courseId: number]: string }>({})
   const handleCourseToggle = (courseId: number) => {
-    setSelectedCourses(prev =>
-      prev.includes(courseId)
-        ? prev.filter(id => id !== courseId)
-        : [...prev, courseId]
-    )
+    setSelectedCourses(prev => (prev.includes(courseId) ? prev.filter(id => id !== courseId) : [...prev, courseId]))
   }
   const handleGroupChange = (courseId: number, groupId: string) => {
     setSelectedGroups(prev => ({ ...prev, [courseId]: groupId }))
@@ -210,21 +206,26 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
       }
       emails.forEach(email => formData.append('emails', email))
       for (const [key, value] of formData.entries()) {
-        console.log(`${key}:`, value, typeof(value))
+        console.log(`${key}:`, value, typeof value)
       }
-      await addStudents({ data: formData, schoolName }).unwrap();
-      setShowModal();
+      await addStudents({ data: formData, schoolName }).unwrap()
+      setShowModal()
     } catch (error: any) {
-      const htmlError = typeof error?.data === 'string' && error.data.includes('TemplateDoesNotExist');
+      console.log(error)
+      const htmlError = typeof error?.data === 'string' && error.data.includes('TemplateDoesNotExist')
       if (htmlError) {
-        console.warn('Шаблон письма не найден, но студент успешно добавлен.');
+        console.warn('Шаблон письма не найден, но студент успешно добавлен.')
+        setMessage('Шаблон письма не найден, но студент успешно добавлен.')
+        onToggle()
+      } else if (typeof error?.data === 'string') {
+        setMessage(error.data)
+        onToggle()
       } else {
-        setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...');
-        onToggle();
+        setMessage('При добавлении новых учеников в группу, произошла ошибка. Попробуйте позже...')
+        onToggle()
       }
     }
   }
-
 
   const handleSubmitForm = () => {
     if (groupsList) {
@@ -279,7 +280,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
             <div className={styles.container_header_title_btn}>
               {coursesWithGroups.map(course => (
                 <div key={course.course_id}>
-                  <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'left', gap: '1rem'}}>
+                  <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'left', gap: '1rem' }}>
                     <input
                       type="checkbox"
                       value={course.course_id}
@@ -302,9 +303,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
                     </div>
                   )}
                 </div>
-                )
-              )
-              }
+              ))}
             </div>
           )}
           {groupsList && (
