@@ -44,22 +44,12 @@ export const ChatWorkspace: FC = () => {
             ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
             : `ws://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`,
         )
-        socketRef.current.onopen = () => {
-          console.log('WebSocket connected')
-        }
 
         socketRef.current.onmessage = event => {
           if (typeof event.data === 'string') {
             const receivedMessage: MessageI = JSON.parse(event.data)
             setMessages(messages => [...messages, receivedMessage])
           }
-        }
-        socketRef.current.onerror = event => {
-          console.log('socket error = ', event)
-        }
-
-        socketRef.current.onclose = event => {
-          console.log(event)
         }
       }
     }
