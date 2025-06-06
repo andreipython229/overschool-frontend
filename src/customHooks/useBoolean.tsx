@@ -8,8 +8,8 @@ export const useBoolean = (defaultBoolean?: boolean): returnData => {
   const handlers = useMemo(
     () => ({
       onToggle: () => setToggle(prevToggle => !prevToggle),
-      on: () => setToggle(true),
-      off: () => setToggle(false),
+      on: () => setToggle(false),
+      off: () => setToggle(true),
     }),
     [],
   )
