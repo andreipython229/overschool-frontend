@@ -12,7 +12,7 @@ import { useFetchStudentProgressQuery } from '../../../../api/userProgressServic
 import { useLazyFetchStudentLessonsQuery, useResetStudentLessonsAccessMutation } from '../../../../api/lessonAccessService'
 import { useLazyFetchStudentsGroupByCourseQuery, useUpdateGroupMutation } from 'api/studentsGroupService'
 import { useDeleteStudentFromGroupMutation } from '../../../../api/studentsGroupService'
-import { MenuItem, Select } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Select } from '@mui/material'
 import DatePicker from 'react-datepicker'
 import { groupSections, sectionLessons } from '../../../../types/lessonAccessT'
 import { useAppSelector } from 'store/hooks'
@@ -20,7 +20,6 @@ import { headerUserRoleName } from '../../../../config/headerUserRoleName'
 import { schoolSelector, selectUser } from '../../../../selectors'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
-import { Modal } from 'components/common/Modal/Modal'
 
 type studentInfoModalT = {
   student: result | null
@@ -295,21 +294,16 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
         </div>
         {student?.group_name && headerUserRoleName[role] === 'Администратор' && (
           <div className={styles.button_container}>
-            <Button 
-              className={styles.student_button} 
-              text={`Переместить ученика в другую группу`} 
-              onClick={handleOpenMoveStudent} 
-            />
-            
-            <Modal
-              isOpen={openMoveStudent}
+            <Button className={styles.student_button} text={`Переместить ученика в другую группу`} onClick={handleOpenMoveStudent} />
+            <Dialog
+              open={openMoveStudent}
               onClose={handleCloseMoveStudent}
-              title="Переместить студента"
-              variant="gradient"
-              width="500px"
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
             >
-              <div className={styles.modalContent}>
-                <p>Выберите группу, в которую хотите переместить студента:</p>
+              <DialogTitle id="alert-dialog-title">Переместить студента</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">Выберите группу, в которую хотите переместить студента:</DialogContentText>
                 <Select
                   value={targetGroup ? targetGroup.id.toString() : ''}
                   onChange={e => {
@@ -330,37 +324,46 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
                     </MenuItem>
                   ))}
                 </Select>
-                <div className={styles.modalActions}>
-                  <Button onClick={handleCloseMoveStudent} color="primary" text="Отмена" />
-                  <Button onClick={handleMoveStudent} color="primary" text="Переместить" />
-                </div>
-              </div>
-            </Modal>
-
-            <Button 
-              className={styles.delete_button} 
-              text={`Удалить ученика из группы "${student?.group_name}"`} 
-              onClick={handleOpenAlert} 
-            />
-
-            <Modal
-              isOpen={openAlert}
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCloseMoveStudent} color="primary" text={`Отмена`} />
+                <Button onClick={handleMoveStudent} color="primary" autoFocus text={`Переместить`} />
+              </DialogActions>
+            </Dialog>
+            <Button className={styles.delete_button} text={`Удалить ученика из группы "${student?.group_name}"`} onClick={handleOpenAlert} />
+            <Dialog
+              className={styles.dialog}
+              open={openAlert}
               onClose={handleCloseAlert}
-              title={`Удалить студента из группы "${student.group_name}"?`}
-              variant="warning"
-              width="500px"
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
             >
-              <div className={styles.modalContent}>
-                <p>
+              <DialogTitle id="alert-dialog-title">{`Удалить студента из группы "${student.group_name}"?`}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
                   Это действие безвозвратно удалит студента {`"${student.first_name || 'Без'} ${student.last_name || 'Имени'}"`} из группы{' '}
                   {`"${student.group_name}"`}. Если уверены, что хотите продолжить, можете выбрать дату удаления
-                </p>
-                <div className={styles.modalActions}>
-                  <Button onClick={handleCloseAlert} color="primary" text="Отмена" />
-                  <Button onClick={handleDeleteStudent} color="primary" text="Удалить" />
+                </DialogContentText>
+              </DialogContent>
+              <div className={styles.datepicker}>
+                <div className={datePickerClass}>
+                  <DatePicker
+                    selected={removeDate}
+                    onChange={onChange}
+                    minDate={new Date(student.date_added ? student.date_added : '09/01/2023')}
+                    maxDate={new Date()}
+                    dateFormat="dd/MM/yyyy"
+                    locale="ru"
+                    onCalendarOpen={() => setDatePickerClass(styles.datepicker_open)}
+                    onCalendarClose={() => setDatePickerClass(null)}
+                  ></DatePicker>
                 </div>
               </div>
-            </Modal>
+              <DialogActions>
+                <Button onClick={handleCloseAlert} text={'Отмена'} />
+                <Button onClick={handleDeleteStudent} autoFocus variant={'delete'} text={'Удалить из группы'} />
+              </DialogActions>
+            </Dialog>
           </div>
         )}
       </div>
