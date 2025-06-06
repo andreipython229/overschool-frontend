@@ -292,6 +292,7 @@ export const AddStudentModal: FC<AddStudentModalPropsT> = ({ setShowModal, cours
                   {selectedCourses.includes(course.course_id) && course.student_groups?.length > 0 && (
                     <div style={{ marginTop: '5px' }}>
                       <SelectInput
+                        className={styles.selectGroup}
                         optionsList={course.student_groups.map(group => ({
                           label: group.name,
                           value: String(group.group_id),
