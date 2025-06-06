@@ -136,10 +136,10 @@ li {
     margin-top: 44px;
     @include display(flex, column, space-between, center);
     @media only screen and (min-width: 491px) and (max-width: 540px){
-      margin-top: 88px;
+      margin-top: 45px;
     }
     @media only screen and (min-width: 320px) and (max-width: 490px){
-      margin-top: 95px;
+      margin-top: 45px;
     }
     width: 90%;
     max-width: 1600px;

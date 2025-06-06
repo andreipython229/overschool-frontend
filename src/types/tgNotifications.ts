@@ -1,32 +1,58 @@
 export interface TgNotificationsUpdateForStudentAndTeacher {
-    homework_notifications?: Boolean;
-    messages_notifications?: Boolean;
-    tg_user: number
+    homework_notifications?: boolean;
+    messages_notifications?: boolean;
+    tg_user: number;
 }
 
 export interface TgNotificationsUpdateForAdmin {
-    messages_notifications?: Boolean;
-    completed_courses_notifications?: Boolean;
-    tg_user: number
+    messages_notifications?: boolean;
+    completed_courses_notifications?: boolean;
+    tg_user: number;
 }
 
 export interface TgNotifications {
     id: number;
-    homework_notifications: Boolean;
-    messages_notifications: Boolean;
-    completed_courses_notifications: Boolean;
+    homework_notifications: boolean;
+    messages_notifications: boolean;
+    completed_courses_notifications: boolean;
     tg_user: number;
 }
 
 export interface TgMessage {
     message: string;
     students_groups: number[];
+    tg_chats_ids?: number[];
+    send_to_admins?: boolean;
 }
 
 export interface TgMeetingReminders {
     daily?: boolean;
     in_three_hours?: boolean;
     ten_minute?: boolean;
-    sent?: boolean
-    meeting: number
+    sent?: boolean;
+    meeting: number;
+}
+
+export interface TgMessageResponse {
+    tg_chats_ids: number[];
+    success: boolean;
+    error?: string;
+}
+
+export interface TgMessageRequest {
+    data: TgMessage;
+}
+
+export interface TgMessageState {
+    isSending: boolean;
+    progress: number;
+    error: boolean;
+    success: boolean;
+    logs: string[];
+}
+
+export interface TgMessageResult {
+    success: boolean;
+    error?: string;
+    tg_chats_ids?: number[];
 }

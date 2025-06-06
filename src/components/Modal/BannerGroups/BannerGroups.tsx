@@ -71,6 +71,8 @@ export const BannerGroups: FC<BannerGroupsT> = ({ refetch, schoolName, setShowMo
                   closeEditing()
                   refetch()
                 })
+            } else {
+              setShowModal(false)
             }
           }}
         >

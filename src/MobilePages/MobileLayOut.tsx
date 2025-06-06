@@ -19,9 +19,13 @@ import { MobileHeaderAdmin } from '../Pages/Initial/MobileHeaderAdmin/MobileHead
 // import { MobileHeaderАuthorized } from '../Pages/Initial/MobileHeaderАuthorized/MobileHeaderАuthorized'
 
 import { motion } from 'framer-motion'
-import ChatGPT from '../components/ChatGPT'
+// текущее изменение
+// import ChatGPT from '../components/ChatGPT'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+//  
+import { ChatGPT } from '../components/ChatGPT/ChatGPT'
+//  f93f037b1334dbe060dc17f28e468b6d5128060b
 
 export const MobileLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -163,7 +167,7 @@ export const MobileLayOut: FC = memo(() => {
         */}
       </main>
 
-      {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} setIsDialogOpen={setShowOverAI} />}
+      {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} onClose={() => setShowOverAI(false)} />}
       <FooterMobile schoolTariffPlan={updateTariff} />
       <nav className={`${styles.mobileFooter} ${isNavbarCollapsed ? styles.collapsed : ''}`}>
         <MobileNavbar isCollapsed={isNavbarCollapsed} toggleCollapse={toggleNavbar} />

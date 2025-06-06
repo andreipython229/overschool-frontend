@@ -55,8 +55,16 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
           }
         })
         .catch(error => {
-          console.log(error)
-          setMessage('Произошла ошибка при создании курса. Статус ошибки: ' + error.originalStatus)
+          console.log('Error creating course:', error)
+          let errorMessage = 'Произошла ошибка при создании курса'
+          
+          if (error.data) {
+            errorMessage = error.data
+          } else if (error.status) {
+            errorMessage += `. Статус ошибки: ${error.status}`
+          }
+          
+          setMessage(errorMessage)
           onToggle()
         })
     }

@@ -173,3 +173,5 @@ export const addIconPath: pathT[] = [
   { d: addIcon.d2, fill: 'white' },
   { d: addIcon.d3, fill: 'white' },
 ]
+
+export const closeHwModalPath = [{ d: cross.d1, fill: '#808080' }, { d: cross.d2, fill: '#808080' }]
