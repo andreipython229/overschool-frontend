@@ -167,6 +167,47 @@ export const TariffPlansInfo: FC = () => {
                 />
               ))}
             </div>
+     <div
+  style={{
+    width: '1219.5px',
+    height: '250px',
+    borderRadius: '32px',
+    padding: '16px',
+    gap: '16px',
+    border: '1px solid #ccc',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginTop: '40px',
+    backgroundColor: '#fff',
+    fontFamily: 'SF Pro Display, sans-serif',
+    fontSize: '18px',
+    fontWeight: 500,
+    lineHeight: 1.4,
+  }}
+>
+  {[
+    'Мессенджер с чатами и каналами',
+    'Автоматический зачёт',
+    'Выдача сертификатов',
+    'Публикация в каталоге CourseHub',
+    'Искусственный интеллект Course Hub Ai',
+    'Домашние задания',
+    'Умные комментарии к урокам',
+    'Аналитика обучения',
+    'Отдельный сайт для каждого курса',
+    'Рассылка по всем ученикам',
+    'Мобильное приложение',
+  ].map((text, index) => (
+    <div key={index} style={{ flex: '0 0 30%', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
+      <span style={{ marginRight: '8px', color: '#4CAF50' }}>+</span>
+      {text}
+    </div>
+  ))}
+</div>
+
+
           </div>
 
           {isModalOpen && selected && (
@@ -187,3 +228,8 @@ export const TariffPlansInfo: FC = () => {
   <div className={`${styles.yearPrice} ${styles.middle}`}>Middle</div>
   <div className={`${styles.yearPrice} ${styles.senior}`}>Senior</div>
 </div>
+
+
+
+
+
