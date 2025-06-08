@@ -13,7 +13,7 @@ import {
 } from '../../../api/chatgptService'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
-import OverAiIcon from '../../../assets/img/common/iconModal.svg'
+import OverAiIcon from '../../../assets/img/common/newIconModal.svg'
 import { deleteIconPath } from 'components/Questions/config/svgIconPath'
 import styles from './mobilechatgpt.module.scss'
 import { useAppSelector } from 'store/hooks'
