@@ -10,7 +10,6 @@ import { setTotalMeetingCount } from '../../store/redux/meetings/meetingSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/redux/store'
 import { AddMeeting } from './modal/AddMeeting'
-import { AddWebinar } from 'components/Autowebinars/modal/AddWebinar'
 import { MeetingCard } from './card/MeetingCard'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { AddIconPath, ArrowLeftIconPath, ArrowRightIconPath } from '../../assets/Icons/svgIconPath'
@@ -22,7 +21,6 @@ export const SchoolMeetings: FC = () => {
   const { role: userRole } = useAppSelector(selectUser)
   const { data: meetingsData, isSuccess: meetingsSuccess } = useFetchAllMeetingsQuery({ schoolName: schoolName })
   const [showAddMeetingForm, setShowAddMeetingForm] = useState(false)
-  const [showAddWebinarForm, setShowAddWebinarForm] = useState(false)
   const navigate = useNavigate()
 
   const [deleteMeeting, { isLoading: isDeleting, error: deleteError }] = useDeleteMeetingMutation()
@@ -45,10 +43,6 @@ export const SchoolMeetings: FC = () => {
 
   const handleAddMeetingFormOpen = () => {
     setShowAddMeetingForm(true)
-  }
-
-  const handleAddWebinarFormOpen = () => {
-    setShowAddWebinarForm(true)
   }
 
   const indexOfLastItem = currentPage * itemsPerPage
@@ -133,19 +127,25 @@ export const SchoolMeetings: FC = () => {
       <div className={styles.meeting_header_text}>Видеоконференции</div>
       {isLogin && (
         <>
-          <div className={styles.buttons_container}>
-            <div className={styles.generate_meeting_btn_wrapper}>
-              <IconSvg path={AddIconPath} viewBoxSize="0 0 24 24" height={24} width={24} />
-              <Button
-                variant={'newPrimary'}
-                className={styles.generateMeetingButton}
-                onClick={handleAddMeetingFormOpen}
-                text="Добавить видеоконференцию"
-              />
-            </div>
+          <div className={styles.generate_meeting_btn_wrapper}>
+            <IconSvg path={AddIconPath} viewBoxSize="0 0 24 24" height={24} width={24} />
+            <Button
+              variant={'newPrimary'}
+              className={styles.generateMeetingButton}
+              onClick={handleAddMeetingFormOpen}
+              text="Добавить видеоконференцию"
+            />
           </div>
-          <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
-          <AddWebinar setShowAddWebinarForm={setShowAddWebinarForm} showAddWebinarForm={showAddWebinarForm}></AddWebinar>
+          <AddMeeting
+            isOpen={showAddMeetingForm}
+            onClose={() => setShowAddMeetingForm(false)}
+            onAdd={(meetingData) => {
+              // Здесь будет логика добавления встречи
+              setShowAddMeetingForm(false);
+            }}
+            setShowAddMeetingForm={setShowAddMeetingForm}
+            showAddMeetingForm={showAddMeetingForm}
+          />
           {renderMeetingLinks()}
         </>
       )}
