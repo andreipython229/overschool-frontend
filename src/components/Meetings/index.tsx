@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../store/hooks'
 import { authSelector, schoolSelector, selectUser } from '../../selectors'
 import { useCreateMeetingMutation, useFetchAllMeetingsQuery, useDeleteMeetingMutation } from '../../api/meetingsService'
+import { Path } from 'enum/pathE'
 import styles from './meetings.module.scss'
 import { Button } from 'components/common/Button/Button'
 import { setTotalMeetingCount } from '../../store/redux/meetings/meetingSlice'
@@ -21,6 +23,7 @@ export const SchoolMeetings: FC = () => {
   const { data: meetingsData, isSuccess: meetingsSuccess } = useFetchAllMeetingsQuery({ schoolName: schoolName })
   const [showAddMeetingForm, setShowAddMeetingForm] = useState(false)
   const [showAddWebinarForm, setShowAddWebinarForm] = useState(false)
+  const navigate = useNavigate()
 
   const [deleteMeeting, { isLoading: isDeleting, error: deleteError }] = useDeleteMeetingMutation()
 
@@ -51,6 +54,9 @@ export const SchoolMeetings: FC = () => {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = meetingsData?.slice(indexOfFirstItem, indexOfLastItem) || []
+  function handleNavigateWebinars() {
+    navigate(`/school/${schoolName}/webinars/`)
+  }
 
   const renderMeetingLinks = () => {
     if (meetingsSuccess) {
@@ -106,7 +112,7 @@ export const SchoolMeetings: FC = () => {
       </div>
     )
   }
- 
+
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
     window.scrollTo({
@@ -117,6 +123,13 @@ export const SchoolMeetings: FC = () => {
 
   return (
     <div className={styles.wrapper_actions}>
+      <div className={styles.wrapper_actions_header}>
+        <Button
+          variant="newSecondary"
+          text="Автовебинары"
+          onClick={handleNavigateWebinars}
+        />
+      </div>
       <div className={styles.meeting_header_text}>Видеоконференции</div>
       {isLogin && (
         <>
@@ -129,16 +142,6 @@ export const SchoolMeetings: FC = () => {
                 onClick={handleAddMeetingFormOpen}
                 text="Добавить видеоконференцию"
               />
-            </div>
-            <div className={styles.generate_meeting_btn_wrapper}>
-              <IconSvg path={AddIconPath} viewBoxSize="0 0 24 24" height={24} width={24} />
-              <Button
-                variant={'newPrimary'}
-                className={styles.generateMeetingButton}
-                onClick={handleAddWebinarFormOpen}
-                text="Добавить автовебинар"
-              >
-              </Button>
             </div>
           </div>
           <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} showAddMeetingForm={showAddMeetingForm}></AddMeeting>

@@ -59,6 +59,12 @@ export type CreateAutowebinarPayload = {
   formData: FormData;
 };
 
+export type UpdateAutowebinarPayload = {
+  schoolName: string;
+  id: number;
+  formData: FormData;
+};
+
 export type Autowebinar = {
   id: number;
   title: string;

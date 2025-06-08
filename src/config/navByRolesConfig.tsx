@@ -28,6 +28,7 @@ import { Passport } from 'Pages/Settings/Passport'
 import { SchoolAppeals } from 'Pages/SchoolAppeals'
 import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
 import { SchoolMeetings } from '../components/Meetings'
+import { Webinars } from 'components/Autowebinars/AutoWebinars'
 import StudentSchoolMeeting from '../components/StudentsMeetings'
 import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
 import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
@@ -120,6 +121,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Appeals} element={<SchoolAppeals />} />
       <Route path={Path.Meetings} element={<SchoolMeetings />} />
+      <Route path={Path.Webinars} element={<Webinars />} />
       <Route path={Path.Rating} element={<Rating />} />
     </>
   ),

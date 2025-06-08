@@ -1,25 +1,27 @@
 import React, { FC, useEffect, useState, useRef } from 'react'
-import { useCreateAutowebinarMutation } from 'api/autowebinarsService'
-import { Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
-import TextField from '@mui/material/TextField'
-import Checkbox from '@mui/material/Checkbox'
-import MenuItem from '@mui/material/MenuItem'
+import { useCreateAutowebinarMutation, useUpdateAutowebinarMutation, useDeleteAutowebinarMutation } from 'api/autowebinarsService'
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { Button } from 'components/common/Button/Button'
 import styles from './addWebinar.module.scss'
-import { CreateWebinar } from '../../../types/autowebinarsT'
 import { Input } from 'components/common/Input/Input/Input'
 import { useAppSelector } from 'store/hooks'
-import { selectUser, schoolNameSelector } from 'selectors'
+import { schoolNameSelector } from 'selectors'
+import { Autowebinar, CreateWebinar } from "types/autowebinarsT";
+import { crossIconPath } from 'config/commonSvgIconsPath'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 
 interface AddWebinarProps {
   showAddWebinarForm: boolean
   setShowAddWebinarForm: (show: boolean) => void
+  existingWebinar?: Autowebinar
 }
 
-export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAddWebinarForm }) => {
+export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAddWebinarForm, existingWebinar }) => {
   const schoolName = useAppSelector(schoolNameSelector)
-  const { role } = useAppSelector(selectUser)
   const [createWebinar, { isLoading, error }] = useCreateAutowebinarMutation()
+  const [updateWebinar] = useUpdateAutowebinarMutation()
+  const [deleteWebinar] = useDeleteAutowebinarMutation()
+  const [isEditMode, setIsEditMode] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null);
   const jsonInputRef = useRef<HTMLInputElement | null>(null);
   const [jsonFileName, setJsonFileName] = useState('');
@@ -89,10 +91,81 @@ export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAdd
     }
     createWebinar({ schoolName, formData });
   }
+  const editExistsWebinar = () => {
+    const formData = new FormData();
+    formData.append('title', newWebinarData.title);
+    formData.append('description', newWebinarData.description ?? '');
+    formData.append('youtube_url', newWebinarData.youtube_url ?? '');
+    formData.append('start_time', newWebinarData.start_time);
+    formData.append('is_active', String(newWebinarData.is_active));
+    formData.append('has_chat', String(newWebinarData.has_chat));
+    formData.append('duration_minutes', String(newWebinarData.duration_minutes ?? ''));
+    formData.append('weekdays', JSON.stringify(newWebinarData.weekdays));
+    formData.append('chat_script', JSON.stringify(newWebinarData.chat_script));
+    if (newWebinarData.video) {
+      formData.append('video', newWebinarData.video);
+    }
+    if (existingWebinar) {
+      updateWebinar({
+        id: existingWebinar.id,
+        formData,
+        schoolName,
+      })
+      .unwrap()
+      .then(() => {
+        setShowAddWebinarForm(false)
+      })
+      .catch(error => {
+        console.error('Error updating meeting', error)
+      })
+    }
+  }
+
+  const deleteExistsWebinar = () => {
+    if (existingWebinar) {
+      deleteWebinar({
+        id: existingWebinar.id,
+        schoolName,
+      })
+      .then(() => {
+        setShowAddWebinarForm(false)
+      })
+    }
+  }
 
   const handleAddWebinar = () => {
-    createNewWebinar()
+    if (isEditMode) {
+      editExistsWebinar()
+    } else {
+      createNewWebinar()
+    }
   }
+
+  const handleCancel = () => {
+    if (isEditMode) {
+      deleteExistsWebinar()
+    } else {
+      setShowAddWebinarForm(false)
+    }
+  }
+
+  useEffect(() => {
+    if (existingWebinar) {
+      setIsEditMode(true)
+      setNewWebinarData({
+        ...newWebinarData,
+        title: existingWebinar.title || '',
+        description: existingWebinar.description || '',
+        youtube_url: existingWebinar.youtube_url || undefined,
+        is_active: existingWebinar.is_active || true,
+        start_time: existingWebinar.start_time || '',
+        weekdays: existingWebinar.weekdays,
+        has_chat: existingWebinar.has_chat,
+        chat_script: existingWebinar.chat_script || undefined,
+        duration_minutes: existingWebinar.duration_minutes,
+      })
+    }
+  }, [existingWebinar])
 
   return (
     <>
@@ -163,7 +236,10 @@ export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAdd
         }}
       >
         <div className={styles.modal_ellipse}></div>
-
+        <div onClick={() => setShowAddWebinarForm(false)} className={styles.modal_closed}>
+          <IconSvg width={50} height={50} viewBoxSize="0 0 58 58" path={crossIconPath} />
+        </div>
+        <DialogTitle>{!isEditMode ? 'Добавить автовебинар' : 'Редактировать автовебинар'}</DialogTitle>
         <DialogContent className={styles.modal_window}>
           <div style={{ marginBottom: '1rem' }}>
             <Input
@@ -212,13 +288,13 @@ export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAdd
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                border: '1px solid #ccc',
+                border: '1px solid #332f36',
                 borderRadius: '8px',
                 padding: '0.75rem 1rem',
-                backgroundColor: '#f9f9f9',
+                backgroundColor: '#ffffff',
               }}
             >
-              <span style={{ maxWidth: '70%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <span className={styles.input_span}>
                 {newWebinarData.video?.name || 'Загрузите видео...'}
               </span>
               <button
@@ -257,7 +333,7 @@ export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAdd
               onChange={e => setNewWebinarData({ ...newWebinarData, duration_minutes: Number(e.target.value)})}
             />
           </div>
-          <div style={{ marginBottom: '1rem' }}>
+          <div>
             <label style={{ alignItems: 'center', marginRight: 'auto', gap: '1rem', display: 'inline-flex' }}>
               <input
                 type="checkbox"
@@ -281,13 +357,13 @@ export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAdd
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                border: '1px solid #ccc',
+                border: '1px solid #332f36',
                 borderRadius: '8px',
                 padding: '0.75rem 1rem',
-                backgroundColor: '#f9f9f9',
+                backgroundColor: '#ffffff',
               }}
             >
-              <span style={{ maxWidth: '70%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <span className={styles.input_span}>
                 {jsonFileName || 'Загрузите json-файл с комментариями...'}
               </span>
               <button
@@ -328,8 +404,8 @@ export const AddWebinar: FC<AddWebinarProps> = ({ showAddWebinarForm, setShowAdd
           </div>
         </DialogContent>
         <DialogActions>
-          <Button className={styles.add_meeting_btn} onClick={handleAddWebinar} variant={'newPrimary'} text='Добавить' />
-          <Button className={styles.add_meeting_btn} onClick={() => setShowAddWebinarForm(false)} variant={'cancel'} text="Отмена" />
+          <Button className={styles.add_meeting_btn} onClick={handleAddWebinar} variant={'newPrimary'} text={isEditMode ? 'Сохранить' : 'Добавить'} />
+          <Button className={styles.add_meeting_btn} onClick={handleCancel} variant={'cancel'} text={isEditMode ? 'Удалить' : 'Отмена'} />
         </DialogActions>
       </Dialog>
     </>

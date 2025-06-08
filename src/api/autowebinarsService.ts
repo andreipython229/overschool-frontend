@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from './baseQueryReauth';
-import { PublicWebinar, ChatMessagesResponse, CreateWebinar, Autowebinar, CreateAutowebinarPayload } from 'types/autowebinarsT'
+import { PublicWebinar, ChatMessagesResponse, CreateWebinar, Autowebinar, CreateAutowebinarPayload, UpdateAutowebinarPayload } from 'types/autowebinarsT'
 
 export const autowebinarsService = createApi({
   reducerPath: 'autowebinarsService',
@@ -21,13 +21,38 @@ export const autowebinarsService = createApi({
          method: 'POST',
          body: formData,
         }),
-        invalidatesTags: ['Autowebinars'],
-      })
+      invalidatesTags: ['Autowebinars'],
     }),
+
+    updateAutowebinar: build.mutation<Autowebinar, UpdateAutowebinarPayload>({
+      query: ({ id, schoolName, formData }) => ({
+         url: `/${schoolName}/autowebinars/${id}/`,
+         method: 'PATCH',
+         body: formData,
+        }),
+      invalidatesTags: ['Autowebinars'],
+    }),
+
+    deleteAutowebinar: build.mutation<void, { id: number; schoolName: string }>({
+      query: ({ id, schoolName }) => ({
+         url: `/${schoolName}/autowebinars/${id}/`,
+         method: 'DELETE',
+      }),
+      invalidatesTags: ['Autowebinars'],
+    }),
+
+    fetchAllWebinars: build.query<Autowebinar[], { schoolName: string }>({
+      query: ({ schoolName }) => `/${schoolName}/autowebinars/`,
+      providesTags: ['Autowebinars'],
+    }),
+  }),
 });
 
 export const {
   useGetPublicWebinarQuery,
   useGetPublicChatMessagesQuery,
   useCreateAutowebinarMutation,
+  useUpdateAutowebinarMutation,
+  useDeleteAutowebinarMutation,
+  useFetchAllWebinarsQuery,
 } = autowebinarsService;
