@@ -26,7 +26,7 @@
 }
 
 .TariffPlansPage_header {
-  margin-top: 80px; /* Отступ сверху заголовка, чтобы опустить его */
+  margin-top: 50px;
   margin-bottom: 60px;
   font-weight: 800;
   font-family: 'SF Pro Text', sans-serif;
@@ -38,9 +38,12 @@
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  scroll-margin-top: 80px;
 
+  white-space: nowrap; /* Не переносить текст */
+  overflow: hidden;     /* Убрать лишнее, если не влезает */
+  text-overflow: ellipsis; /* Добавить ... при обрезке */
 }
+
 .main-content {
   padding-top: 60px; /* высота навигации */
 }
@@ -515,7 +518,7 @@ li {
   gap: 8px;
   margin-bottom: 8px;
   font-size: 16px;
-  color: blue; /* Синий цвет текста */
+  color:black ; /* Синий цвет текста */
 }
 .seniorList li {
   color: white;
@@ -785,4 +788,21 @@ li img {
 
 .main-content {
   padding-top: 80px; /* увеличено, чтобы заголовок был ниже */
+}
+
+.TariffPlansPage {
+  padding: 40px;
+  background-color: #f9f9f9;
+}
+
+
+
+.TariffPlansPage_plansBlock_cardGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; // Центрируем по горизонтали
+  align-items: stretch; // Чтобы высота у всех карточек совпадала
+  gap: 32px; // Отступы между карточками
+  flex-wrap: nowrap; // Не переносить карточки на новую строку
+  margin-top: 32px;
 }
