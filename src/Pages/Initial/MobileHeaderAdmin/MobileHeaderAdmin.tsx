@@ -195,7 +195,7 @@ export const MobileHeaderAdmin: FC = () => {
 
         <div className={`${styles.nav_links} ${menuOpen ? styles.hidden : ""}`}>
           <div className={`${styles.nav_item} ${styles.social} ${isSocialOpen ? styles.active : ''}`} onClick={togglePlatformMenu} ref={socialMenuRef}>
-            <Social_meniu className={styles.item_icon} />
+          <Social_meniu className={styles.item_icon} />
             {isSocialOpen && (
               <div className={styles.submenu}>
                 <a href={schoolData?.extra_link || '#'} target={schoolData?.extra_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.extra_link ? undefined : -1} aria-disabled={!schoolData?.extra_link}>
@@ -268,7 +268,7 @@ export const MobileHeaderAdmin: FC = () => {
             </div>
           )} */}
           
-          
+
           {/* Временно закомментирован функционал уведомлений, так как он специфичен и не соответствует общей модали из десктопной версии. */}
           {/* {userRole !== RoleE.Admin && ( */}
             {/* <div
