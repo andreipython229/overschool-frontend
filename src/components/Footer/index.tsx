@@ -83,11 +83,13 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
         </div>
         <div className={styles.wrapper_box_networks}>
           <h1>СОЦ.СЕТИ</h1>
-          <p>Instagram</p>
-          <p>Вконтакте</p>
-          <a href="https://t.me/@course_hb" target="_blank" rel="noopener noreferrer">
-            <p>Telegram</p>
+          <a href="https://www.instagram.com/course___hub" target="_blank" rel="noopener noreferrer">
+            <p>Instagram</p>
           </a>
+          <p>Вконтакте</p>
+            <a href="https://t.me/@course_hb" target="_blank" rel="noopener noreferrer">
+              <p>Telegram</p>
+            </a>
         </div>
         <div className={styles.wrapper_box_users}>
           <h1>ПОЛЬЗОВАТЕЛЯМ</h1>
