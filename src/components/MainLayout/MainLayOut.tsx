@@ -15,7 +15,7 @@ import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
 import { NewSchoolProgress } from 'components/NewSchoolProgress'
-import { auth, logoutState } from '../../store/redux/users/slice'
+import { logoutState } from '../../store/redux/users/slice'
 import { useDispatch } from 'react-redux'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import { RoleE } from 'enum/roleE'
