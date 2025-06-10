@@ -11,7 +11,7 @@ import { Path } from '../enum/pathE'
 
 import styles from '../components/MainLayout/mainLayOut.module.scss'
 // import MobileChatGPT from '../components/ChatGPT'
-import  ChatGPT from '../components/ChatGPT/mobileChatGPT'
+import  ChatGPT from '../components/ChatGPT'
 import { useBoolean as useBooleanHook } from '../customHooks'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { FooterMobile } from 'components/Footer/index_mobile'
