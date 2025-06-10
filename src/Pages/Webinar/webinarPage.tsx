@@ -1,5 +1,3 @@
-//. http://localhost:3000/webinar/testovyj_vebinar/
-
 import { useParams } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import {useGetPublicWebinarQuery, useGetPublicChatMessagesQuery} from "../../api/autowebinarsService";
@@ -59,7 +57,7 @@ export default function WebinarPage() {
     return {};
   }, [publicWebinarData]);
 
-  const predefinedComments = chatMessagesData?.all_scripted_messages.map((msg) => ({
+  const predefinedComments = chatMessagesData?.all_scripted_messages.map((msg: ChatMessage) => ({
     id: `${msg.username}-${msg.timeshift_ms}`,
     text: msg.message,
     time: Math.floor(msg.timeshift_ms / 1000),
