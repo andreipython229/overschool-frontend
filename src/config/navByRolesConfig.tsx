@@ -28,6 +28,7 @@ import { Passport } from 'Pages/Settings/Passport'
 import { SchoolAppeals } from 'Pages/SchoolAppeals'
 import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
 import { SchoolMeetings } from '../components/Meetings'
+import { Webinars } from 'components/Autowebinars/AutoWebinars'
 import StudentSchoolMeeting from '../components/StudentsMeetings'
 import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
 import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
@@ -40,6 +41,7 @@ import { AdminOrTeacherReplyHomework } from 'Pages/HomeWork/AdminOrTeacherReply'
 import { BonusesPage } from 'Pages/Bonuses'
 import { BonusesSettings } from 'Pages/Settings/Bonuses'
 import { SettingsInvitesProgram } from 'Pages/Settings/InviteProgram'
+import Certificate from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Certificates/Certificate'
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
@@ -92,6 +94,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
           <Route path={CreateCoursePath.Page} element={<CoursePageConstruct />} />
           <Route path={CreateCoursePath.Comments} element={<Comments />} />
           <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
+          <Route path={CreateCoursePath.Certificates} element={<Certificate />} />
         </Route>
       </Route>
       <Route path={Path.Profile} element={<Profile />} />
@@ -118,6 +121,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Appeals} element={<SchoolAppeals />} />
       <Route path={Path.Meetings} element={<SchoolMeetings />} />
+      <Route path={Path.Webinars} element={<Webinars />} />
       <Route path={Path.Rating} element={<Rating />} />
     </>
   ),

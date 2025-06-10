@@ -1,0 +1,29 @@
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 5px;
+  font-family: SF Pro Text, sans-serif;
+
+  &_inputArea {
+    height: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid #808080;
+    background: #ffffff;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      border: 1px solid #808080;
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}

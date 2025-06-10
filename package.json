@@ -58,6 +58,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-hot-toast": "^2.5.2",
+    "react-icons": "^5.5.0",
     "react-mathquill": "^1.0.3",
     "react-phone-input-2": "^2.15.1",
     "react-player": "^2.12.0",
@@ -81,7 +82,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "set HTTPS=true&&react-scripts start",
+    "start": "react-scripts start",
     "start-win": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false",

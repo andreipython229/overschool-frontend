@@ -30,28 +30,6 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
     usersList && setUsers(usersList)
   }, [usersList])
 
-  // useEffect(() => {
-  //   console.log("test chat datat ===== ",chatData)
-  // },[chatData])
-
-  // const createChatHundler = async (student: SenderI, teacherId: number, group_chat_id: string) => {
-  //   try {
-  //     if (student.id && teacherId) {
-  //       const personalChatData = new FormData();
-  //       personalChatData.append('teacher_id', teacherId.toString());
-  //       personalChatData.append('student_id', student.id.toString());
-  //       personalChatData.append('message', "Приветствую в персональном чате");
-  //       personalChatData.append('chat_id', group_chat_id)
-  //
-  //       const response = await createPersonalChat(personalChatData);
-  //     }
-  //   } catch (error) {
-  //     // Обработка ошибки
-  //     console.error('Произошла ошибка при создании персонального чата:', error);
-  //
-  //   }
-  // }
-
   const createChatHundler = (student: SenderI, teacherId: number, group_chat_id: string) => {
     setshowCreateChatButton(false)
     if (student.id && teacherId) {
@@ -99,7 +77,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
             <span>Чат</span>
           </div>
           <div className={styles.chatGroup_header_preview}>
-            <span>{chatData.name || 'Группа без имени '}</span>
+            <span>{chatData.name ?? 'Группа без имени '}</span>
             <span>{usersList && ` - ${usersList.length} ${getNounDeclension(usersList.length, ['участник', 'участника', 'участников'])}`}</span>
           </div>
         </div>
@@ -123,7 +101,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
                       {showCreateChatButton && (
                         <Button
                           text="Создать чат"
-                          variant="primary"
+                          variant="newPrimary"
                           onClick={e => {
                             createChatHundler(sender, userId, chatData.id)
                           }}
@@ -133,7 +111,7 @@ export const ChatGroupPreview: FC<chatGroupPreviewT> = ({ closeGroup, usersList,
                   ) : (
                     <Button
                       text="Перейти в чат"
-                      variant="primary"
+                      variant="newPrimary"
                       onClick={e => {
                         goToChatHundler(sender, userId)
                       }}

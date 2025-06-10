@@ -116,9 +116,9 @@ export const ChatPreview: FC<chatPreviewT> = memo(({ chat }) => {
           {/* <div className={styles.chatPanel_user_avatar_userName_status}>
               {`Специалист техподдержки ${getRoleTranslation(getInterlocutor(chat).user_role || '')}`}
             </div> */}
-          <div className={styles.chatPreview_top}>
-            <p>{/* {getInterlocutor(chat).first_name || 'Канал без имени'} {getInterlocutor(chat).last_name || ''} */}</p>
-          </div>
+          {/* <div className={styles.chatPreview_top}>
+            <p>{getInterlocutor(chat).first_name || 'Канал без имени'} {getInterlocutor(chat).last_name || ''}</p>
+          </div> */}
           <div className={styles.chatPreview_lastMessageSupport}>{chat?.last_message?.content || ''}</div>
         </div>
       ) : chat.type === 'COURSE' ? (
