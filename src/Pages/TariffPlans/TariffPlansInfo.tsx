@@ -315,15 +315,16 @@ export const TariffPlansInfo: FC = () => {
             <li>онлайн касса</li>
     </ul>
  </div>
+<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
   <Button
     text="Начать бесплатно"
     variant="secondary"
     onClick={() => console.log('Start')}
     style={{
-      width: '100%',
-      padding: '12px',
-      fontSize: '18px',
-      fontWeight: 600,
+     width: '301px',
+    height: '54px',
+    padding: '15px 40px',
+
        backgroundColor: '#3B82F6', // синий фон
     color: '#FFFFFF',           // белый текст
     border: 'none',             // если нужен плоский стиль
@@ -331,6 +332,7 @@ export const TariffPlansInfo: FC = () => {
     }}
   />
 </div>
+  </div>
  {/* Блок Personal */}
  <div
   style={{
@@ -411,8 +413,6 @@ export const TariffPlansInfo: FC = () => {
   <li style={{ color: '#FFFFFF' }}>До 3 сотрудников</li>
 </ul>
 </div>
-
-
 <Button
     text=    "Получить консультацию"
     variant="secondary"
