@@ -20,32 +20,6 @@ import styles from '../navbar.module.scss'
 import { RoleE } from 'enum/roleE'
 import Timer from '../../Timer/Timer'
 
-// Компонент-обертка для применения стилей к иконкам
-const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const iconStyle = {
-    display: 'inline-block', // Сохраняем инлайн поведение
-    color: '#212121',
-  };
-
-  return (
-    <div style={iconStyle}>
-      {React.Children.map(children, child => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child as React.ReactElement, {
-            // Применяем стили только к SVG элементам
-            style: {
-              ...(child.props.style || {}),
-              color: '#212121',
-              fill: '#212121',
-            }
-          });
-        }
-        return child;
-      })}
-    </div>
-  );
-};
-
 interface IIsActive {
   isActive?: boolean
 }
@@ -167,7 +141,8 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                 ),
               )}
 
-            {userRole === RoleE.Admin && (
+            {/* Иконка Telegram для связи с техподдержкой для всех ролей, кроме Unknown */}
+            {userRole !== RoleE.Unknown && (
               <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
                 <a key={'techsupport'} href={'https://t.me/coursehub_admin'} target="_blank" rel="noreferrer" style={{ padding: '0 10px' }}>
                   <div style={{ transform: 'scale(1.1)', transformOrigin: 'center center' }}>
