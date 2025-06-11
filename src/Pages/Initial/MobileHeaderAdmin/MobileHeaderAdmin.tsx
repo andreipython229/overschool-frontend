@@ -223,7 +223,8 @@ export const MobileHeaderAdmin: FC = () => {
           {userRole === RoleE.Admin && (
             <div className={`${styles.nav_item} ${styles.tariff} ${isTariffOpen ? styles.active : ''}`} onClick={toggleTariffMenu} ref={tariffMenuRef}>
               <Tariff className={styles.item_icon} />
-              {isTariffOpen && (
+              {/* Если есть данные по тарифу и нет ошибки, показываем обычное меню тарифа */}
+              {isTariffOpen && currentTariffData && !('error' in currentTariffData) && (  
                 <div className={`${styles.submenu} ${styles.tariff}`}>
                   {/* Отображаем название тарифа и оставшееся количество дней */}
                   <div className={styles.tariff_title}>
@@ -248,6 +249,21 @@ export const MobileHeaderAdmin: FC = () => {
                   <div className={styles.tariff_button} onClick={goToTariffPlans}>
                     Перейти на тариф
                     <img src={require("../../../assets/img/common/prizePersonal.png")}alt="Окно входа"/>
+                  </div>
+                </div>
+              )}
+              {/* Если тариф истёк или нет сведений, показываем альтернативное меню */}
+              {isTariffOpen && (!currentTariffData || ('error' in currentTariffData)) && (
+                <div className={`${styles.submenu} ${styles.tariff}`} style={{alignItems: 'center', textAlign: 'center'}}>
+                  <div className={styles.tariff_title}>
+                    <span style={{color: '#d32f2f', fontWeight: 600}}>Тариф истёк</span>
+                  </div>
+                  <div className={styles.tariff_text}>
+                    <span style={{fontSize: '13px', color: '#324195'}}>Выберите тарифный план</span>
+                  </div>
+                  <div className={styles.tariff_button} onClick={goToTariffPlans}>
+                    Перейти на тариф
+                    <img src={require("../../../assets/img/common/prizePersonal.png")} alt="Окно входа"/>
                   </div>
                 </div>
               )}
