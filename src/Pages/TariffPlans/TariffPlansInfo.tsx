@@ -86,33 +86,31 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
         <hr className={styles.cardDivider} />
 
         <ul
-          className={plan.name === 'Senior' ? styles.seniorList : ''}
-          style={{
-            fontFamily: 'SF Pro Display, sans-serif',
-            fontWeight: 600,
-            fontSize: '20px',
-            lineHeight: 1,
-            textAlign: 'center',
-            listStyle: 'none',
-            padding: 0,
-            color: plan.name === 'Senior' ? 'white' : 'black',
-          }}
-        >
-          <li className={styles.featureItem}>
-            <img src="/icons/cloud.svg" alt="ГБ" /> Безлимит ГБ
-          </li>
-          <li className={styles.featureItem}>
-            <img src="/icons/courses.svg" alt="Курсы" /> 3 курса
-          </li>
-          <li className={styles.featureItem}>
-            <img src="/icons/students.svg" alt="Ученики" /> 10 учеников
-          </li>
-          <li className={styles.featureItem}>
-            <img src="/icons/staff.svg" alt="Сотрудники" /> 4 сотрудника
-          </li>
-          <li className={`${styles.featureItem} ${styles.listItemDisabled}`}>White Label</li>
-          <li className={`${styles.featureItem} ${styles.listItemDisabled}`}>Свой домен</li>
-        </ul>
+  className={plan.name === 'Senior' ? styles.seniorList : ''}
+  style={{
+    fontFamily: 'SF Pro Display, sans-serif',
+    fontWeight: 600,
+    fontSize: '20px',
+    lineHeight: 1,
+    textAlign: 'center',
+    listStyle: 'none',
+    padding: 0,
+    color: plan.name === 'Senior' ? 'white' : 'black',
+  }}
+>
+  {planFeatures[plan.name].features.map((text, index) => (
+    <li key={index} className={styles.featureItem}>
+      {/* можно динамически иконки, если надо */}
+      <img src="/icons/cloud.svg" alt="Иконка" /> {text}
+    </li>
+  ))}
+  {planFeatures[plan.name].disabled?.map((text, index) => (
+    <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
+      {text}
+    </li>
+  ))}
+</ul>
+
       </div>
     </div>
   )
@@ -145,11 +143,28 @@ export const TariffPlansInfo: FC = () => {
       >
         <section className={styles.TariffPlansPage}>
           <div className={styles.TariffPlansPage_plansBlock}>
-            <Typography gutterBottom variant="h5" sx={{ textAlign: 'center' }}>
-              <p className={styles.TariffPlansPage_header}>Тарифные планы для обучения Course Hub</p>
-            </Typography>
+            </div>
+<Typography
+  gutterBottom
+  variant="h1"
+  sx={{
+    textAlign: 'center',
+    fontFamily: 'SF Pro Text, sans-serif',
+    fontSize: '46px',
+    fontWeight: 750,
+    lineHeight: '100%',
+    letterSpacing: '0px',
+    color: 'black',
+    whiteSpace: 'nowrap',       // 🔹 Не переносить строку
+    overflow: 'hidden',         // 🔹 Скрыть лишнее
 
-            <div className={styles.savingsBlock}>
+    width: '100%',              // или maxWidth: '1219.5px' для контроля ширины
+    margin: '0 auto',           // 🔹 Центрировать
+  }}
+>
+  Тарифные планы для обучения Course Hub
+</Typography>
+              <div className={styles.savingsBlock}>
               <span className={styles.monthly}>Ежемесячно</span>
               <div className={styles.yearlyBlock}>
                 <span>Годовая</span>
@@ -179,8 +194,7 @@ export const TariffPlansInfo: FC = () => {
     flexWrap: 'wrap',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginTop: '40px',
-    marginBottom: '40px', // ← Добавь это расстояние блоков
+    margin: '40px auto', // Центрируем по горизонтали и добавляем отступ сверху и снизу
     backgroundColor: '#fff',
     fontFamily: 'SF Pro Display, sans-serif',
     fontSize: '18px',
@@ -207,7 +221,6 @@ export const TariffPlansInfo: FC = () => {
     </div>
   ))}
 </div>
-
 <div
   style={{
     display: 'flex',
@@ -220,90 +233,203 @@ export const TariffPlansInfo: FC = () => {
   }}
 >
   {/* Блок Start */}
-  <div
+<div
+  style={{
+    position: 'relative',
+    width: '589.75px',
+    height: '373px',
+    borderRadius: '24px',
+    padding: '24px',
+    backgroundColor: '#BBCEEB',
+    color: '#000000',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    fontFamily: 'SF Pro Display, sans-serif',
+  }}
+>
+  {/* Иконка */}
+  <img
+    src="/images/start.png"
+    alt="Start Icon"
     style={{
-      width: '589.75px',
-      height: '373px',
-      borderRadius: '24px',
-      padding: '24px',
-      backgroundColor: '#BBCEEB',
-       color: '#FFFFFF', // ← Это правильно! белый цвет
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      fontFamily: 'SF Pro Display, sans-serif',
+      position: 'absolute',
+      bottom: '0',
+      left: '0',
+      width: '225px',
+      height: '252px',
+      objectFit: 'contain',
+      pointerEvents: 'none',
     }}
-  >
- <div>
-      <h2 style={{ fontSize: '24px', margin: 0 }}>Бесплатный тариф “Start”</h2>
-      <p style={{ marginTop: '8px' }}>
-        Идеально для старта: ГБ, расписание, дневник, чат.
-      </p>
-      <ul style={{ paddingLeft: '20px', marginTop: '16px' }}>
-        <li>Создание ГБ</li>
-        <li>Создание курсов</li>
-        <li>До 30 учеников</li>
-        <li>До 3 сотрудников</li>
-      </ul>
-    </div>
-    <Button
-      text="Начать бесплатно"
-      variant="secondary"
-      onClick={() => console.log('Start')}
-      style={{ width: '100%', padding: '12px', fontSize: '18px', fontWeight: 600 }}
-    />
-  </div>
+  />
 
-  {/* Блок Personal */}
+  {/* Контент в двух колонках */}
   <div
     style={{
-      width: '589.75px',
-      height: '373px',
-      borderRadius: '24px',
-      padding: '24px',
-      backgroundColor: '#357EEB',
-      color: '#FFFFFF',
       display: 'flex',
-      flexDirection: 'column',
       justifyContent: 'space-between',
-      fontFamily: 'SF Pro Display, sans-serif',
+      width: '100%',
+      alignItems: 'flex-start',
     }}
   >
-    <div>
-      <h2 style={{ fontSize: '24px', margin: 0 }}>Премиальный тариф “Personal”</h2>
-      <p style={{ marginTop: '8px' }}>
+    {/* Левая колонка */}
+   <div style={{ width: '100%', textAlign: 'center' }}>
+  <h2
+    style={{
+      fontSize: '24px',
+      margin: 0,
+      whiteSpace: 'nowrap',      // Не переносить строку
+      overflow: 'hidden',        // Обрезать при переполнении (если нужно)
+      textOverflow: 'ellipsis',  // Показать троеточие при обрезке (если нужно)
+    }}
+  >
+    Бесплатный тариф “Start”
+   </h2>
+   {/* Подзаголовок ближе к левому краю */}
+  <p
+    style={{
+      marginTop: '8px',
+      paddingLeft: '12px',
+      textAlign: 'left',
+    }}
+  >
+    14 дней бесплатно
+  </p>
+</div>
+    {/* Правая колонка — список */}
+<ul
+      style={{
+        listStylePosition: 'inside',
+        textAlign: 'right',
+        paddingLeft: 0,
+        margin: 0,
+        marginTop: '52px', // ⬅️ добавь эту строку
+        whiteSpace: 'nowrap',       // 🔹 Не переносить строку
+        //whiteSpace: 'normal'
+      }}
+    >
+    <li>1 курс</li>
+             <li>До 10 учеников</li>
+<li> Конструктор лендингов </li>
+              <li>Прием платежей и</li>
+            <li>онлайн касса</li>
+    </ul>
+ </div>
+  <Button
+    text="Начать бесплатно"
+    variant="secondary"
+    onClick={() => console.log('Start')}
+    style={{
+      width: '100%',
+      padding: '12px',
+      fontSize: '18px',
+      fontWeight: 600,
+       backgroundColor: '#3B82F6', // синий фон
+    color: '#FFFFFF',           // белый текст
+    border: 'none',             // если нужен плоский стиль
+    borderRadius: '8px',        // (по желанию) скругление углов
+    }}
+  />
+</div>
+ {/* Блок Personal */}
+ <div
+  style={{
+    position: 'relative',
+    width: '589.75px',
+    height: '373px',
+    borderRadius: '24px',
+    padding: '24px',
+    backgroundColor: '#357EEB',
+   color: '#FFFFFF', // <-- Белый цвет текста
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    fontFamily: 'SF Pro Display, sans-serif',
+  }}
+>
+  {/* Иконка */}
+  <img
+    src="/images/senior.png"
+    alt="Senior Icon"
+    style={{
+      position: 'absolute',
+      bottom: '0',
+      left: '0',
+      width: '225px',
+      height: '252px',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+    }}
+  />
+
+  {/* Контент в двух колонках */}
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+      alignItems: 'flex-start',
+    }}
+  >
+    {/* Левая колонка: Заголовок + Подзаголовок */}
+    <div style={{ width: '60%' }}>
+      <h2
+        style={{
+          fontSize: '24px',
+          margin: 0,
+          whiteSpace: 'nowrap',
+          textAlign: 'center',
+        }}
+      >
+        Премиальный тариф “Personal”
+      </h2>
+
+      <p
+        style={{
+          marginTop: '8px',
+          textAlign: 'left',
+        }}
+      >
         Персонально подберем для вас нужные функции
       </p>
-      <ul style={{ paddingLeft: '20px', marginTop: '16px' }}>
-        <li>Настройка ГБ</li>
-        <li>Настройка курсов</li>
-        <li>Настройка учеников</li>
-        <li>Настройка сотрудников</li>
-      </ul>
     </div>
-    <Button
-      text="Получить консультацию"
-      variant="primary"
-      onClick={() => console.log('Personal')}
-      style={{
-        width: '100%',
-        padding: '12px',
-        fontSize: '18px',
-        fontWeight: 600,
-        color: '#357EEB',
-        backgroundColor: '#FFFFFF',
-        border: 'none',
-        borderRadius: '8px',
-      }}
-    />
-  </div>
+
+    {/* Правая колонка — список */}
+   <ul
+  style={{
+    listStylePosition: 'inside',
+    textAlign: 'right',
+    paddingLeft: 0,
+    margin: 0,
+    marginTop: '52px',
+    color: '#FFFFFF',
+  }}
+>
+  <li style={{ color: '#FFFFFF' }}>Создание ГБ</li>
+  <li style={{ color: '#FFFFFF' }}>Создание курсов</li>
+  <li style={{ color: '#FFFFFF' }}>До 30 учеников</li>
+  <li style={{ color: '#FFFFFF' }}>До 3 сотрудников</li>
+</ul>
 </div>
 
 
+<Button
+    text=    "Получить консультацию"
+    variant="secondary"
+    onClick={() => console.log('Start')}
+    style={{
+        width: '301px',
+    height: '54px',
+    padding: '15px 40px',
 
-
-
-          </div>
+    backgroundColor:'#FFFFFF', // синий фон
+    color:    '#3B82F6'  ,      // белый текст
+    border: 'none',             // если нужен плоский стиль
+    borderRadius: '8px',        // (по желанию) скругление углов
+    }}
+  />
+</div>
+   </div>
 
           {isModalOpen && selected && (
             <Portal closeModal={closeModal}>
@@ -316,10 +442,40 @@ export const TariffPlansInfo: FC = () => {
   )
 }
 
-
-
 <div className={styles.yearPrice}>
   <div className={`${styles.yearPrice} ${styles.junior}`}>Junior</div>
   <div className={`${styles.yearPrice} ${styles.middle}`}>Middle</div>
   <div className={`${styles.yearPrice} ${styles.senior}`}>Senior</div>
 </div>
+
+
+
+
+const planFeatures: Record<string, { features: string[]; disabled?: string[] }> = {
+  Junior: {
+    features: [
+      'Безлимит ГБ',
+      '1 курс',
+      'До 10 учеников',
+      '1 сотрудник',
+    ],
+    disabled: ['White Label', 'Свой домен'],
+  },
+  Middle: {
+    features: [
+      'Безлимит ГБ',
+      '10 курсов',
+      '50 учеников',
+      '11 сотрудников',
+    ],
+    disabled: ['White Label', 'Свой домен'],
+  },
+  Senior: {
+    features: [
+       '50 курсов',
+      '500 учеников',
+      'Безлимит',
+    ],
+ disabled: ['White Label', 'Свой домен'],
+  },
+}
