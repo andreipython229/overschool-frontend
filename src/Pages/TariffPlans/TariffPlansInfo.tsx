@@ -162,7 +162,7 @@ export const TariffPlansInfo: FC = () => {
     margin: '0 auto',           // 🔹 Центрировать
   }}
 >
-  Тарифные планы для обучения Course Hub
+  Тарифные планы для обучения Course hub
 </Typography>
               <div className={styles.savingsBlock}>
               <span className={styles.monthly}>Ежемесячно</span>
