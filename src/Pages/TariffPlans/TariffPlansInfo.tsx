@@ -250,8 +250,8 @@ export const TariffPlansInfo: FC = () => {
 >
   {/* Иконка */}
   <img
-    src="/images/start.png"
-    alt="Start Icon"
+    src="/images/prizeStart.png"
+    alt="PrizeStart"
     style={{
       position: 'absolute',
       bottom: '0',
@@ -351,8 +351,8 @@ export const TariffPlansInfo: FC = () => {
 >
   {/* Иконка */}
   <img
-    src="/images/senior.png"
-    alt="Senior Icon"
+    src="/images/prizePersonal.png"
+    alt="SprizePersonal"
     style={{
       position: 'absolute',
       bottom: '0',
@@ -412,8 +412,10 @@ export const TariffPlansInfo: FC = () => {
   <li style={{ color: '#FFFFFF' }}>До 30 учеников</li>
   <li style={{ color: '#FFFFFF' }}>До 3 сотрудников</li>
 </ul>
-</div>
-<Button
+ </div>
+<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+  <Button
+
     text=    "Получить консультацию"
     variant="secondary"
     onClick={() => console.log('Start')}
@@ -430,6 +432,7 @@ export const TariffPlansInfo: FC = () => {
   />
 </div>
    </div>
+</div>
 
           {isModalOpen && selected && (
             <Portal closeModal={closeModal}>
