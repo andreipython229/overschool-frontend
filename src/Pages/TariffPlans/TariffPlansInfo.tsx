@@ -434,6 +434,107 @@ export const TariffPlansInfo: FC = () => {
    </div>
 </div>
 
+
+
+
+<div
+  style={{
+    width: '100%',
+    maxWidth: '1219.5px',  // Максимальная ширина, как в твоем примере
+    height: '350px',
+    borderRadius: '32px',
+    padding: '16px',
+    gap: '16px',
+    border: '1px solid #ccc',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+      justifyContent: 'space-between', // текст слева, иконка справа
+    margin: '40px auto',   // Центрируем горизонтально, отступ сверху/снизу
+    backgroundColor: '#357EEB',
+    fontFamily: 'SF Pro Display, sans-serif',
+    fontSize: '18px',
+    fontWeight: 500,
+    lineHeight: 1.4,
+    boxSizing: 'border-box',  // чтобы padding не увеличивал ширину
+    color: '#ffffff',  // белый цвет текста
+  }}
+>
+  {/* Пример карточки внутри блока */}
+  <div
+    style={{
+      flex: '1 1 0',
+      maxWidth: '600px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}
+  >
+
+
+     <p style={{ fontSize: '18px', fontWeight: 400, lineHeight: '1.6' }}>
+    <span style={{ fontSize: '24px', fontWeight: 600 }}>
+      Создавайте свой проект на Course Hub прямо сейчас.
+    </span>
+    <br />
+    Попробуйте весь функционал в процессе использования<br />
+    и убедитесь, насколько он удобен.
+  </p>
+
+
+</div>
+
+
+
+  <div
+    style={{
+      flex: '1 1 0',
+      maxWidth: '600px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}
+  >
+    <img
+
+    />
+
+    <p style={{ fontSize: '18px', fontWeight: 400 }}>
+
+    </p>
+  </div>
+
+  <div
+    style={{
+      flex: '1 1 0',
+      maxWidth: '600px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}
+  >
+    <img
+      src="/images/333.png"
+    alt="333"
+      style={{ width: '478px', height: '330px', marginBottom: '16px' }}
+    />
+
+    <p style={{ fontSize: '70px', fontWeight: 400 }}>
+
+    </p>
+  </div>
+</div>
+
+
+
+
+
+
+
+
           {isModalOpen && selected && (
             <Portal closeModal={closeModal}>
               <TariffDetailModal tariff={selected} setShowModal={closeModal} />
