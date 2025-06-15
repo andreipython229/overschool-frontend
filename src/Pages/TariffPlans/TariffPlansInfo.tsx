@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Typography } from '@mui/material'
+import { Footer } from 'components/Footer/index'
 
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
@@ -10,6 +11,7 @@ import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService
 import { useBoolean } from 'customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
+
 
 const tariffIcons: Record<string, string> = {
   Junior: '/images/start.png',
@@ -100,10 +102,12 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
 >
   {planFeatures[plan.name].features.map((text, index) => (
     <li key={index} className={styles.featureItem}>
-      {/* можно динамически иконки, если надо */}
-      <img src="/icons/cloud.svg" alt="Иконка" /> {text}
+       {/* можно динамически иконки, если надо */}
+      <img src="/icons/cloud.svg"
+       alt="Иконка" /> {text}
     </li>
   ))}
+
   {planFeatures[plan.name].disabled?.map((text, index) => (
     <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
       {text}
@@ -184,7 +188,7 @@ export const TariffPlansInfo: FC = () => {
             </div>
      <div
   style={{
-    width: '1219.5px',
+    width: '1119.5px',
     height: '250px',
     borderRadius: '32px',
     padding: '16px',
@@ -542,6 +546,7 @@ export const TariffPlansInfo: FC = () => {
           )}
         </section>
       </motion.div>
+        <Footer />
     </>
   )
 }
@@ -583,3 +588,12 @@ const planFeatures: Record<string, { features: string[]; disabled?: string[] }> 
  disabled: ['White Label', 'Свой домен'],
   },
 }
+
+
+
+
+
+
+
+
+

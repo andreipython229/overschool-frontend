@@ -803,14 +803,17 @@ li img {
 
 
 .TariffPlansPage_plansBlock_cardGroup {
+  margin-top: 45px;
   display: flex;
-  flex-direction: row;
-  justify-content: center; // Центрируем по горизонтали
-  align-items: center; // Чтобы высота у всех карточек совпадала
-  gap: 32px; // Отступы между карточками
-  flex-wrap: nowrap; // Не переносить карточки на новую строку
-  margin-top: 32px;
+  justify-content: center; /* Центрируем по горизонтали */
+  gap: 20px; /* Отступы между карточками */
+  flex-wrap: wrap; /* Чтобы на маленьких экранах шли в колонку */
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 
 
@@ -827,4 +830,48 @@ li img {
   overflow: hidden;          /* скрыть лишнее */
   text-overflow: ellipsis;   /* добавить "..." при обрезке */
    font-size: clamp(28px, 4vw, 46px);
+}
+
+.footer {
+  margin-top: 60px;
+  padding: 40px 20px;
+  background-color: #FFFFFF;     /* белый фон */
+  color: #002B5B;                /* тёмно-синий текст */
+  text-align: center;
+  font-family: 'SF Pro Display', sans-serif;
+  font-size: 14px;
+  border-top: 1px solid #CCCCCC; /* светло-серая линия сверху */
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footerLogo img {
+  width: 208px;
+  height: 124px;
+  margin-bottom: 20px;
+  object-fit: contain;
+  filter: none; /* оставляем как есть, если фон уже белый */
+}
+
+.footerNav {
+  margin-bottom: 20px;
+
+  a {
+    color: #002B5B;           /* тёмно-синие ссылки */
+    margin: 0 12px;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #0056b3;         /* ярче при наведении */
+    }
+  }
+}
+
+.footerCopy {
+  font-size: 12px;
+  color: #666666;             /* более мягкий тёмно-серый для копирайта */
 }

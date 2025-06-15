@@ -123,3 +123,6 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
     </footer>
   )
 }
+
+
+
