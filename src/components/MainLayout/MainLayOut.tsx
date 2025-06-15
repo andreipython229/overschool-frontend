@@ -10,12 +10,12 @@ import { Path } from '../../enum/pathE'
 import styles from './mainLayOut.module.scss'
 import { Footer } from 'components/Footer'
 import { useBoolean as useBooleanHook } from '../../customHooks/useBoolean'
-import { ChatGPT } from '../../components/ChatGPT/ChatGPT'
+import { ChatGPT } from '../../components/ChatGPT'
 import { useLazyFetchStudentsGroupQuery } from 'api/studentsGroupService'
 
 import { motion } from 'framer-motion'
 import { NewSchoolProgress } from 'components/NewSchoolProgress'
-import { auth, logoutState } from '../../store/redux/users/slice'
+import { logoutState } from '../../store/redux/users/slice'
 import { useDispatch } from 'react-redux'
 import { useLazyLogoutQuery } from '../../api/userLoginService'
 import { RoleE } from 'enum/roleE'
@@ -43,8 +43,8 @@ export const MainLayOut: FC = memo(() => {
   const [showOverAI, setShowOverAI] = useState<boolean>(false)
 
   const toggleChatModal = () => {
-    setShowOverAI(prev => !prev);   
-  };
+    setShowOverAI(prev => !prev)
+  }
 
   useEffect(() => {
     if (userRole === 1) {
@@ -129,7 +129,7 @@ export const MainLayOut: FC = memo(() => {
           {!routesWithoutPrevious.includes(location.pathname) && <Previous />}
           <Outlet />
         </motion.main>
-        {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} onClose={() => setShowOverAI(false)} />}
+        {showChat && isSuccess && <ChatGPT isDialogOpen={showOverAI} setIsDialogOpen={() => setShowOverAI(!showOverAI)} />}
         <Footer />
       </div>
     </>

@@ -99,7 +99,7 @@ export const Initial = () => {
               <h1>
                 Удобная платформа <br /> <WordSwitcher />
               </h1>
-              <h3>Первая белорусская платформа Overschool для онлайн-обучения с пожизненным бесплатным тарифом. Попробуй прямо сейчас!</h3>
+              <h3>Первая белорусская платформа CourseHub для онлайн-обучения с пожизненным бесплатным тарифом. Попробуй прямо сейчас!</h3>
               <Button
                 onClick={handleRegistrationUser}
                 variant={'newLeaveRequest'}
