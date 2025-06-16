@@ -455,7 +455,7 @@ export const TariffPlansInfo: FC = () => {
     alignItems: 'flex-start',
       justifyContent: 'space-between', // текст слева, иконка справа
     margin: '40px auto',   // Центрируем горизонтально, отступ сверху/снизу
-    backgroundColor: '#357EEB',
+    backgroundColor: '#0D28BB',
     fontFamily: 'SF Pro Display, sans-serif',
     fontSize: '18px',
     fontWeight: 500,
@@ -477,18 +477,30 @@ export const TariffPlansInfo: FC = () => {
   >
 
 
-     <p style={{ fontSize: '18px', fontWeight: 400, lineHeight: '1.6' }}>
-    <span style={{ fontSize: '24px', fontWeight: 600 }}>
-      Создавайте свой проект на Course Hub прямо сейчас.
-    </span>
-    <br />
+   <p style={{ fontSize: '24px', fontWeight: 600, lineHeight: '1.2' }}>
+    Создавайте свой проект на Course<br />
+    Hub прямо сейчас.
+  </p>
+  <p style={{ fontSize: '18px', fontWeight: 400, lineHeight: '1.6' }}>
     Попробуйте весь функционал в процессе использования<br />
     и убедитесь, насколько он удобен.
   </p>
-
-
+  <button
+    style={{
+      marginTop: '20px',
+      padding: '12px 24px',
+      fontSize: '16px',
+      fontWeight: '600',
+      backgroundColor: '#007BFF', // синий цвет кнопки
+      color: '#fff',
+      border: 'none',
+      borderRadius: '6px',
+      cursor: 'pointer',
+    }}
+  >
+    Попробовать бесплатно
+  </button>
 </div>
-
 
 
   <div
@@ -521,10 +533,17 @@ export const TariffPlansInfo: FC = () => {
     }}
   >
     <img
-      src="/images/333.png"
-    alt="333"
-      style={{ width: '478px', height: '330px', marginBottom: '16px' }}
-    />
+  src="/images/333.png"
+  alt="333"
+  style={{
+    width: '478px',
+    height: '330px',
+    marginBottom: '16px',
+    border: '20px solid #324195',   // рамка нужного цвета
+    borderRadius: '25px'           // закруглённые углы
+  }}
+/>
+
 
     <p style={{ fontSize: '70px', fontWeight: 400 }}>
 
@@ -588,12 +607,4 @@ const planFeatures: Record<string, { features: string[]; disabled?: string[] }> 
  disabled: ['White Label', 'Свой домен'],
   },
 }
-
-
-
-
-
-
-
-
 
