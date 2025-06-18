@@ -1,0 +1,29 @@
+.button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding-top: 20px;
+
+  @media screen and (max-width: 800px) {
+      display: none;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  /* Прячем вторую иконку по умолчанию */
+  .iconHover {
+    display: none;
+  }
+
+  /* При наведении показываем вторую иконку, а первую скрываем */
+  &:hover {
+    .iconDefault {
+      display: none;
+    }
+    .iconHover {
+      display: block;
+    }
+  }
+}

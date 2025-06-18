@@ -10,8 +10,10 @@ interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
 
-export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
-  // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
+import {ScrollToTopButton} from "../ScrollToTopButton/ScrollToTopButton";
+
+export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
+    // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
 
   // const currentYear = new Date().getFullYear()
   // const { schoolId } = useAppSelector(schoolSelector)
@@ -31,18 +33,19 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
   const { data } = useFetchSchoolQuery(Number(schoolId))
   const offerUrl = data?.offer_url;
 
-  return (
-    <footer className={styles.wrapper}>
-      <div className={styles.wrapper_img} style={{ marginLeft: '1rem' }} >
-        <img src={footerlogo} alt="footerlogo" style={{ width: 'min(20%, 100px)' }} />
-      </div>
-      <div style={{ width: '100%' }}>
-        <img src={line} alt="line" style={{ width: '100%', objectFit: 'cover' }} />
-      </div>
-      <div className={styles.wrapper_box}>
-        <div className={styles.wrapper_box_contact}>
-          <h1>КОНТАКТЫ</h1>
-          {/* ********* !!!!!!!!! ******** НЕ УДАЛЯТЬ ****** !!!!! ***** */}
+    return (
+        <footer className={styles.wrapper}>
+            <div className={styles.wrapper_img}>
+                <img src={footerlogo} alt="footerlogo"/>
+                <ScrollToTopButton/>
+            </div>
+            <div style={{width: '100%'}}>
+                <img src={line} alt="line" style={{width: '100%', objectFit: 'cover'}}/>
+            </div>
+            <div className={styles.wrapper_box}>
+                <div className={styles.wrapper_box_contact}>
+                    <h1>КОНТАКТЫ</h1>
+                    {/* ********* !!!!!!!!! ******** НЕ УДАЛЯТЬ ****** !!!!! ***** */}
 
           {/* <div className={styles.wrapper_box_contact_pack}>
             <img src={callfooter} alt="callfooter" />
@@ -117,7 +120,7 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
         </div>
       </div>
       <div style={{ width: '100%' }}>
-        <p className={styles.footer_ptext}>© 2024, ООО &quot;Курсаб&quot;. Все права защищены.</p>
+        <p className={styles.footer_ptext}>© 2024, ООО &quot;Курсхаб&quot;. Все права защищены.</p>
       </div>
     </footer>
   )

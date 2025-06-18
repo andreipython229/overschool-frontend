@@ -33,24 +33,39 @@
     z-index: 3;
   }
 
-  @media (max-width: 600px) {
-    width: 100%;
-    height: 300px;
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+    min-height: 176px;
+    border-radius: 15px;
+    margin-top: 10px;
+  }
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    min-height: 300px;
+    border-radius: 20px;
+    margin-top: 10px;
   }
 
   &_buttonAccept {
+
     button {
       width: 203px;
       height: 36px;
       font-size: 16px;
       font-weight: 700;
       padding: 0;
+      @media screen and (min-width: 320px) and (max-width: 480px) {
+        font-weight: 500;
+        font-size: 16px;
+        width: 150px;
+      }
     }
 
     @include position_b_r(absolute, 50px, 44px, 4);
 
-    @media screen and (min-width: 375px) and (max-width: 480px) {
-      @include position_b_r(absolute, 55px, 16px, 4);
+    @media screen and (min-width: 320px) and (max-width: 480px) {
+      @include position_b_r(absolute, 5px, 15px, 4);
+    }
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+      @include position_b_r(absolute, 30px, 15px, 4);
     }
   }
 
@@ -99,6 +114,21 @@
     padding: 24px 64px;
     background: linear-gradient(90deg, #332F36 -5.88%, rgba(51, 47, 54, 0) 100%);
 
+    @media screen and (min-width: 320px) and (max-width: 480px) {
+      @include position_t_l(absolute, 83px, 0, 4);
+      border-radius: 16px;
+      max-height: 50px;
+    }
+
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+      @include position_t_l(absolute, 83px, 0, 4);
+      border-radius: 16px;
+      max-height: 75px;
+    }
+    @media screen and (min-width: 769px) and (max-width: 850px) {
+      @include position_t_l(absolute, 70px, 0, 4);
+    }
+
     input {
       width: 100%;
       padding: 5px;
@@ -110,14 +140,22 @@
       @include font(500, 46px, 62px);
       text-transform: uppercase;
 
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
-        @include position_t_l(absolute, 107px, 16px);
-        @include font(500, 16px, 17px);
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        @include position_t_l(absolute, 5px, 16px);
+        @include font(500, 20px, normal);
       }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
-        @include position_t_l(absolute, 107px, 16px);
-        @include font(500, 16px, 17px);
+      @media only screen and (min-width: 481px) and (max-width: 768px) {
+        @include position_t_l(absolute, 5px, 16px);
+        @include font(500, 46px, 62px);
       }
+      @media screen and (min-width: 769px) {
+        font-size: 46px !important;
+      }
+
+      // @media only screen and (min-width: 375px) and (max-width: 480px) {
+      //   @include position_t_l(absolute, 107px, 16px);
+      //   @include font(500, 16px, 17px);
+      // }
     }
 
     input:hover {
@@ -141,16 +179,33 @@
     outline: none;
     font-family: 'SFPRORegular';
     resize: none;
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+      @include font(400, 14px, 28.64px);
+      color: #ffffff;
+    }
+    @media only screen and (min-width: 769px) and (max-width: 850px) {
+      @include font(400, 20px, 28.64px);
+      color: #ffffff;
+    }
   }
 
   textarea:hover {
     background: rgba(248, 229, 255, 0.1);
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    @include position_t_l(absolute, 140px, 16px, 4);
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    // @include position_t_l(absolute, 140px, 16px, 4);
+    display: none;
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    @include position_t_l(absolute, 140px, 16px, 4);
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    @include position_t_l(absolute, 140px, 10px, 4);
+    width: 460px;
   }
+  @media only screen and (min-width: 769px) and (max-width: 850px) {
+    @include position_t_l(absolute, 220px, 40px, 4);
+  }
+  // @media only screen and (min-width: 375px) and (max-width: 480px) {
+  //   @include position_t_l(absolute, 140px, 16px, 4);
+  // }
 }

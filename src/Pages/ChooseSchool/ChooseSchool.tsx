@@ -29,6 +29,7 @@ import { SearchIconPath } from 'assets/Icons/svgIconPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
 import { clearTariffState } from 'store/redux/tariff/tariffSlice'
+import { Toaster } from 'react-hot-toast'
 
 export type SchoolT = {
   school_id: number
@@ -45,7 +46,7 @@ export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isLoading }] = useGetSchoolsMutation()
   const [logout] = useLazyLogoutQuery()
-  const { role: userRole, authState } = useAppSelector(selectUser)
+  const { role: userRole, authState, email } = useAppSelector(selectUser)
   const { schoolName } = useAppSelector(schoolSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
   const [selectedSchool, setSelectedSchool] = useState<SchoolT>()
@@ -194,6 +195,7 @@ export const ChooseSchool = () => {
                 duration: 1.5,
               }}
             >
+              <Toaster position="bottom-right" reverseOrder={true} />
               {showWarning && selectedSchool && (
                 <Dialog open={showWarning} onClose={close} aria-labelledby="responsive-dialog-title">
                   <DialogTitle

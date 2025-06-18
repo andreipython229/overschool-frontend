@@ -295,10 +295,11 @@
 
         @media only screen and (min-width: 600px) and (max-width: 1650px) {
           width: 23vw;
-          height: 2.5vw;
+          height: auto;
           padding: 0.5vw 1.5vw 0.5vw 1.5vw;
           border-radius: 0.5vw;
           margin-bottom: 0.5vw;
+          padding-left: 30px;
         }
 
         @media only screen and (min-width: 480px) and (max-width: 600px) {
@@ -763,6 +764,7 @@
               padding-top: 1.1vw;
               padding-left: 1vw;
               padding-right: 0.5vw;
+              position: absolute;
             }
 
             @media only screen and (min-width: 320px) and (max-width: 480px) {
@@ -898,9 +900,7 @@
   }
 
   &_rightSideWrapper {
-    right: 10px;
     min-width: 0;
-    width: 100%;
 
     @media only screen and (min-width: 480px) {
       width: 95%;
@@ -911,28 +911,28 @@
     }
 
     &_rightSide {
-      min-width: 0 !important;
       box-shadow: 0px 0px 18px 0px rgba(50, 65, 149, 0.3);
       background: rgba(255, 255, 255, 1);
-      min-height: 0;
-      height: min-content;
 
-      @media only screen and (min-width: 1650px) {
-        width: 939px;
-        // min-height: 129px;
-        padding: 20px 49px 20px 49px;
-        border-radius: 20px;
+      @media only screen and (min-width: 1650px){
+       width: 939px;
+       height: 129px;
+       padding: 20px 49px 20px 49px;
+       margin-left: 110px;
+       border-radius: 20px;
       }
 
       @media only screen and (min-width: 480px) and (max-width: 1650px) {
-        width: 100%;
-        // min-height: 8vw;
-        padding: 2rem;
+        width: 80%;
+        height: 8vw;
+        padding: 1.2vw 3vw 1.2vw 3vw;
+        margin-left: 2vw;
         border-radius: 1vw;
       }
 
       @media only screen and (min-width: 320px) and (max-width: 480px) {
         width: 100%;
+        height: 50px;
         padding: 1.2vw 3vw 1.2vw 3vw;
         border-radius: 8px;
         margin-top: 10px;
@@ -1215,6 +1215,7 @@
 
       &_functional {
         width: 100%;
+        height: 89px;
         gap: 20px;
 
         &_container {
@@ -1537,15 +1538,20 @@ hr {
 }
 
 .commentContainer {
-  margin-top: 1rem;
   display: flex;
   gap: 0px;
 
-  @media only screen and (min-width: 1650px) {
+  @media only screen and (min-width: 1650px){
+    width: 939px;
+    height: 712px;
+    margin-top: 30px;
     margin-left: -50px;
   }
 
   @media only screen and (min-width: 480px) and (max-width: 1650px) {
+    width: 57vw;
+    height: 45vw;
+    margin-top: 1.1vw;
     margin-left: -3vw;
   }
 
@@ -1555,6 +1561,7 @@ hr {
     margin-top: 20px;
     margin-left: -3vw;
   }
+
 
   p {
     @media only screen and (min-width: 1650px) {
@@ -1817,7 +1824,7 @@ hr {
   width: auto;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
+  margin-top: 10px;
 }
 
 .fillColorWhite path {

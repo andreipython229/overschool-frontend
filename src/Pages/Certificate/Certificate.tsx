@@ -1,7 +1,8 @@
+import { FC, useEffect, useState } from 'react'
 import logo from './img/logo.png'
 import border from './img/border.svg'
 import logoHorizontal from './img/logoHorizontal.svg'
-import stamp from './img/stamp.png'
+// import stamp from './img/stamp.png'
 import complete from './img/complete.png'
 import signature from './img/signature.png'
 import QR from './img/QR.png'
@@ -9,7 +10,6 @@ import QR from './img/QR.png'
 import styles from './Certificate.module.scss'
 import { useParams } from 'react-router-dom'
 import { useFetchSertificateMutation } from 'api/userProgressService'
-import { useEffect, useState } from 'react'
 import CryptoJS from 'crypto-js'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 
@@ -21,14 +21,55 @@ import { useFetchSchoolHeaderQuery } from '../../api/schoolHeaderService'
 import { useAppSelector } from 'store/hooks'
 import { schoolSelector } from 'selectors'
 
-type CertificatModulesT = {
-  section: Section
-  sectionIndex: number
-  handleToggleOpen: (index: number) => void
-  openIndex: number
+const StampSVG1 = () => (
+  <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="stamp1Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style={{ stopColor: '#F57AF5', stopOpacity: 0.8 }} />
+        <stop offset="100%" style={{ stopColor: '#9B219E', stopOpacity: 0.8 }} />
+      </linearGradient>
+    </defs>
+    <circle cx="60" cy="60" r="55" stroke="url(#stamp1Gradient)" strokeWidth="2" fill="none"/>
+    <circle cx="60" cy="60" r="45" stroke="url(#stamp1Gradient)" strokeWidth="1" fill="none"/>
+    <text x="60" y="40" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">OFFICIAL</text>
+    <text x="60" y="55" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">STAMP</text>
+    <text x="60" y="70" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">OF</text>
+    <text x="60" y="85" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">SCHOOL</text>
+  </svg>
+);
+
+const StampSVG2 = () => (
+  <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="stamp2Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style={{ stopColor: '#9B219E', stopOpacity: 0.8 }} />
+        <stop offset="100%" style={{ stopColor: '#4D0FAF', stopOpacity: 0.8 }} />
+      </linearGradient>
+    </defs>
+    <circle cx="60" cy="60" r="55" stroke="url(#stamp2Gradient)" strokeWidth="2" fill="none"/>
+    <circle cx="60" cy="60" r="45" stroke="url(#stamp2Gradient)" strokeWidth="1" fill="none"/>
+    <text x="60" y="35" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">SCHOOL</text>
+    <text x="60" y="50" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">CERTIFICATION</text>
+    <text x="60" y="65" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">AND</text>
+    <text x="60" y="80" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">VERIFICATION</text>
+  </svg>
+);
+
+type PreviewDataT = {
+  user_full_name: string
+  course_name: string
+  school_name: string
+  date: string
+  signature: string
+  sections: any[]
+  stampType?: 'stamp1' | 'stamp2'
 }
 
-export const Certificate = () => {
+type CertificatePropsT = {
+  previewData?: PreviewDataT
+}
+
+export const Certificate: FC<CertificatePropsT> = ({ previewData }) => {
   const { certLink } = useParams()
   const [data, setData] = useState<{ courseId: number; userId: number; schoolId: number }>()
   const [getSertData, { data: sertData, isLoading, isSuccess: succSert }] = useFetchSertificateMutation()
@@ -55,13 +96,13 @@ export const Certificate = () => {
   }, [dataHeader])
 
   useEffect(() => {
-    if (certLink) {
+    if (certLink && !previewData) {
       decryptSertLink(certLink)
     }
   }, [certLink])
 
   useEffect(() => {
-    if (data && data.courseId && data.userId && data.schoolId) {
+    if (data && data.courseId && data.userId && data.schoolId && !previewData) {
       getSertData({
         user_id: Number(data.userId),
         course_id: Number(data.courseId),
@@ -71,14 +112,14 @@ export const Certificate = () => {
   }, [data])
 
   useEffect(() => {
-    if (sertData) {
-      const date = sertData.date ? sertData.date : new Date()
+    if (previewData || sertData) {
+      const date = previewData?.date || sertData?.date || new Date()
       const formattedDate = DateTime.fromISO(date, { zone: 'utc' }).toFormat('dd.MM.yyyy')
       setFinishDate(formattedDate)
     }
-  }, [sertData])
+  }, [sertData, previewData])
 
-  if (!sertData || isLoading) {
+  if ((!sertData && !previewData) || isLoading) {
     return <SimpleLoader />
   }
 
@@ -90,14 +131,16 @@ export const Certificate = () => {
     }
   }
 
-  return sertData ? (
+  const displayData = previewData || sertData
+
+  return displayData ? (
     <main>
       <div className={styles.main}>
         <div className={styles.tape}></div>
 
         <div className={styles.wrapper}>
           <div className={styles.logo}>
-            {sertData.school_name} school
+            {displayData.school_name} school
             <img className={styles.logo__over} src={logo} alt="logo" />
           </div>
 
@@ -119,11 +162,11 @@ export const Certificate = () => {
               </div>
             </div> */}
 
-            <div className={styles.certificate__graduate}>{sertData.user_full_name}</div>
+            <div className={styles.certificate__graduate}>{displayData.user_full_name}</div>
             <div className={styles.certificate__content}>
               Has successfully completed course
               <div className={styles.certificate__content_nameCourse}>
-                <span className={styles.bold}>{sertData.course_name}</span>
+                <span className={styles.bold}>{displayData.course_name}</span>
               </div>
             </div>
           </div>
@@ -136,12 +179,28 @@ export const Certificate = () => {
             <div className={styles.signs__content}>
               <div className={styles.sign}>
                 <div className={styles.sign__img}>
-                  <img className={styles.sign__signature} src={sertData.signature} alt="signature" />
-                  {/* <img className={styles.sign__stamp} src={stamp} alt="stamp" /> */}
+                  {displayData.signature ? (
+                    <img 
+                      className={styles.sign__signature} 
+                      src={displayData.signature} 
+                      alt="signature" 
+                      style={{
+                        maxWidth: '200px',
+                        maxHeight: '100px',
+                        objectFit: 'contain'
+                      }}
+                    />
+                  ) : (
+                    <img className={styles.sign__signature} src={signature} alt="signature" />
+                  )}
+                  <div className={styles.sign__stamp}>
+                    {displayData.stampType === 'stamp2' ? <StampSVG2 /> : <StampSVG1 />}
+                  </div>
                 </div>
                 <div className={styles.sign__signatory}>
                   Director
-                  {sertData.school_owner}
+                  <br />
+                  {displayData.signatory || displayData.signature}
                 </div>
               </div>
             </div>
@@ -155,7 +214,7 @@ export const Certificate = () => {
         <div className={styles.mainSkills__title}>Course Program</div>
         <div className={styles.mainSkills__content_skills}>The course provides knowledge on the following topics:</div>
         <div className={styles.mainSkills__content_modules}>
-          {sertData.sections.map((module: any, index: number) => (
+          {displayData.sections.map((module: any, index: number) => (
             <CertificatCourseModules
               section={module}
               sectionIndex={index}
