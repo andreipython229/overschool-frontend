@@ -75,13 +75,12 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
         </div>
 
         <Button
-          text="Подключить"
-          variant="primary"
-          onClick={(e) => {
-            e.stopPropagation()
-            onSelect(plan)
-            onOpenModal()
-          }}
+  text="Подключить"
+  variant="primary"
+  onClick={() => {
+    window.location.href = 'https://t.me/coursehub_admin'
+  }}
+
           style={{ marginTop: '1em', width: '100%' }}
         />
 
