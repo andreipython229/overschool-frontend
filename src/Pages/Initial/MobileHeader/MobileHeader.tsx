@@ -8,13 +8,18 @@ import Security from '../../../components/common/IconSvg/SecurityIcon';
 import Timer from '../../../components/common/IconSvg/TimerIcon';
 import ChatIcon from '../../../components/common/IconSvg/ChatIcon';
 import MedalStar from '../../../components/common/IconSvg/MedalStarIcon';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import { Path } from 'enum/pathE'
+import { useAppSelector } from '../../../store/hooks';
+import { authSelector } from '../../../selectors';
 
 export const MobileHeader: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isPlatformOpen, setIsPlatformOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const navigate = useNavigate();
+  const isLogin = useAppSelector(authSelector);
+  const telegramLink = isLogin ? "https://t.me/course_hb" : "https://t.me/coursehub_admin";
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -101,6 +106,11 @@ export const MobileHeader: FC = () => {
 
               </div>
             )}
+          </div>
+          <div className={styles.nav_item}>
+            <a href={telegramLink} target="_blank" rel="noopener noreferrer">
+              <TelegramIcon className={styles.icon} style={{ color: '#357EEB', width: 24, height: 24 }} />
+            </a>
           </div>
           <div className={`${styles.nav_item} ${isLoginOpen ? styles.active : ''}`} onClick={toggleLoginMenu}>
             Войти

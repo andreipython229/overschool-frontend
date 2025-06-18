@@ -32,14 +32,12 @@
 
 .nav_links {
   display: flex;
-  gap: 37px;
+  gap: 16px;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   flex-shrink: 1;
 
   @media (max-width: 360px) {
-
     left: 75px;
-
   }
 }
 
