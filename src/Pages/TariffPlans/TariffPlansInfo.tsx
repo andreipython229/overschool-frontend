@@ -101,12 +101,16 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
   }}
 >
   {planFeatures[plan.name].features.map((text, index) => (
-    <li key={index} className={styles.featureItem}>
-       {/* можно динамически иконки, если надо */}
-      <img src="/icons/cloud.svg"
-       alt="Иконка" /> {text}
-    </li>
-  ))}
+  <li key={index} className={styles.featureItem}>
+    <img
+      src={featureIcons[text] || '/img/account/statistic.svg'}
+      alt="Иконка"
+      style={{ marginRight: '8px', width: '20px', height: '20px' }}
+    />
+    {text}
+  </li>
+))}
+
 
   {planFeatures[plan.name].disabled?.map((text, index) => (
     <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
@@ -485,21 +489,23 @@ export const TariffPlansInfo: FC = () => {
     Попробуйте весь функционал в процессе использования<br />
     и убедитесь, насколько он удобен.
   </p>
-  <button
-    style={{
-      marginTop: '20px',
-      padding: '12px 24px',
-      fontSize: '16px',
-      fontWeight: '600',
-      backgroundColor: '#007BFF', // синий цвет кнопки
-      color: '#fff',
-      border: 'none',
-      borderRadius: '6px',
-      cursor: 'pointer',
-    }}
-  >
-    Попробовать бесплатно
-  </button>
+ <button
+    onClick={() => window.location.href = 'https://platform.coursehb.ru/create-school/'}
+  style={{
+    marginTop: '20px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: '600',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  }}
+>
+  Попробовать бесплатно
+</button>
+
 </div>
 
 
@@ -608,3 +614,21 @@ const planFeatures: Record<string, { features: string[]; disabled?: string[] }> 
   },
 }
 
+
+
+
+
+const featureIcons: Record<string, string> = {
+  'Безлимит ГБ': '/img/account/statistic.svg',
+  '1 курс': '/icons/course.svg',
+  'До 10 учеников': '/icons/students.svg',
+  '1 сотрудник': '/icons/staff.svg',
+  '10 курсов': '/icons/courses.svg',
+  '50 учеников': '/icons/group.svg',
+  '11 сотрудников': '/icons/team.svg',
+  '50 курсов': '/icons/large-courses.svg',
+  '500 учеников': '/icons/large-group.svg',
+  'Безлимит': '/icons/unlimited.svg',
+  'White Label': '/icons/white-label.svg',
+  'Свой домен': '/icons/domain.svg',
+}
