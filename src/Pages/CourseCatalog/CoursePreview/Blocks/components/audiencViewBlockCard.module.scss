@@ -1,19 +1,25 @@
 @import 'scss/mixin.scss';
 @import 'scss/variable.scss';
 
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
 .wrapper {
   width: 100%;
   height: 330px;
   border-radius: 20px;
-  box-shadow: 0 2px 8px rgb(147, 147, 147);
-  background-color: #ffffff;
-  display: grid;
-  grid-template-rows: 170px 40px 40px;
-  grid-gap: 15px;
+  box-shadow: 0px 0px 8px 0px #3241954D;
+  background-color: rgba(53, 126, 235, 0.3);
+  backdrop-filter:blur(23px);
+  // display: grid;
+  // grid-template-rows: 170px 40px 40px;
+  // grid-gap: 15px;
   //@include display(flex, column, center, center);
   //gap: 5rem;
   //padding: 2rem;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   position: relative;
 
   button {
@@ -44,14 +50,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
+    bottom: 204px;
+    left: 22px;
 
     img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: rgba(248, 229, 255, 0.68);
-      border: none;
+      width: 170px;
+      height: 170px;
+      object-fit: contain;
     }
 
     &_error {
@@ -69,37 +75,125 @@
   }
 
   &_title {
-    width: 100%;
     display: flex;
     justify-content: center;
+    position: absolute;
+    right: 47px;
+    top: 50px;
+    max-width: 200px;
 
     &_text {
-      padding: 5px;
-      width: 90%;
-      color: #ba75ff;
-      text-align: center;
-      font-weight: bolder;
+      color: $color-darkblue;
+      @include font(700, 30px, normal);
+      text-transform: uppercase;
+      text-align: right;
       border: none;
-      font-family: 'Inter', sans-serif;
+      background: none;
+      outline: none;
+      font-family: 'SFPRORegular';
       resize: none;
-      font-size: 20px;
     }
   }
 
   &_description {
-    width: 100%;
+    width: calc(100% - 44px);
     display: flex;
     justify-content: center;
 
     &_text {
-      padding: 5px;
+      margin: 140px 0 20px 22px;
       width: 90%;
-      color: #34495e;
-      text-align: center;
+      color: #324195;
+      text-align: left;
       border: none;
-      font-family: 'Inter', sans-serif;
+      background: none;
+      @include font(700, 23px, normal);
+      outline: none;
+      font-family: 'SFPRORegular';
       resize: none;
-      font-size: 17px;
+    }
+  }
+}
+
+@media only screen and (min-width: 781px) and (max-width: 1255px) {
+  .wrapper {
+    &_imageBox {
+      top: -10px;
+      img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+    &_title {
+      position: absolute;
+      right: 20px;
+      top: 40px;
+
+      &_text {
+        @include font(700, 24px, normal);
+      }
+    }
+    
+  }
+}
+
+@media only screen and (min-width: 551px) and (max-width: 780px) {
+  .wrapper {
+
+    &_imageBox {
+
+      img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    &_description {
+
+      &_title {
+        @include font(600, 20px, normal);
+        margin: 120px 0 20px 20px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 550px) {
+  .wrapper {
+    width: 100%;
+    min-height: 150px;
+
+    &_imageBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 22px;
+
+      img {
+        width: 100px;
+        height: 100px;
+
+      }
+
+    }
+
+    &_title {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+
+      &_text {
+        @include font(700, 22px, normal);
+      }
+    }
+
+    &_description {
+
+      &_text {
+        @include font(500, 16px, normal);
+      }
     }
   }
 }

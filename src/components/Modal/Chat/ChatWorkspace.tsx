@@ -13,30 +13,25 @@ import styles from './chat.module.scss'
 
 import { useLazyFetchMessagesQuery } from '../../../api/chatsService'
 
-import { w3cwebsocket, IMessageEvent } from 'websocket'
-import { removeChat } from '../../../store/redux/chats/slice'
+import { w3cwebsocket } from 'websocket'
 import { selectUser } from '../../../selectors'
 
 export const ChatWorkspace: FC = () => {
   const { chatId } = useAppSelector(state => state.chat)
   const { userId } = useAppSelector(state => state.user)
   const { role } = useAppSelector(selectUser)
-  const dispatch = useAppDispatch()
   const [openGroupPreview, setOpenGroupPreview] = useState<boolean>(false)
   const [selectedChatData, setSelectedChatData] = useState<ChatI>()
   const [usersInGroup, setUsersInGroup] = useState<SenderI[]>()
-  const [socket, setSocket] = useState<WebSocket>()
   const [messages, setMessages] = useState<Messages>([])
   const [message, setMessage] = useState<string>('')
   const [files, setFiles] = useState<string[]>([])
 
-  const [fetchChatData, { data, isFetching, isSuccess }] = useLazyFetchChatQuery()
+  const [fetchChatData, { data, isFetching }] = useLazyFetchChatQuery()
   const [fetchMessages, { data: messagesData }] = useLazyFetchMessagesQuery()
 
   const messagesRef = useRef<HTMLDivElement | null>(null)
   const socketRef = useRef<w3cwebsocket | null>(null)
-
-  console.log(messages)
 
   useEffect(() => {
     if (chatId) {
@@ -49,26 +44,12 @@ export const ChatWorkspace: FC = () => {
             ? `wss://apidev.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`
             : `ws://sandbox.coursehb.ru/ws/chats/${chatId}?user_id=${userId}`,
         )
-        // socketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/chats/${chatId}?user_id=${userId}`)
-        socketRef.current.onopen = () => {
-          console.log('WebSocket connected')
-        }
 
         socketRef.current.onmessage = event => {
           if (typeof event.data === 'string') {
             const receivedMessage: MessageI = JSON.parse(event.data)
             setMessages(messages => [...messages, receivedMessage])
-            // console.log('Received message:', receivedMessage);
-          } else {
-            // console.log('Received non-string data:', event.data);
           }
-        }
-        socketRef.current.onerror = event => {
-          console.log('socket error = ', event)
-        }
-
-        socketRef.current.onclose = event => {
-          console.log(event)
         }
       }
     }
@@ -85,15 +66,6 @@ export const ChatWorkspace: FC = () => {
       setMessages(messagesData)
     }
   }, [messagesData])
-
-  // useEffect(() => {
-  //   if (socket && socket.readyState === WebSocket.OPEN) {
-  //     socket.onmessage = event => {
-  //       const data = JSON.parse(event.data)
-  //       console.log(data)
-  //     }
-  //   }
-  // }, [socket])
 
   const handleSubmit = async () => {
     if (message.length > 0 || files.length > 0) {

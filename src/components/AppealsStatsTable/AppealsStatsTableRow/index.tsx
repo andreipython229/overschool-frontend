@@ -6,6 +6,7 @@ import { useBoolean } from 'customHooks/useBoolean'
 import styles from '../appealsStatsTable.module.scss'
 import { appealStatT } from 'types/schoolsT'
 import { ModalCheckAppeal } from 'components/Modal/ModalCheckAppeal/ModalCheckAppeal'
+import user_avatar from '../../../assets/img/common/user_avatar_appeal.svg'
 
 type appealsStatsTableRowT = {
   appealData: appealStatT
@@ -19,31 +20,53 @@ export const AppealsStatsTableRow: FC<appealsStatsTableRowT> = memo(({ appealDat
 
   const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(created_at))
 
+  const readStatus = appealData.is_read ? 'Обработана' : 'Ждет обработки'
+  const { circleColor, textColor } = iconsByStatus[readStatus]
+  const backgroundColor = appealData.is_read ? '#357EEB' : undefined  
+
   return (
     <>
       <tr onClick={open} role="row">
         <td style={{ display: 'flex', alignItems: 'center' }}>
-          <div className={styles.table_body_avatar_div}>{name.charAt(0).toUpperCase()}</div>
-          <span style={{ marginLeft: '15px', color: '#424345' }}>{name}</span>
+          <img style={{ borderRadius: '14px', width: '64px', height: '64px' }} src={user_avatar} alt="avatar" />
+          <span>{name}</span>
         </td>
-        <td style={{ margin: '0 0 0 27px' }}>{email}</td>
-        <td style={{ margin: '0 0 0 27px' }}>{phone}</td>
-        <td style={{ margin: '0 0 0 27px' }}>{course_name}</td>
-        <td style={{ margin: '0 0 0 27px' }}>
-          {mmddyyyy} в {hoursAndMinutes}
+        <td>{email}</td>
+        <td>{phone}</td>
+        <td>{course_name}</td>
+        <td>
+          <span style={{color: '#357EEB'}}>{mmddyyyy} в {hoursAndMinutes}</span>
+          {/* {mmddyyyy} в {hoursAndMinutes} */}
         </td>
-        <td style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
-          {appealData.is_read ? iconsByStatus['Обработана'].icon : iconsByStatus['Ждет обработки'].icon}
-          {appealData.is_read ? (
-            <span style={{ margin: '0 0 0 5px', color: iconsByStatus['Обработана'].textColor }}>{'Обработана'}</span>
-          ) : (
-            <span style={{ margin: '0 0 0 5px', color: iconsByStatus['Ждет обработки'].textColor }}>{'Ждет обработки'}</span>
-          )}
+        <td>
+          <div style={{ backgroundColor }} className={styles.table_body_status}>
+            <div
+              style={{
+              width: '10px',
+              height: '10px',
+              borderRadius: '50%',
+              backgroundColor: circleColor,
+              }}
+            ></div>
+            <span style={{ marginLeft: '5px', color: textColor }}>{readStatus}</span>
+          </div>
         </td>
       </tr>
       {isModalOpen && (
         <Portal closeModal={close}>
-          <ModalCheckAppeal id={id} closeModal={close} refetch={refetchTable} />
+          <ModalCheckAppeal 
+            isOpen={isModalOpen} 
+            onClose={close} 
+            appeal={{ id, description: '' }} 
+            onApprove={() => {
+              refetchTable();
+              close();
+            }}
+            onReject={() => {
+              refetchTable();
+              close();
+            }}
+          />
         </Portal>
       )}
     </>

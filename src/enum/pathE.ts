@@ -42,12 +42,15 @@ export enum Path {
   HelpChat = 'chat/',
   Appeals = 'school-appeals/',
   Meetings = 'meetings/',
+  Webinars = 'webinars/',
+  WebinarPage = '/webinar/:slug/',
   Materials = 'materials/',
   CourseMaterials = 'create-course/:course_id/materials/',
   Rating = 'rating/',
   Bonus = 'bonus/',
   HelpGidStart = 'help-gid-start/',
   HelpPlatformSettings = 'help-platform-settings/',
+  SocialAuth = '/social-auth-complete/',
 }
 
 export enum SettingsPath {
@@ -73,6 +76,7 @@ export enum CreateCoursePath {
   Page = 'page',
   Comments = 'comments',
   Materials = 'materials',
+  Certificates = 'certificates',
 }
 
 export enum Student {

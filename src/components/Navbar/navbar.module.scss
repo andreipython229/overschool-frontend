@@ -20,17 +20,6 @@
   transition: $trans-dur05 ease-in-out;
 
 
-
-  // @media only screen and (min-width: 481px) and (max-width: 1024px) {
-  //   @include position_b_l(fixed, 0, 0, 10);
-  //   @include display(flex, row, center, center);
-  //   width: 100%;
-  //   height: 70px;
-  //   background: $color-white;
-  //   box-shadow: 0 0 5px #d9d9d9;
-  //   padding: 35px 0;
-  // }
-
   &_show_btn {
     @include display(flex, column, space-between, center);
     position: fixed;
@@ -74,36 +63,24 @@
     border-radius: 10px;
     margin-bottom: 0.8vh;
 
-    & div {
-      @include display(flex, column, center, center);
-      width: 100%;
-      text-decoration: none;
-      height: $icon-size;
-      margin-bottom: 3px;
+    // & div {
+    //   @include display(flex, column, center, center);
+    //   width: 100%;
+    //   text-decoration: none;
+    //   height: $icon-size;
+    //   margin-bottom: 3px;
 
-      svg {
-        height: 100%;
-        width: auto;
-      }
-    }
+    //   svg {
+    //     height: 100%;
+    //     width: auto;
+    //   }
+    // }
 
     & p {
       color: #332f36;
     }
 
-    // cursor: pointer;
-    // margin-top: -0.2em;
-    // border-radius: 10px;
-    // color: #d2cfdc;
-    // width: max-content;
-    // height: max-content;
-
-    // &:hover {
-    //   border-radius: 10px;
-    //   background: #e0dced;
-    //   color: #ba75ff;
-    // }
-
+    
     & span {
       text-decoration: none;
       cursor: pointer;
@@ -121,6 +98,10 @@
     & div svg path {
       fill: $color-white;
     }
+
+    & div > div > span {
+      color: #ffffff;
+    }
   }
 
   &_settings {
@@ -133,22 +114,26 @@
     // cursor: pointer;
     gap: 0.8vh;
     transition-duration: $trans-dur02;
+    position: relative;
+
+    &.collapsed {
+      height: 60px;
+      min-height: 60px;
+      overflow: hidden;
+    }
+
+    @media screen and (max-width: 480px) {
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+    }
 
     &_mob_empty {
       display: none;
       height: 100px;
     }
 
-
-    // @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    //   height: 100%;
-    //   width: 100%;
-    //   display: flex;
-    //   flex-direction: row;
-    //   justify-content: space-evenly;
-    //   margin: 20px;
-    //   align-items: center;
-    // }
 
     &_icon_container,
     &_setting_account {
@@ -175,7 +160,7 @@
         background-color: $color-blue;
         cursor: pointer;
         fill: $color-white;
-
+        image.png
         svg path {
           fill: $color-white;
           stroke: $color-white;
@@ -193,10 +178,18 @@
 
       @media only screen and (min-width: 320px) and (max-width: 375px) {
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
       @media only screen and (min-width: 375px) and (max-width: 480px) {
         margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
     }
 
@@ -299,10 +292,6 @@
     margin: 0;
   }
 
-  // &:hover {
-  //   background: #357EEB;
-  //   color: $color-white;
-  // }
 
   &_container {
     @include display(flex, column, center, center);
@@ -358,8 +347,6 @@
 
 
 
-
-
 @media screen and (max-width: 1023px),
 screen and (max-aspect-ratio: 1/1) {
 
@@ -372,22 +359,8 @@ screen and (max-aspect-ratio: 1/1) {
     max-height: 70px;
     border-radius: 0;
     padding: 9px;
-    background: $color-white;
-    // box-shadow: none;
-
-    // background: $color-white;
-    //  box-shadow: 0 0 5px #d9d9d9;
-
-    // @media only screen and (min-width: 375px) and (max-width: 480px) {
-    //   @include position_b_l(fixed, 0, 0, 10);
-    //   @include display(flex, row, center, center);
-    //   width: 100%;
-    //   height: 70px;
-    //   background: $color-white;
-    //   box-shadow: 0 0 5px #d9d9d9;
-    //   padding: 35px 0;
-    // }
-
+    background: linear-gradient(90deg, #ffffff 0%, #f3f6fb 100%) !important;
+    
     &_show_btn {
       display: none;
     }
@@ -399,8 +372,6 @@ screen and (max-aspect-ratio: 1/1) {
       margin: 0;
       height: 50px;
       @include display(flex, column, center, center);
-
-
 
       p {
         display: none;
@@ -421,10 +392,7 @@ screen and (max-aspect-ratio: 1/1) {
         background-color: $color-white;
 
 
-        // & div svg path {
-        //   fill: #332f36;
-        // }
-
+        
         div {
           svg {
             path {
@@ -441,8 +409,6 @@ screen and (max-aspect-ratio: 1/1) {
         .mobile_active_indicator {
           display: block;
         }
-
-        
       }
     }
 
@@ -450,7 +416,7 @@ screen and (max-aspect-ratio: 1/1) {
       @include display(flex, row, space-between, center);
       height: 100%;
       gap: 0;
-
+      padding: 0 1rem;
 
       &_mob_empty {
         display: block;
@@ -462,7 +428,6 @@ screen and (max-aspect-ratio: 1/1) {
         width: 30px;
         height: 50px;
         @include display(flex, column, center, center);
-
 
         .chatIcon {
           width: 30px;
@@ -498,8 +463,6 @@ screen and (max-aspect-ratio: 1/1) {
         width: 30px;
         max-height: 50px;
         @include display(flex, column, center, center);
-
-
 
         div {
           @include display(flex, row, center, center);
@@ -553,36 +516,8 @@ screen and (max-aspect-ratio: 1/1) {
 
       &:hover {
         border-radius: 10px;
-        // background-color: transparent;
         cursor: pointer;
-        // fill: $color-white;
-
-        // svg path {
-        //   fill: #332f36;
-        //   stroke: #332f36;
-        // }
-
-        // p {
-        //   color: #332f36;
-        // }
       }
-
-
-
-
-      // @media only screen and (min-width: 320px) and (max-width: 375px) {
-      // margin: 20px;
-
-      // }
-
-      // @media only screen and (min-width: 375px) and (max-width: 480px) {
-      //   height: 100%;
-      //   width: 100%;
-      //   display: flex;
-      //   flex-direction: row;
-      //   justify-content: space-evenly;
-      //   align-items: center;
-      // }
 
       .mobile_overai_btn_container {
         @include display(flex, column, center, center);
@@ -595,38 +530,244 @@ screen and (max-aspect-ratio: 1/1) {
           border-radius: 20px;
         }
       }
+
+      &.collapsed {
+        height: 60px;
+        min-height: 60px;
+        overflow: hidden;
+      }
     }
   }
-
 }
 
-@media screen and (min-width: 480px){
-  .navbar{
+@media screen and (min-width: 480px) {
+  .navbar {
     padding: 9px 20px;
   }
 }
 
-
-@media screen and (min-width: 560px){
-  .navbar{
+@media screen and (min-width: 560px) {
+  .navbar {
     padding: 9px 30px;
   }
 }
 
-@media screen and (min-width: 650px){
-  .navbar{
+@media screen and (min-width: 650px) {
+  .navbar {
     padding: 9px 40px;
   }
 }
 
-@media screen and (min-width: 750px){
-  .navbar{
+@media screen and (min-width: 750px) {
+  .navbar {
     padding: 9px 70px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .navbar{
+  .navbar {
     padding: 20px 0;
+  }
+}
+
+// Стили для кнопки переключения
+.toggleNavbarButton {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #357eeb;
+  }
+}
+
+// Стили для содержимого свернутого навбара
+.collapsedContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Адаптивные стили для мобильных устройств
+@media screen and (max-width: 1023px) {
+  .toggleNavbarButton {
+    position: fixed !important;
+    width: 60px !important;
+    height: 30px !important;
+    border-radius: 30px 30px 0 0 !important;
+    background-color: #ff5722 !important;
+    box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.3) !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    transition: bottom 0.3s ease !important;
+    
+    // Когда навбар не свернут, кнопка находится над ним
+    bottom: 70px !important; // Высота навбара
+    
+    &::before {
+      content: "" !important;
+    }
+    
+    svg {
+      color: #ffffff !important;
+      font-size: 24px !important;
+    }
+    
+    &:hover {
+      background-color: #e64a19 !important;
+    }
+  }
+  
+  // Когда навбар свернут, кнопка находится внизу экрана
+  .collapsed {
+    .toggleNavbarButton {
+      bottom: 0 !important;
+    }
+  }
+
+  .navbar_setting_account {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-evenly !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .navIconWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .navIconContainer {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .navIcon {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    min-height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
+    font-size: 58px !important;
+    padding: 0 !important;
+  }
+  .navIcon svg {
+    width: 58px !important;
+    height: 58px !important;
+  }
+}
+
+// Стили для иконок в навбаре
+.navbarIcon {
+  opacity: 0.8;
+  font-size: 3.5em;
+  padding: 0.15em;
+  
+  // Вариант для иконки тех. поддержки
+  &.techSupportIcon {
+    margin-bottom: -0.5rem;
+  }
+  
+  // Вариант для иконки "Домой"
+  &.homeIcon {
+    padding: 0.1em;
+  }
+}
+
+// Стили для SVG иконок
+.svgIcon {
+  width: 50px;
+  height: 50px;
+  
+  // Стили для иконки выхода
+  &.logoutIcon {
+    width: 38px;
+    height: 28px;
+  }
+}
+
+// Стили для иконки выхода из профиля
+.logoutSvgIcon {
+  stroke: #e0dced;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.navIconWrapper {
+  margin: 0;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.navIcon {
+  /* Базовые стили для иконок, не задаем фиксированный размер для десктопа */
+}
+
+@media screen and (max-width: 1023px) {
+  .navIconWrapper {
+    padding: 0 4px;
+  }
+  
+  .navIconContainer {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .navIcon {
+    width: 58px !important;
+    height: 58px !important;
+    min-width: 58px !important;
+    min-height: 58px !important;
+    max-width: 58px !important;
+    max-height: 58px !important;
+    font-size: 58px !important;
+    padding: 0 !important;
+  }
+  
+  /* Стили для SVG элементов внутри .navIcon */
+  .navIcon svg {
+    width: 58px !important;
+    height: 58px !important;
   }
 }

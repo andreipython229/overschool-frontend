@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
 import { LoginParamsT, validateLogin } from 'utils/validationLogin'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, authState, id, logoutState, role, userName } from 'store/redux/users/slice'
+import { auth, authState, id, logoutState, role, userEmail, userName } from 'store/redux/users/slice'
 import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
 import { Input } from 'components/common/Input/Input/Input'
-import { isSecurity, unSecurity } from '../../assets/img/common'
+import { facebook, google, isSecurity, maillog, unSecurity, yandex } from '../../assets/img/common'
 import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from 'api/forgotPassword'
 import { Toast } from 'primereact/toast'
 import { generatePath, useNavigate } from 'react-router-dom'
@@ -25,6 +25,9 @@ import { selectUser } from 'selectors'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { BackgroundAnimation } from 'components/BackgroundAnimation'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
+import { LogoHeader } from './LogoHeader'
+
+import { Back } from './Back'
 
 interface INotification {
   state: boolean
@@ -113,6 +116,7 @@ export const LoginPage = () => {
           .then(data => {
             dispatch(authState({ access: data.access, refresh: data.refresh }))
             dispatch(id(data.user.id))
+            dispatch(userEmail(data.user.email))
             localStorage.setItem('id', data.user.id.toString())
           })
       } catch {
@@ -255,11 +259,12 @@ export const LoginPage = () => {
       <BackgroundAnimation />
       <div className={styles.loginPage_btnBack}>
         <a href={Path.InitialPage}>
-          <img src={leftArrow} alt="leftArrow" />
+          <Back className={styles.back} />
+          {/*<img src={leftArrow} alt="leftArrow"/>*/}
         </a>
       </div>
       <div className={styles.loginPage_logoWrapper}>
-        <img src={logoHeaderLogin} alt="logoHeaderLogin" />
+        <LogoHeader />
       </div>
       <div className={styles.loginPage_formWrapper}>
         {isHidden && (
@@ -312,16 +317,32 @@ export const LoginPage = () => {
                   Забыли пароль?
                 </a>
               </div>
-              {/* <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
+              <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or}>
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineLeft}></div>
                 <p>Или</p>
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
-                <img src={facebook} alt="facebook" />
-                <img src={google} alt="google" />
-                <img src={maillog} alt="maillog" />
-              </div> */}
+                <a
+                  href={`${
+                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                  }/accounts/google/login/`}
+                  className={styles.socialIcon}
+                  style={{ padding: '8px' }}
+                  title="Google"
+                >
+                  <img src={google} alt="google" style={{ objectFit: 'fill', width: '100%' }} />
+                </a>
+                <a
+                  href={`${
+                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                  }/accounts/yandex/login/`}
+                  className={styles.socialIcon}
+                  title="Yandex"
+                >
+                  <img src={yandex} alt="yandex" style={{ objectFit: 'fill', width: '100%' }} />
+                </a>
+              </div>
             </div>
           </form>
         )}

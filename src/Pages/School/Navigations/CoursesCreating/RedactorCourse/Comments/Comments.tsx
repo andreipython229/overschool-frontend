@@ -73,8 +73,7 @@ export const Comments: FC = () => {
       clickedSectionIdArr.push(index)
     }
   }
-
-  return (
+    return (
     <div className={styles.wrapper}>
       <div className={styles.redactorCourse_leftSide}>
         <div className={styles.redactorCourse_leftSide_title}>

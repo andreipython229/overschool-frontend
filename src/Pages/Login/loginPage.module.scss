@@ -18,22 +18,15 @@
     @media only screen and (min-width: 320px) and (max-width: 1000px) {
       left: 10px;
       top: 13vw;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
       position: absolute;
-      background: #cfe2ff;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+
     position: absolute;
     left: 30px;
     top: 93px;
-    background: #cfe2ff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,7 +54,7 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
-    margin-top: 100px;
+    margin-top: 20px;
     animation: fadeIn 2s ease-in-out forwards;
 
     @keyframes fadeIn {
@@ -112,7 +105,6 @@
     padding: 0 1rem;
     flex-direction: column;
     align-items: center;
-    //background-color: #F3F4F6;
     opacity: 0;
     animation: slideIn 1.5s ease-in-out forwards;
 
@@ -257,6 +249,7 @@
             color: #4d5766;
             transition: color 0.3s;
           }
+
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             display: block;
           }
@@ -350,6 +343,36 @@
     color: #ff3c3c;
     font-size: 12px;
     margin-left: 8px;
-    font: bold;
+    font-weight: bold;
+  }
+}
+
+.socialIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 5px;
+  background-color: #f3f4f6;
+
+  img {
+    transition: transform linear 0.15s;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.back:hover {
+  cursor: pointer;
+
+  rect {
+    fill: #357EEB;
+  }
+
+  path {
+    fill: white;
   }
 }

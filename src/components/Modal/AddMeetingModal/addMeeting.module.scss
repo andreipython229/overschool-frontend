@@ -1,0 +1,263 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+.main {
+  &_title {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.modal_content {
+  background: rgba(255, 255, 255, 1);
+  padding: 44px;
+  border-radius: 24px;
+  border: 2px solid transparent;
+  background-image: linear-gradient(#fff, #fff), 
+                    linear-gradient(90deg, #3170E7 13.5%, #7A90F7 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  position: relative;
+  width: 525px;
+  height: 446px;
+  overflow-y: auto;
+  z-index: 1001;
+
+  &_title {
+    margin-bottom: 20px;
+    text-align: center;
+    
+    .title_container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      img {
+        width: 34px;
+        height: 34px;
+      }
+
+      span {
+        font-family: SF Pro Display;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 100%;
+      }
+    }
+  }
+
+  &_choosingTitle{
+    font-family: SF Pro Display;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    color: rgba(51, 47, 54, 1);
+    text-align: center;
+  }
+}
+
+.close_button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  color: #666;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../../../assets/img/common/close.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+
+  &:hover {
+    background-image: url(./images/close-blue.png);
+    background-repeat: no-repeat;
+    background-size: 55%;
+    background-position: 50% 50%;
+  }
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.input_container {
+  width: 100%;
+}
+
+.input_field,
+.textarea_field,
+.datepicker_field {
+  width: 437px;
+  height: 52px;
+  padding: 8px 12px;
+  border: 1px solid #357EEB;
+  border-radius: 14px;
+  font-family: SF Pro Display;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(51, 47, 54, 1);
+  background-color: rgba(255, 255, 255, 1);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:focus {
+    border-color: #3170E7;
+    box-shadow: 0 0 0 2px rgba(49, 112, 231, 0.1);
+  }
+
+  &::placeholder {
+    color: rgba(51, 47, 54, 1);
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.textarea_field {
+  height: 100px;
+  resize: vertical;
+  min-height: 100px;
+  max-height: 200px;
+}
+
+.datepicker_container {
+  width: 100%;
+
+  :global {
+    .react-datepicker-wrapper {
+      width: 100%;
+    }
+
+    .react-datepicker__input-container {
+      width: 100%;
+    }
+
+    .react-datepicker {
+      font-family: SF Pro Display;
+      border: 1px solid #357EEB;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background: white;
+
+      &__header {
+        background-color: #CFE2FF;
+        border-bottom: 1px solid #357EEB;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      &__current-month {
+        color: #332F36;
+        font-weight: 500;
+      }
+
+      &__day {
+        color: #332F36;
+
+        &:hover {
+          background-color: #357EEB;
+          color: white;
+        }
+
+        &--selected {
+          background-color: #357EEB;
+          color: white;
+        }
+
+        &--keyboard-selected {
+          background-color: #CFE2FF;
+          color: #332F36;
+        }
+      }
+
+      &__day-name {
+        color: #332F36;
+      }
+
+      &__time-container {
+        border-left: 1px solid #357EEB;
+      }
+
+      &__time-list-item {
+        &:hover {
+          background-color: #357EEB !important;
+          color: white;
+        }
+
+        &--selected {
+          background-color: #357EEB !important;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.button_container {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.submit_button,
+.cancel_button {
+  width: 211.5px;
+  height: 54px;
+  border-radius: 10px;
+  font-family: SF Pro Display;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.submit_button {
+  background: rgba(53, 126, 235, 1);
+  border: none;
+  color: white;
+
+   &:hover {
+    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+  }
+}
+
+.cancel_button {
+  background: white;
+  border: 2px solid rgba(53, 126, 235, 1);
+  color: rgba(51, 47, 54, 1);
+
+  &:hover {
+    background: rgba(53, 126, 235, 1);
+    color: white;
+  }
+}
+
+.error_message {
+  color: #dc3545;
+  font-family: SF Pro Display;
+  font-size: 14px;
+  padding: 8px 12px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}

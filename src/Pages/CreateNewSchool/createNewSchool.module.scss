@@ -14,13 +14,9 @@
   height: 100%;
 
   &_btnBack {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
     position: absolute;
     left: 30px;
     top: 93px;
-    background: #CFE2FF;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,6 +24,29 @@
     img {
       width: 20px;
       height: 32px;
+    }
+
+    .iconDefault {
+      opacity: 1;
+      position: relative;
+    }
+
+    .iconHover {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+    }
+
+    &:hover {
+      .iconDefault {
+        opacity: 0;
+      }
+
+      .iconHover {
+        opacity: 1;
+      }
     }
   }
 
@@ -42,6 +61,7 @@
     justify-content: center;
     align-items: center;
     opacity: 0;
+    margin-top: 20px;
     animation: fadeIn 2s ease-in-out forwards;
 
     @keyframes fadeIn {
@@ -54,7 +74,7 @@
     }
 
     p {
-      color: #5873E2;
+      color: #5873e2;
       font-size: 35px;
       font-weight: 800;
       text-shadow: 2px 2px 4px rgba(63, 63, 63, 0.5);
@@ -73,12 +93,11 @@
       margin: auto;
       width: 100%;
       @media only screen and (min-width: 320px) and (max-width: 375px) {
-        background-color: #F3F4F6;
+        background-color: #f3f4f6;
       }
       @media only screen and (min-width: 375px) and (max-width: 480px) {
-        background-color: #F3F4F6;
+        background-color: #f3f4f6;
       }
-
 
       &_title {
         margin-top: 13px;
@@ -86,7 +105,6 @@
         font-size: 35px;
         line-height: 42px;
         color: #ffffff;
-        
       }
     }
   }
@@ -138,7 +156,6 @@
           margin-bottom: 10%;
         }
 
-        
         &_comment {
           margin-top: 1rem;
           text-align: center;
@@ -153,12 +170,10 @@
         font-size: 14px;
         line-height: 17px;
         letter-spacing: 0.02em;
-        color: #D1D5DB;
+        color: #d1d5db;
       }
 
       &_eMailWrapper {
-
-
         &_title {
           margin-top: 20px;
           margin-bottom: 8px;
@@ -168,12 +183,9 @@
           letter-spacing: 0.02em;
           color: #292e34;
         }
-
       }
 
       &_passwordWrapper {
-
-
         &_title {
           margin-top: 16px;
           margin-bottom: 8px;
@@ -206,6 +218,13 @@
         flex-direction: column;
         align-items: center;
 
+        &_socialMedia {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 15px;
+        }
+
         &_or {
           display: flex;
           flex-direction: row;
@@ -222,19 +241,19 @@
 
           &_lineLeft {
             width: 170px;
-            border-top: 1px solid #3C41A4;
+            border-top: 1px solid #3c41a4;
           }
 
           &_lineRight {
             width: 170px;
-            border-top: 1px solid #3C41A4;
+            border-top: 1px solid #3c41a4;
           }
         }
-        
+
         &_return {
           display: none;
           font-size: 10px;
-          color: #6F6F6F;
+          color: #6f6f6f;
           margin-left: 70%;
           margin-top: 5%;
 
@@ -242,17 +261,15 @@
             color: #4d5766;
             transition: color 0.3s;
           }
+
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             display: block;
           }
           @media only screen and (min-width: 375px) and (max-width: 480px) {
             display: block;
-            
           }
-  
         }
 
-      
         &_help {
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             display: none;
@@ -329,7 +346,7 @@
     z-index: -1;
     width: 50px;
     height: 50px;
-    background: #97C1FF;
+    background: #97c1ff;
     border-radius: 50%;
     scale: 10;
     filter: blur(25px);
@@ -344,7 +361,7 @@
     left: 100%;
     top: 100%;
     scale: 10;
-    background: #FFFFFFE5;
+    background: #ffffffe5;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate2 10s linear infinite;
@@ -358,7 +375,7 @@
     left: 100%;
     top: 0%;
     scale: 10;
-    background: #97C1FF;
+    background: #97c1ff;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate3 10s linear infinite;
@@ -372,10 +389,39 @@
     scale: 10;
     left: 0%;
     top: 100%;
-    background: #FFFFFFE5;
+    background: #ffffffe5;
     border-radius: 50%;
     filter: blur(25px);
     animation: bgAnimate4 10s linear infinite;
   }
 }
 
+.socialIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 5px;
+  background-color: #f3f4f6;
+
+  img {
+    transition: transform linear 0.15s;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.back:hover {
+  cursor: pointer;
+
+  rect {
+    fill: #357EEB;
+  }
+
+  path {
+    fill: white;
+  }
+}

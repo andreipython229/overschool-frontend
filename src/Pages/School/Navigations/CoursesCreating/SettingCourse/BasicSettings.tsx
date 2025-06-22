@@ -265,7 +265,7 @@ export const BasicSettings: FC<BasicSettingsT> = ({
         </div>
       </div>
       <div className={styles.short_discription_wrapper}>
-        <p className={styles.short_discription_title}>Кратное описание:</p>
+        <p className={styles.short_discription_title}>Краткое описание:</p>
         <div className={styles.settings_input}>
           <Input type={'text'} placeholder={'Введите краткое описание курса'} name="shortDescription" value={shortDescription} onChange={handleNameCourse}>
             <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
@@ -370,11 +370,11 @@ export const BasicSettings: FC<BasicSettingsT> = ({
               type={'text'}
               placeholder={'Введите'}
               name="catalog-link"
-              value={`https://overschool.by/course-catalog/${courseFind.course_id}/`}
+              value={`${window.location.origin}/course-catalog/${courseFind.course_id}/`}
             >
             <IconSvg className={styles.penIcon} width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
             <CopyToClipboard
-              text={`https://overschool.by/course-catalog/${courseFind.course_id}/`}
+              text={`${window.location.origin}/course-catalog/${courseFind.course_id}/`}
               onCopy={() => {
                 toast.current?.show({
                   severity: 'success',

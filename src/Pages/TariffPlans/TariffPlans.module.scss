@@ -27,32 +27,7 @@
       margin-top: 15px;
     }
 
-    @media only screen and (min-width: 480px) and (max-width: 1800px) {
-      font-size: 2vw;
-      font-weight: 800;
-      line-height: 2.5vw;
-    }
-
-    @media only screen and (min-width: 320px) and (max-width: 480px) {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 100%;
-      text-align: center;
-      margin-top: 16px;
-    }
-  }
-
-  &_header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: SF Pro Text, sans-serif;
-    text-align: center;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    color: rgba(51, 47, 54, 1);
-
-    @media only screen and (min-width: 1800px) {
+     @media only screen and (min-width: 1800px) {
       font-size: 46px;
       font-weight: 800;
       line-height: 54.89px;
@@ -83,7 +58,7 @@
     display: flex;
 
     &_cardGroup {
-      opacity: 0px;
+
       display: inline-flex;
       align-items: center;
       justify-content: space-around;
@@ -110,7 +85,7 @@
       }
 
       &_firstCard {
-        opacity: 0px;
+
         background-color: rgba(255, 255, 255, 1);
         box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
 
@@ -169,7 +144,7 @@
       }
 
       &_secondCard {
-        opacity: 0px;
+
         background-color: rgba(207, 226, 255, 1);
         box-shadow: 0px 0px 10.5px 0px rgba(0, 0, 0, 0.45);
         box-shadow: 0px 0px 25px 0px rgba(53, 126, 235, 1);
@@ -237,7 +212,7 @@
       }
 
       &_thirdCard {
-        opacity: 0px;
+
         background: rgba(50, 65, 149, 1);
         box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
 
@@ -296,7 +271,7 @@
     }
 
     &_banner {
-      opacity: 0px;
+
       background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
       align-items: center;
       flex-direction: row;
@@ -423,7 +398,7 @@
         }
 
         button {
-          opacity: 0px;
+
           border: none;
           background: rgba(53, 126, 235, 1);
           font-family: SF Pro Display;
@@ -487,7 +462,7 @@
 }
 
 .planCardBtn {
-  opacity: 0px;
+
   background: rgba(53, 126, 235, 1);
   border: none;
   font-family: SF Pro Display;
@@ -539,10 +514,10 @@
     line-height: 100%;
     margin-top: 1.5vw;
   }
-  
+
   button:disabled,
   button[disabled] {
-    opacity: 0px;
+
     background: rgba(53, 126, 235, 1);
     border: none;
     font-family: SF Pro Display;
@@ -680,7 +655,7 @@
     height: 0px;
     gap: 0px;
     border: 1px;
-    opacity: 0px;
+
 
     @media only screen and (min-width: 1800px) {
       width: 260px;
@@ -704,7 +679,7 @@
   ul {
     @media only screen and (min-width: 1100px) {
       gap: 32px;
-      opacity: 0px;
+
     }
 
     @media only screen and (min-width: 900px) and (max-width: 1100px) {
@@ -914,7 +889,7 @@
   flex-direction: column;
 
   &_wrap {
-    opacity: 0px;
+
     box-shadow: 0px 0px 8px 0px rgba(50, 65, 149, 0.3);
     background-color: rgba(255, 255, 255, 1);
     display: flex;
@@ -947,7 +922,7 @@
     }
 
     &_table {
-      opacity: 0px;
+
       table-layout: fixed;
       border-collapse: collapse;
 
@@ -1071,7 +1046,7 @@
 }
 
 .tariffs {
-  opacity: 0px;
+
   justify-content: center;
   align-items: center;
   display: grid;
@@ -1113,7 +1088,7 @@
   }
 
   &_start {
-    opacity: 0px;
+
     background: linear-gradient(180deg, #cfe2ff 0%, #bbceeb 100%);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
     width: 100%;
@@ -1230,7 +1205,7 @@
       }
 
       button {
-        opacity: 0px;
+
         font-family: SF Pro Display;
         font-weight: 500;
         text-align: center;
@@ -1302,7 +1277,7 @@
 
   &_personal {
     gap: 32px;
-    opacity: 0px;
+
     background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
     width: 100%;
@@ -1424,7 +1399,7 @@
         padding: 15px 40px 15px 40px;
         gap: 10px;
         border-radius: 10px;
-        opacity: 0px;
+
         border: none;
         background: rgba(255, 255, 255, 1);
         position: relative;
@@ -1786,10 +1761,35 @@
   &_btn {
     display: flex;
   }
+
+  &_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'SF Pro Text', sans-serif;
+    text-align: center;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: rgba(51, 47, 54, 1);
+  }
 }
 
 .btnCreate {
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 2rem;
+
+  @media only screen and (min-width: 480px) and (max-width: 1800px) {
+    font-size: 2vw;
+    font-weight: 800;
+    line-height: 2.5vw;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 100%;
+    text-align: center;
+    margin-top: 16px;
+  }
 }

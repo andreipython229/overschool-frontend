@@ -40,6 +40,9 @@ import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
 import { HelpGidStart } from 'Pages/HelpCenter/HelpGidStart'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
 import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
+import { SocialAuthPage } from 'ServicePages/SocialAuthPage'
+import WebinarPage from 'Pages/Webinar/webinarPage'
+import { Toaster } from 'react-hot-toast'
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -60,6 +63,7 @@ export const App = () => {
   useEffect(() => {
     if (
       !isLogin &&
+      pathname !== Path.SocialAuth &&
       pathname !== Path.CreateSchool &&
       pathname.split('/').at(-1) !== 'personalDataTreatmentPolicy' &&
       pathname.split('/').at(-1) !== 'publicOfferAgreement' &&
@@ -137,7 +141,9 @@ export const App = () => {
 
   return (
     <div className={styles.container}>
+      <Toaster position="bottom-right" reverseOrder={true} />
       <Routes>
+        <Route path={Path.WebinarPage} element={<WebinarPage />} />
         <Route path={Path.Catalog}>
           <Route index element={<CourseCatalogPage />} />
           <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
@@ -147,6 +153,7 @@ export const App = () => {
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.LoginPage} element={<LoginPage />} />
+        <Route path={Path.SocialAuth} element={<SocialAuthPage />} />
         <Route path={Path.HelpPage}>
           <Route index element={<HelpPage />} />
           <Route path={Path.Help} element={<HelpSchoolPage />} />

@@ -48,13 +48,15 @@ export const StudentsPerSchool: FC = () => {
 
   const handleReloadTable = () => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[0].students_table_info || []
+      const filter = tablesHeader.find(header => header.type === 'School')
+      const studentsTableInfo = filter ? filter.students_table_info : []
       const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
+      console.log(checkedFields)
       if (schoolId && checkedFields) {
         fetchStudents({
           filters,
           page,
-          id: Number(schoolId),
+          id: schoolId,
           fields: checkedFields,
         })
       }
@@ -98,7 +100,8 @@ export const StudentsPerSchool: FC = () => {
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[0].students_table_info || []
+      const header = tablesHeader.find(head => head.type === 'School')
+      const studentsTableInfo = header ? header.students_table_info : []
       const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
       if (checkedFields) {
         fetchStudents({
@@ -140,7 +143,7 @@ export const StudentsPerSchool: FC = () => {
   return (
     <>
       <AllStudentsBlock
-        invite={false}
+        invite={true}
         tableId={tableId as number}
         headerText={`Все ученики платформы`}
         addLastActiveFilter={handleAddLastActivityFilter}

@@ -10,10 +10,16 @@ export const AudiencViewBlockCard: React.FC<AudienceCardViewPropT> = ({position}
   return (
     <div className={styles.wrapper}>
       <div className={styles.wrapper_imageBox}>
-        <Avatar
+        {/* <Avatar
           alt="Overschool"
           src={landing.audience.chips[position].photo}
           sx={{width: 125, height: 125}}
+        /> */}
+        <img
+          src={landing.audience.chips[position].photo}
+          alt={landing.audience.chips[position].photo}
+          width={170}
+          height={170}
         />
       </div>
       <div className={styles.wrapper_title}>

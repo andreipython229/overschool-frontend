@@ -10,8 +10,10 @@ interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
 
-export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
-  // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
+import {ScrollToTopButton} from "../ScrollToTopButton/ScrollToTopButton";
+
+export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
+    // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
 
   // const currentYear = new Date().getFullYear()
   // const { schoolId } = useAppSelector(schoolSelector)
@@ -31,18 +33,19 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
   const { data } = useFetchSchoolQuery(Number(schoolId))
   const offerUrl = data?.offer_url;
 
-  return (
-    <footer className={styles.wrapper}>
-      <div className={styles.wrapper_img}>
-        <img src={footerlogo} alt="footerlogo" />
-      </div>
-      <div style={{ width: '100%' }}>
-        <img src={line} alt="line" style={{ width: '100%', objectFit: 'cover' }} />
-      </div>
-      <div className={styles.wrapper_box}>
-        <div className={styles.wrapper_box_contact}>
-          <h1>КОНТАКТЫ</h1>
-          {/* ********* !!!!!!!!! ******** НЕ УДАЛЯТЬ ****** !!!!! ***** */}
+    return (
+        <footer className={styles.wrapper}>
+            <div className={styles.wrapper_img}>
+                <img src={footerlogo} alt="footerlogo"/>
+                <ScrollToTopButton/>
+            </div>
+            <div style={{width: '100%'}}>
+                <img src={line} alt="line" style={{width: '100%', objectFit: 'cover'}}/>
+            </div>
+            <div className={styles.wrapper_box}>
+                <div className={styles.wrapper_box_contact}>
+                    <h1>КОНТАКТЫ</h1>
+                    {/* ********* !!!!!!!!! ******** НЕ УДАЛЯТЬ ****** !!!!! ***** */}
 
           {/* <div className={styles.wrapper_box_contact_pack}>
             <img src={callfooter} alt="callfooter" />
@@ -72,7 +75,7 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
           </div>
         </div>
         <div className={styles.wrapper_box_directions}>
-          <h1>Направления</h1>
+          <h1>ПЛАТФОРМА</h1>
           <p>Возможности</p>
           <Link className={styles.wrapper_box_directions_link} to={`${FooterPath.TariffPlans}`}>
             <p>Тарифы</p>
@@ -92,16 +95,16 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
         <div className={styles.wrapper_box_users}>
           <h1>ПОЛЬЗОВАТЕЛЯМ</h1>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.CookiePolicy}`}>
-            <p>Политика в отношении обработки cookie</p>
+            <p>Политика в отношении<br></br> обработки cookie</p>
           </Link>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.PersonalDataTreatmentPolicy}`}>
-            <p>Политика обработки персональных данных</p>
+            <p>Политика обработки<br></br> персональных данных</p>
           </Link>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.CookiePolicyDisclaimer}`}>
-            <p>Отказ в отношении обработки cookie</p>
+            <p>Отказ в отношении<br></br> обработки cookie</p>
           </Link>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.PersonalDataProcessing}`}>
-            <p>Отзыв согласия обработки персональных данных</p>
+            <p>Отзыв согласия обработки<br></br> персональных данных</p>
           </Link>
           {offerUrl ? (
             <a href={offerUrl} target="_blank" rel="noopener noreferrer">
@@ -113,6 +116,9 @@ export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
             </Link>
           )}
         </div>
+      </div>
+      <div style={{ width: '100%' }}>
+        <p className={styles.footer_ptext}>© 2024, ООО &quot;Курсхаб&quot;. Все права защищены.</p>
       </div>
     </footer>
   )

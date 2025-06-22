@@ -3,7 +3,7 @@ import { useNavigate, generatePath } from 'react-router-dom'
 import { MobileHeader } from 'Pages/Initial/MobileHeader/MobileHeader'
 import { Button } from 'components/common/Button/Button'
 import { FooterMobile } from 'components/Footer/index_mobile'
-import { Slider } from '../../components/slider/slider'
+import { Slider } from '../../components/slider/sliderMobile'
 import {
   removebg,
   student_nobile_cabinet,
@@ -220,7 +220,7 @@ export const MobileInitPage = () => {
             spaceBetween={15}
             centeredSlides={true}
             autoplay={{
-              delay: 250000, //вернуть 2500
+              delay: 2500, //вернуть 2500
               disableOnInteraction: false,
             }}
             pagination={{
@@ -292,7 +292,7 @@ export const MobileInitPage = () => {
             spaceBetween={30}
             centeredSlides={true}
             autoplay={{
-              delay: 250000, //вернуть 2500
+              delay: 2500, //вернуть 2500
               disableOnInteraction: false,
             }}
             pagination={{
@@ -413,14 +413,16 @@ export const MobileInitPage = () => {
         <div className={styles.init_main_mobile}>
           <div className={styles.init_main_mobile_text}>
             <h1>Сделайте обучение удобным и доступным в любой момент</h1>
-            <img src={mobile} alt="mobile" />
+            <div style={{ width: '100%', overflow: 'hidden', display: 'flex', justifyContent: 'center' }}>
+              <img src={mobile} alt="mobile" />
+            </div>
             <div className={styles.init_main_mobile_text_button}>
               <button
                   className={
                       styles.init_main_create_swiper_navigationButtons_activeButton
                   }
                   style={{ width: '40vw', height: '44px', background: '#357EEB' }}
-                  onClick={handleRegistrationUser}
+                  /* onClick={handleRegistrationUser} */
                 >
                   <img src={appstore} alt="appstore" style={{ width: '18px', position: 'static' }}/>
                   <h5 style={{ margin: '0', color: '#fffafa' }}>App Store</h5>
@@ -430,7 +432,7 @@ export const MobileInitPage = () => {
                       styles.init_main_create_swiper_navigationButtons_activeButton
                   }
                   style={{ width: '40vw', height: '44px', background: '#357EEB' }}
-                  onClick={handleRegistrationUser}
+                  /* onClick={handleRegistrationUser} */
                 >
                   <img src={android} alt="android" style={{ width: '16px', position: 'static' }}/>
                   <h5 style={{ margin: '0', color: '#fffafa' }}>PlayMarket</h5>

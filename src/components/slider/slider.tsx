@@ -17,7 +17,7 @@ import { Portal } from 'components/Modal/Portal'
 import { useBoolean } from 'customHooks'
 import { AnimatePresence } from 'framer-motion'
 import { addFeedbackIconPath } from './config/svgIconPath'
-import { addIconPath } from 'config/commonSvgIconsPath'
+import { addIconPath, arrowLeftNewIconPath, arrowRightNewIconPath } from 'config/commonSvgIconsPath'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { useRef, useState } from 'react'
@@ -44,42 +44,40 @@ export const Slider = () => {
 
   return (
     <>
-     {/*  <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={data.length > 1 ? 3 : 1}
-        spaceBetween={30}
-        centerInsufficientSlides
-        loop={true}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: -25,
-          depth: 100,
-          modifier: 2,
-          slideShadows: false,
-        }}
-        pagination={{
-          el: paginationRef.current,
-          clickable: true,
-        }}
-        navigation={{
-          prevEl: '.button_prev',
-          nextEl: '.button_next',
-        }}
-        modules={[EffectCoverflow, Pagination, Navigation]}
-        className="mySwiper"
-      > */}
+      <div className={styles.init_main_feedback_header}>
+        <p className={styles.init_main_header}>Что говорят пользователи Course Hub</p>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+          <div
+            className={styles.init_container_box}
+            style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}
+            onClick={ () => console.log('Click ignored') }
+          >
+            <div className={styles.init_container_box_leave} style={{ background: '#cfe2ff', color: '#357eeb' }}>
+              <p>Читать все отзывы</p>
+            </div>
+          </div>
+          <div
+            className={styles.init_container_box}
+            style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}
+            onClick={open}
+          >
+            <div className={styles.init_container_box_leave}>
+              <IconSvg width={16} height={16} viewBoxSize="0 0 17 16" path={addIconPath} />
+              <p>Написать отзыв</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <Swiper
         slidesPerView={'auto'}
         spaceBetween={15}
         centeredSlides={true}
         autoplay={{
-          delay: 2500,
+          delay: 2500, //2500
           disableOnInteraction: false,
         }}
         pagination={{
-          clickable: true,
+          clickable: true, el: `.${styles.swiperPagination}`,
         }}
         modules={[Autoplay, Pagination]}
         className={styles.swiper}
@@ -91,7 +89,7 @@ export const Slider = () => {
         {data &&
           data?.map(({ id, name, surname, avatar, position, content, rating, created_at }) => {
             return (
-              <SwiperSlide key={id} style={{ width: 'min(343px, 90vw)' }}>
+              <SwiperSlide key={id} style={{ width: 'clamp(343px, 90vw, 400px)' }}>
                 {({ isActive }) => (
                   <div className={isActive ? styles.init_container : `${styles.init_container} ${styles.inactive}`}>
                     <div className={styles.init_container_box}>
@@ -129,11 +127,14 @@ export const Slider = () => {
           )}
         </AnimatePresence>
       </Swiper>
-      <div className={styles.init_container_box} style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}>
-        <div className={styles.init_container_box_leave}>
-          <IconSvg width={16} height={16} viewBoxSize="0 0 17 16" path={addIconPath} />
-          <p>Написать отзыв</p>
-        </div>
+      <div className={styles.pagination}>
+          <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_prevBtn}`} onClick={() => swiperRef.current?.slidePrev()}>
+            <IconSvg path={arrowLeftNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
+          </div>
+          <div className={styles.swiperPagination}></div>
+          <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_nextBtn}`} onClick={() => swiperRef.current?.slideNext()}>
+            <IconSvg path={arrowRightNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
+          </div>
       </div>
     </>
   )

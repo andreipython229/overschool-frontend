@@ -10,9 +10,10 @@
 }
 
 .blocksController {
-  width: 1040px;
+  width: 100%;
+  max-width: 1040px;
   padding: 2rem 0 2rem 0;
-  margin-top: -20px;
+  // margin-top: -20px;
 
   &_controls {
     display: flex;
@@ -39,7 +40,10 @@
     position: relative; // Добавлено для корректного позиционирования _buttonPanel
 
     &_block {
+      width: 100%;
       position: relative;
+      display: flex;
+      justify-content: center;
 
       &_buttonPanel {
         position: absolute;
