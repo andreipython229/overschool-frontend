@@ -62,12 +62,12 @@
   }
   
   .modalContainer button[type="submit"] {
-    background-color: #ba75ff;
+    background-color: rgba(53, 126, 235, 0.85);
   }
   
   .modalContainer button[type="submit"]:hover,
   .modalContainer button[type="button"]:hover {
-    background-color: #963eee;
+    background-color: #357EEB;
   }
   
   .modalContainer button[type="submit"]:disabled {

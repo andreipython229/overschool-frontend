@@ -25,13 +25,12 @@
       color: #9ca3af;
 
       &_checked {
-        color: #ba75ff;
+        color: #332F36;
       }
     }
 
     &_checked label {
-      background-color: #e0d9fc !important;
-      color: #ba75ff;
+      color: #332F36;
     }
 
     label {
@@ -42,7 +41,6 @@
       height: 100%;
       padding: 0 25px;
       border-radius: 7px;
-      background: #f3f4f6;
       user-select: none;
 
       &::before {

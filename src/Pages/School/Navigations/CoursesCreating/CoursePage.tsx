@@ -386,7 +386,7 @@ export const CoursePage: FC = () => {
                     width: '1.8rem',
                     height: '1.8rem',
                     borderRadius: '50%',
-                    background: '#ba75ff',
+                    background: '#357eeb',
                     border: 'none',
                     color: 'white',
                     fontSize: '30px',
