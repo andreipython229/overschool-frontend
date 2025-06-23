@@ -228,7 +228,7 @@ export const Navbar: FC<NavbarProps> = memo(({ onToggleChat }) => {
           </a>
           {(UserRole === RoleE.Student || UserRole === RoleE.Teacher) && (
             <NavLink
-              to={Path.Courses + Path.Bonus}
+              to={Path.Courses + '/' + Path.Bonus}
               className={({ isActive }) =>
                 `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`
               }

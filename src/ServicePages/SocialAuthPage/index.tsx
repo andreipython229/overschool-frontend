@@ -4,7 +4,7 @@ import { Path } from 'enum/pathE'
 import { RoleE } from 'enum/roleE'
 import { FC, useEffect } from 'react'
 import { generatePath, useNavigate } from 'react-router-dom'
-import { selectUser } from 'selectors'
+import { selectUser } from '@/selectors'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { auth, authState, id, role, userEmail, userName } from 'store/redux/users/slice'
 

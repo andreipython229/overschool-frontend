@@ -1,12 +1,9 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate, generatePath } from 'react-router-dom'
 import { InitPageHeader } from './newInitialPageHeader'
 import { Button } from 'components/common/Button/Button'
 import { Footer } from 'components/Footer/index'
-import { arrowLeftNewIconPath, arrowRightNewIconPath } from 'config/commonSvgIconsPath'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import {
-  removebg,
   android,
   appstore,
   analytics_new,
@@ -35,23 +32,23 @@ import {
   rocketfree,
   record_new_desktop,
   constructor_desk,
-} from '../../assets/img/common/index'
+} from '@/assets/img/common/index'
 
 import { Slider } from '../../components/slider/slider'
 
 import styles from './newInitial.module.scss'
-import unlimitedImage from './../../assets/img/common/unlimited2.png'
-import AnnexImage from './../../assets/img/common/annex.png'
-import gbImage from './../../assets/img/common/gb.png'
-import { Path } from '../../enum/pathE'
+import unlimitedImage from '@/assets/img/common/unlimited2.png'
+import AnnexImage from '@/assets/img/common/annex.png'
+import gbImage from '@/assets/img/common/gb.png'
+import { Path } from '@/enum/pathE'
 import { motion } from 'framer-motion'
-import WordSwitcher from '../../components/WorldSwitcher/worldSwitcher'
+import WordSwitcher from '@/components/WorldSwitcher/worldSwitcher'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper as SwiperType } from 'swiper'
-import MiniBlock from '../../components/MiniBlocks'
-import { BackgroundAnimation } from '../../components/BackgroundAnimation'
+import MiniBlock from '@/components/MiniBlocks'
+import { BackgroundAnimation } from '@/components/BackgroundAnimation'
 
 export const Initial = () => {
   const navigate = useNavigate()
@@ -68,10 +65,6 @@ export const Initial = () => {
     } else {
       navigate(Path.CreateSchool)
     }
-  }
-
-  const handleMore = () => {
-    navigate(generatePath(Path.Catalog))
   }
 
   const swiperRef = useRef<SwiperType | null>(null)

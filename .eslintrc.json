@@ -1,6 +1,5 @@
 {
   "env": {
-    "jest": true,
     "browser": true,
     "es2021": true
   },
@@ -19,7 +18,10 @@
     "sourceType": "module"
   },
   "ignorePatterns": [
-    "**/*.scss"
+    "**/*.scss",
+    "dist",
+    "build",
+    "node_modules"
   ],
   "plugins": [
     "react",
@@ -51,6 +53,9 @@
     "import/resolver": {
       "typescript": {},
       "scss": {}
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }
