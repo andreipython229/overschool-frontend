@@ -75,7 +75,7 @@ export const InitPageHeader: FC = memo(() => {
     if (DefaultDomains.includes(currentDomain)) {
       navigate(generatePath(Path.ChooseSchool))
     } else {
-      navigate(generatePath(Path.School + Path.Courses, { school_name: schoolName }))
+      navigate(generatePath(Path.School + '/' + Path.Courses, { school_name: schoolName }))
     }
   }
 

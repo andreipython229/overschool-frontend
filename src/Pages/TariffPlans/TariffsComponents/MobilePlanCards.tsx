@@ -4,16 +4,15 @@ import styles from '../TariffPlans.module.scss'
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { FC, useEffect, useState} from 'react'
-import { useBoolean } from 'customHooks'
+import { useBoolean } from '@/customHooks'
 import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
+import { selectUser } from '@/selectors'
 import { RoleE } from 'enum/roleE'
 import middle from '../images/middle.png'
 import banner from '../images/banner.png'
 import hit from '../images/hit.png'
 import start from '../images/start.png'
 import senior from '../images/senior.png'
-import {useNavigate} from "react-router-dom"
 import { CloudIconPath, PeopleIconPath, CheckIconPath, ClipboardListIconPath,
   CrossIconPath} from 'assets/Icons/svgIconPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
@@ -25,7 +24,7 @@ export const MobilePlanCards: FC = () => {
   const { role } = useAppSelector(selectUser)
   const [selected, setSelected] = useState<TariffPlanT>()
   const tariff = useAppSelector(state => state.tariff.data)
-  const [isActive, { onToggle: toggleActive }] = useBoolean(banner.is_active)
+  const [isActive, { onToggle: toggleActive }] = useBoolean(false)
 
   const handleClick = (plan: TariffPlanT) => {
     setSelected(plan)

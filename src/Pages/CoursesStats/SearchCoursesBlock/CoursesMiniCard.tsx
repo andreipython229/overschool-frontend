@@ -2,27 +2,25 @@ import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
 import bgImage from './assets/image.png'
 import { PeopleIconSvg } from './assets/iconsComponents'
-import { groupsIconPath, settingsIconPath } from "config/commonSvgIconsPath"
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { useBoolean } from 'customHooks/useBoolean'
-import { Path } from '../../../enum/pathE'
-import { CoursesMiniCardT } from '../../../types/pageTypes'
-import { getNounDeclension } from '../../../utils/getNounDeclension'
+import { groupsIconPath } from 'config/commonSvgIconsPath'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { Path } from '@/enum/pathE'
+import { CoursesMiniCardT } from '@/types/pageTypes'
+import { getNounDeclension } from '@/utils/getNounDeclension'
 import { RoleE } from 'enum/roleE'
 
 import styles from '../courses_stats.module.scss'
-import { useAppSelector } from '../../../store/hooks'
-import { schoolSelector, selectUser } from '../../../selectors'
+import { useAppSelector } from '@/store/hooks'
+import { schoolSelector, selectUser } from '@/selectors'
 
-export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, courseId, groups, active, click }) => {
+export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ name, courseId, groups, click }) => {
   const filteredGroups = groups?.filter(({ course_id }) => course_id === +courseId)
   const quantutyOfStudents = filteredGroups.reduce((acc, group) => acc + group.students.length, 0)
   const { role } = useAppSelector(selectUser)
-  const [isModalOpen, { on: close, off: open }] = useBoolean()
   const { schoolName } = useAppSelector(schoolSelector)
 
   const pathLink = generatePath(
-    role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}${Path.CreateCourse}student`,
+    role === RoleE.Teacher ? `${Path.School}/${Path.CourseStudent}` : `${Path.School}/${Path.Courses}/${Path.CreateCourse}student`,
     {
       course_id: `${courseId}`,
       school_name: schoolName,
@@ -30,11 +28,8 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, course
   )
 
   return (
-      <>
-      <div
-        className={styles.wrapper}
-        style={{ background: `url(${bgImage}) rgb(119, 119, 119) 50% / cover no-repeat` }}
-      >
+    <>
+      <div className={styles.wrapper} style={{ background: `url(${bgImage}) rgb(119, 119, 119) 50% / cover no-repeat` }}>
         <Link to={pathLink} style={{ zIndex: 20 }}>
           <div className={styles.wrapper_text}>
             <p className={styles.wrapper_text_title}>{name}</p>
@@ -55,7 +50,7 @@ export const CoursesMiniCard: FC<CoursesMiniCardT> = memo(({ photo, name, course
         )} */}
         <div className={`${styles.wrapper_shadow}`} onClick={() => click && click(courseId)} />
       </div>
-    {/* <Link to={pathLink}>
+      {/* <Link to={pathLink}>
       <div className={styles.mini_card_container}>
         <img className={styles.mini_card_img} src={photo} alt="" width="52" height="52" />
         <div>

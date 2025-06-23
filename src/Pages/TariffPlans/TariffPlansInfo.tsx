@@ -8,7 +8,7 @@ import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
 
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
-import { useBoolean } from 'customHooks'
+import { useBoolean } from '@/customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
 
