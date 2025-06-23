@@ -1,7 +1,7 @@
 import React, { FC, memo, useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Path } from 'enum/pathE'
-import { useAppSelector } from '../../../store/hooks'
+import { Path } from '@/enum/pathE'
+import { useAppSelector } from '@/store/hooks'
 import RedeemIcon from '@mui/icons-material/Redeem'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import { Chat } from 'components/Modal/Chat'
@@ -9,19 +9,51 @@ import { useBoolean } from 'customHooks'
 import { chatIconPath, tgNavPath } from 'components/Navbar/config/svgIconPath'
 import Tooltip from '@mui/material/Tooltip'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../../store/redux/store'
+import { RootState } from '@/store/redux/store'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import Badge from '@mui/material/Badge'
 import { Portal } from 'components/Modal/Portal'
+//  alex_kiyko_newbags2
 import { selectUser, inviteProgramSelector } from '../../../selectors'
+// 
+// import { selectUser } from '@/selectors'
+//  dev-front
 import { navlinkByRoles } from '../config/navlinkByRoles'
 import { SvgIcon } from '@mui/material'
 // import { GiftIconPath } from 'assets/Icons/svgIconPath' //для последующего отобраения бонусов
 
 import styles from '../navbar.module.scss'
-import { RoleE } from 'enum/roleE'
+import { RoleE } from '@/enum/roleE'
 import Timer from '../../Timer/Timer'
 
+//  alex_kiyko_newbags2
+// 
+// Компонент-обертка для применения стилей к иконкам
+const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const iconStyle = {
+    display: 'inline-block', // Сохраняем инлайн поведение
+    color: '#212121',
+  };
+
+  return (
+    <div style={iconStyle}>
+      {React.Children.map(children, child => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child as React.ReactElement<{ style?: React.CSSProperties }>, {
+            style: {
+              ...((child as React.ReactElement<{ style?: React.CSSProperties }>).props?.style ?? {}),
+              color: '#212121',
+              fill: '#212121',
+            }
+          });
+        }
+        return child;
+      })}
+    </div>
+  );
+};
+
+//  dev-front
 interface IIsActive {
   isActive?: boolean
 }

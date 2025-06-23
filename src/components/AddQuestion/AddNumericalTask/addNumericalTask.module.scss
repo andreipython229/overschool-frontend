@@ -1,6 +1,3 @@
-@import '../../../scss/variable.scss';
-@import '../../../scss/mixin.scss';
-
 .wrapper {
     @include display (flex, column, space-between, center);
     width: 130px;

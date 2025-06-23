@@ -27,6 +27,12 @@ export const tariffPlanService = createApi({
       }),
       providesTags: ['tariffPlan'],
     }),
+    fetchPublicTariffPlanTable: build.query<TariffPlanT[], void>({
+      query: () => ({
+        url: '/schools_tariff/public/',
+      }),
+      providesTags: ['tariffPlan'],
+    }),
   }),
 })
 

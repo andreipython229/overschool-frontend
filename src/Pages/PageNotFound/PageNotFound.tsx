@@ -1,11 +1,9 @@
 import { generatePath, useNavigate } from 'react-router-dom'
-
-import { Path } from '../../enum/pathE'
-
+import { Path } from '@/enum/pathE'
 import styles from './pageNotFound.module.scss'
-import { RoleE } from '../../enum/roleE'
-import { useAppSelector } from '../../store/hooks'
-import { schoolNameSelector, selectUser } from '../../selectors'
+import { RoleE } from '@/enum/roleE'
+import { useAppSelector } from '@/store/hooks'
+import { schoolNameSelector, selectUser } from '@/selectors'
 
 export const PageNotFound = () => {
   const navigate = useNavigate()
@@ -14,8 +12,9 @@ export const PageNotFound = () => {
   const goBack = () => {
     const pathLink =
       schoolName.length > 0 && role
-        ? generatePath(role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}`, {
+        ? generatePath(role === RoleE.Teacher ? `${Path.School}/${Path.CourseStudent}` : `${Path.School}/${Path.Courses}`, {
             school_name: schoolName,
+            course_id: null,
           })
         : generatePath(Path.InitialPage)
     navigate(pathLink)
