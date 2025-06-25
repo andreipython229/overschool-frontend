@@ -554,7 +554,28 @@ export const TariffPlansInfo: FC = () => {
               Попробуйте весь функционал в процессе использования<br />
               и убедитесь, насколько он удобен.
             </p>
-          </div>
+
+            <a
+  href="https://platform.coursehb.ru/create-school/"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: 'inline-block',
+    marginTop: '20px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: '600',
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    textDecoration: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  }}
+>
+  Попробовать бесплатно
+</a>
+
+</div>
 
           <div
             style={{
