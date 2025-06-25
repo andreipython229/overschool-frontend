@@ -1,23 +1,23 @@
 import React, { FC, memo, useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Path } from 'enum/pathE'
-import { useAppSelector } from '../../../store/hooks'
+import { Path } from '@/enum/pathE'
+import { useAppSelector } from '@/store/hooks'
 import RedeemIcon from '@mui/icons-material/Redeem'
 import { Chat } from 'components/Modal/Chat'
 import { useBoolean } from 'customHooks'
 import { chatIconPath, tgNavPath } from 'components/Navbar/config/svgIconPath'
 import Tooltip from '@mui/material/Tooltip'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../../store/redux/store'
+import { RootState } from '@/store/redux/store'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import Badge from '@mui/material/Badge'
 import { Portal } from 'components/Modal/Portal'
-import { selectUser } from '../../../selectors'
+import { selectUser } from '@/selectors'
 import { navlinkByRoles } from '../config/navlinkByRoles'
 import { SvgIcon } from '@mui/material'
 
 import styles from '../navbar.module.scss'
-import { RoleE } from 'enum/roleE'
+import { RoleE } from '@/enum/roleE'
 import Timer from '../../Timer/Timer'
 
 // Компонент-обертка для применения стилей к иконкам
@@ -31,10 +31,9 @@ const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
     <div style={iconStyle}>
       {React.Children.map(children, child => {
         if (React.isValidElement(child)) {
-          return React.cloneElement(child as React.ReactElement, {
-            // Применяем стили только к SVG элементам
+          return React.cloneElement(child as React.ReactElement<{ style?: React.CSSProperties }>, {
             style: {
-              ...(child.props.style || {}),
+              ...((child as React.ReactElement<{ style?: React.CSSProperties }>).props?.style ?? {}),
               color: '#212121',
               fill: '#212121',
             }

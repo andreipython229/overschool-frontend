@@ -1,6 +1,3 @@
-@import '../../scss/variable.scss';
-@import '../../scss/mixin.scss';
-
 .progressWrapper {
   display: grid;
   grid-template-columns: repeat(3, min(430px, 30.6%));

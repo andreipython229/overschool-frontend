@@ -1,9 +1,10 @@
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { burgerdHwPath, acceptedHwPath, rejectedHwPath, waitingdHwPath } from '../config/commonSvgIconsPath'
+import { ReactElement } from 'react'
 
 export interface IDropDownListItem {
   id: number
-  icon: JSX.Element
+  icon: ReactElement
   title: string
   bg: string
   arrow: string

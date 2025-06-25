@@ -1,21 +1,25 @@
 export const arrNumber = [
-  { number: 1 },
-  { number: 2 },
-  { number: 3 },
-  { number: 4 },
-  { number: 5 },
-  { number: 6 },
-  { number: 7 },
-  { number: 8 },
-  { number: 9 },
-  { number: 10 },
-  { number: 20 },
-  { number: 30 },
-  { number: 40 },
-  { number: 50 },
-  { number: 60 },
+  { label: '1', value: '1' },
+  { label: '2', value: '2' },
+  { label: '3', value: '3' },
+  { label: '4', value: '4' },
+  { label: '5', value: '5' },
+  { label: '6', value: '6' },
+  { label: '7', value: '7' },
+  { label: '8', value: '8' },
+  { label: '9', value: '9' },
+  { label: '10', value: '10' },
+  { label: '20', value: '20' },
+  { label: '30', value: '30' },
+  { label: '40', value: '40' },
+  { label: '50', value: '50' },
+  { label: '60', value: '60' },
 ]
-export const arrTime = [{ unit: 'минут' }, { unit: 'часов' }, { unit: 'дней' }]
+export const arrTime = [
+  { label: 'минут', value: 'минут' },
+  { label: 'часов', value: 'часов' },
+  { label: 'дней', value: 'дней' }
+]
 export const coursesSelectLanguage = [
   { value: 'javascript', label: 'Javascript' },
   { value: 'python', label: 'Python' },
