@@ -152,16 +152,26 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
           {plan.name === 'Senior' && '1788 BYN/год'}
         </div>
 
-        <Button
-          text="Подключить"
-          variant="primary"
-          onClick={(e) => {
-            e.stopPropagation()
-            onSelect(plan)
-            onOpenModal()
-          }}
-          style={{ marginTop: '1em', width: '100%' }}
-        />
+       <a
+  href="https://t.me/coursehub_admin"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: 'inline-block',
+    marginTop: '1em',
+    width: '100%',
+    padding: '12px',
+    textAlign: 'center',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    fontWeight: '600',
+    borderRadius: '6px',
+    textDecoration: 'none',
+  }}
+>
+  Подключить
+</a>
+
 
         <hr className={styles.cardDivider} />
 
