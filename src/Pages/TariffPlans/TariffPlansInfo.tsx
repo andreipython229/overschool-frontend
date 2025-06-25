@@ -400,23 +400,27 @@ export const TariffPlansInfo: FC = () => {
             </ul>
 
            </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              text="Начать бесплатно"
-              variant="secondary"
-              onClick={() => console.log('Start')}
-              style={{
-              width: '301px',
-              height: '54px',
-              padding: '15px 40px',
+         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+  <a
+    href="https://t.me/coursehub_admin"
+    target="_blank"
+    rel="noreferrer"
+    style={{
+      display: 'inline-block',
+      padding: '12px 24px',
+      backgroundColor: '#007BFF',
+      color: '#fff',
+      borderRadius: '6px',
+      textDecoration: 'none',
+      width: '301px',
+      textAlign: 'center', // чтобы текст выровнялся по центру внутри кнопки
+      fontWeight: '600',
+    }}
+  >
+    Подключить
+  </a>
+</div>
 
-              backgroundColor: '#3B82F6', // синий фон
-              color: '#FFFFFF',           // белый текст
-              border: 'none',             // если нужен плоский стиль
-              borderRadius: '8px',        // (по желанию) скругление углов
-              }}
-            />
-          </div>
           </div>
          {/* Блок Personal */}
          <div
@@ -497,29 +501,33 @@ export const TariffPlansInfo: FC = () => {
           <li><img src="/images/studentWhite.png" alt="icon" /><span style={{ color: 'white' }}>До 30 учеников</span></li>
           <li><img src="/images/Component 133White.png" alt="icon" /><span style={{ color: 'white' }}>До 3 сотрудников</span></li>
         </ul>
-         </div>
+
+        </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button
+          <a
+  href="https://t.me/coursehub_admin"
+  target="_blank"
+  rel="noreferrer"
 
-            text=    "Получить консультацию"
-            variant="secondary"
-            onClick={() => console.log('Start')}
-            style={{
-                width: '301px',
-            height: '54px',
-            padding: '15px 40px',
+             style={{
+    display: 'inline-block',
+    padding: '12px 24px',
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    borderRadius: '6px',
+    textDecoration: 'none',
+    width: '301px',
+    textAlign: 'center', // чтобы текст выровнялся по центру внутри кнопки
 
-            backgroundColor:'#FFFFFF', // синий фон
-            color:    '#3B82F6'  ,      // белый текст
-            border: 'none',             // если нужен плоский стиль
-            borderRadius: '8px',        // (по желанию) скругление углов
-            }}
-          />
+
+    fontWeight: '600',
+      }}
+          >
+          Получить консультацию
+          </a>
         </div>
          </div>
         </div>
-
-
 
 
         <div
