@@ -193,7 +193,7 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
       <img src={feature.icon} alt="Иконка" /> {feature.text}
     </li>
   ))}
-  
+
 
   {planFeatures[plan.name].disabled?.map((Disabl, index) => (
     <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
@@ -391,7 +391,7 @@ export const TariffPlansInfo: FC = () => {
                 //whiteSpace: 'normal'
               }}
             >
-             
+
               <li><img src="/images/Component 1.png" alt="icon" />1 курс</li>
               <li><img src="/images/profile-2user.png" alt="icon" />До 10 учеников</li>
               <li><img src="/images/Component 2.png" alt="icon" />Конструктор лендингов</li>
@@ -606,7 +606,7 @@ export const TariffPlansInfo: FC = () => {
             }}
           >
             <img
-              src="/images/Slice 3213.png"
+              src="/images/cta-image.png"
               alt="Slice 3213"
               style={{ width: '478px', height: '330px', marginBottom: '16px' }}
             />
