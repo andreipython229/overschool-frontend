@@ -136,10 +136,10 @@ export const ChooseSchool = () => {
       navigate(
         generatePath(
           userRole === RoleE.SuperAdmin
-            ? Path.School + Path.Settings
+            ? Path.School + '/' + Path.Settings
             : userRole === RoleE.Teacher
-            ? Path.School + Path.CourseStats
-            : Path.School + Path.Courses,
+            ? Path.School + '/' + Path.CourseStats
+            : Path.School + '/' + Path.Courses,
           { school_name: schoolName },
         ),
       )
@@ -276,7 +276,7 @@ export const ChooseSchool = () => {
                               handleSchool(school)
                             }}
                             style={{ textDecoration: 'none', overflow: 'hidden' }}
-                            to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+                            to={generatePath(`${Path.School}/${Path.Courses}`, { school_name: school.name })}
                           >
                             <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
                           </Link>
@@ -287,7 +287,7 @@ export const ChooseSchool = () => {
                               handleSchool(school)
                             }}
                             style={{ textDecoration: 'none', overflow: 'hidden' }}
-                            to={generatePath(`${Path.School}courses/`, { school_name: school.name })}
+                            to={generatePath(`${Path.School}/${Path.Courses}`, { school_name: school.name })}
                           >
                             <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
                           </Link>

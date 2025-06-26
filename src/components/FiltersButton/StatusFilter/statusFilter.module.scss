@@ -1,18 +1,15 @@
-@import '../../../scss/mixin.scss';
-@import '../../../scss/variable.scss';
-
 .statusContainer {
-  @include position_t_l(absolute, 0, 0);
-  @include display(flex, column, space-between, center);
   max-width: 500px;
   width: 238px;
   height: auto;
   padding: 19px 20px;
   border-radius: 32px;
-  backdrop-filter: blur(14px);
   background: #cfe2ff;
+  backdrop-filter: blur(14px);
   gap: 5px;
   font-family: 'SFPRORegular', sans-serif;
+  @include position_t_l(absolute, 0, 0);
+  @include display(flex, column, space-between, center);
 
   &_title {
     padding: 10px 0;

@@ -1,45 +1,30 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFormik } from 'formik'
-import { LoginParamsT, validateLogin } from 'utils/validationLogin'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { auth, authState, id, logoutState, role, userEmail, userName } from 'store/redux/users/slice'
-import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '../../api/userLoginService'
+import { LoginParamsT, validateLogin } from '@/utils/validationLogin'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { auth, authState, id, logoutState, role, userEmail, userName } from '@/store/redux/users/slice'
+import { useLoginMutation, useLazyGetUserInfoQuery, useLazyLogoutQuery } from '@/api/userLoginService'
 import { Input } from 'components/common/Input/Input/Input'
-import { facebook, google, isSecurity, maillog, unSecurity, yandex } from '../../assets/img/common'
-import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from 'api/forgotPassword'
+import { google, isSecurity, unSecurity, yandex } from '@/assets/img/common'
+import { useForgotPasswordMutation, useResetPasswordMutation, useVerifyEmailCodeMutation } from '@/api/forgotPassword'
 import { Toast } from 'primereact/toast'
 import { generatePath, useNavigate } from 'react-router-dom'
-import { Button } from '../../components/common/Button/Button'
-import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
-import { Path } from '../../enum/pathE'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { Button } from '@/components/common/Button/Button'
+import { InputAuth } from '@/components/common/Input/InputAuth/InputAuth'
+import { Path } from '@/enum/pathE'
+import { SimpleLoader } from '@/components/Loaders/SimpleLoader'
 import styles from './loginPage.module.scss'
-import { setHeaderId, setSchoolId, setSchoolName } from '../../store/redux/school/schoolSlice'
-import { RoleE } from '../../enum/roleE'
+import { setHeaderId, setSchoolId, setSchoolName } from '@/store/redux/school/schoolSlice'
+import { RoleE } from '@/enum/roleE'
 import { SchoolT } from '../ChooseSchool/ChooseSchool'
-import { useFetchConfiguredDomainsQuery } from '../../api/DomainService'
-import { useGetSchoolsMutation } from '../../api/getSchoolService'
-
-import { logoHeaderLogin, leftArrow } from '../../assets/img/common/index'
-import { selectUser } from 'selectors'
-import { LoaderLayout } from 'components/Loaders/LoaderLayout'
-import { BackgroundAnimation } from 'components/BackgroundAnimation'
-import { clearUserProfile } from 'store/redux/users/profileSlice'
+import { useFetchConfiguredDomainsQuery } from '@/api/DomainService'
+import { useGetSchoolsMutation } from '@/api/getSchoolService'
+import { selectUser } from '@/selectors'
+import { LoaderLayout } from '@/components/Loaders/LoaderLayout'
+import { BackgroundAnimation } from '@/components/BackgroundAnimation'
+import { clearUserProfile } from '@/store/redux/users/profileSlice'
 import { LogoHeader } from './LogoHeader'
-
 import { Back } from './Back'
-
-interface INotification {
-  state: boolean
-  text: string
-}
-
-type FirstFormValuesT = {
-  email: string
-}
-type LoginModalPropsT = {
-  setShowModal: (value: boolean) => void
-}
 
 export const LoginPage = () => {
   const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by']
@@ -325,7 +310,7 @@ export const LoginPage = () => {
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
                 <a
                   href={`${
-                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                    import.meta.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
                   }/accounts/google/login/`}
                   className={styles.socialIcon}
                   style={{ padding: '8px' }}
@@ -335,7 +320,7 @@ export const LoginPage = () => {
                 </a>
                 <a
                   href={`${
-                    process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                    import.meta.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
                   }/accounts/yandex/login/`}
                   className={styles.socialIcon}
                   title="Yandex"

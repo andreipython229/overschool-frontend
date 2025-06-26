@@ -1,5 +1,3 @@
-@import '../../../scss/mixin.scss';
-
 .accardionWrapper {
   &_component {
     @include display(flex, column, center);

@@ -1,29 +1,21 @@
 import { generatePath, useNavigate } from "react-router-dom";
-import { FC, memo, useState } from "react";
-import { Path } from "../../../enum/pathE";
+import { Path } from "@/enum/pathE";
 import styles from "../HelpPagesCommon.module.scss";
 import mainHelpStyles from "../HelpPage.module.scss";
-import { logo } from "../../../assets/img/common";
-import { Button } from "../../../components/common/Button/Button";
-import firstStep from '../../../assets/img/createProject/firstStep.png'
-import secondStep from '../../../assets/img/createProject/secondStep.png'
-import { InitPageHeader } from "../../Initial/newInitialPageHeader";
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
-import { Footer } from "../../../components/Footer/index";
-
+import { Button } from "@/components/common/Button/Button";
+import { InitPageHeader } from "@/Pages/Initial/newInitialPageHeader";
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '@/assets/Icons/svgIconPath'
+import { Footer } from "@/components/Footer/index";
+import overAiWindow from '@/assets/img/help/overai_window.png'
+import overAiOpportunity from '@/assets/img/help/overai_opportunity.png'
+import ctaImage from '@/assets/img/common/cta-image.png'
 
 export const HelpOverAI = () => {
     const navigate = useNavigate()
-    const [isLoginOpen, setLoginOpen] = useState(false);
-    const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
     const handleHelpPage = () => {
         navigate(generatePath(Path.HelpPage))
-    }
-
-    const handleLoginPage = () => {
-        navigate(generatePath(Path.LoginPage))
     }
 
     const handleRegistrationUser = () => {
@@ -67,7 +59,7 @@ export const HelpOverAI = () => {
                     </div>
                     <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/help/overai_window.png")}
+                            src={overAiWindow}
                             alt="К настройкам группы"
                         />
                     </div>
@@ -76,7 +68,7 @@ export const HelpOverAI = () => {
                 <div className={styles.section}>
                     <div className={styles.img_part_t2}>
                         <img
-                            src={require("../../../assets/img/help/overai_opportunity.png")}
+                            src={overAiOpportunity}
                             alt="Настройки группы"
                         />
                     </div>
@@ -111,7 +103,7 @@ export const HelpOverAI = () => {
                         </p>
                         <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
                         <div className={mainHelpStyles.ctaImage}>
-                            <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+                            <img src={ctaImage} alt="CTA-изображение" />
                         </div>
                     </div>
                 </div>
