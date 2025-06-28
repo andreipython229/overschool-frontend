@@ -4,7 +4,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { useDeleteLessonsMutation, usePatchLessonsMutation } from 'api/modulesServices'
 import { LessonsBlockT } from 'types/navigationTypes'
 import { lessonIdAndTypeT } from 'components/Modal/ModalTypes'
-import { lessonSvgMapper } from 'config'
+import { lessonSvgMapper } from '@/config'
 
 import styles from '../../constructor.module.scss'
 import stylesModules from '../ModulesBlock/modules_block.module.scss'

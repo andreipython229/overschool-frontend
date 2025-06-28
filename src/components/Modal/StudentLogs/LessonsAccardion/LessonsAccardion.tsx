@@ -1,17 +1,17 @@
 import React, { FC, useEffect, useState, ChangeEvent } from 'react'
 
-import { lessonSvgMapper } from 'config'
+import { lessonSvgMapper } from '@/config'
 import styles from './lessonsAccardion.module.scss'
-import { useBoolean } from '../../../../customHooks'
-import { CheckboxBall } from '../../../common/CheckboxBall'
-import { Button } from '../../../common/Button/Button'
-import { Checkbox } from '../../../common/Checkbox/Checkbox'
-import { sectionLessons } from '../../../../types/lessonAccessT'
-import { RoleE } from 'enum/roleE'
-import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
-import { tableBallsStarPath } from '../../../../config/commonSvgIconsPath'
-import { IconSvg } from '../../../common/IconSvg/IconSvg'
+import { useBoolean } from '@/customHooks'
+import { CheckboxBall } from '@/components/common/CheckboxBall'
+import { Button } from '@/components/common/Button/Button'
+import { Checkbox } from '@/components/common/Checkbox/Checkbox'
+import { sectionLessons } from '@/types/lessonAccessT'
+import { RoleE } from '@/enum/roleE'
+import { useAppSelector } from '@/store/hooks'
+import { selectUser } from '@/selectors'
+import { tableBallsStarPath } from '@/config/commonSvgIconsPath'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
 
 type lessonsAccardionT = {
   sectionLessons?: sectionLessons[]
@@ -23,7 +23,7 @@ type lessonsAccardionT = {
 
 export const LessonsAccardion: FC<lessonsAccardionT> = ({ sectionLessons, setLessons, handleAccessSetting, forStudent, resetAccessSetting }) => {
   const [lessonsAccessSetting, { onToggle: toggleAccess }] = useBoolean(false)
-  const [totalAvailability, { onToggle: setTotalAvailability, off: turnOn, on: turnOff }] = useBoolean(false)
+  const [totalAvailability, { off: turnOn, on: turnOff }] = useBoolean(false)
   const { role } = useAppSelector(selectUser)
   console.log(sectionLessons)
 

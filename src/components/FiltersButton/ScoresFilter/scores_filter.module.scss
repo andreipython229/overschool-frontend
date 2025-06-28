@@ -1,5 +1,3 @@
-@import '../../../scss/mixin.scss';
-
 .scores_container {
   @include position_t_l(absolute, 0, 0);
   @include display(flex, column, space-between, center);

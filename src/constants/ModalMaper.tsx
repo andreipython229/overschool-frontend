@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { AddModuleModal } from 'components/Modal/CoursesModal/AddModuleModal'
-import { SettingsClassesModal } from '../components/Modal/CoursesModal/SettingsClassesModal'
-import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal } from '../components/Modal'
+import { SettingsClassesModal } from '@/components/Modal/CoursesModal/SettingsClassesModal'
+import { ModalTypeClasses, SettingClassesUsually, TasksModal, TestModal } from '@/components/Modal'
 
-export const ModalMaper = ({ courseId, lessonIdAndType, setLessonIdAndType, type, setType, modulesList, setModulesList, insertAfterOrder, setInsertAfterOrder, insertAfterModuleOrder, setInsertAfterModuleOrder }: keyof object | any): JSX.Element | null => {
+export const ModalMaper = ({ courseId, lessonIdAndType, setLessonIdAndType, type, setType, modulesList, setModulesList, insertAfterOrder, setInsertAfterOrder, insertAfterModuleOrder, setInsertAfterModuleOrder }: keyof object | any): ReactElement | null => {
 
   if (type) {
     const modalMapper = {

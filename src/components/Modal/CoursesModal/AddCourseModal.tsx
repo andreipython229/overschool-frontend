@@ -47,7 +47,7 @@ export const AddCourseModal: FC<AddCourseModalPropsT> = ({ courses, setShowModal
           setShowModal()
           if (course) {
             navigate(
-              generatePath(Path.School + Path.Courses + Path.CreateCourse, {
+              generatePath(Path.School + '/' + Path.Courses + '/' + Path.CreateCourse, {
                 course_id: course?.course_id,
                 schoolName: schoolName,
               }),

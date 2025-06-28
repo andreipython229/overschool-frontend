@@ -1,15 +1,15 @@
 import { generatePath, useNavigate } from "react-router-dom";
-import { Path } from "../../../enum/pathE";
-// import styles from "./HelpChat.module.scss";
-import { Button } from "../../../components/common/Button/Button";
+import { Path } from "@/enum/pathE";
+import { Button } from "@/components/common/Button/Button";
 
 import styles from "../HelpPagesCommon.module.scss";
 import mainHelpStyles from "../HelpPage.module.scss";
-import { Footer } from "../../../components/Footer/index";
-import { InitPageHeader } from "../../Initial/newInitialPageHeader";
-import { FC, memo, useState } from "react";
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
+import { Footer } from "@/components/Footer/index";
+import { InitPageHeader } from "@/Pages/Initial/newInitialPageHeader";
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '@/assets/Icons/svgIconPath'
+import chat from "@/assets/img/help/Изображение для 'помощь_ (11).png"
+import ctaImage from '@/assets/img/common/cta-image.png'
 
 
 export const HelpChat = () => {
@@ -17,10 +17,6 @@ export const HelpChat = () => {
 
   const handleHelpPage = () => {
     navigate(generatePath(Path.HelpPage))
-  }
-
-  const handleLoginPage = () => {
-    navigate(generatePath(Path.LoginPage))
   }
 
   const handleRegistrationUser = () => {
@@ -60,7 +56,7 @@ export const HelpChat = () => {
           </div>
           <div className={styles.img_part_t2}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (11).png")}
+              src={chat}
               alt="Окно входа"
             />
           </div>
@@ -76,7 +72,7 @@ export const HelpChat = () => {
             </p>
             <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
             <div className={mainHelpStyles.ctaImage}>
-              <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+              <img src={ctaImage} alt="CTA-изображение" />
             </div>
           </div>
         </div>

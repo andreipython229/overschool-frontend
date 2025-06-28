@@ -1,28 +1,24 @@
-import { Button } from '../../../components/common/Button/Button'
-import { useAppSelector } from '../../../store/hooks'
-import { selectUser } from '../../../selectors'
-import { Path } from 'enum/pathE'
+import { Button } from '@/components/common/Button/Button'
+import { Path } from '@/enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
 
 import styles from "../HelpPagesCommon.module.scss";
 import mainHelpStyles from "../HelpPage.module.scss";
-import { Footer } from "../../../components/Footer/index";
-import { InitPageHeader } from "../../Initial/newInitialPageHeader";
-import { FC, memo, useState } from "react";
+import { Footer } from "@/components/Footer/index";
+import { InitPageHeader } from "@/Pages/Initial/newInitialPageHeader";
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
-
+import { ArrowLeftIconPath } from '@/assets/Icons/svgIconPath'
+import help3 from "@/assets/img/help/Изображение для 'помощь_ (3).png"
+import help4 from "@/assets/img/help/Изображение для 'помощь_ (4).png"
+import help5 from "@/assets/img/help/Изображение для 'помощь_ (5).png"
+import help6 from "@/assets/img/help/Изображение для 'помощь_ (6).png"
+import ctaImage from "@/assets/img/common/cta-image.png"
 
 export const HelpSchoolPage = () => {
-  const { role } = useAppSelector(selectUser)
   const navigate = useNavigate()
 
   const handleHelpPage = () => {
     navigate(generatePath(Path.HelpPage))
-  }
-
-  const handleLoginPage = () => {
-    navigate(generatePath(Path.LoginPage))
   }
 
   const handleRegistrationUser = () => {
@@ -62,7 +58,7 @@ export const HelpSchoolPage = () => {
           </div>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (3).png")}
+              src={help3}
               alt="Окно входа"
             />
           </div>
@@ -71,7 +67,7 @@ export const HelpSchoolPage = () => {
         <div className={styles.section}>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (4).png")}
+              src={help4}
               alt="Кнопка входа"
             />
           </div>
@@ -102,7 +98,7 @@ export const HelpSchoolPage = () => {
           </div>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (5).png")}
+              src={help5}
               alt="Окно входа"
             />
           </div>
@@ -111,7 +107,7 @@ export const HelpSchoolPage = () => {
         <div className={styles.section}>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (6).png")}
+              src={help6}
               alt="Кнопка входа"
             />
           </div>
@@ -138,7 +134,7 @@ export const HelpSchoolPage = () => {
             </p>
             <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
             <div className={mainHelpStyles.ctaImage}>
-              <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+              <img src={ctaImage} alt="CTA-изображение" />
             </div>
           </div>
         </div>
