@@ -2,6 +2,8 @@ import { FC, useEffect } from 'react'
 import { ScoresFilter } from '../components/FiltersButton/ScoresFilter/ScoresFilter'
 import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/CalendarFilter'
 import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
+import { AccessFilter } from '../components/FiltersButton/FilterAccess/FilterAccess'
+import { AccessFirstFilter } from '../components/FiltersButton/AccessStartFilter/AccessFirstFilter'
 import { SearchFilterGroup } from '../components/FiltersButton/SearchFilterGroup/SearchFilterGroup'
 import { CoursesDataT } from '../types/CoursesT'
 import { useFetchCoursesQuery, useFetchSchoolTeachersQuery } from '../api/coursesServices'
@@ -250,6 +252,12 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
     '40': <ShowDeletedFilter filterKey={'studentsPerSchool'} />,
     '41': <ShowDeletedFilter filterKey={'studentsPerCourse'} />,
     '42': <ShowDeletedFilter filterKey={'studentsPerGroup'} />,
+    '43': (<AccessFirstFilter filterKey={'studentsPerSchool'}/>),
+    '44': (<AccessFilter filterKey={'studentsPerSchool'}/>),
+    '45': (<AccessFilter filterKey={'studentsPerCourse'}/>),
+    '46': (<AccessFilter filterKey={'studentsPerGroup'}/>),
+    '47': (<AccessFirstFilter filterKey={'studentsPerCourse'}/>),
+    '48': (<AccessFirstFilter filterKey={'studentsPerGroup'}/>),
   }
 
   const filterComponent = filtersMaper[String(id)]
