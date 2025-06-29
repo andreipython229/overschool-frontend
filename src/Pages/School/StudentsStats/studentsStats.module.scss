@@ -292,7 +292,7 @@
 
       &:hover {
         cursor: pointer;
-        background-color: color.adjust($color: #fdfaff, $lightness: -3%, $space: hsl);
+        //background-color: color.adjust($color: #fdfaff, $lightness: -3%, $space: hsl);
         transform: scale(1.05);
       }
 
