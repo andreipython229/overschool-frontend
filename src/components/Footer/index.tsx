@@ -88,7 +88,7 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
           <h1>СОЦ.СЕТИ</h1>
           <p>Instagram</p>
           <p>Вконтакте</p>
-          <a href="https://t.me/@course_hb" target="_blank" rel="noopener noreferrer">
+         <a href="https://t.me/coursehub_admin" target="_blank" rel="noreferrer">
             <p>Telegram</p>
           </a>
         </div>
