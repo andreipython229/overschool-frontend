@@ -26,6 +26,7 @@ export enum Path {
   HelpCenter = 'help-center',
   TariffPlans = 'tariff-plans',
   TariffPlansInfo = '/tariff-plans-info',
+  TariffPlansInfoYear = '/tariff-plans-year',
   SignUp = '/signup',
   CourseStudent = 'courses-stats/:course_id/students',
   CreateSchool = '/create-school',

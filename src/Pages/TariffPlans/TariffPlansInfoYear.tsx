@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom'
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
-import { TariffPlansInfoYear } from './TariffPlansInfoYear'
 
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { useBoolean } from '@/customHooks'
@@ -111,7 +110,7 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
       <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
         <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
         <div className={styles.yearPrice}>
-          {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
+          {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/год
         </div>
 
         <Button
@@ -159,7 +158,7 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
   )
 }
 
-export const TariffPlansInfo: FC = () => {
+export const TariffPlansInfoYear: FC = () => {
   const { data, isSuccess } = useFetchTariffPlanTableQuery()
   const [isModalOpen, { on: openModal, off: closeModal }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
@@ -167,7 +166,7 @@ export const TariffPlansInfo: FC = () => {
 
   // Используем только годовые тарифы (id 3, 4, 5)
   const tariffPlanTable = (data && isSuccess && data.length > 0)
-    ? data.filter(plan => [2, 3, 4].includes(Number(plan.id)))
+    ? data.filter(plan => [17, 18, 19].includes(Number(plan.id)))
     : [];
 
   console.log('tariffPlanTable', tariffPlanTable)
@@ -204,23 +203,23 @@ export const TariffPlansInfo: FC = () => {
             Тарифные планы для обучения Course hub
           </Typography>
           <div className={styles.savingsBlock}>
-            <span className={styles.monthly}>Ежемесячно</span>
+            <button
+              onClick={() => navigate(Path.TariffPlansInfo)}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                margin: 0,
+                font: 'inherit',
+                color: 'inherit',
+                cursor: 'pointer',
+              }}
+            >
+              <span className={styles.monthly}>Ежемесячно</span>
+            </button>
             <div className={styles.yearlyBlock}>
-              <button
-                onClick={() => navigate(Path.TariffPlansInfoYear)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: 0,
-                  margin: 0,
-                  font: 'inherit',
-                  color: 'inherit',
-                  cursor: 'pointer',
-                }}
-              >
-                Годовая
-                <span className={styles.discountBadge}>Экономия 20%</span>
-              </button>
+              <span>Годовая</span>
+              <span className={styles.discountBadge}>Экономия 20%</span>
             </div>
           </div>
 
