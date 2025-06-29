@@ -15,7 +15,6 @@ interface IProps {
   lessonBlocks: BlockT[]
 }
 
-
 export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLessonBlocks }) => {
   const [buttonName, setButtonName] = useState<string>(button.name)
   const [buttonLink, setButtonLink] = useState<string>(button.link === 'https://overschool.by' ? '' : button.link)
