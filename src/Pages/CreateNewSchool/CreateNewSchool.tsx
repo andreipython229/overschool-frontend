@@ -1,19 +1,18 @@
-import { Button } from '../../components/common/Button/Button'
+import { Button } from '@/components/common/Button/Button'
 import styles from './createNewSchool.module.scss'
-import { Path } from '../../enum/pathE'
-import { isSecurity, unSecurity, yandex } from '../../assets/img/common'
-import { InputAuth } from '../../components/common/Input/InputAuth/InputAuth'
+import { Path } from '@/enum/pathE'
+import { isSecurity, unSecurity, yandex, google } from '@/assets/img/common'
+import { InputAuth } from '@/components/common/Input/InputAuth/InputAuth'
 import { useFormik } from 'formik'
 import { useEffect, useState } from 'react'
 import { generatePath, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
-import { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } from 'api/schoolCreationService'
+import { useCreateSchoolOwnerMutation, useCreateSchoolOwnerRefMutation } from '@/api/schoolCreationService'
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import { SimpleLoader } from '@/components/Loaders/SimpleLoader'
 import * as Yup from 'yup'
-import {logoHeaderLogin, facebook, google, maillog, leftArrow} from '../../assets/img/common/index'
-import { Input } from 'components/common/Input/Input/Input'
-import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
+import { Input } from '@/components/common/Input/Input/Input'
+import { useAppSelector } from '@/store/hooks'
+import { selectUser } from '@/selectors'
 import toast, { Toaster } from 'react-hot-toast'
 
 import {Back} from './Back'
@@ -314,7 +313,7 @@ export const CreateNewSchool = () => {
             <div className={styles.newCoursePage_formWrapper_form_btnCreateWrapper_socialMedia}>
               <a
                 href={`${
-                  process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                  import.meta.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
                 }/accounts/google/login/`}
                 className={styles.socialIcon}
                 style={{ padding: '8px' }}
@@ -324,7 +323,7 @@ export const CreateNewSchool = () => {
               </a>
               <a
                 href={`${
-                  process.env.REACT_APP_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
+                  import.meta.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
                 }/accounts/yandex/login/`}
                 className={styles.socialIcon}
                 title="Yandex"

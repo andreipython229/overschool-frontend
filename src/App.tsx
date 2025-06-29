@@ -1,47 +1,48 @@
 import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
-import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
-import { CookiePolicy } from 'Pages/CookiePolicy/CookiePolicy'
-import { CookiePolicyDisclaimer } from 'Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer'
-import { PersonalDataProcessing } from 'Pages/PersonalDataProcessing/PersonalDataProcessing'
-import { PublicOfferAgreement } from 'Pages/PublicOfferAgreement/PublicOfferAgreement'
-import { Agreement } from 'components/Agreement/Agreement'
+import { PageNotFound } from '@/Pages/PageNotFound/PageNotFound'
+import { PersonalDataTreatmentPolicy } from '@/Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
+import { CookiePolicy } from '@/Pages/CookiePolicy/CookiePolicy'
+import { CookiePolicyDisclaimer } from '@/Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer'
+import { PersonalDataProcessing } from '@/Pages/PersonalDataProcessing/PersonalDataProcessing'
+import { PublicOfferAgreement } from '@/Pages/PublicOfferAgreement/PublicOfferAgreement'
+import { Agreement } from '@/components/Agreement/Agreement'
 import { PWA } from 'Pages/PWA/PWA'
 import { Initial } from 'Pages/Initial/newInitial'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
-import { MainLayOut } from 'components/MainLayout/MainLayOut'
-import { Path, FooterPath } from 'enum/pathE'
-import { useAppSelector } from 'store/hooks'
-import { authSelector, schoolSelector, selectUser } from 'selectors'
-import { navByRolesConfig } from 'config'
+import { TariffPlansInfoYear } from './Pages/TariffPlans/TariffPlansInfoYear'
+import { MainLayOut } from '@/components/MainLayout/MainLayOut'
+import { Path, FooterPath, PathParams } from '@/enum/pathE'
+import { useAppSelector } from '@/store/hooks'
+import { authSelector, schoolSelector, selectUser } from '@/selectors'
+import { navByRolesConfig } from '@/config'
 import { scrollToTop } from 'utils/scrollToTop'
 import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
 import styles from './App.module.scss'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
-import { Certificate } from 'Pages/Certificate/Certificate'
-import { CourseCatalogPage } from 'Pages/CourseCatalog'
-import { ResetPassword } from 'Pages/ResetPassword'
+import { Certificate } from '@/Pages/Certificate/Certificate'
+import { CourseCatalogPage } from '@/Pages/CourseCatalog'
+import { ResetPassword } from '@/Pages/ResetPassword'
 import { LoginPage } from './Pages/Login/LoginPage'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
-import { HelpSchoolPage } from 'Pages/HelpCenter/HelpAddEmployee'
-import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
+import { HelpSchoolPage } from '@/Pages/HelpCenter/HelpAddEmployee'
+import { CoureCatalogPreview } from '@/Pages/CourseCatalog/CoursePreview'
 import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
-import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
-import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
-import { HelpPlatformSettings } from 'Pages/HelpCenter/HelpPlatformSettings'
-import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
-import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
-import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
+import { HelpUserAccount } from '@/Pages/HelpCenter/HelpUserAccount'
+import { HelpSchoolSettings } from '@/Pages/HelpCenter/HelpSchoolSettings'
+import { HelpPlatformSettings } from '@/Pages/HelpCenter/HelpPlatformSettings'
+import { HelpStudentsPage } from '@/Pages/HelpCenter/HelpStudentsPage'
+import { HelpGroupSettings } from '@/Pages/HelpCenter/HelpGroupSettings'
+import { HelpOverAI } from '@/Pages/HelpCenter/HelpOverAI'
 import { HelpChat } from './Pages/HelpCenter/HelpChat'
-import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
-import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
-import { HelpGidStart } from 'Pages/HelpCenter/HelpGidStart'
+import { HelpCheckHW } from '@/Pages/HelpCenter/HelpCheckHW'
+import { HelpDomainLink } from '@/Pages/HelpCenter/HelpDomainLink'
+import { HelpGidStart } from '@/Pages/HelpCenter/HelpGidStart'
 import DomainError from './Pages/DomainAccessDenied/DomainError'
-import { TechnicalWorks } from 'Pages/TechnicalWorks/TechnicalWorks'
-import { SocialAuthPage } from 'ServicePages/SocialAuthPage'
-import WebinarPage from 'Pages/Webinar/webinarPage'
+import { TechnicalWorks } from '@/Pages/TechnicalWorks/TechnicalWorks'
+import { SocialAuthPage } from '@/ServicePages/SocialAuthPage'
+import WebinarPage from '@/Pages/Webinar/webinarPage'
 import { Toaster } from 'react-hot-toast'
 
 export const App = () => {
@@ -56,7 +57,7 @@ export const App = () => {
     const email = localStorage.getItem('email')
     const validEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
     if (email && validEmails.includes(email) && schoolName) {
-      navigate(generatePath(`${Path.School}${Path.Courses}`, { school_name: schoolName }))
+      navigate(generatePath(`${Path.School}/${Path.Courses}`, { school_name: schoolName as string }))
     }
   }, [isLogin])
 
@@ -74,6 +75,7 @@ export const App = () => {
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname !== Path.TariffPlansInfo &&
+      pathname !== Path.TariffPlansInfoYear &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
@@ -111,6 +113,7 @@ export const App = () => {
       pathname !== '/' &&
       pathname !== Path.ChooseSchool &&
       pathname !== Path.TariffPlansInfo &&
+      pathname !== Path.TariffPlansInfoYear &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
@@ -127,6 +130,7 @@ export const App = () => {
       pathname !== '/' &&
       pathname !== Path.ChooseSchool &&
       pathname !== Path.TariffPlansInfo &&
+      pathname !== Path.TariffPlansInfoYear &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
@@ -151,6 +155,7 @@ export const App = () => {
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
+        <Route path={Path.TariffPlansInfoYear} element={<TariffPlansInfoYear />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.SocialAuth} element={<SocialAuthPage />} />
@@ -161,7 +166,7 @@ export const App = () => {
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
           <Route path={Path.HelpPlatformSettings} element={<HelpPlatformSettings />} />
           <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
-          <Route path={Path.Courses} element={<HelpCoursesPage />} />
+          <Route path={Path.HelpCourses} element={<HelpCoursesPage />} />
           <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
           <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />

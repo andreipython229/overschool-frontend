@@ -1,22 +1,21 @@
-import { FC, useEffect } from 'react'
-import { ScoresFilter } from '../components/FiltersButton/ScoresFilter/ScoresFilter'
-import { CalendarFilter } from '../components/FiltersButton/CalendarFilter/CalendarFilter'
-import { SearchFilter } from '../components/FiltersButton/SearchFilter/SearchFilter'
-import { SearchFilterGroup } from '../components/FiltersButton/SearchFilterGroup/SearchFilterGroup'
+import { FC, useEffect, ReactElement } from 'react'
+import { ScoresFilter } from '@/components/FiltersButton/ScoresFilter/ScoresFilter'
+import { CalendarFilter } from '@/components/FiltersButton/CalendarFilter/CalendarFilter'
+import { SearchFilter } from '@/components/FiltersButton/SearchFilter/SearchFilter'
+import { SearchFilterGroup } from '@/components/FiltersButton/SearchFilterGroup/SearchFilterGroup'
 import { CoursesDataT } from '../types/CoursesT'
-import { useFetchCoursesQuery, useFetchSchoolTeachersQuery } from '../api/coursesServices'
-import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
-import { useFetchLessonsQuery } from 'api/modulesServices'
-import { IHomework } from 'types/sectionT'
-import { studentsGroupsT } from 'types/studentsGroup'
-import { useFetchStudentsDataPerSchoolQuery } from 'api/schoolHeaderService'
-import { ShowDeletedFilter } from '../components/FiltersButton/FilterComponent/FilterComponent'
-import { StatusFilter } from 'components/FiltersButton/StatusFilter'
-import { useAppSelector } from 'store/hooks'
-import { RoleE } from 'enum/roleE'
-import { schoolSelector, selectUser } from 'selectors'
-import { ISchoolTeachers } from 'api/apiTypes'
-import { TeacherFilter } from 'components/FiltersButton/TeacherFilter'
+import { useFetchCoursesQuery, useFetchSchoolTeachersQuery } from '@/api/coursesServices'
+import { useLazyFetchStudentsGroupQuery } from '@/api/studentsGroupService'
+import { useFetchLessonsQuery } from '@/api/modulesServices'
+import { IHomework } from '@/types/sectionT'
+import { studentsGroupsT } from '@/types/studentsGroup'
+import { useFetchStudentsDataPerSchoolQuery } from '@/api/schoolHeaderService'
+import { ShowDeletedFilter } from '@/components/FiltersButton/FilterComponent/FilterComponent'
+import { StatusFilter } from '@/components/FiltersButton/StatusFilter'
+import { useAppSelector } from '@/store/hooks'
+import { schoolSelector, selectUser } from '@/selectors'
+import { ISchoolTeachers } from '@/api/apiTypes'
+import { TeacherFilter } from '@/components/FiltersButton/TeacherFilter'
 
 type ComponentFilterT = {
   id: string | number
@@ -58,7 +57,7 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
     fetchGroups(schoolName)
   }, [])
 
-  const filtersMaper: { [key: string]: JSX.Element } = {
+  const filtersMaper: { [key: string]: ReactElement } = {
     // Фильтра домашек
     // '5': <SearchFilter key={2} filterKey={'homework'} data={firstNames && firstNames.length > 0 ? firstNames : []} name={''} header={'ВВЕДИТЕ ИМЯ'} filterTerm="first_name" />,
     // '6': <SearchFilter key={1} filterKey={'homework'} data={lastNames && lastNames.length > 0 ? lastNames : []} name={''} header={'ВВЕДИТЕ ФАМИЛИЮ'} filterTerm="last_name" />,

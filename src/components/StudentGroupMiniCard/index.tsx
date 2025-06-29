@@ -1,18 +1,17 @@
 import { FC } from 'react'
 import styles from './courseSmallBanner.module.scss'
-import bgImage from './assets/image.png'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { settingsIconPath } from 'config/commonSvgIconsPath'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { settingsIconPath } from '@/config/commonSvgIconsPath'
 import { PeopleIconSvg } from './assets/iconsComponents'
-import { useAppSelector } from 'store/hooks'
-import { schoolSelector, selectUser } from 'selectors'
+import { useAppSelector } from '@/store/hooks'
+import { schoolSelector, selectUser } from '@/selectors'
 import { Link, generatePath } from 'react-router-dom'
-import { RoleE } from 'enum/roleE'
-import { Path } from 'enum/pathE'
-import { SettingsGroupModal } from 'components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
-import { useBoolean } from 'customHooks/useBoolean'
-import { Portal } from 'components/Modal/Portal'
-import { StudentsGroupPropsT } from 'Pages/School/StudentsStats/StudentsCountGroup'
+import { RoleE } from '@/enum/roleE'
+import { Path } from '@/enum/pathE'
+import { SettingsGroupModal } from '@/components/Modal/StudentLogs/SettingsGroupModal/SettingsGroupModal'
+import { useBoolean } from '@/customHooks/useBoolean'
+import { Portal } from '@/components/Modal/Portal'
+import { StudentsGroupPropsT } from '@/Pages/School/StudentsStats/StudentsCountGroup'
 
 export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, courseId, countStudent, id, active, click }) => {
   const { role } = useAppSelector(selectUser)
@@ -20,7 +19,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
   const { schoolName } = useAppSelector(schoolSelector)
 
   const pathLink = generatePath(
-    generatePath(Path.School + (role === RoleE.Teacher ? '' : Path.Courses) + `group/${id}`, {
+        generatePath(Path.School + (role === RoleE.Teacher ? '' : `/${Path.Courses}`) + '/group/' + id, {
       school_name: schoolName,
     }),
   )

@@ -18,13 +18,6 @@
 .TariffPlansPage {
   height: 100%;
 }
-
-.TariffPlansPage h1 {
-  margin: 23px;
-  color: #4d5766;
-  font-size: 35px;
-}
-
 .TariffPlansPage_header {
   margin-top: 50px;
   margin-bottom: 60px;
@@ -35,23 +28,29 @@
   letter-spacing: 0;
   text-align: center;
   color: #000 !important;
-  max-width: 1200px;
+  max-width: 1219.5px;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 
-  white-space: nowrap; /* Не переносить текст */
+   white-space: nowrap; /* Не переносить текст */
   overflow: hidden;     /* Убрать лишнее, если не влезает */
   text-overflow: ellipsis; /* Добавить ... при обрезке */
+   font-size: clamp(28px, 4vw, 46px);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.main-content {
-  padding-top: 60px; /* высота навигации */
-}
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .TariffPlansPage_header {
     padding: 0 1rem;
+    font-size: 32px; /* адаптивно уменьшаем */
+    line-height: 36px;
   }
 }
+
 
 .TariffPlansPage_plansBlock {
   display: flex;
@@ -537,6 +536,7 @@ li img {
   line-height: 100%; /* или 1 */
   letter-spacing: 0;
   text-align: center;
+  color: 'black',
 }
 
 
@@ -602,12 +602,17 @@ li img {
 
 .savingsBlock {
   display: flex;
-  justify-content: center;
+  justify-content: center;  // Центрирует по горизонтали
+  align-items: center;      // Центрирует по вертикали, если нужно
+  margin: 0 auto 1.5em;      // Центрирует блок и задаёт отступ снизу
   gap: 12px;
-  margin-bottom: 1.5em;
   font-weight: 600;
   font-size: 16px;
+  cursor: pointer;
+  max-width: 100%;
+  text-align: center;
 }
+
 
 .monthly {
   background-color: #a8d8ff; // голубой
@@ -798,11 +803,75 @@ li img {
 
 
 .TariffPlansPage_plansBlock_cardGroup {
+  margin-top: 45px;
   display: flex;
-  flex-direction: row;
-  justify-content: center; // Центрируем по горизонтали
-  align-items: stretch; // Чтобы высота у всех карточек совпадала
-  gap: 32px; // Отступы между карточками
-  flex-wrap: nowrap; // Не переносить карточки на новую строку
-  margin-top: 32px;
+  justify-content: center; /* Центрируем по горизонтали */
+  gap: 20px; /* Отступы между карточками */
+  flex-wrap: wrap; /* Чтобы на маленьких экранах шли в колонку */
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+
+
+.active {
+  color: #1976d2;
+  text-decoration: underline;
+}
+
+
+
+.TariffPlansPage_header {
+  white-space: nowrap;       /* не переносить строки */
+  overflow: hidden;          /* скрыть лишнее */
+  text-overflow: ellipsis;   /* добавить "..." при обрезке */
+   font-size: clamp(28px, 4vw, 46px);
+}
+
+.footer {
+  margin-top: 60px;
+  padding: 40px 20px;
+  background-color: #FFFFFF;     /* белый фон */
+  color: #002B5B;                /* тёмно-синий текст */
+  text-align: center;
+  font-family: 'SF Pro Display', sans-serif;
+  font-size: 14px;
+  border-top: 1px solid #CCCCCC; /* светло-серая линия сверху */
+}
+
+.footerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footerLogo img {
+  width: 208px;
+  height: 124px;
+  margin-bottom: 20px;
+  object-fit: contain;
+  filter: none; /* оставляем как есть, если фон уже белый */
+}
+
+.footerNav {
+  margin-bottom: 20px;
+
+  a {
+    color: #002B5B;           /* тёмно-синие ссылки */
+    margin: 0 12px;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #0056b3;         /* ярче при наведении */
+    }
+  }
+}
+
+.footerCopy {
+  font-size: 12px;
+  color: #666666;             /* более мягкий тёмно-серый для копирайта */
 }

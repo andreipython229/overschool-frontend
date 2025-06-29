@@ -1,16 +1,16 @@
 import { Link, useParams } from 'react-router-dom'
 import { FC } from 'react'
-import { FooterPath, Path } from 'enum/pathE'
-import { footerlogo, locationfooter, mailfooter, line } from '../../assets/img/common/index'
-import { useFetchSchoolQuery } from 'api/schoolService'
-import { useAppSelector } from 'store/hooks'
-import { schoolSelector } from '../../selectors'
+import { FooterPath } from '@/enum/pathE'
+import { footerlogo, locationfooter, mailfooter, line } from '@/assets/img/common/index'
+import { useFetchSchoolQuery } from '@/api/schoolService'
+import { useAppSelector } from '@/store/hooks'
+import { schoolSelector } from '@/selectors'
 import styles from './footer.module.scss'
 interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
 
-import {ScrollToTopButton} from "../ScrollToTopButton/ScrollToTopButton";
+import {ScrollToTopButton} from "@/components/ScrollToTopButton/ScrollToTopButton";
 
 export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
     // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
