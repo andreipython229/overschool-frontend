@@ -574,9 +574,9 @@
   cursor: pointer;
   transition: background-color 0.3s;
 
-  //&:hover {
-  //  background: color.adjust($color: #357eeb, $lightness: -10%, $space: hsl);
-  //}
+  &:hover {
+    background: color.adjust($color: #357eeb, $lightness: -10%, $space: hsl);
+  }
 
   @media (max-width: 1500px) {
     padding: 20px 20px;
