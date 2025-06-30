@@ -57,7 +57,7 @@ export enum Path {
   Bonus = 'bonus',
   HelpGidStart = 'help-gid-start',
   HelpPlatformSettings = 'help-platform-settings',
-  SocialAuth = 'auth/callback/:authData',
+  SocialAuth = '/auth/callback/',
   HelpCourses = 'courses',
   HelpAddEmployee = 'help-add-employee',
 }

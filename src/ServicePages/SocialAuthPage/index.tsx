@@ -1,47 +1,51 @@
-import { useAuthSocialQuery, useLazyGetUserInfoQuery } from 'api/userLoginService'
+import { useLazyGetUserInfoQuery } from 'api/userLoginService'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { Path } from 'enum/pathE'
-import { RoleE } from 'enum/roleE'
-import { FC, useEffect } from 'react'
-import { generatePath, useNavigate, useParams } from 'react-router-dom'
+import { FC, useEffect, useMemo } from 'react'
+import { generatePath, useNavigate, useSearchParams } from 'react-router-dom'
 import { selectUser } from '@/selectors'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { auth, authState, id, role, userEmail, userName } from 'store/redux/users/slice'
+import { auth, authState, id, role, userEmail, userName } from '@/store/redux/users/slice'
+import { RoleE } from '@/enum/roleE'
 
 export const SocialAuthPage: FC = () => {
-  const { authData } = useParams()
   const dispatch = useAppDispatch()
-  const { auth: authetificationState } = useAppSelector(selectUser)
+  const [searchParams] = useSearchParams()
+  const { auth: authetificationState, authState: authStateRedux, userId, email } = useAppSelector(selectUser)
   const navigate = useNavigate()
-  const [getUserInfo] = useLazyGetUserInfoQuery()
+  const [getUserInfo, { isSuccess }] = useLazyGetUserInfoQuery()
 
-  // useEffect(() => {
-  //   if (authData) {
-  //     dispatch(authState({ access: authData.access, refresh: authData.refresh }))
-  //     dispatch(id(authData.user.id))
-  //     dispatch(userEmail(authData.user.email))
-  //     localStorage.setItem('id', authData.user.id.toString())
-  //   }
-  // }, [authData])
+  const authData = useMemo(() => {
+    return Object.fromEntries(searchParams.entries())
+  }, [searchParams])
 
   useEffect(() => {
-    if (authetificationState) {
+    if (authData && authData.access && authData.refresh && authData.id && authData.email) {
+      dispatch(authState({ access: authData.access, refresh: authData.refresh }))
+      dispatch(id(Number(authData.id)))
+      dispatch(userEmail(authData.email))
+      localStorage.setItem('id', authData.id.toString())
+    }
+  }, [authData, dispatch])
+
+  useEffect(() => {
+    if (authetificationState && isSuccess) {
       navigate(generatePath(Path.ChooseSchool))
     }
-  }, [authetificationState])
+  }, [authetificationState, navigate, isSuccess])
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     getUserInfo()
-  //       .unwrap()
-  //       .then(resp => {
-  //         dispatch(auth(true))
-  //         dispatch(userName(resp[0]?.username))
-  //         dispatch(role(RoleE.Unknown))
-  //       })
-  //       .catch(() => navigate(generatePath(Path.LoginPage)))
-  //   }
-  // }, [isSuccess, isLoading])
+  useEffect(() => {
+    if (authStateRedux && userId && email) {
+      getUserInfo()
+        .unwrap()
+        .then(resp => {
+          dispatch(auth(true))
+          dispatch(userName(resp[0]?.username))
+          dispatch(role(RoleE.Unknown))
+        })
+        .catch(() => navigate(generatePath(Path.LoginPage)))
+    }
+  }, [authStateRedux, userId, email, getUserInfo, dispatch, navigate])
 
   return <LoaderLayout></LoaderLayout>
 }
