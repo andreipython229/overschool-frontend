@@ -4,7 +4,6 @@ import { crossIconPath } from 'config/commonSvgIconsPath'
 import { useAssignRoleMutation, useRemoveRoleMutation } from 'api/schoolService'
 import { Toast } from 'primereact/toast'
 import styles from './newUserRole.module.scss'
-import { response } from 'msw'
 
 interface NewUserRoleProps {
   school_id: number

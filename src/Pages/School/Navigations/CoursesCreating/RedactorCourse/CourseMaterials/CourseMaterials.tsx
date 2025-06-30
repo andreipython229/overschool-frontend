@@ -6,7 +6,7 @@ import {
   useLazyFetchLessonQuery, 
 } from 'api/modulesServices';
 
-import { lessonSvgMapper } from 'config';
+import { lessonSvgMapper } from '@/config';
 import { lessonIdAndTypeT } from 'components/Modal/ModalTypes';
 
 import { LESSON_TYPE } from 'enum/lessonTypeE';

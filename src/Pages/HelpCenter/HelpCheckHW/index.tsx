@@ -1,14 +1,15 @@
 import { generatePath, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { Path } from "../../../enum/pathE";
+import { Path } from "@/enum/pathE";
 import styles from "../HelpPagesCommon.module.scss";
 import mainHelpStyles from "../HelpPage.module.scss";
-import { Button } from "../../../components/common/Button/Button";
-import { InitPageHeader } from "../../Initial/newInitialPageHeader";
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
-import { Footer } from "../../../components/Footer/index";
-
+import { Button } from "@/components/common/Button/Button";
+import { InitPageHeader } from "@/Pages/Initial/newInitialPageHeader";
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '@/assets/Icons/svgIconPath'
+import { Footer } from "@/components/Footer/index";
+import login from '@/assets/img/help/login.png'
+import loginBtn from '@/assets/img/help/login_btn.png'
+import ctaImage from '@/assets/img/common/cta-image.png'
 
 
 export const HelpCheckHW = () => {
@@ -16,10 +17,6 @@ export const HelpCheckHW = () => {
 
     const handleHelpPage = () => {
         navigate(generatePath(Path.HelpPage))
-    }
-
-    const handleLoginPage = () => {
-        navigate(generatePath(Path.LoginPage))
     }
 
     const handleRegistrationUser = () => {
@@ -60,7 +57,7 @@ export const HelpCheckHW = () => {
                     </div>
                     <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/help/login.png")}
+                            src={login}
                             alt="Окно входа"
                         />
                     </div>
@@ -69,7 +66,7 @@ export const HelpCheckHW = () => {
                 <div className={styles.section}>
                     <div className={styles.img_part}>
                         <img
-                            src={require("../../../assets/img/help/login.png")}
+                            src={loginBtn}
                             alt="чат с помощником"
                         />
                     </div>
@@ -94,7 +91,7 @@ export const HelpCheckHW = () => {
                         </p>
                         <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
                         <div className={mainHelpStyles.ctaImage}>
-                            <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+                            <img src={ctaImage} alt="CTA-изображение" />
                         </div>
                     </div>
                 </div>

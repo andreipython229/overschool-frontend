@@ -165,7 +165,7 @@ export const ChatGPT: FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => 
     handleSendMessage(messageInput)
   }
 
-  const formatBotAnswer = (answer: string): JSX.Element => {
+  const formatBotAnswer = (answer: string): React.ReactNode => {
     const escapeHtml = (str: string): string => {
       return str
         .replace(/&/g, '&amp;')

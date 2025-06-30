@@ -1,44 +1,44 @@
 import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import { Path, Student, FooterPath } from 'enum/pathE'
-import { MobileInitPage } from 'MobilePages/MobileInitPage/MobileInitPage'
-import { MobileLayOut } from './MobilePages/MobileLayOut'
-import { PageNotFound } from 'Pages/PageNotFound/PageNotFound'
-import { Profile } from 'Pages/Profile/Profile'
+import { Path, FooterPath } from '@/enum/pathE'
+import { MobileInitPage } from '@/MobilePages/MobileInitPage/MobileInitPage'
+import { MobileLayOut } from '@/MobilePages/MobileLayOut'
+import { PageNotFound } from '@/Pages/PageNotFound/PageNotFound'
+import { Profile } from '@/Pages/Profile/Profile'
 import { ChooseSchool } from './Pages/ChooseSchool/ChooseSchool'
-import { useAppSelector } from 'store/hooks'
-import { selectUser, authSelector, schoolNameSelector } from 'selectors'
-import { scrollToTop } from 'utils/scrollToTop'
-import { navByRolesConfig } from 'config'
+import { useAppSelector } from '@/store/hooks'
+import { selectUser, authSelector, schoolNameSelector } from '@/selectors'
+import { scrollToTop } from '@/utils/scrollToTop'
+import { navByRolesConfig } from '@/config'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { CreateNewSchool } from './Pages/CreateNewSchool/CreateNewSchool'
 import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
-import { PersonalDataTreatmentPolicy } from 'Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
-import { CookiePolicy } from 'Pages/CookiePolicy/CookiePolicy'
-import { CookiePolicyDisclaimer } from 'Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer'
-import { PersonalDataProcessing } from 'Pages/PersonalDataProcessing/PersonalDataProcessing'
-import { PublicOfferAgreement } from 'Pages/PublicOfferAgreement/PublicOfferAgreement'
-import { Agreement } from 'components/Agreement/Agreement'
-import { PWA } from 'Pages/PWA/PWA'
+import { PersonalDataTreatmentPolicy } from '@/Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy'
+import { CookiePolicy } from '@/Pages/CookiePolicy/CookiePolicy'
+import { CookiePolicyDisclaimer } from '@/Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer'
+import { PersonalDataProcessing } from '@/Pages/PersonalDataProcessing/PersonalDataProcessing'
+import { PublicOfferAgreement } from '@/Pages/PublicOfferAgreement/PublicOfferAgreement'
+import { Agreement } from '@/components/Agreement/Agreement'
+import { PWA } from '@/Pages/PWA/PWA'
 import { HelpPage } from './Pages/HelpCenter/HelpPage'
-import { HelpSchoolPage } from 'Pages/HelpCenter/HelpSchoolPage'
+import { HelpSchoolPage } from '@/Pages/HelpCenter/HelpSchoolPage'
 import { HelpCoursesPage } from './Pages/HelpCenter/HelpCoursesPage'
-import { HelpUserAccount } from 'Pages/HelpCenter/HelpUserAccount'
-import { HelpSchoolSettings } from 'Pages/HelpCenter/HelpSchoolSettings'
-import { HelpStudentsPage } from 'Pages/HelpCenter/HelpStudentsPage'
-import { HelpGroupSettings } from 'Pages/HelpCenter/HelpGroupSettings'
-import { HelpOverAI } from 'Pages/HelpCenter/HelpOverAI'
-import { HelpCheckHW } from 'Pages/HelpCenter/HelpCheckHW'
-import { HelpDomainLink } from 'Pages/HelpCenter/HelpDomainLink'
-import { RoleE } from 'enum/roleE'
+import { HelpUserAccount } from '@/Pages/HelpCenter/HelpUserAccount'
+import { HelpSchoolSettings } from '@/Pages/HelpCenter/HelpSchoolSettings'
+import { HelpStudentsPage } from '@/Pages/HelpCenter/HelpStudentsPage'
+import { HelpGroupSettings } from '@/Pages/HelpCenter/HelpGroupSettings'
+import { HelpOverAI } from '@/Pages/HelpCenter/HelpOverAI'
+import { HelpCheckHW } from '@/Pages/HelpCenter/HelpCheckHW'
+import { HelpDomainLink } from '@/Pages/HelpCenter/HelpDomainLink'
+import { RoleE } from '@/enum/roleE'
 import { useSelector } from 'react-redux'
 import styles from './App.module.scss'
-import { ResetPassword } from 'Pages/ResetPassword'
-import { Certificate } from 'Pages/Certificate/Certificate'
-import { CourseCatalogPage } from 'Pages/CourseCatalog'
-import { CoureCatalogPreview } from 'Pages/CourseCatalog/CoursePreview'
-import { LoginPage } from 'Pages/Login/LoginPage'
-import { SocialAuthPage } from 'ServicePages/SocialAuthPage'
+import { ResetPassword } from '@/Pages/ResetPassword'
+import { Certificate } from '@/Pages/Certificate/Certificate'
+import { CourseCatalogPage } from '@/Pages/CourseCatalog'
+import { CoureCatalogPreview } from '@/Pages/CourseCatalog/CoursePreview'
+import { LoginPage } from '@/Pages/Login/LoginPage'
+import { SocialAuthPage } from '@/ServicePages/SocialAuthPage'
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -75,7 +75,10 @@ export const AppMobile = () => {
       navigate(Path.InitialPage)
     } else if (schoolName && role !== 0 && pathname.split('/')[2] !== schoolName && pathname.split('/')[1] === 'school') {
       navigate(
-        generatePath(role !== RoleE.Teacher ? `${Path.School}${Path.Courses}` : `${Path.School}${Path.CourseStudent}`, { school_name: schoolName }),
+        generatePath(role !== RoleE.Teacher ? `${Path.School}/${Path.Courses}` : `${Path.School}/${Path.CourseStudent}`, { 
+          school_name: schoolName,
+          course_id: null 
+        }),
       )
     }
   }, [])
@@ -131,7 +134,7 @@ export const AppMobile = () => {
           <Route path={Path.HelpUserAccount} element={<HelpUserAccount />} />
           <Route path={Path.HelpSchoolSettings} element={<HelpSchoolSettings />} />
           <Route path={Path.HelpOverAI} element={<HelpOverAI />} />
-          <Route path={Path.Courses} element={<HelpCoursesPage />} />
+          <Route path={Path.HelpCourses} element={<HelpCoursesPage />} />
           <Route path={Path.HelpGroupSettings} element={<HelpGroupSettings />} />
           <Route path={Path.HelpStudents} element={<HelpStudentsPage />} />
           <Route path={Path.HelpCheckHW} element={<HelpCheckHW />} />

@@ -1,5 +1,4 @@
-@import '../../../../scss/variable';
-@import '../../../../scss/mixin.scss';
+@use 'sass:color';
 
 .paginationBox {
   margin: 2rem auto 0;
@@ -502,7 +501,7 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 10px;
-  background: #357EEB;
+  background: #357eeb;
   border: none;
   color: white;
   font-size: 24px;
@@ -566,7 +565,7 @@
 }
 
 .course_button_add {
-  background: #357EEB;
+  background: #357eeb;
   color: white;
   border: none;
   border-radius: 10px;
@@ -576,7 +575,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background: darken(#357EEB, 10%);
+    background: color.adjust($color: #357eeb, $lightness: -10%, $space: hsl);
   }
 
   @media (max-width: 1500px) {
@@ -595,7 +594,7 @@
   align-items: center;
   gap: 0.5rem;
   background: transparent;
-  border: 2px solid #357EEB;
+  border: 2px solid #357eeb;
   border-radius: 10px;
   padding: 8px 12px;
   transition: all 0.3s ease;
@@ -608,7 +607,7 @@
 .deleteFolderButton {
   background: transparent;
   border: none;
-  color: #357EEB;
+  color: #357eeb;
   cursor: pointer;
   padding: 4px;
   border-radius: 50%;

@@ -19,7 +19,6 @@ import {
 } from '../types/ProdamusPaymenT'
 import { schoolStudentsGroupingData } from 'types/studentsGroup'
 import { baseQueryWithReauth } from './baseQueryReauth'
-import { a } from 'msw/lib/glossary-dc3fd077'
 
 export const schoolService = createApi({
   reducerPath: 'schoolService',

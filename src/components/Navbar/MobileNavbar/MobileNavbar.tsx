@@ -1,25 +1,33 @@
 import React, { FC, memo, useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Path } from 'enum/pathE'
-import { useAppSelector } from '../../../store/hooks'
+import { Path } from '@/enum/pathE'
+import { useAppSelector } from '@/store/hooks'
 import RedeemIcon from '@mui/icons-material/Redeem'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 import { Chat } from 'components/Modal/Chat'
 import { useBoolean } from 'customHooks'
 import { chatIconPath, tgNavPath } from 'components/Navbar/config/svgIconPath'
 import Tooltip from '@mui/material/Tooltip'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../../store/redux/store'
+import { RootState } from '@/store/redux/store'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import Badge from '@mui/material/Badge'
 import { Portal } from 'components/Modal/Portal'
-import { selectUser } from '../../../selectors'
+// alex_kiyko_newbags
+import { selectUser, inviteProgramSelector } from '../../../selectors'
+// 
+<!-- import { selectUser } from '@/selectors' -->
+// dev-front
 import { navlinkByRoles } from '../config/navlinkByRoles'
 import { SvgIcon } from '@mui/material'
+// import { GiftIconPath } from 'assets/Icons/svgIconPath' //для последующего отобраения бонусов
 
 import styles from '../navbar.module.scss'
-import { RoleE } from 'enum/roleE'
+import { RoleE } from '@/enum/roleE'
 import Timer from '../../Timer/Timer'
 
+//  alex_kiyko_newbags
+// 
 // Компонент-обертка для применения стилей к иконкам
 const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
   const iconStyle = {
@@ -31,10 +39,9 @@ const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
     <div style={iconStyle}>
       {React.Children.map(children, child => {
         if (React.isValidElement(child)) {
-          return React.cloneElement(child as React.ReactElement, {
-            // Применяем стили только к SVG элементам
+          return React.cloneElement(child as React.ReactElement<{ style?: React.CSSProperties }>, {
             style: {
-              ...(child.props.style || {}),
+              ...((child as React.ReactElement<{ style?: React.CSSProperties }>).props?.style ?? {}),
               color: '#212121',
               fill: '#212121',
             }
@@ -46,6 +53,7 @@ const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
+<!-- dev-front -->
 interface IIsActive {
   isActive?: boolean
 }
@@ -62,6 +70,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
   const [isChatOpen, { on, off }] = useBoolean()
   const studentBonus = useSelector((state: RootState) => state.bonuses.studentBonus)
   const [localIsCollapsed, setLocalIsCollapsed] = useState(isCollapsed)
+  const inviteLink = useAppSelector(inviteProgramSelector)
 
   // Синхронизируем локальное состояние с пропсами
   useEffect(() => {
@@ -95,16 +104,27 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
   return (
     <>
       {/* Навигационная панель */}
-      <div className={`${styles.navbar_setting_account} ${effectiveIsCollapsed ? styles.collapsed : ''}`} 
-           style={{ 
-             display: 'flex', 
-             justifyContent: 'space-evenly', 
-             alignItems: 'center',
-             paddingLeft: '10px',
-             paddingRight: '10px'
-           }}>
+      <div className={`${styles.navbar_setting_account} ${effectiveIsCollapsed ? styles.collapsed : ''}`}>
         {!effectiveIsCollapsed && (
           <>
+            {/* Кнопка "Заработок" - первая слева */}
+            {inviteLink && inviteLink.is_active && inviteLink.link && (
+              <div className={styles.navIconContainer}>
+                <Tooltip title="Ссылка на программу заработка" arrow placement={'right'}>
+                  <a
+                    key={'invite-link'}
+                    href={inviteLink.link}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <SvgIcon className={styles.navIcon} style={{ opacity: '0.8' }}>
+                      <MonetizationOnIcon />
+                    </SvgIcon>
+                  </a>
+                </Tooltip>
+              </div>
+            )}
+
             {userRole === RoleE.Student && studentBonus.id > 0 && new Date(studentBonus.expire_date) > new Date() ? (
               <div style={{ marginTop: '35px' }}>
                 <Tooltip title={`Акции/бонусы. ${studentBonus.text}`} arrow placement={'right'} key={'bonus'}>
@@ -114,9 +134,11 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                         <img width={42} height={40} src={studentBonus.logo} alt="Logo" />
                       </div>
                     ) : (
-                      <SvgIcon className={styles.navbar_menu} style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
-                        <RedeemIcon />
-                      </SvgIcon>
+                      <div className={styles.navIconContainer}>
+                         <SvgIcon className={styles.navIcon} >
+                            <RedeemIcon />
+                         </SvgIcon>
+                      </div>
                     )}
                     <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
                       <Timer targetDate={new Date(studentBonus.expire_date)} target="bonus" />
@@ -153,13 +175,13 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                 ) : (
                   <>
                     <Tooltip title={'Чаты'} arrow placement={'right'}>
-                      <div className={`${styles.chatIcon}`} onClick={off} style={{ outline: 'none', padding: '0 10px' }}>
+                      <div className={`${styles.navIconContainer} ${styles.chatIcon}`} onClick={off} style={{ outline: 'none' }}>
                         {Number(unRead) > 0 ? (
                           <Badge badgeContent={unRead} color="error">
-                            <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} className={styles.navIcon} />
+                            <IconSvg width={38} height={38} viewBoxSize="0 0 50 50" path={chatIconPath} className={styles.navIcon} />
                           </Badge>
                         ) : (
-                          <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} className={styles.navIcon} />
+                          <IconSvg width={38} height={38} viewBoxSize="0 0 50 50" path={chatIconPath} className={styles.navIcon} />
                         )}
                       </div>
                     </Tooltip>
@@ -167,15 +189,25 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                 ),
               )}
 
-            {userRole === RoleE.Admin && (
+            {/* Иконка Telegram для связи с техподдержкой для всех ролей, кроме Unknown */}
+            {userRole !== RoleE.Unknown && (
               <Tooltip title={'Связаться с техподдержкой'} arrow placement={'right'}>
-                <a key={'techsupport'} href={'https://t.me/coursehub_admin'} target="_blank" rel="noreferrer" style={{ padding: '0 10px' }}>
-                  <div style={{ transform: 'scale(1.1)', transformOrigin: 'center center' }}>
-                    <IconSvg width={60} height={60} viewBoxSize="0 0 50 50" path={tgNavPath} className={styles.navIcon} />
-                  </div>
+                <a key={'techsupport'} href={'https://t.me/coursehub_admin'} target="_blank" rel="noreferrer" className={styles.navIconContainer}>
+                  <IconSvg width={38} height={38} viewBoxSize="0 0 50 50" path={tgNavPath} className={styles.navIcon} />
                 </a>
               </Tooltip>
             )}
+
+            {/* Иконка для последующего отобраения бонусов для студентов и учителей */}
+            {/* {(userRole === RoleE.Student || userRole === RoleE.Teacher) && (
+              <Tooltip title={'Бонусы'} arrow placement={'right'}>
+                <NavLink to={Path.Courses + Path.Bonus} className={isActive} >
+                  <div className={styles.navIconContainer}>
+                    <IconSvg width={38} height={38} viewBoxSize="0 0 38 41" path={GiftIconPath} className={styles.navIcon} />
+                  </div>
+                </NavLink>
+              </Tooltip>
+            )} */}
 
             {userRole === RoleE.Student && (
               <React.Fragment>

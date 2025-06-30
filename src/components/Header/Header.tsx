@@ -331,7 +331,7 @@ export const Header = memo(() => {
   const connectWebSocket = () => {
     if ((informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) && userId) {
       const socketPath =
-        process.env.REACT_APP_RUN_MODE === 'PRODUCTION'
+        import.meta.env.VITE_RUN_MODE === 'PRODUCTION'
           ? `wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
           : `ws://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
       informSocketRef.current = new w3cwebsocket(socketPath)
@@ -613,7 +613,7 @@ export const Header = memo(() => {
           </DialogActions>
         </Dialog>
       )}
-      <div className={styles.header_logo} onClick={() => navigate(generatePath(Path.Courses))}>
+      <div className={styles.header_logo} onClick={() => navigate(generatePath(Path.School + '/' + Path.Courses, { school_name: schoolName }))}>
         <img src={logoHeader} alt="Logotype ITOVERONE" />
       </div>
       <div className={styles.header_hiddenBlock}>
