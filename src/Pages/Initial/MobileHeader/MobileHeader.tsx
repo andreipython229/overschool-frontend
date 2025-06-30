@@ -67,23 +67,23 @@ export const MobileHeader: FC = () => {
                   <StatusUp className={styles.icon} />
                   <h5>Для начинающих экспертов</h5>
                 </a>
-                <a href="https://coursehb.ru/page4">
+                <a href="https://coursehb.ru/dlya-online-shkol">
                   <Book className={styles.icon} />
                   <h5>Для онлайн школ</h5>
                 </a>
-                <a href="https://coursehb.ru/page5">
+                <a href="https://coursehb.ru/dlya-obucheniya-personala">
                   <Security className={styles.icon} />
                   <h5>Для обучения персонала</h5>
                 </a>
-                <a href="https://coursehb.ru/page6">
+                <a href="https://coursehb.ru/vozmozhnosti">
                   <Timer className={styles.icon} />
                   <h5>Возможности</h5>
                 </a>
-                <a href="https://coursehb.ru/page7">
+                <a href="https://coursehb.ru/otzyvy-platforma">
                   <ChatIcon className={styles.icon} />
                   <h5>Отзывы пользователей</h5>
                 </a>
-                <a href="https://coursehb.ru/page8">
+                <a href="https://coursehb.ru/partners-program">
                   <MedalStar className={styles.icon} />
                   <h5>Партнёрская программа</h5>
                 </a>

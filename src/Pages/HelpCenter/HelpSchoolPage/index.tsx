@@ -1,18 +1,14 @@
-import { Button } from '../../../components/common/Button/Button'
-import register from '../../../assets/img/createProject/register.png'
-import register2 from '../../../assets/img/createProject/register2.png'
-import firstStep from '../../../assets/img/createProject/firstStep.png'
-import secondStep from '../../../assets/img/createProject/secondStep.png'
-import { headerUserRoleName } from '../../../config/headerUserRoleName'
-import { useAppSelector } from '../../../store/hooks'
-import {selectUser} from '../../../selectors'
-import { Path } from 'enum/pathE'
+import { Button } from '@/components/common/Button/Button'
+import register from '@/assets/img/createProject/register.png'
+import register2 from '@/assets/img/createProject/register2.png'
+import firstStep from '@/assets/img/createProject/firstStep.png'
+import secondStep from '@/assets/img/createProject/secondStep.png'
+import { Path } from '@/enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
-import {logo} from "../../../assets/img/common";
+import {logo} from "@/assets/img/common";
 import styles from '../HelpPage.module.scss'
 
 export const HelpSchoolPage = () => {
-   const {role} = useAppSelector(selectUser)
   const navigate = useNavigate()
 
   const handleHelpPage = () => {

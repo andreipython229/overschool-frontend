@@ -1,6 +1,5 @@
 import { FC, useEffect, useState, FormEvent, ChangeEvent } from 'react'
 import { Params, useNavigate } from 'react-router-dom'
-
 import styles from './studentTest.module.scss'
 import { sectionT } from 'types/sectionT'
 import { StudentTestPreview } from '../StudentTestPreview'
@@ -12,7 +11,7 @@ import { useLazyFetchQuestionsListQuery, useGetUserTestsByTestMutation } from '.
 import { useLazyFetchCommentsByLessonQuery, useCreateCommentMutation } from 'api/modulesServices'
 import { CommentList, Comment } from 'types/comments'
 import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
+import { selectUser } from '@/selectors'
 import { Button } from 'components/common/Button/Button'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { arrowLeftIconPath } from 'config/commonSvgIconsPath'

@@ -38,7 +38,7 @@ export const CourseMiniCard: FC<ICoursesMiniCard> = ({ courseId, title, groups }
   }, [filteredGroups])
 
   const pathLink = generatePath(
-    role === RoleE.Teacher ? `${Path.School}${Path.CourseStudent}` : `${Path.School}${Path.Courses}${Path.CreateCourse}student`,
+    role === RoleE.Teacher ? `${Path.School}/${Path.CourseStudent}` : `${Path.School}/${Path.Courses}/${Path.CreateCourse}student`,
     {
       course_id: `${courseId}`,
       school_name: schoolName,

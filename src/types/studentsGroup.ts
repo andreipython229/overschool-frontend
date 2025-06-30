@@ -1,6 +1,3 @@
-import {b} from "msw/lib/glossary-dc3fd077";
-import {sectionLessons} from "./lessonAccessT";
-
 export type studentsGroupT = {
     next?: null
     previous?: null

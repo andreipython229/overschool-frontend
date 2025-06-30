@@ -1,22 +1,22 @@
 import { generatePath, useNavigate } from 'react-router-dom'
-import { Path } from '../../../enum/pathE'
+import { Path } from '@/enum/pathE'
 import styles from '../HelpPagesCommon.module.scss'
 import mainHelpStyles from '../HelpPage.module.scss'
-import { Button } from '../../../components/common/Button/Button'
-import { InitPageHeader } from '../../Initial/newInitialPageHeader'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
-import { Footer } from '../../../components/Footer/index'
+import { Button } from '@/components/common/Button/Button'
+import { InitPageHeader } from '@/Pages/Initial/newInitialPageHeader'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '@/assets/Icons/svgIconPath'
+import { Footer } from '@/components/Footer/index'
+import goToGroupsSettings from '@/assets/img/help/go_to_groups_settings.png'
+import groupsSettings from '@/assets/img/help/groups_settings.png'
+import accessGroupsSettings from '@/assets/img/help/access_groups_settings.png'
+import ctaImage from '@/assets/img/common/cta-image.png'
 
 export const HelpGroupSettings = () => {
   const navigate = useNavigate()
 
   const handleHelpPage = () => {
     navigate(generatePath(Path.HelpPage))
-  }
-
-  const handleLoginPage = () => {
-    navigate(generatePath(Path.LoginPage))
   }
 
   const handleRegistrationUser = () => {
@@ -55,13 +55,13 @@ export const HelpGroupSettings = () => {
             загрузившемся окне появятся настройки группы.`}</p>
           </div>
           <div className={styles.img_part}>
-            <img src={require('../../../assets/img/help/go_to_groups_settings.png')} alt="К настройкам группы" />
+            <img src={goToGroupsSettings} alt="К настройкам группы" />
           </div>
         </div>
 
         <div className={styles.section}>
           <div className={styles.img_part}>
-            <img src={require('../../../assets/img/help/groups_settings.png')} alt="Настройки группы" />
+            <img src={groupsSettings} alt="Настройки группы" />
           </div>
           <div className={styles.text_part}>
             <div className={styles.section_title}>
@@ -86,7 +86,7 @@ export const HelpGroupSettings = () => {
            доступа к урокам.`}</p>
           </div>
           <div className={styles.img_part}>
-            <img src={require('../../../assets/img/help/access_groups_settings.png')} alt="Доступ к урокам" />
+            <img src={accessGroupsSettings} alt="Доступ к урокам" />
           </div>
         </div>
       </div>
@@ -100,7 +100,7 @@ export const HelpGroupSettings = () => {
             </p>
             <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
             <div className={mainHelpStyles.ctaImage}>
-              <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+              <img src={ctaImage} alt="CTA-изображение" />
             </div>
           </div>
         </div>

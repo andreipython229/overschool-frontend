@@ -42,7 +42,7 @@ export const StudentGroup: FC<StudentsGroupPropsT> = memo(({ title, countStudent
         className={styles.students_group_content_wrapper_info}
         onClick={() =>
           navigate(
-            generatePath(Path.School + (role === RoleE.Teacher ? '' : Path.Courses) + `group/${id}`, {
+            generatePath(Path.School + (role === RoleE.Teacher ? '' : Path.Courses) + `/group/${id}`, {
               school_name: schoolName,
             }),
           )

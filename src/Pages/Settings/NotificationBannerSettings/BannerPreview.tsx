@@ -39,7 +39,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
   const [link, setLink] = useState<string>(banner.link)
   const [saveChanges, { isLoading }] = useUpdateSchoolBannerMutation()
   const [deleteBanner, { isLoading: isDeleting }] = useDeleteBannerMutation()
-  const [showCount, setShowCount] = useState<number>(1) // !!!! ДОБАВИТЬ ИЗ АПИ ЗНАЧЕНИЕ В СТЕЙТ + ПРОКИНУТЬ В ЗАПРОС НА ОБНОВЛЕНИЕ !!!
+  const [showCount, setShowCount] = useState<number>(banner.clicks_to_accept)
   const [showDeleteModal, { on: close, off: open }] = useBoolean(false)
   const [showGroupsModal, { on: closeGroups, off: openGroups, onToggle: setShow }] = useBoolean()
 
@@ -70,6 +70,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
       formdata.append('description', description)
       formdata.append('is_active', String(isActive))
       formdata.append('link', link)
+      formdata.append('clicks_to_accept', String(showCount))
       await saveChanges({ schoolName: schoolName, data: formdata, id: banner.id })
         .unwrap()
         .then(() => {
@@ -100,7 +101,7 @@ export const BannerPreview: FC<IBannerPreview> = ({ banner, refetch, groups }) =
         <div className={styles.wrapper_content}>
           <span>{isActive ? <p style={{ color: 'green' }}>Баннер активен</p> : <p style={{ color: 'red' }}>Баннер не активен</p>}</span>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <CheckboxBall toggleChecked={toggleBanner} isChecked={isActive} />
+            <CheckboxBall toggleChecked={isEditing ? toggleActive : toggleBanner} isChecked={isActive} />
             <span className={styles.banner_checkbox_status}>{isActive ? 'Баннер включен' : 'Выключен'}</span>
           </div>
           {!isEditing ? (

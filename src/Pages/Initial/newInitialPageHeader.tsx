@@ -75,7 +75,7 @@ export const InitPageHeader: FC = memo(() => {
     if (DefaultDomains.includes(currentDomain)) {
       navigate(generatePath(Path.ChooseSchool))
     } else {
-      navigate(generatePath(Path.School + Path.Courses, { school_name: schoolName }))
+      navigate(generatePath(Path.School + '/' + Path.Courses, { school_name: schoolName }))
     }
   }
 
@@ -90,9 +90,9 @@ export const InitPageHeader: FC = memo(() => {
   }, [])
 
   return (
-    <header className={styles.init_header}>
+    <header className={styles.newInitial_header}>
       <div className={styles.btn_block}>
-        <div className={styles.init_header_logo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+        <div className={styles.newInitial_header_logo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src={logoHeader} alt="Logotype" />
         </div>
 
@@ -110,23 +110,23 @@ export const InitPageHeader: FC = memo(() => {
                     <img src={hat} alt="hat" />
                     <h5>Для начинающих экспертов</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/dlya-online-shkol">
                     <img src={hat} alt="hat" />
                     <h5>Для онлайн школ</h5>
                   </a>
-                  <a href="https://coursehb.ru/page4">
+                  <a href="https://coursehb.ru/dlya-obucheniya-personala">
                     <img src={hat} alt="hat" />
                     <h5>Для обучения персонала</h5>
                   </a>
-                  <a href="https://coursehb.ru/page5">
+                  <a href="https://coursehb.ru/vozmozhnosti">
                     <img src={hat} alt="hat" />
                     <h5>Возможности</h5>
                   </a>
-                  <a href="https://coursehb.ru/page6">
+                  <a href="https://coursehb.ru/otzyvy-platforma">
                     <img src={hat} alt="hat" />
                     <h5>Отзывы пользователей</h5>
                   </a>
-                  <a href="https://coursehb.ru/page7">
+                  <a href="https://coursehb.ru/partners-program">
                     <img src={hat} alt="hat" />
                     <h5>Партнёрская программа</h5>
                   </a>
@@ -161,23 +161,23 @@ export const InitPageHeader: FC = memo(() => {
                     <img src={hat} alt="hat" />
                     <h5>Для начинающих экспертов</h5>
                   </a>
-                  <a href="#">
+                  <a href="https://coursehb.ru/dlya-online-shkol">
                     <img src={hat} alt="hat" />
                     <h5>Для онлайн школ</h5>
                   </a>
-                  <a href="https://coursehb.ru/page4">
+                  <a href="https://coursehb.ru/dlya-obucheniya-personala">
                     <img src={hat} alt="hat" />
                     <h5>Для обучения персонала</h5>
                   </a>
-                  <a href="https://coursehb.ru/page5">
+                  <a href="https://coursehb.ru/vozmozhnosti">
                     <img src={hat} alt="hat" />
                     <h5>Возможности</h5>
                   </a>
-                  <a href="https://coursehb.ru/page6">
+                  <a href="https://coursehb.ru/otzyvy-platforma">
                     <img src={hat} alt="hat" />
                     <h5>Отзывы пользователей</h5>
                   </a>
-                  <a href="https://coursehb.ru/page7">
+                  <a href="https://coursehb.ru/partners-program">
                     <img src={hat} alt="hat" />
                     <h5>Партнёрская программа</h5>
                   </a>

@@ -1,5 +1,3 @@
-@import '../../scss/mixin.scss';
-
 .main {
   @include display (flex, column, center, center);
   width: 100%;

@@ -20,18 +20,13 @@ import { authSelector, selectUser } from '../../selectors'
 
 import styles from './profile.module.scss'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'
-import { arrowLeftIconPath, crossIconPath } from '../../config/commonSvgIconsPath'
-import { Path } from '../../enum/pathE'
-import { admin, leftArrow, logoHeaderLogin } from '../../assets/img/common'
+import { crossIconPath } from '../../config/commonSvgIconsPath'
 import { CheckboxBall } from '../../components/common/CheckboxBall'
-import { useBoolean } from '../../customHooks'
-import { NavLink } from 'react-router-dom'
-import formStyles from './formStyles.module.scss'
+import { useBoolean } from '@/customHooks'
 import { SetupNotificationTelegramAdmin } from '../../components/Modal/ProfileModalTelegramNotification/index'
 import { Portal } from 'components/Modal/Portal'
 import { NotificationsIconPath, FilterIconPath } from '../../assets/Icons/svgIconPath'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
-import {input} from 'images/input.png'
 
 type notifForStudentAndTeacher = {
   id: number

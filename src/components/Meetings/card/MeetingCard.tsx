@@ -40,7 +40,17 @@ export const MeetingCard: FC<MeetingCardProps> = ({ meeting }) => {
     };
 
     return (<div className={styles.card_container}>
-        <AddMeeting setShowAddMeetingForm={setShowAddMeetingForm} existingMeeting={meeting} showAddMeetingForm={showAddMeetingForm}></AddMeeting>
+        <AddMeeting 
+          isOpen={showAddMeetingForm}
+          onClose={() => setShowAddMeetingForm(false)}
+          onAdd={(meetingData) => {
+            // Здесь будет логика добавления встречи
+            setShowAddMeetingForm(false);
+          }}
+          setShowAddMeetingForm={setShowAddMeetingForm}
+          showAddMeetingForm={showAddMeetingForm}
+          existingMeeting={meeting}
+        />
         <div className={styles.card_avatar_container}></div>
         <div className={styles.card_description}>
             <div className={styles.card_cource_name}>{schoolName}</div>

@@ -40,23 +40,31 @@ export const StudentTestBlock: FC<any> = ({ lesson, setTestSended, setTestSucces
   const [questions, setQuestions] = useState<QuestionT[]>([])
   const [showResult, setShowResult] = useState(false)
   const [numberTest, setNumberTest] = useState<number>(1)
+  const [startTime] = useState<number>(() => Date.now()) 
 
   useEffect(() => {
-    if (finalTime === 0) {
-      const timeUsed = Math.floor(parseFloat(lesson.time_limit)) - timer
+    if (testCompleted && finalTime === 0) {
+      const timeUsed = Math.floor((Date.now() - startTime) / 1000) 
       setFinalTime(timeUsed)
     }
   }, [testCompleted])
 
   useEffect(() => {
-    if (timer <= 0) return
+    if (testCompleted) return; 
 
     const intervalId = setInterval(() => {
-      setTimer(prevTimer => prevTimer - 1)
+      setTimer(prevTimer => {
+        if (prevTimer <= 1) {
+          clearInterval(intervalId)
+          return 0
+        }
+        return prevTimer - 1
+      })
     }, 1000)
 
     return () => clearInterval(intervalId)
-  })
+  }, [testCompleted]) // таймер стартует только при монтировании или смене testCompleted
+
 
   const completeTest = () => {
     updateUserAnswers({})
@@ -71,7 +79,10 @@ export const StudentTestBlock: FC<any> = ({ lesson, setTestSended, setTestSucces
   }, [lesson])
 
   useEffect(() => {
-    userPercent >= lesson.success_percent && setTestSuccess(true)
+    console.log('[useEffect] userPercent:', userPercent);
+    if (userPercent >= lesson.success_percent) {
+    setTestSuccess(true);
+  }
   }, [userPercent])
 
   useEffect(() => {

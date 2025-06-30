@@ -1,6 +1,3 @@
-@import '../../../scss/mixin.scss';
-@import '../../../scss/variable.scss';
-
 .modal_content {
   border-radius: 10px;
   padding: 30px 33px 40px;
@@ -651,4 +648,55 @@
       background-color: #fff;
     }
   }
+}
+
+.content {
+  padding: 16px 0;
+}
+
+.section {
+  margin-bottom: 24px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+  }
+}
+
+.attachmentsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 8px;
+
+    a {
+      color: #3170E7;
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
 }

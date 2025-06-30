@@ -1,6 +1,3 @@
-@import './src/scss/variable';
-@import '../../scss/mixin.scss';
-
 @font-face {
   font-family: 'SFPRORegular';
   src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
@@ -20,12 +17,12 @@
   &_item_init {
     margin-top: 15px;
     height: 40px !important;
-    opacity: 0.5;
 
     & label {
-      color: #ba75ff;
-      background-color: #e0d9fc !important;
+      color: #332F36;
       user-select: none;
+      font-weight: 700;
+      font-size: 20px;
     }
   }
 

@@ -124,7 +124,7 @@ export const BonusesPage: FC = () => {
               variant="newTryForFree"
               text="Вернуться"
               style={{ margin: '0 auto', width: '281px', height: '54px' }}
-              onClick={() => navigate(generatePath(`${Path.School}${Path.Courses}`, { school_name: schoolName }))}
+              onClick={() => navigate(generatePath(`${Path.School}/${Path.Courses}`, { school_name: schoolName }))}
             />
           </div>
         )}

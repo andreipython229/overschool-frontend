@@ -57,7 +57,7 @@ export const StudentsStats = () => {
               <Button
                 variant="newPrimary"
                 text="Добавить менторов в школу"
-                onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', { school_name: school }))}
+                onClick={() => navigate(generatePath(Path.School + Path.Settings + 'employees/', { school_namecourses: school }))}
                 // className={styles.students_group_header_add_teacher_btn}
               >
                 {/* <IconSvg width={22} height={18} viewBoxSize="0 0 22 18" path={tableBallsStarPath} /> */}

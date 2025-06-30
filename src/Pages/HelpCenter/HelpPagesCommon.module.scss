@@ -1,6 +1,3 @@
-@import '../../scss/variable';
-@import '../../scss/mixin.scss';
-
 .ctaBlock {
     margin-bottom: 0;
 }
@@ -97,7 +94,7 @@
 
 
 .sections {
-    @include display(flex, column, start, center);
+    @include display(flex, column, flex-start, center);
     width: 84vw;
     max-width: 1340px;
 
@@ -111,7 +108,7 @@
     .section {
         font-family: 'SF Pro Display', sans-serif;
         width: 100%;
-        @include display(flex, row, space-between, start);
+        @include display(flex, row, space-between, flex-start);
         // gap: 64px;
         padding: 0 38px 0px 55px;
         margin-bottom: 92px;
@@ -201,7 +198,7 @@
         }
 
         &_title {
-            @include display(flex, row, start, center);
+            @include display(flex, row, flex-start, center);
             gap: 16px;
             margin-bottom: 16px !important;
 
@@ -247,7 +244,7 @@
         }
 
         .text_part {
-            @include display(flex, column, start, start);
+            @include display(flex, column, flex-start, flex-start);
             // gap: 16px;
             width: 51.5%;
             padding-right: 4.5%;
@@ -331,7 +328,7 @@
         }
 
         .img_part {
-            @include display(flex, column, start, center);
+            @include display(flex, column, flex-start, center);
             width: 48.5%;
             padding: 32px 32px 0 32px;
             border-radius: 32px;
@@ -358,7 +355,7 @@
             }
 
             &_t2 {
-                @include display(flex, column, start, center);
+                @include display(flex, column, flex-start, center);
                 width: 49%;
                 padding: 0 15px 0 15px;
                 border-radius: 32px;
@@ -387,7 +384,7 @@
     }
 
     &_list {
-        @include display(flex, column, start, start);
+        @include display(flex, column, flex-start, flex-start);
         gap: 16px;
 
         li {

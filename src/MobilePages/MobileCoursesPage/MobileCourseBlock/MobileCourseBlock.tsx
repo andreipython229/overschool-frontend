@@ -3,7 +3,7 @@ import { Button } from 'components/common/Button/Button'
 import { Link, generatePath } from 'react-router-dom'
 import { Student } from 'enum/pathE'
 
-import styles from 'MobilePages/MobileCoursesPage/mobileCoursesPage.module.scss'
+import styles from '@/MobilePages/MobileCoursesPage/mobileCoursesPage.module.scss'
 
 type MobileCoursePropsT = {
   progress: string
