@@ -107,7 +107,6 @@ export const PurposeOfTrainingBlock = () => {
   const getChips = () => {
     return landing.trainingPurpose.chips;
   }
-  console.log(landing.trainingPurpose.chips, 'chips');
   
   return (
     <div className={styles.wrapper}>
