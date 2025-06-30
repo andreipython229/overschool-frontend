@@ -89,24 +89,24 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api/socket.io': {
-        target: process.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru',
+        target: process.env.VITE_RUN_MODE === 'PRODUCTION' ? process.env.VITE_PROD_API_URL : process.env.VITE_DEV_API_URL,
         ws: true,
         changeOrigin: true,
         secure: false,
         rewrite: path => path.replace(/^\/api\/socket\.io/, '/api'),
       },
       '/api': {
-        target: process.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru',
+        target: process.env.VITE_RUN_MODE === 'PRODUCTION' ? process.env.VITE_PROD_API_URL : process.env.VITE_DEV_API_URL,
         changeOrigin: true,
         secure: false,
       },
       '/video': {
-        target: process.env.VITE_RUN_MODE === 'PRODUCTION' ? 'http://45.88.76.53:8000' : 'http://91.211.248.84:8000',
+        target: process.env.VITE_RUN_MODE === 'PRODUCTION' ? process.env.VITE_PROD_IP : process.env.VITE_DEV_IP,
         changeOrigin: false,
         secure: false,
         configure: (proxy, _options) => {
           proxy.on('proxyReq', (proxyReq, _req, _res) => {
-            proxyReq.setHeader('origin', process.env.VITE_RUN_MODE === 'PRODUCTION' ? 'http://45.88.76.53:8000' : 'http://91.211.248.84:8000')
+            proxyReq.setHeader('origin', process.env.VITE_RUN_MODE === 'PRODUCTION' ? process.env.VITE_PROD_IP : process.env.VITE_DEV_IP)
           })
         },
       },
@@ -140,7 +140,7 @@ export default defineConfig({
             'react-select',
             'uuid',
             'yup',
-          ]
+          ],
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
