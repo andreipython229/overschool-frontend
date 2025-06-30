@@ -108,8 +108,8 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
         </div>
       )}
 
-      <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
-        <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
+  <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+  <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
         <div className={styles.yearPrice}>
           {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
         </div>
@@ -182,8 +182,8 @@ export const TariffPlansInfo: FC = () => {
         transition={{ delay: 0.5, ease: 'easeInOut', duration: 1.3 }}
         className={styles.container}
       >
-        <section className={styles.TariffPlansPage}>
-          <div className={styles.TariffPlansPage_plansBlock}></div>
+<section className={styles.TariffPlansPage}>
+ <div className={styles.TariffPlansPage_plansBlock}></div>
           <Typography
             gutterBottom
             variant="h1"
@@ -478,7 +478,6 @@ export const TariffPlansInfo: FC = () => {
                 width: '301px',
             height: '54px',
             padding: '15px 40px',
-
             backgroundColor:'#FFFFFF', // синий фон
             color:    '#3B82F6'  ,      // белый текст
             border: 'none',             // если нужен плоский стиль
@@ -534,8 +533,27 @@ export const TariffPlansInfo: FC = () => {
               Попробуйте весь функционал в процессе использования<br />
               и убедитесь, насколько он удобен.
             </p>
-          </div>
-
+ <a
+    href="https://platform.coursehb.ru/create-school/"
+    style={{
+      display: 'inline-block',
+      marginTop: '20px',
+      padding: '12px 24px',
+      fontSize: '16px',
+      fontWeight: 600,
+      backgroundColor: '#0D28BB',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '6px',
+      cursor: 'pointer',
+      textDecoration: 'none',
+      textAlign: 'center',
+      userSelect: 'none',
+    }}
+  >
+    Попробовать бесплатно
+  </a>
+</div>
           <div
             style={{
               flex: '1 1 0',
