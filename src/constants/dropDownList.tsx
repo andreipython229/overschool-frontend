@@ -106,6 +106,8 @@ export const dropDownListFilterStudents = [
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
   { id: 40, title: 'Спрятать удалённых' },
+  { id: 43, title: 'Дата выдачи доступа' },
+  { id: 44, title: 'Доступ' },
 ]
 
 export const dropDownListFilterStudentsCourses = [
@@ -115,6 +117,8 @@ export const dropDownListFilterStudentsCourses = [
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
+  { id: 45, title: 'Доступ' },
+  { id: 47, title: 'Дата выдачи доступа' },
 ]
 
 export const dropDownListFilterStudentsGroups = [
@@ -123,4 +127,6 @@ export const dropDownListFilterStudentsGroups = [
   { id: 12, title: 'Суммарный балл' },
   { id: 16, title: 'Средний балл' },
   { id: 15, title: 'Последняя активность' },
+  { id: 46, title: 'Доступ' },
+  { id: 48, title: 'Дата выдачи доступа' },
 ]
