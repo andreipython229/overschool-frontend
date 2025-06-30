@@ -6,7 +6,7 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { useBoolean } from 'customHooks'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { BlocksController } from './BlocksController'
-import { useAppDispatch } from "store/hooks";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 import { changeBlocks } from "store/redux/landing/constructorSlice";
 
 
@@ -25,20 +25,31 @@ export const CoursePageConstruct: FC = () => {
   const dispatch = useAppDispatch()
   const [fetchLanding, {data: f_landing, isLoading}] = useFetchCourseLandingMutation()
   const [showModal, { on: close, off: openModal }] = useBoolean()
+  const landing = useAppSelector(state => state.landing.blocks);
 
   useEffect(() => {
     const school_name = params.school_name
     if (school_name) {
       fetchLanding({schoolName: String(params.school_name), id: Number(params.course_id)})
     }
-  }, [params,])
+  }, [params])
 
   useEffect(() => {
-    const savedState = sessionStorage.getItem('landingState');
-    if (f_landing && !savedState) {
+    // const savedState = sessionStorage.getItem('landingState');
+    // if (f_landing && !savedState) {
+    //   dispatch(changeBlocks(f_landing))
+    // }
+    if(f_landing) {
       dispatch(changeBlocks(f_landing))
     }
-  }, [f_landing, ])
+  }, [f_landing])
+
+  useEffect(() => {
+    if (landing) {
+      sessionStorage.setItem('landingState', JSON.stringify(landing));
+    }
+  }, [landing]);
+
 
   if (isLoading) {
     return (

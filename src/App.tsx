@@ -61,6 +61,8 @@ export const App = () => {
     }
   }, [isLogin])
 
+  console.log(pathname === Path.SocialAuth)
+
   useEffect(() => {
     if (
       !isLogin &&
@@ -108,6 +110,7 @@ export const App = () => {
   useEffect(() => {
     if (
       isLogin &&
+      pathname !== Path.SocialAuth &&
       !schoolName &&
       pathname !== Path.InitialPage &&
       pathname !== '/' &&
@@ -126,6 +129,7 @@ export const App = () => {
     if (
       !role &&
       isLogin &&
+      pathname !== Path.SocialAuth &&
       pathname !== Path.InitialPage &&
       pathname !== '/' &&
       pathname !== Path.ChooseSchool &&
