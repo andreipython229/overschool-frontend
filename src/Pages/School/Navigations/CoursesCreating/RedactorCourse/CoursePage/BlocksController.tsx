@@ -17,6 +17,7 @@ import {useSendLandingImagesMutation} from 'api/courseLandingServices'
 import {useParams} from "react-router-dom";
 import {SimpleLoader} from "components/Loaders/SimpleLoader";
 import {LinkBlock} from "./Blocks/LinkBlock";
+import { AdvantageBlock } from './Blocks/AdvantageBlock';
 
 export const BlocksController: FC<BlocksControllerT> = ({ openModal }) => {
   const params = useParams()
@@ -27,15 +28,15 @@ export const BlocksController: FC<BlocksControllerT> = ({ openModal }) => {
   const files = useAppSelector(state => state.landing.files)
 
 
-useEffect(() => {
-  if (f_landing && !isLoading) {
-    dispatch(changeBlocks(f_landing));
-  }
-}, [f_landing, isLoading]);
+  useEffect(() => {
+    if (f_landing && !isLoading) {    
+      dispatch(changeBlocks(f_landing));
+    }
+  }, [f_landing, isLoading]);
 
-useEffect(() => {
-  sessionStorage.setItem('landingState', JSON.stringify(landing));
-}, [landing]);
+  useEffect(() => {
+    sessionStorage.setItem('landingState', JSON.stringify(landing));
+  }, [landing]);
 
   const getBlock = (name: string): ReactNode => {
     switch (name) {
@@ -45,6 +46,8 @@ useEffect(() => {
         return <StatsBlock />
       case blocksNamesE.audience:
         return <AudienceBlock />
+      case blocksNamesE.advantage:
+        return <AdvantageBlock /> 
       case blocksNamesE.trainingProgram:
         return <TrainingProgram />
       case blocksNamesE.trainingPurpose:
@@ -150,16 +153,19 @@ useEffect(() => {
     return Object.values(landing).sort((a, b) => a.id - b.id)
   }
 
+  
+
   const sendlandingInfo = () => {
     if (params.school_name) {
       const formData = new FormData()
       for (const key in files) {
         if(files[key]) formData.append(key, files[key])
       }
+      console.log('Отправляем данные лендинга:', landing);
+      console.log('Данные блока Преимущества:', landing.advantage);
       formData.append('formdata', JSON.stringify(landing))
       sendLanding({arg: {formdata: formData, id: Number(params.course_id)}, schoolName: params.school_name})
       dispatch(removeFiles())
-      // sendLanding({schoolName: String(params.school_name), id: Number(params.course_id), data: landing})
     }
   }
 
