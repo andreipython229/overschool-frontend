@@ -78,13 +78,26 @@ export interface LinkButtonT {
   canDown: boolean;
 }
 
+export type AdvanT = {
+  id: number;
+  content: string;
+  description: string,
+  chips: CardDataT[];
+  visible: boolean;
+  onlyShow?: boolean;
+  canUp: boolean;
+  canDown: boolean;
+}
+
 export type BlockKeys = {
   header: HeaderT,
   stats: StatsT,
   audience: AudiencT,
+  advantage: AdvanT,
   trainingProgram: TrainingProgT,
   trainingPurpose: TrainingPurpT,
   linkButton: LinkButtonT,
+  // advantage: AdvanT,
 }
 
 export type BlocksT = BlockT[];

@@ -5,4 +5,5 @@ export const blocksNamesE = {
   trainingProgram: "trainingProgram",
   trainingPurpose: "trainingPurpose",
   linkButton: "linkButton",
+  advantage: "advantage",
 }
