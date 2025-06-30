@@ -1,6 +1,3 @@
-@import '../../scss/variable.scss';
-@import '../../scss/mixin.scss';
-
 .progressWrapper {
   display: grid;
   grid-template-columns: repeat(3, min(430px, 30.6%));
@@ -148,7 +145,7 @@
  &_peopleStats {
     display: flex;
     width: 23.125rem; // 370px
-    height: 11.3125rem; // 181px
+    // height: 11.3125rem; // 181px
     padding: 1rem 0;
     flex-direction: column;
     justify-content: flex-start;

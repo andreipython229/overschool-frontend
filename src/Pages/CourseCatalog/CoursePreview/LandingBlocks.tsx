@@ -14,6 +14,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import {LinkViewBlock} from "./Blocks/LinkViewBlock";
+import { AdvantageViewBlock } from './Blocks/AdvantageViewBlock'
 
 export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
   const landing = useAppSelector(state => state.landing.blocks)
@@ -27,12 +28,14 @@ export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
         return <StatsBlock />;
       case blocksNamesE.audience:
         return <AudienceViewBlock />;
+      case blocksNamesE.advantage:
+        return <AdvantageViewBlock />
       case blocksNamesE.trainingProgram:
         return <TrainingProgram />;
       case blocksNamesE.trainingPurpose:
         return <PurposeTrainingViewBlock />;
-      case blocksNamesE.linkButton:
-        return <LinkViewBlock />;
+      // case blocksNamesE.linkButton:
+      //   return <LinkViewBlock />;
       default:
         return null;
     }

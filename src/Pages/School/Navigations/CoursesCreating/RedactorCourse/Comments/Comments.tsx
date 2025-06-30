@@ -116,21 +116,19 @@ export const Comments: FC = () => {
                                     : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content
                                 }
                               >
-                                <span>
-                                  <span
-                                    className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside}
-                                    style={{ float: 'left' }}
-                                  >
-                                    <IconSvg
-                                      className={lessonIdAndType.id === lesson.id ? styles.fillColorWhite : styles.fillColorBlue}
-                                      width={24}
-                                      height={24}
-                                      viewBoxSize="0 0 24 24"
-                                      path={lessonIdAndType.id === lesson.id ? lessonIcon : lessonIcon}
-                                    />
-                                  </span>
-                                  <span>{lesson.name}</span>
-                                </span>
+                                <div
+                                  className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside}
+                                  style={{ float: 'left' }}
+                                >
+                                  <IconSvg
+                                    className={lessonIdAndType.id === lesson.id ? styles.fillColorWhite : styles.fillColorBlue}
+                                    width={24}
+                                    height={24}
+                                    viewBoxSize="0 0 24 24"
+                                    path={lessonIdAndType.id === lesson.id ? lessonIcon : lessonIcon}
+                                  />
+                                </div>
+                                <div className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_text}>{lesson.name}</div>
                                 {/* <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span> */}
                               </button>
                             </li>
@@ -153,8 +151,7 @@ export const Comments: FC = () => {
                                     : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content
                                 }
                               >
-                                <span>
-                                  <span
+                                  <div
                                     className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside}
                                     style={{ float: 'left' }}
                                   >
@@ -165,9 +162,9 @@ export const Comments: FC = () => {
                                       viewBoxSize="0 0 24 24"
                                       path={lessonIdAndType.id === lesson.id ? lessonIcon : lessonIcon}
                                     />
-                                  </span>
-                                  <span>{lesson.name}</span>
-                                </span>
+                                 </div>
+                                  <div className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_text}>{lesson.name}</div>
+
                                 {/* <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span> */}
                               </button>
                             </li>
@@ -190,8 +187,8 @@ export const Comments: FC = () => {
                                     : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content
                                 }
                               >
-                                <span>
-                                  <span
+
+                                  <div
                                     className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside}
                                     style={{ float: 'left' }}
                                   >
@@ -202,9 +199,9 @@ export const Comments: FC = () => {
                                       viewBoxSize="0 0 24 24"
                                       path={lessonIdAndType.id === lesson.id ? lessonIcon : lessonIcon}
                                     />
-                                  </span>
-                                  <span>{lesson.name}</span>
-                                </span>
+                                  </div>
+                                  <div className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_text}>{lesson.name}</div>
+
                                 {/* <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span> */}
                               </button>
                             </li>

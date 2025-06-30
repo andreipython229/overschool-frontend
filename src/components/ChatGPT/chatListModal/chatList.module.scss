@@ -1,6 +1,3 @@
-@import '../../../scss/variable';
-@import '../../../scss/mixin.scss';
-
 .modal {
     &_background {
         @include display(flex, column);
@@ -141,4 +138,66 @@
 
 
     }
+}
+
+.content {
+  padding: 16px 0;
+}
+
+.createChatButton {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.chatList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.chatItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: #e5e5e5;
+  }
+
+  &.selected {
+    background: #e3f2fd;
+  }
+}
+
+.chatName {
+  font-size: 16px;
+  color: #333;
+  flex: 1;
+  margin-right: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
 }

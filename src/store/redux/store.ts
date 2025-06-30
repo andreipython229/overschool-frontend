@@ -49,6 +49,7 @@ export const rootReducer = combineReducers({
   [services.schoolBonusService.reducerPath]: services.schoolBonusService.reducer,
   [services.ratingService.reducerPath]: services.ratingService.reducer,
   [services.feedbacksService.reducerPath]: services.feedbacksService.reducer,
+  [services.autowebinarsService.reducerPath]: services.autowebinarsService.reducer,
 
   user: slices.authReduce,
   sections: slices.sectionsReduce,
@@ -124,6 +125,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.domainService.middleware,
         services.ratingService.middleware,
         services.feedbacksService.middleware,
+        services.autowebinarsService.middleware,
         errorMiddleware,
       ),
   })

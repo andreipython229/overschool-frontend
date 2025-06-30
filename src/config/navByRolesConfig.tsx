@@ -28,6 +28,7 @@ import { Passport } from 'Pages/Settings/Passport'
 import { SchoolAppeals } from 'Pages/SchoolAppeals'
 import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
 import { SchoolMeetings } from '../components/Meetings'
+import { Webinars } from 'components/Autowebinars/AutoWebinars'
 import StudentSchoolMeeting from '../components/StudentsMeetings'
 import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
 import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
@@ -120,6 +121,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Appeals} element={<SchoolAppeals />} />
       <Route path={Path.Meetings} element={<SchoolMeetings />} />
+      <Route path={Path.Webinars} element={<Webinars />} />
       <Route path={Path.Rating} element={<Rating />} />
     </>
   ),
@@ -133,12 +135,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       </Route>
       <Route path={Path.CourseStats} element={<CoursesStats />} />
       <Route path={Path.Courses} element={<School />}>
-        {/* <Route index element={<HomeWork />} /> */}
         <Route path={Path.Bonus} element={<BonusesPage />} />
-        {/* <Route path={Path.CreateCourse} element={<RedactorCourse />}>
-          <Route index element={<Navigate to={CreateCoursePath.Materials} />} />
-          <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
-        </Route> */}
       </Route>
       <Route path={Path.CourseStudent} element={<StudentsStats />} />
       <Route path={Path.HelpCenter} element={<HelpCenter />} />

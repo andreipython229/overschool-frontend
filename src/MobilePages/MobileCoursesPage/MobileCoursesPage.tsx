@@ -1,6 +1,6 @@
 import { FC, memo, useState } from 'react'
 
-import { MobileCourseBlock } from 'MobilePages/MobileCoursesPage/MobileCourseBlock/MobileCourseBlock'
+import { MobileCourseBlock } from '@/MobilePages/MobileCoursesPage/MobileCourseBlock/MobileCourseBlock'
 import { useFetchCoursesQuery } from '../../api/coursesServices'
 import { Input } from '../../components/common/Input/Input/Input'
 import { IconSvg } from '../../components/common/IconSvg/IconSvg'

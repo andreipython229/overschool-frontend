@@ -6,13 +6,13 @@ const Certificate: React.FC = () => {
     <div className={styles.mockupBg}>
       {/* Хедер с персонажами */}
       <div className={styles.headerBlock}>
-        <img src={process.env.PUBLIC_URL + '/images/certificate/certificate-header.png'} alt="Header Characters" className={styles.headerImg} />
+        <img src="/images/certificate/certificate-header.png" alt="Header Characters" className={styles.headerImg} />
       </div>
       {/* Сертификат в рамке */}
       <div className={styles.certificateFrame}>
         <div className={styles.certificateCard}>
           {/* Логотип CourseHub в правом верхнем углу */}
-          <img src={process.env.PUBLIC_URL + '/images/certificate/coursehub-logo.png'} alt="CourseHub Logo" className={styles.logoImg} />
+          <img src="/images/certificate/coursehub-logo.png" alt="CourseHub Logo" className={styles.logoImg} />
           <div className={styles.certificateTitleBlock}>
             <span className={styles.certificateTitle}>CERTIFICATE</span>
             <span className={styles.certificateSubtitle}>OF ACHIEVEMENT</span>
@@ -29,24 +29,24 @@ const Certificate: React.FC = () => {
               <div className={styles.certificateDateLabel}>DATA</div>
             </div>
             <div className={styles.certificateFooterCenter}>
-              <img src={process.env.PUBLIC_URL + '/images/certificate/certificate-stamp.png'} alt="Stamp" className={styles.stampImg} />
+              <img src="/images/certificate/certificate-stamp.png" alt="Stamp" className={styles.stampImg} />
             </div>
             <div className={styles.certificateFooterRight}>
               <div className={styles.signatureBlock}>
-                <img src={process.env.PUBLIC_URL + '/images/certificate/signature.png'} alt="Teacher Signature" className={styles.signatureImg} />
+                <img src="/images/certificate/signature.png" alt="Teacher Signature" className={styles.signatureImg} />
                 <div className={styles.signatureLabel}>TEACHER</div>
               </div>
               <div className={styles.signatureBlock}>
-                <img src={process.env.PUBLIC_URL + '/images/certificate/signature.png'} alt="Director Signature" className={styles.signatureImg} />
+                <img src="/images/certificate/signature.png" alt="Director Signature" className={styles.signatureImg} />
                 <div className={styles.signatureLabel}>DIRECTOR</div>
               </div>
             </div>
           </div>
           {/* Девочка */}
-          <img src={process.env.PUBLIC_URL + '/images/certificate/character.png'} alt="Girl" className={styles.characterImg} />
+          <img src="/images/certificate/character.png" alt="Girl" className={styles.characterImg} />
         </div>
         {/* Канцелярия/кактус */}
-        <img src={process.env.PUBLIC_URL + '/images/certificate/pencils.png'} alt="Pencils" className={styles.pencilsImg} />
+        <img src="/images/certificate/pencils.png" alt="Pencils" className={styles.pencilsImg} />
       </div>
     </div>
   );

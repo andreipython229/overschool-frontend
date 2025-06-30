@@ -1,62 +1,74 @@
 import { FC, memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../HelpPage.module.scss";
-import { Footer } from "../../../components/Footer/index";
-import { Button } from "components/common/Button/Button";
-import { InitPageHeader } from "../../Initial/newInitialPageHeader";
-import { Path } from "../../../enum/pathE";
+import { Footer } from "@/components/Footer/index";
+import { Button } from "@/components/common/Button/Button";
+import { InitPageHeader } from "@/Pages/Initial/newInitialPageHeader";
+import { Path } from "@/enum/pathE";
+import mapPin from '@/assets/img/common/map-pin.png'
+import domen from '@/assets/img/common/domen.png'
+import defaultIcon from '@/assets/img/common/default-icon.png'
+import userIcon from '@/assets/img/common/3-user.png'
+import settingsPlatform from '@/assets/img/common/settingsPlatform.png'
+import accaunt from '@/assets/img/common/accaunt.png'
+import chat from '@/assets/img/common/chat.png'
+import checkHW from '@/assets/img/common/checkHW.png'
+import overAi from '@/assets/img/common/OverAi.png'
+import groupSettings from '@/assets/img/common/groupsettings.png'
+import helpHeader from '@/assets/img/common/help-header1.png'
+import ctaImage from '@/assets/img/common/cta-image.png'
 
 
 const sections = [
   {
     title: "Гид по началу работы",
-    image: require("../../../assets/img/common/map-pin.png"),
+    image: mapPin,
     link: "/help/help-gid-start",
   },
   {
-    title: "Как привязать домен?",
-    image: require("../../../assets/img/common/domen.png"),
-    link: "/help/domain",
+    title: "Домен",
+    image: domen,
+    link: "/help/help-domen",
   },
   {
-    title: "Как создать школу?",
-    image: require("../../../assets/img/common/default-icon.png"),
-    link: "/help/school-settings",
+    title: "Добавление сотрудника",
+    image: defaultIcon,
+    link: "/help/help-add-employee",
   },
   {
-    title: "Как добавить сотрудников?",
-    image: require("../../../assets/img/common/3-user.png"),
-    link: "/help/add-employee",
+    title: "Ученики",
+    image: userIcon,
+    link: "/help/help-students",
   },
   {
     title: "Настройка платформы",
-    image: require("../../../assets/img/common/settingsPlatform.png"),
-    link: "/help/help-platform-settings",
+    image: settingsPlatform,
+    link: "/help/help-settings-platform",
   },
   {
-    title: "Как настроить аккаунт?",
-    image: require("../../../assets/img/common/accaunt.png"),
-    link: "/help/user-account",
+    title: "Аккаунт",
+    image: accaunt,
+    link: "/help/help-account",
   },
   {
-    title: "Как создать чат?",
-    image: require("../../../assets/img/common/chat.png"),
-    link: "/help/chat",
+    title: "Чат",
+    image: chat,
+    link: "/help/help-chat",
   },
   {
     title: "Проверка домашних заданий",
-    image: require("../../../assets/img/common/checkHW.png"),
-    link: "/help/check-hw",
+    image: checkHW,
+    link: "/help/help-check-homework",
   },
   {
-    title: "Over Ai",
-    image: require("../../../assets/img/common/OverAi.png"),
-    link: "/help/overai",
+    title: "OverAI",
+    image: overAi,
+    link: "/help/help-overai",
   },
   {
-    title: "Настройки группы",
-    image: require("../../../assets/img/common/groupsettings.png"),
-    link: "/help/groups",
+    title: "Настройка групп",
+    image: groupSettings,
+    link: "/help/help-group-settings",
   },
 ];
 
@@ -94,7 +106,7 @@ export const HelpPage: FC = memo(() => {
           <h2>Помощь</h2>
           <p>Есть вопросы? Здесь вы найдете ответы, на интересующие вопросы, а также получите пошаговую инструкцию и поддержку.</p>
         </div>
-        <img src={require("../../../assets/img/common/help-header1.png")} alt="Лэптоп с вопросами" />
+        <img src={helpHeader} alt="Лэптоп с вопросами" />
       </div>
       
       <div className={styles.sections}>
@@ -125,7 +137,7 @@ export const HelpPage: FC = memo(() => {
             </p>
             <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
             <div className={styles.ctaImage}>
-              <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+              <img src={ctaImage} alt="CTA-изображение" />
             </div>
           </div>
         </div>

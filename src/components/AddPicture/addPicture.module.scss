@@ -1,6 +1,3 @@
-@import 'src/scss/variable';
-@import '../../scss/mixin.scss';
-
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);

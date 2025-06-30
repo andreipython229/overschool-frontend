@@ -96,7 +96,7 @@ export const FooterMobile: FC<IFooter> = ({ schoolTariffPlan }) => {
         <img src={line} alt="line" style={{ width: '100%', objectFit: 'cover' }} />
       </div>
       <div style={{ width: '100%' }}>
-        <p className={styles.footer_ptext}>© 2024, ООО &quot;Курсаб&quot;. Все права защищены.</p>
+        <p className={styles.footer_ptext}>© 2024, ООО &quot;Курсхаб&quot;. Все права защищены.</p>
       </div>
 
     </footer>

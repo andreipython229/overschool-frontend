@@ -5,3 +5,7 @@ export type LandingBlockT = {
 export type AudienceCardViewPropT = {
   position: number,
 }
+
+export type AdvantageCardViewPropT = {
+  position: number,
+}
