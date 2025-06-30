@@ -2,8 +2,7 @@ import styles from './TariffPlans.module.scss'
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import { FC, useEffect, useState} from 'react'
-import banner from './images/banner.png'
-import { useBoolean } from 'customHooks'
+import { useBoolean } from '@/customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
 import { useAppSelector } from 'store/hooks'
@@ -25,7 +24,7 @@ export const TariffPlans: FC = () => {
   const [isModalOpen, { off: open, on: close }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT>()
   const tariff = useAppSelector(state => state.tariff.data)
-  const [isActive, { onToggle: toggleActive }] = useBoolean(banner.is_active)
+  const [isActive, { onToggle: toggleActive }] = useBoolean(false)
   const { isMobile } = useDeviceDetect()
 
   useEffect(() => {

@@ -7,15 +7,12 @@ export const useMissClickMenu = () => {
   const menuRef = useRef<HTMLDivElement>(null)
 
   const handleClick = (event: MouseEvent) => {
-    const target = event?.target as HTMLHeadingElement
+    const target = event.target as HTMLElement
 
-    // if (target?.tagName === 'svg' || target?.tagName === 'path') {
-    //   close()
-    //   return
-    // }
-
-    if (!menuRef.current?.contains(target) && !target?.className?.includes('filter')) {
-      close()
+    if (target && menuRef.current) {
+      if (!menuRef.current.contains(target) && target.className && !target.className.includes('filter')) {
+        close()
+      }
     }
   }
 

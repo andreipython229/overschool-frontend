@@ -1,6 +1,3 @@
-@import '../../../scss/variable';
-@import '../../../scss/mixin.scss';
-
 @font-face {
   font-family: SFPROBold;
   src: url(../../../assets/fonts/SFProText/SFProText-Bold.ttf) format('opentype');
@@ -39,19 +36,19 @@
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffff;
-    background: #ba75ff;
+    background: #357EEB;
   }
 }
 
 .primary {
   color: #ffff;
-  background: #ba75ff;
+  background: #357eeb;
   @include font(600, 18px);
   font-family: 'Manrope', sans-serif;
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
-    color: $font-color-rose;
-    background: #e0dced;
+    color: #ffff;
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
   }
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     // margin: 0 auto;
@@ -80,8 +77,8 @@
  }
 
 .disabled {
-  color: #ffff;
-  background-color: #ddbbff;
+  color: #808080;
+  background-color: #cfe2ff;
   cursor: not-allowed !important;
   font-family: 'Manrope', sans-serif;
 }

@@ -112,14 +112,15 @@ export const StudentTestResults: React.FC<TestResultProps> = ({
           <div className={styles.questionBlock_question_buttons} style={isSuccess ? { width: '600px' } : { width: '290px' }}>
             <Button text="Попробовать снова" variant="emptyInside" className={styles.button_complete} onClick={handleRestartTest} />
 
-            {isSuccess && (
+            {isSuccess && lessonForward && (
               <Button
-                text={'Далее'}
+                text="Далее"
                 onClick={() =>
-                  navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward?.type}/${lessonForward?.id}`)
+                  navigate(
+                    `/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward.type}/${lessonForward.id}`
+                  )
                 }
                 variant="newPrimary"
-                disabled={lessons.lessons[activeLessonIndex].id === lessonForward?.id}
                 className={styles.button_complete}
               />
             )}

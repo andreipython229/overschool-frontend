@@ -3,7 +3,7 @@ import styles from './courseNavigationHeader.module.scss'
 import { Button } from 'components/common/Button/Button'
 import { generatePath, useNavigate } from 'react-router-dom'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { arrowLeftIconPath, settingsIconPath } from 'config/commonSvgIconsPath'
+import { arrowLeftIconPath } from 'config/commonSvgIconsPath'
 import { sectionsT } from 'types/sectionT'
 import { Path } from 'enum/pathE'
 import { useAppSelector } from 'store/hooks'
@@ -21,7 +21,7 @@ export const CourseNavigationHeader: FC<ICourseHeader> = ({ course }) => {
       <div>
         <Button
           text={'На главную'}
-          onClick={() => schoolName && navigate(generatePath(Path.School + Path.Courses, { school_name: schoolName }))}
+          onClick={() => schoolName && navigate(generatePath(Path.School + Path.Courses, { school_namecourses: schoolName }))}
           variant="emptyInside"
         >
           <IconSvg viewBoxSize="0 0 24 24" height={24} width={24} path={arrowLeftIconPath} />

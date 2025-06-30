@@ -1,12 +1,9 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate, generatePath } from 'react-router-dom'
 import { InitPageHeader } from './newInitialPageHeader'
 import { Button } from 'components/common/Button/Button'
 import { Footer } from 'components/Footer/index'
-import { arrowLeftNewIconPath, arrowRightNewIconPath } from 'config/commonSvgIconsPath'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import {
-  removebg,
   android,
   appstore,
   analytics_new,
@@ -35,23 +32,23 @@ import {
   rocketfree,
   record_new_desktop,
   constructor_desk,
-} from '../../assets/img/common/index'
+} from '@/assets/img/common/index'
 
 import { Slider } from '../../components/slider/slider'
 
 import styles from './newInitial.module.scss'
-import unlimitedImage from './../../assets/img/common/unlimited2.png'
-import AnnexImage from './../../assets/img/common/annex.png'
-import gbImage from './../../assets/img/common/gb.png'
-import { Path } from '../../enum/pathE'
+import unlimitedImage from '@/assets/img/common/unlimited2.png'
+import AnnexImage from '@/assets/img/common/annex.png'
+import gbImage from '@/assets/img/common/gb.png'
+import { Path } from '@/enum/pathE'
 import { motion } from 'framer-motion'
-import WordSwitcher from '../../components/WorldSwitcher/worldSwitcher'
+import WordSwitcher from '@/components/WorldSwitcher/worldSwitcher'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper as SwiperType } from 'swiper'
-import MiniBlock from '../../components/MiniBlocks'
-import { BackgroundAnimation } from '../../components/BackgroundAnimation'
+import MiniBlock from '@/components/MiniBlocks'
+import { BackgroundAnimation } from '@/components/BackgroundAnimation'
 
 export const Initial = () => {
   const navigate = useNavigate()
@@ -70,10 +67,6 @@ export const Initial = () => {
     }
   }
 
-  const handleMore = () => {
-    navigate(generatePath(Path.Catalog))
-  }
-
   const swiperRef = useRef<SwiperType | null>(null)
   const [activeSlide, setActiveSlide] = useState(0)
 
@@ -88,41 +81,41 @@ export const Initial = () => {
   }
 
   return (
-    <div className={styles.init}>
+    <div className={styles.newInitial}>
       <BackgroundAnimation />
       <InitPageHeader />
-      <div className={styles.init_main}>
-        <div className={styles.init_main_info}>
-          <div className={styles.init_main_info_quality}>
-            <div className={styles.init_main_info_quality_text}>
-              <p className={styles.init_main_info_quality_text_gradient}>КОГДА КАЧЕСТВО ОБУЧЕНИЯ В ПРИОРИТЕТЕ</p>
+      <div className={styles.newInitial_main}>
+        <div className={styles.newInitial_main_info}>
+          <div className={styles.newInitial_main_info_quality}>
+            <div className={styles.newInitial_main_info_quality_text}>
+              <p className={styles.newInitial_main_info_quality_text_gradient}>КОГДА КАЧЕСТВО ОБУЧЕНИЯ В ПРИОРИТЕТЕ</p>
               <h1>
                 Удобная платформа <br /> <WordSwitcher />
               </h1>
-              <h3>Первая белорусская платформа Overschool для онлайн-обучения с пожизненным бесплатным тарифом. Попробуй прямо сейчас!</h3>
+              <h3>Первая белорусская платформа CourseHub для онлайн-обучения с пожизненным бесплатным тарифом. Попробуй прямо сейчас!</h3>
               <Button
                 onClick={handleRegistrationUser}
                 variant={'newLeaveRequest'}
                 text={'Попробовать бесплатно'}
                 style={{
-                    width: 'min(90%, 300px)',
-                    borderRadius: '8px',
-                    marginTop: '0rem',
-                    fontSize: '1.2rem',
-                    color: '#FFFFFF',
-                    backgroundColor: '#357EEB',
-                    paddingTop: '22px',
-                    paddingBottom: '22px',
-                    marginBottom: '50px',
-                    lineHeight: '1.5vw',
-                    height: 'auto'
+                  width: 'min(90%, 300px)',
+                  borderRadius: '8px',
+                  marginTop: '0rem',
+                  fontSize: '1.2rem',
+                  color: '#FFFFFF',
+                  backgroundColor: '#357EEB',
+                  paddingTop: '22px',
+                  paddingBottom: '22px',
+                  marginBottom: '50px',
+                  lineHeight: '1.5vw',
+                  height: 'auto',
                 }}
               />
             </div>
-            <div className={styles.init_main_info_quality_pic}>
-              <div className={styles.init_main_info_quality_pic_info}></div>
+            <div className={styles.newInitial_main_info_quality_pic}>
+              <div className={styles.newInitial_main_info_quality_pic_info}></div>
               <motion.div
-                className={styles.init_main_info_quality_pic_analytics}
+                className={styles.newInitial_main_info_quality_pic_analytics}
                 initial={{
                   x: 0,
                   y: 0,
@@ -143,7 +136,7 @@ export const Initial = () => {
                 <p>Аналитика обучения</p>
               </motion.div>
               <motion.div
-                className={styles.init_main_info_quality_pic_removebg}
+                className={styles.newInitial_main_info_quality_pic_removebg}
                 initial={{
                   x: 0,
                   y: 0,
@@ -164,7 +157,7 @@ export const Initial = () => {
                 <p>Мобильный кабинет ученика</p>
               </motion.div>
               <motion.div
-                className={styles.init_main_info_quality_pic_chatst}
+                className={styles.newInitial_main_info_quality_pic_chatst}
                 initial={{
                   x: 0,
                   y: 0,
@@ -185,7 +178,7 @@ export const Initial = () => {
                 <p>Встроенный чат с учениками</p>
               </motion.div>
               <motion.div
-                className={styles.init_main_info_quality_pic_dateInf}
+                className={styles.newInitial_main_info_quality_pic_dateInf}
                 initial={{
                   x: 0,
                   y: 0,
@@ -209,14 +202,14 @@ export const Initial = () => {
           </div>
         </div>
 
-        <div className={styles.init_main_pros}>
+        <div className={styles.newInitial_main_pros}>
           <MiniBlock title={'Безлимит учеников'} text={'База обучающихся без ограничений'} image={unlimitedImage} />
           <MiniBlock title={'Бесплатное приложение'} text={'Обучение с любых устройств'} image={AnnexImage} />
           <MiniBlock title={'Безлимит гигабайт'} text={'Загружайте файлы без ограничений'} image={gbImage} />
         </div>
-        <div className={styles.init_main_intern}>
-          <div className={styles.init_main_intern_img}></div>
-          <div className={styles.init_main_intern_text}>
+        <div className={styles.newInitial_main_intern}>
+          <div className={styles.newInitial_main_intern_img}></div>
+          <div className={styles.newInitial_main_intern_text}>
             <h2>Бесплатный тариф «Start»</h2>
             <h3>
               Создайте свой курс и сразу запустите продажи. <br /> Без сложных настроек, интеграций и вложений
@@ -227,46 +220,46 @@ export const Initial = () => {
               <li>Полный функционал платформы</li>
               <li>Возможность протестировать все функции платформы</li>
             </ul>
-            <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Попробовать бесплатно'} style={{ borderRadius: '5px' }}/>
+            <Button onClick={handleRegistrationUser} variant={'newTryForFree'} text={'Попробовать бесплатно'} style={{ borderRadius: '5px' }} />
           </div>
         </div>
-        <div className={styles.init_main_create_swiper_navigationButtons}>
+        <div className={styles.newInitial_main_create_swiper_navigationButtons}>
           <button
             className={
               activeSlide === 0
-                ? styles.init_main_create_swiper_navigationButtons_activeButton
-                : styles.init_main_create_swiper_navigationButtons_button
+                ? styles.newInitial_main_create_swiper_navigationButtons_activeButton
+                : styles.newInitial_main_create_swiper_navigationButtons_button
             }
             onClick={() => goToSlide(0)}
           >
-            <img src={constructor_desk} alt="constructor" style={{ height: '40px' }}/>
+            <img src={constructor_desk} alt="constructor" style={{ height: '40px' }} />
             <h5 style={{ margin: '0' }}>ПРОСТОЙ КОНСТРУКТОР ОБУЧЕНИЯ</h5>
           </button>
           <button
             className={
               activeSlide === 1
-                ? styles.init_main_create_swiper_navigationButtons_activeButton
-                : styles.init_main_create_swiper_navigationButtons_button
+                ? styles.newInitial_main_create_swiper_navigationButtons_activeButton
+                : styles.newInitial_main_create_swiper_navigationButtons_button
             }
             onClick={() => goToSlide(1)}
           >
-            <img src={constructor_desk} alt="constructor" style={{ height: '40px' }}/>
+            <img src={constructor_desk} alt="constructor" style={{ height: '40px' }} />
             <h5>ВСТРОЕННЫЙ ЧАТ С УЧЕНИКАМИ</h5>
           </button>
           <button
             className={
               activeSlide === 2
-                ? styles.init_main_create_swiper_navigationButtons_activeButton
-                : styles.init_main_create_swiper_navigationButtons_button
+                ? styles.newInitial_main_create_swiper_navigationButtons_activeButton
+                : styles.newInitial_main_create_swiper_navigationButtons_button
             }
             onClick={() => goToSlide(2)}
           >
-            <img src={constructor_desk} alt="constructor" style={{ height: '40px' }}/>
+            <img src={constructor_desk} alt="constructor" style={{ height: '40px' }} />
             <h5>АНАЛИТИКА ОБУЧЕНИЯ</h5>
           </button>
         </div>
-        <div className="custom-pagination" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1rem' }}/>
-        <div className={styles.init_main_create}>
+        <div className="custom-pagination" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1rem' }} />
+        <div className={styles.newInitial_main_create}>
           <Swiper
             spaceBetween={30}
             speed={700}
@@ -275,17 +268,17 @@ export const Initial = () => {
               delay: 2500, //2500
               disableOnInteraction: false,
             }}
-            pagination={{ clickable: true, el: '.custom-pagination', }}
+            pagination={{ clickable: true, el: '.custom-pagination' }}
             modules={[Autoplay, Pagination]}
-            className={styles.init_main_create_swiper}
+            className={styles.newInitial_main_create_swiper}
             onInit={(swiper: any) => {
               swiperRef.current = swiper
             }}
             onSlideChange={handleSlideChange}
           >
             <SwiperSlide>
-              <div className={styles.init_main_create_swiper_block}>
-                <div className={styles.init_main_create_swiper_block_text}>
+              <div className={styles.newInitial_main_create_swiper_block}>
+                <div className={styles.newInitial_main_create_swiper_block_text}>
                   <h2>Создавайте качественные курсы самостоятельно </h2>
                   <p>
                     {' '}
@@ -304,11 +297,11 @@ export const Initial = () => {
                     <img src={hat} alt="hat" /> Проводите вебинары и онлайн-конференции{' '}
                   </p>
                 </div>
-                <div className={styles.init_main_create_swiper_block_container}>
+                <div className={styles.newInitial_main_create_swiper_block_container}>
                   {/* <div style={{ width: '64px' }}></div> */}
-                  <img className={styles.init_main_create_swiper_block_img} src={constructor} alt="constructor" />
+                  <img className={styles.newInitial_main_create_swiper_block_img} src={constructor} alt="constructor" />
                   {/* <button
-                    className={styles.init_main_create_swiper_block_arrowRight}
+                    className={styles.newInitial_main_create_swiper_block_arrowRight}
                     onClick={() => swiperRef.current?.slideNext()}
                   >
                     <IconSvg path={arrowRightNewIconPath} viewBoxSize="0 0 64 64" width={64} height={64} />
@@ -317,8 +310,8 @@ export const Initial = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className={styles.init_main_create_swiper_block}>
-                <div className={styles.init_main_create_swiper_block_text}>
+              <div className={styles.newInitial_main_create_swiper_block}>
+                <div className={styles.newInitial_main_create_swiper_block_text}>
                   <h2>Общение и обучение в одном месте </h2>
                   <p>
                     {' '}
@@ -337,16 +330,16 @@ export const Initial = () => {
                     <img src={hat} alt="hat" /> Настройки доступов для учеников/преподавателей{' '}
                   </p>
                 </div>
-                <div className={styles.init_main_create_swiper_block_container}>
+                <div className={styles.newInitial_main_create_swiper_block_container}>
                   {/* <button
-                    className={styles.init_main_create_swiper_block_arrowRight}
+                    className={styles.newInitial_main_create_swiper_block_arrowRight}
                     onClick={() => swiperRef.current?.slidePrev()}
                   >
                     <IconSvg path={arrowLeftNewIconPath} viewBoxSize="0 0 64 64" width={64} height={64} />
                   </button> */}
-                  <img className={styles.init_main_create_swiper_block_img} src={chat} alt="chat"  style={{ width: '30vw'}}/>
+                  <img className={styles.newInitial_main_create_swiper_block_img} src={chat} alt="chat" style={{ width: '30vw' }} />
                   {/* <button
-                    className={styles.init_main_create_swiper_block_arrowRight}
+                    className={styles.newInitial_main_create_swiper_block_arrowRight}
                     onClick={() => swiperRef.current?.slideNext()}
                   >
                     <IconSvg path={arrowRightNewIconPath} viewBoxSize="0 0 64 64" width={64} height={64} />
@@ -355,8 +348,8 @@ export const Initial = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide>
-              <div className={styles.init_main_create_swiper_block}>
-                <div className={styles.init_main_create_swiper_block_text}>
+              <div className={styles.newInitial_main_create_swiper_block}>
+                <div className={styles.newInitial_main_create_swiper_block_text}>
                   <h2>Легко управляйте обучением и следите за результатами</h2>
                   <p>
                     {' '}
@@ -375,98 +368,95 @@ export const Initial = () => {
                     <img src={hat} alt="hat" /> Детально отслеживайте результаты обучения{' '}
                   </p>
                 </div>
-                <div className={styles.init_main_create_swiper_block_container}>
+                <div className={styles.newInitial_main_create_swiper_block_container}>
                   {/* <button
-                    className={styles.init_main_create_swiper_block_arrowRight}
+                    className={styles.newInitial_main_create_swiper_block_arrowRight}
                     onClick={() => swiperRef.current?.slidePrev()}
                   >
                     <IconSvg path={arrowLeftNewIconPath} viewBoxSize="0 0 64 64" width={64} height={64} />
                   </button> */}
-                  <img className={styles.init_main_create_swiper_block_img} src={result} alt="result" />
+                  <img className={styles.newInitial_main_create_swiper_block_img} src={result} alt="result" />
                 </div>
               </div>
             </SwiperSlide>
           </Swiper>
         </div>
 
-        <div className={styles.init_main_mobile}>
-          <div className={styles.init_main_mobile_text}>
-            <div className={styles.init_main_mobile_container}>
-              <div className={styles.init_main_mobile_container_imgwrapper}>
-                <img src={mobile} alt="mobile"/>
+        <div className={styles.newInitial_main_mobile}>
+          <div className={styles.newInitial_main_mobile_text}>
+            <div className={styles.newInitial_main_mobile_container}>
+              <div className={styles.newInitial_main_mobile_container_imgwrapper}>
+                <img src={mobile} alt="mobile" />
               </div>
-              <div className={styles.init_main_mobile_text_button}>
+              <div className={styles.newInitial_main_mobile_text_button}>
                 <h1 style={{ textAlign: 'center' }}>Сделайте обучение удобным и доступным в любой момент</h1>
-                <div className={styles.init_main_mobile_text}>
+                <div className={styles.newInitial_main_mobile_text}>
                   <p>
-                    Эффективное обучение всегда в кармане: просмотр курсов, общение с кураторами, рейтинги и новости - все это всегда под рукой у учащегося.
+                    Эффективное обучение всегда в кармане: просмотр курсов, общение с кураторами, рейтинги и новости - все это всегда под рукой у
+                    учащегося.
                   </p>
                   <p> И даже без интернета!</p>
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '1rem'}}>
-                    <button
-                      className={
-                          styles.init_main_create_swiper_navigationButtons_activeButton
-                      }
-                      style={{ width: 'min(300px, 50%)', height: '44px', background: '#357EEB' }}
-                      /* onClick={handleRegistrationUser} */
-                    >
-                      <img src={appstore} alt="appstore" style={{ width: '18px', position: 'static' }}/>
-                      <h5 style={{ margin: '0', color: '#fffafa' }}>Доступно на Iphone</h5>
-                    </button>
-                    <button
-                      className={
-                          styles.init_main_create_swiper_navigationButtons_activeButton
-                      }
-                      style={{ width: 'min(300px, 50%)', height: '44px', background: '#357EEB' }}
-                      /* onClick={handleRegistrationUser} */
-                    >
-                      <img src={android} alt="android" style={{ width: '16px', position: 'static' }}/>
-                      <h5 style={{ margin: '0', color: '#fffafa' }}>Доступно на Android</h5>
-                    </button>
+                <div style={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+                  <button
+                    className={styles.newInitial_main_create_swiper_navigationButtons_activeButton}
+                    style={{ width: 'min(300px, 50%)', height: '44px', background: '#357EEB' }}
+                    /* onClick={handleRegistrationUser} */
+                  >
+                    <img src={appstore} alt="appstore" style={{ width: '18px', position: 'static' }} />
+                    <h5 style={{ margin: '0', color: '#fffafa' }}>Доступно на Iphone</h5>
+                  </button>
+                  <button
+                    className={styles.newInitial_main_create_swiper_navigationButtons_activeButton}
+                    style={{ width: 'min(300px, 50%)', height: '44px', background: '#357EEB' }}
+                    /* onClick={handleRegistrationUser} */
+                  >
+                    <img src={android} alt="android" style={{ width: '16px', position: 'static' }} />
+                    <h5 style={{ margin: '0', color: '#fffafa' }}>Доступно на Android</h5>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className={styles.init_main_record}>
-          <div className={styles.init_main_record_block}>
+        <div className={styles.newInitial_main_record}>
+          <div className={styles.newInitial_main_record_block}>
             <h2>Запишитесь на бесплатную демонстрацию сервиса</h2>
             <p>За 30 минут покажем основные возможности платформы и ответим на все Ваши вопросы</p>
             <Button
               onClick={handleRegistrationUser}
               variant={'newTryForFree'}
               text={'Записаться на демонстрацию'}
-              style={{ color: '#357eeb', backgroundColor: '#cfe2ff', width: 'min(90%, 355px)', borderRadius: '5px'}}
+              style={{ color: '#357eeb', backgroundColor: '#cfe2ff', width: 'min(90%, 355px)', borderRadius: '5px' }}
             />
             <Button
               onClick={handleRegistrationUser}
               variant={'newTryForFree'}
               text={'Смотреть видеообзор'}
               style={{
-                  backgroundColor: 'transparent',
-                  borderWidth: '1px',
-                  borderStyle: 'solid',
-                  borderColor: '#ffffff',
-                  color: '#ffffff',
-                  width: 'min(90%, 355px)',
-                  borderRadius: '5px',
-                  whiteSpace: 'nowrap'
+                backgroundColor: 'transparent',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: '#ffffff',
+                color: '#ffffff',
+                width: 'min(90%, 355px)',
+                borderRadius: '5px',
+                whiteSpace: 'nowrap',
               }}
             />
           </div>
-          <motion.div className={styles.init_main_record_img} whileHover={{ scale: 1.1 }}>
+          <motion.div className={styles.newInitial_main_record_img} whileHover={{ scale: 1.1 }}>
             <img src={comp_new_desktop} alt="comp" />
           </motion.div>
         </div>
 
-        <div className={styles.init_main_feedback}>
-          <div className={styles.init_main_slider}>
+        <div className={styles.newInitial_main_feedback}>
+          <div className={styles.newInitial_main_slider}>
             <Slider />
           </div>
         </div>
-        <div className={styles.init_main_free}>
-          <div className={styles.init_main_free_block}>
+        <div className={styles.newInitial_main_free}>
+          <div className={styles.newInitial_main_free_block}>
             <h2>Перенесем ваши курсы с другой платформы бесплатно за 3 дня</h2>
             <p>И подарим до 3-х месяцев подписки! Оставьте заявку и узнайте подробнее:</p>
             <Button
@@ -476,53 +466,53 @@ export const Initial = () => {
               style={{ color: '#ffffff', backgroundColor: '#357eeb', borderRadius: '5px' }}
             />
           </div>
-          <motion.div className={styles.init_main_record_img} whileHover={{ scale: 1.1 }}>
+          <motion.div className={styles.newInitial_main_record_img} whileHover={{ scale: 1.1 }}>
             <img src={record_new_desktop} alt="record_new" />
           </motion.div>
         </div>
-        <div className={styles.init_main_system}>
+        <div className={styles.newInitial_main_system}>
           <h2>30+ интеграций с популярными системами</h2>
-          <div className={styles.init_main_system_box}>
-            <div className={styles.init_main_system_box_zapier}>
+          <div className={styles.newInitial_main_system_box}>
+            <div className={styles.newInitial_main_system_box_zapier}>
               <img src={zimer} alt="zimer" />
             </div>
-            <div className={styles.init_main_system_box_youtube}>
+            <div className={styles.newInitial_main_system_box_youtube}>
               <img src={youtube} alt="youtube" />
             </div>
-            <div className={styles.init_main_system_box_kassa}>
+            <div className={styles.newInitial_main_system_box_kassa}>
               <img src={kassa} alt="kassa" />
             </div>
-            <div className={styles.init_main_system_box_metrika}>
+            <div className={styles.newInitial_main_system_box_metrika}>
               <img src={metrika} alt="metrika" />
             </div>
-            <div className={styles.init_main_system_box_zoom}>
+            <div className={styles.newInitial_main_system_box_zoom}>
               <img src={zoom} alt="zoom" />
             </div>
-            <div className={styles.init_main_system_box_tilda}>
+            <div className={styles.newInitial_main_system_box_tilda}>
               <img src={tilda} alt="tilda" />
             </div>
-            <div className={styles.init_main_system_box_vk}>
+            <div className={styles.newInitial_main_system_box_vk}>
               <img src={vk} alt="vk" />
             </div>
-            <div className={styles.init_main_system_box_google}>
+            <div className={styles.newInitial_main_system_box_google}>
               <img src={googleanalytics} alt="googleanalytics" />
             </div>
-            <div className={styles.init_main_system_box_bitriks}>
+            <div className={styles.newInitial_main_system_box_bitriks}>
               <img src={bitriks} alt="bitriks" />
             </div>
-            <div className={styles.init_main_system_box_wordpress}>
+            <div className={styles.newInitial_main_system_box_wordpress}>
               <img src={wordpress} alt="wordpress" />
             </div>
-            <div className={styles.init_main_system_box_amocmr}>
+            <div className={styles.newInitial_main_system_box_amocmr}>
               <img src={amocmr} alt="amocmr" />
             </div>
-            <div className={styles.init_main_system_box_tbank}>
+            <div className={styles.newInitial_main_system_box_tbank}>
               <img src={tbank} alt="tbank" />
             </div>
           </div>
         </div>
-        <div className={styles.init_main_takeFree}>
-          <div className={styles.init_main_takeFree_block}>
+        <div className={styles.newInitial_main_takeFree}>
+          <div className={styles.newInitial_main_takeFree_block}>
             <h2>Попробовать бесплатно</h2>
             <p>Получить бесплатный доступ</p>
             <Button
@@ -530,18 +520,18 @@ export const Initial = () => {
               variant={'newTryForFree'}
               text={'Записаться на демонстрацию'}
               style={{
-                  backgroundColor: 'transparent',
-                  borderWidth: '1px',
-                  borderStyle: 'solid',
-                  borderColor: '#ffffff',
-                  color: '#ffffff',
-                  width: 'min(80%, 500px)',
-                  borderRadius: '5px',
-                  whiteSpace: 'nowrap'
+                backgroundColor: 'transparent',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: '#ffffff',
+                color: '#ffffff',
+                width: 'min(80%, 500px)',
+                borderRadius: '5px',
+                whiteSpace: 'nowrap',
               }}
             />
           </div>
-          <div className={styles.init_main_takeFree_block_img}>
+          <div className={styles.newInitial_main_takeFree_block_img}>
             <img src={rocketfree} alt="rocketfree" />
           </div>
         </div>

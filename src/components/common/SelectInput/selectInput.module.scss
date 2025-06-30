@@ -1,5 +1,3 @@
-@import '../../../scss/mixin.scss';
-@import 'src/scss/variable';
 .wrapper {
   @include display(flex, row, center);
   padding: 2px 0 24px 0;

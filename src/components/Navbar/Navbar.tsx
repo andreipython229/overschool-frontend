@@ -128,7 +128,7 @@ export const Navbar: FC<NavbarProps> = memo(({ onToggleChat }) => {
             }}
             arrow
           >
-            <div style={{ marginTop: 'auto', width: '100%' }}>
+            <div style={{ marginTop: '100px', width: '100%' }}>
               <a key={'bonus-school'} href={studentBonus.link} target="_blank" rel="noreferrer">
                 {studentBonus.logo ? (
                   <div className={styles.navbar_menu} style={{ textAlign: 'center', padding: '0.40em' }}>
@@ -157,12 +157,12 @@ export const Navbar: FC<NavbarProps> = memo(({ onToggleChat }) => {
               target="_blank"
               rel="noreferrer"
               className={styles.navbar_menu}
-              style={{ width: '100%', padding: '0 2px', display: 'flex', flexDirection: 'column', textDecoration: 'none' }}
+              style={{ width: '100%', padding: '0 2px 10px', display: 'flex', flexDirection: 'column', textDecoration: 'none' }}
             >
               <SvgIcon style={{ opacity: '0.8', fontSize: '3.5em', padding: '0.15em' }}>
                 <MonetizationOnIcon sx={{ color: 'black' }} />
               </SvgIcon>
-              <p style={{ textWrap: 'wrap', textAlign: 'center', fontSize: '12px' }}>Заработок</p>
+              <p style={{ textWrap: 'wrap', textAlign: 'center', fontSize: '14px' }}>Заработок</p>
             </a>
           </div>
         )}
@@ -171,7 +171,7 @@ export const Navbar: FC<NavbarProps> = memo(({ onToggleChat }) => {
             <div>
               <IconSvg width={50} height={50} viewBoxSize={'0 0 50 50'} path={coursesNavPath} />
             </div>
-            <p>Главная</p>
+            <p style={{ fontSize: '14px' }}>Главная</p>
             <div className={styles.mobile_active_indicator}></div>
           </NavLink>
         )}
@@ -228,7 +228,7 @@ export const Navbar: FC<NavbarProps> = memo(({ onToggleChat }) => {
           </a>
           {(UserRole === RoleE.Student || UserRole === RoleE.Teacher) && (
             <NavLink
-              to={Path.Courses + Path.Bonus}
+              to={Path.Courses + '/' + Path.Bonus}
               className={({ isActive }) =>
                 `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`
               }

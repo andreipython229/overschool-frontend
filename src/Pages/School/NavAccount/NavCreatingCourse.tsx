@@ -15,7 +15,7 @@ export const NavCreatingCourse = memo(() => {
   const navigate = useNavigate()
   const { schoolName } = useAppSelector(schoolSelector)
   const backCourses = () => {
-    const pathLink = generatePath(`${Path.School}${Path.Courses}`, {
+    const pathLink = generatePath(`${Path.School}/${Path.Courses}`, {
       school_name: schoolName,
     })
 
