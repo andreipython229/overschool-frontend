@@ -194,36 +194,51 @@ export const MobileHeaderAdmin: FC = () => {
         </div>
 
         <div className={`${styles.nav_links} ${menuOpen ? styles.hidden : ""}`}>
-          <div className={`${styles.nav_item} ${styles.social} ${isSocialOpen ? styles.active : ''}`} onClick={togglePlatformMenu} ref={socialMenuRef}>
-          <Social_meniu className={styles.item_icon} />
+          {(schoolData?.extra_link || schoolData?.telegram_link || schoolData?.instagram_link || schoolData?.twitter_link || schoolData?.youtube_link || schoolData?.vk_link) && (
+            <div className={`${styles.nav_item} ${styles.social} ${isSocialOpen ? styles.active : ''}`} onClick={togglePlatformMenu} ref={socialMenuRef}>
+            <Social_meniu className={styles.item_icon} />
             {isSocialOpen && (
               <div className={styles.submenu}>
-                <a href={schoolData?.extra_link || '#'} target={schoolData?.extra_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.extra_link ? undefined : -1} aria-disabled={!schoolData?.extra_link}>
-                  <Social className={styles.icon} />
-                </a>
-                <a href={schoolData?.telegram_link || '#'} target={schoolData?.telegram_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.telegram_link ? undefined : -1} aria-disabled={!schoolData?.telegram_link}>
-                  <Telegram className={styles.icon} />
-                </a>
-                <a href={schoolData?.instagram_link || '#'} target={schoolData?.instagram_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.instagram_link ? undefined : -1} aria-disabled={!schoolData?.instagram_link}>
-                  <Instagram className={styles.icon} />
-                </a>
-                <a href={schoolData?.twitter_link || '#'} target={schoolData?.twitter_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.twitter_link ? undefined : -1} aria-disabled={!schoolData?.twitter_link}>
-                  <X className={styles.icon} />
-                </a>
-                <a href={schoolData?.youtube_link || '#'} target={schoolData?.youtube_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.youtube_link ? undefined : -1} aria-disabled={!schoolData?.youtube_link}>
-                  <Youtube className={styles.icon} />
-                </a>
-                <a href={schoolData?.vk_link || '#'} target={schoolData?.vk_link ? '_blank' : undefined} rel="noopener noreferrer" tabIndex={schoolData?.vk_link ? undefined : -1} aria-disabled={!schoolData?.vk_link}>
-                  <VK className={styles.icon} />
-                </a>
+                {schoolData?.extra_link && (
+                  <a href={schoolData?.extra_link} target="_blank" rel="noopener noreferrer">
+                    <Social className={styles.icon} />
+                  </a>
+                )}
+                {schoolData?.telegram_link && (
+                  <a href={schoolData?.telegram_link} target="_blank" rel="noopener noreferrer">
+                    <Telegram className={styles.icon} />
+                  </a>
+                )}
+                {schoolData?.instagram_link && (
+                  <a href={schoolData?.instagram_link} target="_blank" rel="noopener noreferrer">
+                    <Instagram className={styles.icon} />
+                  </a>
+                )}
+                {schoolData?.twitter_link && (
+                  <a href={schoolData?.twitter_link} target="_blank" rel="noopener noreferrer">
+                    <X className={styles.icon} />
+                  </a>
+                )}
+                {schoolData?.youtube_link && (
+                  <a href={schoolData?.youtube_link} target="_blank" rel="noopener noreferrer">
+                    <Youtube className={styles.icon} />
+                  </a>
+                )}
+                {schoolData?.vk_link && (
+                  <a href={schoolData?.vk_link} target="_blank" rel="noopener noreferrer">
+                    <VK className={styles.icon} />
+                  </a>
+                )}
               </div>
             )}
           </div>
+          )}
 
           {userRole === RoleE.Admin && (
             <div className={`${styles.nav_item} ${styles.tariff} ${isTariffOpen ? styles.active : ''}`} onClick={toggleTariffMenu} ref={tariffMenuRef}>
               <Tariff className={styles.item_icon} />
-              {isTariffOpen && (
+              {/* Если есть данные по тарифу и нет ошибки, показываем обычное меню тарифа */}
+              {isTariffOpen && currentTariffData && !('error' in currentTariffData) && (  
                 <div className={`${styles.submenu} ${styles.tariff}`}>
                   {/* Отображаем название тарифа и оставшееся количество дней */}
                   <div className={styles.tariff_title}>
@@ -248,6 +263,21 @@ export const MobileHeaderAdmin: FC = () => {
                   <div className={styles.tariff_button} onClick={goToTariffPlans}>
                     Перейти на тариф
                     <img src={require("../../../assets/img/common/prizePersonal.png")}alt="Окно входа"/>
+                  </div>
+                </div>
+              )}
+              {/* Если тариф истёк или нет сведений, показываем альтернативное меню */}
+              {isTariffOpen && (!currentTariffData || ('error' in currentTariffData)) && (
+                <div className={`${styles.submenu} ${styles.tariff}`} style={{alignItems: 'center', textAlign: 'center'}}>
+                  <div className={styles.tariff_title}>
+                    <span style={{color: '#d32f2f', fontWeight: 600}}>Тариф истёк</span>
+                  </div>
+                  <div className={styles.tariff_text}>
+                    <span style={{fontSize: '13px', color: '#324195'}}>Выберите тарифный план</span>
+                  </div>
+                  <div className={styles.tariff_button} onClick={goToTariffPlans}>
+                    Перейти на тариф
+                    <img src={require("../../../assets/img/common/prizePersonal.png")} alt="Окно входа"/>
                   </div>
                 </div>
               )}
