@@ -2,15 +2,18 @@ import React, { FC, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Typography } from '@mui/material'
 import { Footer } from 'components/Footer/index'
+import { useNavigate } from 'react-router-dom'
 
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
+import { TariffPlansInfoYear } from './TariffPlansInfoYear'
 
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { useBoolean } from '@/customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
+import { Path } from '@/enum/pathE'
 
 type Feature = { icon: string; text: string };
 type Disabl = { icon: string; text: string };
@@ -51,45 +54,6 @@ const planFeatures: Record<string, { features: Feature[]; disabled: Disabl[] }> 
   },
 };
 
-// добавлен этот компонент потому что на сервере выдавало ошибку 401, если API доступен, то можно убрать(без него на водно тарифы)
-const fallbackTariffData: TariffPlanT[] = [
-  {
-    id: 1,
-    name: 'Junior',
-    price: '468',
-    price_rf_rub: 468,
-    number_of_courses: 1,
-    number_of_staff: 1,
-    students_per_month: 10,
-    total_students: 10,
-    student_count_by_month: 10,
-    discount_12_months_byn: 468,
-  },
-  {
-    id: 2,
-    name: 'Middle',
-    price: '948',
-    price_rf_rub: 948,
-    number_of_courses: 10,
-    number_of_staff: 11,
-    students_per_month: 50,
-    total_students: 50,
-    student_count_by_month: 50,
-    discount_12_months_byn: 948,
-  },
-  {
-    id: 3,
-    name: 'Senior',
-    price: '1788',
-    price_rf_rub: 1788,
-    number_of_courses: 50,
-    number_of_staff: null,
-    students_per_month: 500,
-    total_students: 500,
-    student_count_by_month: 500,
-    discount_12_months_byn: 1788,
-  },
-]
 
 const tariffIcons: Record<string, string> = {
   Junior: '/images/start.png',
@@ -144,12 +108,10 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
         </div>
       )}
 
-      <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
-        <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
+  <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+  <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
         <div className={styles.yearPrice}>
-          {plan.name === 'Junior' && '468 BYN/год'}
-          {plan.name === 'Middle' && '948 BYN/год'}
-          {plan.name === 'Senior' && '1788 BYN/год'}
+          {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
         </div>
 
        <a
@@ -211,9 +173,14 @@ export const TariffPlansInfo: FC = () => {
   const { data, isSuccess } = useFetchTariffPlanTableQuery()
   const [isModalOpen, { on: openModal, off: closeModal }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
+  const navigate = useNavigate();
 
-  // Используем данные с сервера, если они есть, иначе fallback
-  const tariffPlanTable = (data && isSuccess && data.length > 0) ? data : fallbackTariffData
+  // Используем только годовые тарифы (id 3, 4, 5)
+  const tariffPlanTable = (data && isSuccess && data.length > 0)
+    ? data.filter(plan => [2, 3, 4].includes(Number(plan.id)))
+    : [];
+
+  console.log('tariffPlanTable', tariffPlanTable)
 
   return (
     <>
@@ -225,8 +192,8 @@ export const TariffPlansInfo: FC = () => {
         transition={{ delay: 0.5, ease: 'easeInOut', duration: 1.3 }}
         className={styles.container}
       >
-        <section className={styles.TariffPlansPage}>
-          <div className={styles.TariffPlansPage_plansBlock}></div>
+<section className={styles.TariffPlansPage}>
+ <div className={styles.TariffPlansPage_plansBlock}></div>
           <Typography
             gutterBottom
             variant="h1"
@@ -249,8 +216,21 @@ export const TariffPlansInfo: FC = () => {
           <div className={styles.savingsBlock}>
             <span className={styles.monthly}>Ежемесячно</span>
             <div className={styles.yearlyBlock}>
-              <span>Годовая</span>
-              <span className={styles.discountBadge}>Экономия 20%</span>
+              <button
+                onClick={() => navigate(Path.TariffPlansInfoYear)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  margin: 0,
+                  font: 'inherit',
+                  color: 'inherit',
+                  cursor: 'pointer',
+                }}
+              >
+                Годовая
+                <span className={styles.discountBadge}>Экономия 20%</span>
+              </button>
             </div>
           </div>
 
@@ -508,7 +488,6 @@ export const TariffPlansInfo: FC = () => {
                 width: '301px',
             height: '54px',
             padding: '15px 40px',
-
             backgroundColor:'#FFFFFF', // синий фон
             color:    '#3B82F6'  ,      // белый текст
             border: 'none',             // если нужен плоский стиль
@@ -564,8 +543,7 @@ export const TariffPlansInfo: FC = () => {
               Попробуйте весь функционал в процессе использования<br />
               и убедитесь, насколько он удобен.
             </p>
-
-            <a
+<a
   href="https://platform.coursehb.ru/create-school/"
   target="_blank"
   rel="noreferrer"
@@ -574,17 +552,19 @@ export const TariffPlansInfo: FC = () => {
     marginTop: '20px',
     padding: '12px 24px',
     fontSize: '16px',
-    fontWeight: '600',
+    fontWeight: 600,
     backgroundColor: '#0D28BB',
     color: '#fff',
-    textDecoration: 'none',
+    border: 'none',
     borderRadius: '6px',
     cursor: 'pointer',
+    textDecoration: 'none',
+    textAlign: 'center',
+    userSelect: 'none',
   }}
 >
   Попробовать бесплатно
 </a>
-
 </div>
 
           <div
@@ -598,7 +578,7 @@ export const TariffPlansInfo: FC = () => {
             }}
           >
             <img
-              src="/images/Slice 3213.png"
+              src="src/assets/img/common/cta-image.png"
               alt="Slice 3213"
               style={{ width: '478px', height: '330px', marginBottom: '16px' }}
             />

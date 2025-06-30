@@ -11,6 +11,7 @@ import { PWA } from 'Pages/PWA/PWA'
 import { Initial } from 'Pages/Initial/newInitial'
 import { TariffPlans } from './Pages/TariffPlans/TariffPlans'
 import { TariffPlansInfo } from './Pages/TariffPlans/TariffPlansInfo'
+import { TariffPlansInfoYear } from './Pages/TariffPlans/TariffPlansInfoYear'
 import { MainLayOut } from '@/components/MainLayout/MainLayOut'
 import { Path, FooterPath, PathParams } from '@/enum/pathE'
 import { useAppSelector } from '@/store/hooks'
@@ -60,6 +61,8 @@ export const App = () => {
     }
   }, [isLogin])
 
+  console.log(pathname === Path.SocialAuth)
+
   useEffect(() => {
     if (
       !isLogin &&
@@ -74,6 +77,7 @@ export const App = () => {
       pathname !== Path.LoginPage &&
       pathname !== Path.InitialPage &&
       pathname !== Path.TariffPlansInfo &&
+      pathname !== Path.TariffPlansInfoYear &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
@@ -106,11 +110,13 @@ export const App = () => {
   useEffect(() => {
     if (
       isLogin &&
+      pathname !== Path.SocialAuth &&
       !schoolName &&
       pathname !== Path.InitialPage &&
       pathname !== '/' &&
       pathname !== Path.ChooseSchool &&
       pathname !== Path.TariffPlansInfo &&
+      pathname !== Path.TariffPlansInfoYear &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
@@ -123,10 +129,12 @@ export const App = () => {
     if (
       !role &&
       isLogin &&
+      pathname !== Path.SocialAuth &&
       pathname !== Path.InitialPage &&
       pathname !== '/' &&
       pathname !== Path.ChooseSchool &&
       pathname !== Path.TariffPlansInfo &&
+      pathname !== Path.TariffPlansInfoYear &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
       pathname.split('/')[1] !== 'help' &&
@@ -151,6 +159,7 @@ export const App = () => {
         <Route path={Path.Certificate} element={<Certificate />} />
         <Route path={Path.InitialPage} element={<Initial />} />
         <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
+        <Route path={Path.TariffPlansInfoYear} element={<TariffPlansInfoYear />} />
         <Route path={Path.CreateSchool} element={<CreateNewSchool />} />
         <Route path={Path.LoginPage} element={<LoginPage />} />
         <Route path={Path.SocialAuth} element={<SocialAuthPage />} />

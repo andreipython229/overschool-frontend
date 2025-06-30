@@ -26,6 +26,7 @@ export enum Path {
   HelpCenter = 'help-center',
   TariffPlans = 'tariff-plans',
   TariffPlansInfo = '/tariff-plans-info',
+  TariffPlansInfoYear = '/tariff-plans-year',
   SignUp = '/signup',
   CourseStudent = 'courses-stats/:course_id/students',
   CreateSchool = '/create-school',
@@ -56,7 +57,7 @@ export enum Path {
   Bonus = 'bonus',
   HelpGidStart = 'help-gid-start',
   HelpPlatformSettings = 'help-platform-settings',
-  SocialAuth = 'social-auth-complete',
+  SocialAuth = '/auth/callback/',
   HelpCourses = 'courses',
   HelpAddEmployee = 'help-add-employee',
 }

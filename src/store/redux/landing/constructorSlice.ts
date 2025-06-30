@@ -17,13 +17,18 @@ export const slice = createSlice({
   initialState,
   reducers: {
     changeBlocks: (state, action: PayloadAction<BlockKeys>) => {
-      state.blocks = action.payload
+      // state.blocks = action.payload
+      state.blocks = {
+        ...state.blocks,
+        ...action.payload,
+      }
     },
     rollBackBlocks: state => {
       state.blocks = {
         header: state.blocks.header,
         stats: initialBlocks.stats,
         audience: initialBlocks.audience,
+        advantage: initialBlocks.advantage,
         trainingProgram: initialBlocks.trainingProgram,
         trainingPurpose: initialBlocks.trainingPurpose,
         linkButton: initialBlocks.linkButton,
