@@ -478,7 +478,6 @@ export const TariffPlansInfo: FC = () => {
                 width: '301px',
             height: '54px',
             padding: '15px 40px',
-
             backgroundColor:'#FFFFFF', // синий фон
             color:    '#3B82F6'  ,      // белый текст
             border: 'none',             // если нужен плоский стиль
@@ -534,6 +533,23 @@ export const TariffPlansInfo: FC = () => {
               Попробуйте весь функционал в процессе использования<br />
               и убедитесь, насколько он удобен.
             </p>
+
+ <button
+  style={{
+    marginTop: '20px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: '600',
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  }}
+>
+  Попробовать бесплатно
+</button>
+
           </div>
 
           <div
