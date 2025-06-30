@@ -54,7 +54,9 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
       'Дата добавления в группу': `${added_date} ${added_time}`,
       'Дата удаления из группы': `${removed_date} ${removed_time}`,
       'Прогресс': progress,
-      'Номер телефона': dataToRender[i].phone_number || ''
+      'Номер телефона': dataToRender[i].phone_number || '',
+      'Доступ': dataToRender[i].access ? 'активен' : 'неактивен',
+      'Период доступа': dataToRender[i].access_period ?? ''
     }
 
     Object.entries(row).forEach(([key, value]) => {
