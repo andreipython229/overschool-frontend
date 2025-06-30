@@ -53,7 +53,7 @@ export const StudentSchoolMeeting: FC = () => {
     };
 
     const handleGoToMain = () => {
-        navigate(`/school/${schoolName}/courses-stats/`);
+        navigate(`/school/${schoolName}/courses/`);
     };
 
     const renderMeetingLinks = () => {

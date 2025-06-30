@@ -27,6 +27,8 @@ import {
   mailIcon,
   phoneIcon,
   addIcon,
+  copyIcon,
+  successIcon,
 } from '../constants/iconSvgConstants'
 import { pathT } from '../types/commonComponentsTypes'
 
@@ -175,3 +177,7 @@ export const addIconPath: pathT[] = [
 ]
 
 export const closeHwModalPath = [{ d: cross.d1, fill: '#808080' }, { d: cross.d2, fill: '#808080' }]
+
+export const copyIconPath: pathT[] = [{ d: copyIcon.d1, fill: '#7a7a7c' }]
+
+export const successIconPath: pathT[] = [{ d: successIcon.d1, fill: '#6BBE66' }]
