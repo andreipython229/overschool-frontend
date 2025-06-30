@@ -13,11 +13,7 @@ import { RootState } from '@/store/redux/store'
 import { IconSvg } from '../../common/IconSvg/IconSvg'
 import Badge from '@mui/material/Badge'
 import { Portal } from 'components/Modal/Portal'
-//  alex_kiyko_newbags2
-import { selectUser, inviteProgramSelector } from '../../../selectors'
-// 
-// import { selectUser } from '@/selectors'
-//  dev-front
+import { inviteProgramSelector, selectUser } from '@/selectors'
 import { navlinkByRoles } from '../config/navlinkByRoles'
 import { SvgIcon } from '@mui/material'
 // import { GiftIconPath } from 'assets/Icons/svgIconPath' //для последующего отобраения бонусов
@@ -26,8 +22,6 @@ import styles from '../navbar.module.scss'
 import { RoleE } from '@/enum/roleE'
 import Timer from '../../Timer/Timer'
 
-//  alex_kiyko_newbags2
-// 
 // Компонент-обертка для применения стилей к иконкам
 const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
   const iconStyle = {
@@ -53,7 +47,6 @@ const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-//  dev-front
 interface IIsActive {
   isActive?: boolean
 }

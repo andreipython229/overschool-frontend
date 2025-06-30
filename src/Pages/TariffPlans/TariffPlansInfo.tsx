@@ -2,15 +2,56 @@ import React, { FC, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Typography } from '@mui/material'
 import { Footer } from 'components/Footer/index'
-
+import { useNavigate } from 'react-router-dom'
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
-
+import { TariffPlansInfoYear } from './TariffPlansInfoYear'
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { useBoolean } from '@/customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
+import { Path } from '@/enum/pathE'
+
+type Feature = { icon: string; text: string };
+type Disabl = { icon: string; text: string };
+
+const planFeatures: Record<string, { features: Feature[]; disabled: Disabl[] }> = {
+  Junior: {
+    features: [
+      { icon: '/images/cloud.png', text: 'Безлимит ГБ' },
+      { icon: '/images/layer.png', text: '3 курса' },
+      { icon: '/images/student.png', text: '10 учеников' },
+      { icon: '/images/Component 133.png', text: '4 сотрудника' },
+    ],
+    disabled: [
+      { icon: '/images/X.png', text: 'White Label'},
+      { icon: '/images/X.png', text: 'Свой домен'},],
+  },
+  Middle: {
+    features: [
+      { icon: '/images/cloud.png', text: 'Безлимит ГБ' },
+      { icon: '/images/layer.png', text: '10 курсов' },
+      { icon: '/images/student.png', text: '50 учеников' },
+      { icon: '/images/Component 133.png', text: '11 сотрудников' },
+    ],
+    disabled: [
+      { icon: '/images/X.png', text: 'White Label'},
+      { icon: '/images/X.png', text: 'Свой домен'},],
+  },
+  Senior: {
+    features: [
+      { icon: '/images/cloudWhite.png', text: 'Безлимит ГБ' },
+      { icon: '/images/layerWhite.png', text: '50 курсов' },
+      { icon: '/images/studentWhite.png', text: '500 учеников' },
+      { icon: '/images/Component 133White.png', text: 'безлимит' },
+    ],
+    disabled: [
+      { icon: '/images/V.png', text: 'White Label'},
+      { icon: '/images/V.png', text: 'Свой домен'},],
+  },
+};
+
 
 type Feature = { icon: string; text: string };
 type Disabl = { icon: string; text: string };
@@ -144,12 +185,10 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
         </div>
       )}
 
-      <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
-        <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
+  <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+  <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
         <div className={styles.yearPrice}>
-          {plan.name === 'Junior' && '468 BYN/год'}
-          {plan.name === 'Middle' && '948 BYN/год'}
-          {plan.name === 'Senior' && '1788 BYN/год'}
+          {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
         </div>
 
         <Button
@@ -201,9 +240,14 @@ export const TariffPlansInfo: FC = () => {
   const { data, isSuccess } = useFetchTariffPlanTableQuery()
   const [isModalOpen, { on: openModal, off: closeModal }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
+  const navigate = useNavigate();
 
-  // Используем данные с сервера, если они есть, иначе fallback
-  const tariffPlanTable = (data && isSuccess && data.length > 0) ? data : fallbackTariffData
+  // Используем только годовые тарифы (id 3, 4, 5)
+  const tariffPlanTable = (data && isSuccess && data.length > 0)
+    ? data.filter(plan => [2, 3, 4].includes(Number(plan.id)))
+    : [];
+
+  console.log('tariffPlanTable', tariffPlanTable)
 
   return (
     <>
@@ -215,8 +259,8 @@ export const TariffPlansInfo: FC = () => {
         transition={{ delay: 0.5, ease: 'easeInOut', duration: 1.3 }}
         className={styles.container}
       >
-        <section className={styles.TariffPlansPage}>
-          <div className={styles.TariffPlansPage_plansBlock}></div>
+<section className={styles.TariffPlansPage}>
+ <div className={styles.TariffPlansPage_plansBlock}></div>
           <Typography
             gutterBottom
             variant="h1"
@@ -239,8 +283,21 @@ export const TariffPlansInfo: FC = () => {
           <div className={styles.savingsBlock}>
             <span className={styles.monthly}>Ежемесячно</span>
             <div className={styles.yearlyBlock}>
-              <span>Годовая</span>
-              <span className={styles.discountBadge}>Экономия 20%</span>
+              <button
+                onClick={() => navigate(Path.TariffPlansInfoYear)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  margin: 0,
+                  font: 'inherit',
+                  color: 'inherit',
+                  cursor: 'pointer',
+                }}
+              >
+                Годовая
+                <span className={styles.discountBadge}>Экономия 20%</span>
+              </button>
             </div>
           </div>
 
@@ -399,7 +456,6 @@ export const TariffPlansInfo: FC = () => {
               width: '301px',
               height: '54px',
               padding: '15px 40px',
-
               backgroundColor: '#3B82F6', // синий фон
               color: '#FFFFFF',           // белый текст
               border: 'none',             // если нужен плоский стиль
@@ -490,7 +546,6 @@ export const TariffPlansInfo: FC = () => {
          </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
-
             text=    "Получить консультацию"
             variant="secondary"
             onClick={() => console.log('Start')}
@@ -498,7 +553,6 @@ export const TariffPlansInfo: FC = () => {
                 width: '301px',
             height: '54px',
             padding: '15px 40px',
-
             backgroundColor:'#FFFFFF', // синий фон
             color:    '#3B82F6'  ,      // белый текст
             border: 'none',             // если нужен плоский стиль
@@ -554,7 +608,44 @@ export const TariffPlansInfo: FC = () => {
               Попробуйте весь функционал в процессе использования<br />
               и убедитесь, насколько он удобен.
             </p>
+ <a
+    href="https://platform.coursehb.ru/create-school/"
+    style={{
+      display: 'inline-block',
+      marginTop: '20px',
+      padding: '12px 24px',
+      fontSize: '16px',
+      fontWeight: 600,
+      backgroundColor: '#0D28BB',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '6px',
+      cursor: 'pointer',
+      textDecoration: 'none',
+      textAlign: 'center',
+      userSelect: 'none',
+    }}
+  >
+    Попробовать бесплатно
+  </a>
+</div>
+          <div
+            style={{
+              flex: '1 1 0',
+              maxWidth: '600px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          >
+            <img
+              src="src/assets/img/common/cta-image.png"
+              alt="Slice 3213"
+              style={{ width: '478px', height: '330px', marginBottom: '16px' }}
+            />
           </div>
+        </div>
 
           <div
             style={{
