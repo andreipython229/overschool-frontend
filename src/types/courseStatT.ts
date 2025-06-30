@@ -34,6 +34,8 @@ export type result = {
   progress: number
   unique_students_count: number
   chat_uuid: string
+  access: boolean
+  access_period: string
 }
 
 export interface Section {
