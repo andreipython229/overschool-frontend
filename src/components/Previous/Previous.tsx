@@ -1,7 +1,7 @@
 import {FC, memo} from 'react'
 import {useLocation} from 'react-router-dom'
 
-import {pathT, PreviousPropsT} from '../../types/componentsTypes'
+import {pathT, PreviousPropsT} from '@/types/componentsTypes'
 import {previousToShow} from './config/previousToShow'
 
 export const Previous: FC<PreviousPropsT> = memo(() => {
@@ -13,6 +13,8 @@ export const Previous: FC<PreviousPropsT> = memo(() => {
     <>
       {previousToShow.map(({ path, Component }: pathT) => {
         if (!pathname.includes('module')) {
+          console.log(splitedPathname.endsWith(path))
+          console.log(path)
           // const pathWithoutParams = splitedPathname.split(/\d+/)[0]
           return splitedPathname.endsWith(path) && <Component key={path} />
         }

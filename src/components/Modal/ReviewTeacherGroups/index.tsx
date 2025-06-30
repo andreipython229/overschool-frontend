@@ -1,16 +1,16 @@
-import React, { ChangeEvent, FC, useState, useEffect } from 'react'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { crossIconPath } from 'config/commonSvgIconsPath'
-import { Checkbox } from 'components/common/Checkbox/Checkbox'
-import { Button } from 'components/common/Button/Button'
-import { useFetchAllUsersQuery } from 'api/allUsersList'
-import { useLazyFetchCoursesGroupsQuery } from 'api/coursesServices'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
+import React, { FC, useState, useEffect } from 'react'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { crossIconPath } from '@/config/commonSvgIconsPath'
+import { Checkbox } from '@/components/common/Checkbox/Checkbox'
+import { Button } from '@/components/common/Button/Button'
+import { useFetchAllUsersQuery } from '@/api/allUsersList'
+import { useLazyFetchCoursesGroupsQuery } from '@/api/coursesServices'
+import { SimpleLoader } from '@/components/Loaders/SimpleLoader'
 
-import styles from '../../Modal/Modal.module.scss'
-import { EmployeeT } from '../../../types/userT'
+import styles from '@/components/Modal/Modal.module.scss'
+import { EmployeeT } from '@/types/userT'
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown'
-import { usePatchStudentsGroupMutation } from '../../../api/studentsGroupService'
+import { usePatchStudentsGroupMutation } from '@/api/studentsGroupService'
 
 type reviewTeacherGroupsT = {
   closeModal: () => void
@@ -136,7 +136,7 @@ export const ReviewTeacherGroups: FC<reviewTeacherGroupsT> = ({ closeModal, name
         Object.assign(dataToSend, { type: 'WITHOUT_TEACHER' })
       }
 
-      if (Object.hasOwn(dataToSend, 'teacher_id') || Object.hasOwn(dataToSend, 'type')) {
+      if (Object.prototype.hasOwnProperty.call(dataToSend, 'teacher_id') || Object.prototype.hasOwnProperty.call(dataToSend, 'type')) {
         await patchGroup({
           id: group.group_id,
           data: dataToSend,

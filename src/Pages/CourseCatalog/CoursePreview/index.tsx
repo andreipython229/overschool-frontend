@@ -19,16 +19,62 @@ import PhoneInput from 'react-phone-input-2'
 import { LandingBlocks } from './LandingBlocks'
 import { changeBlocks } from 'store/redux/landing/constructorSlice'
 import { useAppDispatch } from 'store/hooks'
+import { Modal } from 'components/common/Modal/Modal'
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#ba75ff', //this overide blue color
+      main: '#357EEB', //this overide blue color
       light: '#e0dced', //overides light blue
       dark: 'rgb(0, 0, 0)', //overides dark blue color
     },
   },
 })
+
+type CoursePreviewProps = {
+  isOpen: boolean
+  onClose: () => void
+  course: any
+}
+
+export const CoursePreview: FC<CoursePreviewProps> = ({ isOpen, onClose, course }) => {
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={course?.name || 'Предпросмотр курса'}
+      variant="gradient"
+      width="800px"
+    >
+      <div className={styles.content}>
+        {course?.description && (
+          <div className={styles.section}>
+            <h3>Описание курса</h3>
+            <p>{course.description}</p>
+          </div>
+        )}
+
+        {course?.lessons && course.lessons.length > 0 && (
+          <div className={styles.section}>
+            <h3>Уроки курса</h3>
+            <ul className={styles.lessonsList}>
+              {course.lessons.map((lesson: any) => (
+                <li key={lesson.id}>
+                  <h4>{lesson.title}</h4>
+                  <p>{lesson.description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className={styles.actions}>
+          <Button onClick={onClose} color="primary" text="Закрыть" />
+        </div>
+      </div>
+    </Modal>
+  )
+}
 
 export const CoureCatalogPreview: FC = () => {
   const params = useParams()
@@ -87,10 +133,10 @@ export const CoureCatalogPreview: FC = () => {
         <div className={styles.wrapper_banner}>
           <div className={styles.wrapper_banner_content}>
             <div className={styles.wrapper_banner_content_createProject}>
-              <h1>Присоединяйтесь к платформе OVERSCHOOL прямо сейчас!</h1>
+              <h1>Присоединяйтесь к платформе COURSEHUB прямо сейчас!</h1>
               <h1>Освойте одну из самых востребованных профессий!</h1>
               <p>Попробуйте весь функционал в процессе использования и познайте, насколько он удобен</p>
-              <Button variant="primary" onClick={openModal} text="Оставить заявку" />
+              <Button variant="newPrimary" onClick={openModal} text="Оставить заявку" />
             </div>
             <div className={styles.wrapper_banner_content_images}>
               <img src={firstStep} alt="Подать заявку" className={styles.wrapper_banner_content_images_firstStep} />
@@ -126,7 +172,7 @@ export const CoureCatalogPreview: FC = () => {
           >
             {step === 1 ? (
               <>
-                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#357EEB' }}>
                   {'Оставьте Ваши данные и с Вами свяжется менеджер'}
                 </DialogTitle>
                 <DialogContent sx={{ padding: '1rem 4rem', display: 'flex', flexDirection: 'column', gap: '1rem', margin: '1rem 0' }}>
@@ -163,7 +209,7 @@ export const CoureCatalogPreview: FC = () => {
               </>
             ) : (
               <>
-                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#ba75ff' }}>
+                <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#357EEB' }}>
                   {`Заявка о поступлении на курс ${f_landing.header.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной платформы`}
                 </DialogTitle>
                 <DialogContent>

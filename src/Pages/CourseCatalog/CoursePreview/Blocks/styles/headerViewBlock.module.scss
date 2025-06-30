@@ -1,35 +1,54 @@
-@import 'scss/mixin.scss';
-@import 'scss/variable.scss';
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
 
 .previous {
   position: relative;
   width: 1040px;
   height: auto;
-  min-height: 200px;
-  font-family: 'Inter', sans-serif;
+  min-height: 376px;
+  font-family: 'SFPRORegular';
   font-weight: 500;
   background: #e0dced;
-  border-radius: 7px;
+  border-radius: 24px;
 
-  @media (max-width: 600px) {
+  @media screen and (min-width: 320px) and (max-width: 480px) {
     width: 100%;
-    height: 300px;
+    min-height: 276px;
+    border-radius: 15px;
+  }
+
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    width: 100%;
+    min-height: 300px;
+    border-radius: 15px;
   }
 
   &_buttonAccept {
+    
     button {
       width: 203px;
       height: 36px;
       font-size: 16px;
       font-weight: 700;
       padding: 0;
+      
+      @media screen and (min-width: 320px) and (max-width: 480px) {
+        font-weight: 400;
+        font-size: 14px;
+        width: 150px;
+      }
+    }
+    @include position_b_r(absolute, 50px, 44px, 4);
+
+    @media screen and (min-width: 320px) and (max-width: 480px) {
+      @include position_b_r(absolute, 5px, 15px, 4);
+    }
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+      @include position_b_r(absolute, 30px, 15px, 4);
     }
 
-    @include position_b_r(absolute, 50px, 44px);
-
-    @media screen and (min-width: 375px) and (max-width: 480px) {
-      @include position_b_r(absolute, 55px, 16px);
-    }
   }
 
   &_bcgrShadow {
@@ -83,22 +102,34 @@
     padding-left: 44px;
     width: 700px;
 
+    @media screen and (min-width: 320px) and (max-width: 480px) {
+      @include position_t_l(absolute, 40px, 0, 4);
+      border-radius: 16px;
+      max-height: 50px;
+    }
+
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+      @include position_t_l(absolute, 70px, 30px, 4);
+      border-radius: 16px;
+      max-height: 75px;
+    }
+
     &_name {
       width: 100%;
       padding: 5px;
-      color: #ba75ff;
+      color: $color-white;
       background: none;
       border: none;
-      @include font(700, 22px, 24px);
+      @include font(500, 46px, 62px);
       text-transform: uppercase;
 
-      @media only screen and (min-width: 320px) and (max-width: 375px) {
-        @include position_t_l(absolute, 107px, 16px);
-        @include font(500, 16px, 17px);
+      @media only screen and (min-width: 320px) and (max-width: 480px) {
+        @include position_t_l(absolute, 5px, 16px);
+        @include font(500, 26px, normal);
       }
-      @media only screen and (min-width: 375px) and (max-width: 480px) {
-        @include position_t_l(absolute, 107px, 16px);
-        @include font(500, 16px, 17px);
+      @media only screen and (min-width: 481px) and (max-width: 768px) {
+        @include position_t_l(absolute, 5px, 16px);
+        @include font(500, 30px, normal);
       }
     }
   }
@@ -106,31 +137,43 @@
 .previous_title_name {
   width: 700px;
   position: relative;
-  padding-top: 20px;
-  padding-left: 44px;
-  padding-bottom: 30px;
+  padding: 30px 0 30px 44px;
 
   &_description {
-    @include font(500, 22px, 28px);
+    @include font(400, 24px, 28.64px);
     width: 100%;
     background: none;
     color: #fff;
     padding: 5px 5px;
     text-align: left;
     border: none;
-    font-family: 'Inter', sans-serif;
+    font-family: 'SFPRORegular';
     resize: none;
     font-size: 17px;
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      @include font(400, 12px, 28.64px);
+      color: #ffffff;
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+      @include font(400, 14px, 28.64px);
+      color: #ffffff;
+      padding-left: 0;
+    }
   }
 
   textarea:hover {
     background: rgba(248, 229, 255, 0.1);
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 375px) {
-    @include position_t_l(absolute, 140px, 16px);
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    max-width: 350px;
+    padding: 0 15px;
+    @include position_t_l(absolute, 100px, 0, 4);
   }
-  @media only screen and (min-width: 375px) and (max-width: 480px) {
-    @include position_t_l(absolute, 140px, 16px);
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    @include position_t_l(absolute, 100px, 10px, 4);
+    width: 460px;
   }
 }

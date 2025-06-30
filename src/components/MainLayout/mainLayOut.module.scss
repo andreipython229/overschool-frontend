@@ -1,6 +1,3 @@
-@import '../../scss/variable';
-@import '../../scss/mixin.scss';
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -11,22 +8,25 @@
   max-width: 100vw;
   background-color: #fff;
   font-family: $font-family-inter;
-  // padding: 0 1rem 5%;
   gap: 2rem;
   z-index: 1;
   overflow: hidden;
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    padding: 1%;
+    padding: 55px 1%;
     width: 100vw;
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    padding: 1%;
+    padding: 55px 1%;
     width: 100vw;
   }
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
-    height: 100%;
+    padding: 55px 1%;
     padding: 36px 16px;
+  }
+  
+  &.navbarCollapsed {
+    padding-bottom: 25px;
   }
 }
 
@@ -37,10 +37,9 @@
   width: 100%;
   padding-top: calc(2rem + 80px);
 
-  @media screen and (max-width: 1023px),
-          screen and (max-aspect-ratio: 1/1) {
-            max-width: 100%;
-          }
+  @media screen and (max-width: 1023px), screen and (max-aspect-ratio: 1/1) {
+    max-width: 100%;
+  }
 }
 
 .main {
@@ -63,6 +62,14 @@
     padding-bottom: 10%;
     width: 98%;
   }
+  
+  .navbarCollapsed & {
+    padding-bottom: 25px;
+  }
+  
+  &.mainWithCollapsedNavbar {
+    padding-bottom: 20px;
+  }
 }
 .mobileHeader {
   height: 40px;
@@ -75,14 +82,99 @@
 }
 
 .mobileFooter {
-  height: 80px;
+  height: 70px;
   width: 100%;
-  background: #ffffff;
+  background: rgba(30, 30, 40, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: fixed;
   bottom: 0;
   left: 0;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  z-index: 100;
+  z-index: 99;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0px -4px 15px rgba(0, 0, 0, 0.15), 
+              inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  margin: 0;
+  width: 100%;
+  
+  &.collapsed {
+    transform: translateY(100%);
+    height: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: hidden;
+    z-index: 99;
+    border-top: none;
+  }
+  
+  & svg {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+    color: rgba(50, 50, 60, 0.8);
+    
+    &[data-testid="HomeIcon"],
+    &[data-testid="LogoutIcon"] {
+      color: rgba(50, 50, 60, 0.9);
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+  }
+  
+  & > div, & > a {
+    transition: transform 0.2s ease;
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// Стили для кнопки переключения навбара
+.navbarToggleButton {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 15px;
+  border-radius: 15px 15px 0 0;
+  background-color: rgba(30, 30, 40, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: bottom 0.3s ease, transform 0.2s ease;
+  
+  // Позиционирование в зависимости от состояния навбара
+  &.collapsed {
+    bottom: 0;
+  }
+  
+  &.expanded {
+    bottom: 70px;
+  }
+  
+  // Стили для иконок в кнопке-ярлыке
+  svg {
+    color: rgba(50, 50, 60, 0.9);
+    font-size: 12px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+  }
+  
+  // Эффект нажатия
+  &.pressed {
+    transform: translateX(-50%) scale(0.95);
+  }
+}
+
+// Скрываем кнопку при открытом AI чате
+.hiddenButton {
+  display: none;
 }

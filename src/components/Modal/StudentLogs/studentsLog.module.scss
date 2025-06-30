@@ -1,6 +1,3 @@
-@import '../../../scss/variable';
-@import '../../../scss/mixin.scss';
-
 .container {
   @include position_t_l(absolute, 50%, 50%, 10);
   @include display(flex, column);
@@ -571,12 +568,13 @@
 .selectGroup {
   div > button {
     height: 56px;
+    border-radius: 10px;
   }
 }
 
-.selectInput > div.css-13cymwt-control,
-.selectInput > div.css-t3ipsp-control {
+.selectGroup > div.css-13cymwt-control,
+.selectGroup > div.css-t3ipsp-control {
   height: 56px;
   border: 2px solid #357eeb;
-  border-radius: 14px;
+  border-radius: 7px;
 }

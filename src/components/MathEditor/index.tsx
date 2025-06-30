@@ -4,13 +4,11 @@ import React, { useState, Dispatch, SetStateAction, PointerEvent } from 'react'
 import { addStyles, EditableMathField, StaticMathField } from 'react-mathquill'
 import { BlockT, IBlockMath } from 'types/sectionT'
 import styles from './mathEditor.module.scss'
-import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
-import { deletePath } from 'config/commonSvgIconsPath'
-import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { Button } from 'components/common/Button/Button'
+import { SimpleLoader } from '@/components/Loaders/SimpleLoader'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { Button } from '@/components/common/Button/Button'
 import { Popover, Typography } from '@mui/material'
-import { DoBlockIconPath } from 'Pages/School/config/svgIconsPath'
+import { DoBlockIconPath } from '@/Pages/School/config/svgIconsPath'
 
 addStyles()
 
@@ -120,7 +118,6 @@ export const MathEditor: React.FC<MathEditorT> = ({ edit, lessonBlocks, setLesso
         <EditableMathField
           className={`mq-math-mode ${styles.inputWrapper_mathBlock}`}
           latex={latexStr}
-          placeholder="Введите математическую формулу..."
           onChange={mathField => {
             setLatexStr(mathField.latex())
           }}
