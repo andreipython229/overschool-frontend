@@ -165,7 +165,7 @@ export const TariffPlansInfo: FC = () => {
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
   const navigate = useNavigate();
 
-  // Используем только годовые тарифы (id 3, 4, 5)
+  // Используем только годовые тарифы (id 5, 4, 3)
   const tariffPlanTable = (data && isSuccess && data.length > 0)
     ? data.filter(plan => [2, 3, 4].includes(Number(plan.id)))
     : [];
