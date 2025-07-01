@@ -119,7 +119,26 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
           {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
         </div>
 
-<       <a
+<a
+  href="https://platform.coursehb.ru/create-school/"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: 'inline-block',
+    marginTop: '20px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: 600,
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    userSelect: 'none',
+  }}
+>
+  Попробовать бесплатно
+</a>
 
   href="https://t.me/coursehub_admin"
   target="_blank"
@@ -165,8 +184,8 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
       <img src={icon} alt="Иконка" style={{ marginRight: '8px', width: '20px', height: '20px' }} />
       {text}
     </li>
-  );
-})}
+  ))}
+>> dev-front
 
 {planFeatures[plan.name].disabled?.map((item, index) => {
   const icon = typeof item === 'string' ? featureIcons[item] : item.icon;
@@ -240,37 +259,10 @@ export const TariffPlansInfo: FC = () => {
 <div className={styles.savingsBlock}>
   <span className={styles.monthly}>Ежемесячно</span>
   <div className={styles.yearlyBlock}>
-
-<a
-  href="https://platform.coursehb.ru/tariff-plans/"
-  target="_blank"
-  rel="noreferrer"
-<div className={styles.TariffPlansPage_plansBlock}></div>
-
-<Typography
-  gutterBottom
-  variant="h1"
-  sx={{
-    textAlign: 'center',
-    fontFamily: 'SF Pro Text, sans-serif',
-    fontSize: '46px',
-    fontWeight: 750,
-    lineHeight: '100%',
-    letterSpacing: '0px',
-    color: 'black',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    width: '100%',
-    margin: '0 auto',
-  }}
->
-  Тарифные планы для обучения Course Hub
-</Typography>
-
-<div className={styles.savingsBlock}>
-  <span className={styles.monthly}>Ежемесячно</span>
-  <div className={styles.yearlyBlock}>
     <a
+      href="https://platform.coursehb.ru/tariff-plans/"
+      target="_blank"
+      rel="noreferrer"
       style={{
         background: 'none',
         border: 'none',
@@ -281,12 +273,22 @@ export const TariffPlansInfo: FC = () => {
         cursor: 'pointer',
         textDecoration: 'none',
       }}
-      href="#"
     >
       Годовая
       <span className={styles.discountBadge}>Экономия 20%</span>
     </a>
   </div>
+</div>
+
+<div className={styles.TariffPlansPage_plansBlock_cardGroup}>
+  {tariffPlanTable.map((plan) => (
+    <TariffCard
+      key={plan.id ?? plan.name}
+      plan={plan}
+      onSelect={setSelected}
+      onOpenModal={openModal}
+    />
+  ))}
 </div>
 
 <div
@@ -322,7 +324,15 @@ export const TariffPlansInfo: FC = () => {
     'Рассылка по всем ученикам',
     'Мобильное приложение',
   ].map((text, index) => (
-    <div key={index} style={{ flex: '0 0 30%', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
+    <div
+      key={index}
+      style={{
+        flex: '0 0 30%',
+        marginBottom: '12px',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <span style={{ marginRight: '8px', color: '#4CAF50' }}>+</span>
       {text}
     </div>
@@ -380,6 +390,119 @@ export const TariffPlansInfo: FC = () => {
     >
       <div style={{ width: '100%', textAlign: 'center' }}>
         <h2
+          style={{
+            fontSize: '24px',
+            margin: 0,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          Бесплатный тариф &ldquo;Start&rdquo;
+        </h2>
+        <p
+          style={{
+            marginTop: '8px',
+            paddingLeft: '12px',
+            textAlign: 'left',
+          }}
+        >
+          14 дней бесплатно
+        </p>
+      </div>
+
+      <ul
+        style={{
+          listStylePosition: 'inside',
+          textAlign: 'right',
+          paddingLeft: 0,
+          margin: 0,
+          marginTop: '52px',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <li>
+          <img src="/images/Component 1.png" alt="icon" />1 курс
+        </li>
+        <li>
+          <img src="/images/profile-2user.png" alt="icon" />До 10 учеников
+        </li>
+        <li>
+          <img src="/images/Component 2.png" alt="icon" />Конструктор лендингов
+        </li>
+        <li>
+          <img src="/images/sms-notification.png" alt="icon" />Прием платежей и
+        </li>
+        <li>онлайн касса</li>
+      </ul>
+    </div>
+
+    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <a
+        href="https://t.me/coursehub_admin"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'inline-block',
+          padding: '12px 24px',
+          backgroundColor: '#007BFF',
+          color: '#fff',
+          borderRadius: '6px',
+          textDecoration: 'none',
+          width: '301px',
+          textAlign: 'center',
+          fontWeight: '600',
+        }}
+      >
+        Подключить
+      </a>
+    </div>
+  </div>
+  {/* Блок Personal */}
+  <div
+    style={{
+      position: 'relative',
+      width: '589.75px',
+      height: '373px',
+      borderRadius: '24px',
+      padding: '24px',
+      backgroundColor: '#357EEB',
+      color: '#FFFFFF',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      fontFamily: 'SF Pro Display, sans-serif',
+      marginTop: '24px',
+    }}
+  >
+    <img
+      src="/images/prizePersonal.png"
+      alt="PrizePersonal"
+      style={{
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        width: '225px',
+        height: '252px',
+        objectFit: 'contain',
+        pointerEvents: 'none',
+      }}
+    />
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '100%',
+        alignItems: 'flex-start',
+      }}
+    >
+      <div style={{ width: '100%', textAlign: 'center' }}>
+        {/* сюда можно добавить контент блока Personal */}
+      </div>
+    </div>
+  </div>
+</div>
+
           style={{
             fontSize: '24px',
             margin: 0,
@@ -481,54 +604,6 @@ export const TariffPlansInfo: FC = () => {
             textAlign: 'center',
           }}
         >
-          Премиальный тариф &ldquo;Personal&rdquo;
-        </h2>
-        <p style={{ marginTop: '8px', textAlign: 'left' }}>
-          Персонально подберем для вас нужные функции
-        </p>
-      </div>
-
-      <ul
-        style={{
-          listStylePosition: 'inside',
-          textAlign: 'right',
-          paddingLeft: 0,
-          margin: 0,
-          marginTop: '52px',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {/* Здесь можно добавить пункты списка, если они есть */}
-      </ul>
-    </div>
-
-    {/* Кнопка или ссылка для персонального тарифа, если нужна */}
-  </div>
-</div>
-
-
-{/* Контент в двух колонках */}
-<div
-  style={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-    alignItems: 'flex-start',
-  }}
->
-  {/* Левая колонка: Заголовок + Подзаголовок */}
-  <div style={{ width: '60%' }}>
-    <h2
-      style={{
-        fontSize: '24px',
-        margin: 0,
-        whiteSpace: 'nowrap',
-        textAlign: 'center',
-      }}
-    >
-      Премиальный тариф &ldquo;Personal&rdquo;
-    </h2>
-
 <div
   style={{
     position: 'relative',
@@ -536,8 +611,8 @@ export const TariffPlansInfo: FC = () => {
     height: '373px',
     borderRadius: '24px',
     padding: '24px',
-    backgroundColor: '#357EEB',
-    color: '#FFFFFF',
+    backgroundColor: '#357EEB', // синий фон
+    color: '#FFFFFF', // белый текст
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -565,6 +640,7 @@ export const TariffPlansInfo: FC = () => {
       justifyContent: 'space-between',
       width: '100%',
       alignItems: 'flex-start',
+      zIndex: 1, // чтобы поверх картинки
     }}
   >
     <div style={{ width: '60%' }}>
@@ -581,9 +657,25 @@ export const TariffPlansInfo: FC = () => {
       <p style={{ marginTop: '8px', textAlign: 'left' }}>
         Персонально подберем для вас нужные функции
       </p>
+
+      <ul
+        style={{
+          listStylePosition: 'inside',
+          textAlign: 'left',
+          paddingLeft: 0,
+          marginTop: '16px',
+          color: 'white',
+          lineHeight: 1.6,
+        }}
+      >
+        <li><img src="/images/cloudWhite.png" alt="icon" style={{marginRight: 8}} /><span>Создание ГБ</span></li>
+        <li><img src="/images/layerWhite.png" alt="icon" style={{marginRight: 8}} /><span>Создание курсов</span></li>
+        <li><img src="/images/studentWhite.png" alt="icon" style={{marginRight: 8}} /><span>До 30 учеников</span></li>
+        <li><img src="/images/Component 133White.png" alt="icon" style={{marginRight: 8}} /><span>До 3 сотрудников</span></li>
+      </ul>
     </div>
 
-    <div style={{ width: '40%', display: 'flex', justifyContent: 'flex-end' }}>
+    <div style={{ width: '40%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
       <a
         href="https://t.me/coursehub_admin"
         target="_blank"
@@ -591,7 +683,7 @@ export const TariffPlansInfo: FC = () => {
         style={{
           display: 'inline-block',
           padding: '12px 24px',
-          backgroundColor: '#007BFF',
+          backgroundColor: '#0D28BB',
           color: '#fff',
           borderRadius: '6px',
           textDecoration: 'none',
@@ -601,163 +693,12 @@ export const TariffPlansInfo: FC = () => {
           cursor: 'pointer',
         }}
       >
-        Подключить
+        Получить консультацию
       </a>
     </div>
   </div>
 </div>
 
-          style={{
-            fontSize: '24px',
-            margin: 0,
-{/* Блок Start */}
-<div
-  style={{
-    position: 'relative',
-    width: '589.75px',
-    height: '373px',
-    borderRadius: '24px',
-    padding: '24px',
-    backgroundColor: '#BBCEEB',
-    color: '#000000',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    fontFamily: 'SF Pro Display, sans-serif',
-  }}
->
-  <img
-    src="/images/prizeStart.png"
-    alt="PrizeStart"
-    style={{
-      position: 'absolute',
-      bottom: '0',
-      left: '0',
-      width: '225px',
-      height: '252px',
-      objectFit: 'contain',
-      pointerEvents: 'none',
-    }}
-  />
-
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      width: '100%',
-      alignItems: 'flex-start',
-    }}
-  >
-    <div style={{ width: '60%' }}>
-      <h2
-        style={{
-          fontSize: '24px',
-          margin: 0,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        Бесплатный тариф “Start”
-      </h2>
-      <p
-        style={{
-          marginTop: '8px',
-          paddingLeft: '12px',
-          textAlign: 'left',
-        }}
-      >
-        14 дней бесплатно
-      </p>
-    </div>
-
-    {/* Правая колонка — список */}
-    <ul
-      style={{
-        listStylePosition: 'inside',
-        textAlign: 'right',
-        paddingLeft: 0,
-        margin: 0,
-        marginTop: '52px',
-        whiteSpace: 'nowrap',
-      }}
-    >
-      <li>1 курс</li>
-      <li>До 10 учеников</li>
-      <li>Конструктор лендингов</li>
-      <li>Прием платежей и</li>
-      <li>онлайн касса</li>
-    </ul>
-  </div>
-
-  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-    <Button
-      text="Начать бесплатно"
-      variant="secondary"
-      onClick={() => console.log('Start')}
-      style={{
-        width: '301px',
-        height: '54px',
-        padding: '15px 40px',
-        backgroundColor: '#3B82F6',
-        color: '#FFFFFF',
-        border: 'none',
-        borderRadius: '8px',
-      }}
-    />
-  </div>
-</div>
-
-{/* Блок Personal */}
-<div
-  style={{
-    position: 'relative',
-    width: '589.75px',
-    height: '373px',
-    borderRadius: '24px',
-    padding: '24px',
-    backgroundColor: '#357EEB',
-    color: '#FFFFFF',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    fontFamily: 'SF Pro Display, sans-serif',
-    marginTop: '24px',
-  }}
->
-  <img
-    src="/images/prizePersonal.png"
-    alt="PrizePersonal"
-    style={{
-      position: 'absolute',
-      bottom: '0',
-      left: '0',
-      width: '225px',
-      height: '252px',
-      objectFit: 'contain',
-      pointerEvents: 'none',
-    }}
-  />
-
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      width: '100%',
-      alignItems: 'flex-start',
-    }}
-  >
-    <div style={{ width: '60%' }}>
-      <h2
-        style={{
-          fontSize: '24px',
-          margin: 0,
-          whiteSpace: 'nowrap',
-          textAlign: 'center',
-        }}
-      >
-        Премиальный тариф “Personal”
-      </h2>
 
       <p
         style={{
@@ -769,60 +710,71 @@ export const TariffPlansInfo: FC = () => {
       </p>
     </div>
 
-    {/* Правая колонка — список с иконками */}
-    <ul
-      style={{
-        listStylePosition: 'inside',
-        textAlign: 'right',
-        paddingLeft: 0,
-        margin: 0,
-        marginTop: '52px',
-        color: '#FFFFFF',
-      }}
-    >
-      <li>
-        <img src="/images/cloudWhite.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>Создание ГБ</span>
-      </li>
-      <li>
-        <img src="/images/layerWhite.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>Создание курсов</span>
-      </li>
-      <li>
-        <img src="/images/studentWhite.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>До 30 учеников</span>
-      </li>
-      <li>
-        <img src="/images/Component 133White.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>До 3 сотрудников</span>
-      </li>
-    </ul>
-  </div>
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%', // чтобы кнопка была внизу блока, если нужно
+    paddingTop: '24px',
+  }}
+>
+  {/* Список с иконками */}
+  <ul
+    style={{
+      listStylePosition: 'inside',
+      textAlign: 'right',
+      paddingLeft: 0,
+      margin: 0,
+      marginBottom: '32px',
+      color: '#FFFFFF',
+    }}
+  >
+    <li style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+      <img src="/images/cloudWhite.png" alt="icon" />
+      <span style={{ marginLeft: '8px' }}>Создание ГБ</span>
+    </li>
+    <li style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+      <img src="/images/layerWhite.png" alt="icon" />
+      <span style={{ marginLeft: '8px' }}>Создание курсов</span>
+    </li>
+    <li style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+      <img src="/images/studentWhite.png" alt="icon" />
+      <span style={{ marginLeft: '8px' }}>До 30 учеников</span>
+    </li>
+    <li style={{ display: 'flex', alignItems: 'center' }}>
+      <img src="/images/Component 133White.png" alt="icon" />
+      <span style={{ marginLeft: '8px' }}>До 3 сотрудников</span>
+    </li>
+  </ul>
 
+  {/* Кнопка */}
   <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-    <Button
-      text="Получить консультацию"
-      variant="secondary"
-      onClick={() => console.log('Start')}
+    <a
+      href="https://t.me/coursehub_admin"
+      target="_blank"
+      rel="noreferrer"
       style={{
         width: '301px',
         height: '54px',
         padding: '15px 40px',
         backgroundColor: '#FFFFFF',
         color: '#3B82F6',
-        border: 'none',
         borderRadius: '8px',
+        textDecoration: 'none',
+        fontWeight: '600',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        cursor: 'pointer',
+        border: 'none',
       }}
-    />
+    >
+      Получить консультацию
+    </a>
   </div>
 </div>
 
-
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <a
-          href="https://t.me/coursehub_admin"
-          target="_blank"
-          rel="noreferrer"
           style={{
             display: 'inline-block',
             padding: '12px 24px',
@@ -898,7 +850,7 @@ export const TariffPlansInfo: FC = () => {
     </a>
   </div>
 
-  {/* Правая колонка: большой CTA текст + картинка */}
+  {/* Правая колонка: большой заголовок + картинка */}
   <div
     style={{
       flex: '1 1 0',
@@ -926,7 +878,6 @@ export const TariffPlansInfo: FC = () => {
     />
   </div>
 </div>
-
 
           {isModalOpen && selected && (
             <Portal closeModal={closeModal}>
