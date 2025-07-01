@@ -184,14 +184,12 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
       <img src={icon} alt="Иконка" style={{ marginRight: '8px', width: '20px', height: '20px' }} />
       {text}
     </li>
-  ))}
->> dev-front
+  );
+})}
 
 {planFeatures[plan.name].disabled?.map((item, index) => {
   const icon = typeof item === 'string' ? featureIcons[item] : item.icon;
   const text = typeof item === 'string' ? item : item.text;
-  // ... дальше продолжай этот блок, если он есть
-
 
   return (
     <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
@@ -410,6 +408,7 @@ export const TariffPlansInfo: FC = () => {
           14 дней бесплатно
         </p>
       </div>
+
       <ul
         style={{
           listStylePosition: 'inside',
@@ -429,29 +428,144 @@ export const TariffPlansInfo: FC = () => {
     </div>
 
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-      <a
-        href="https://t.me/coursehub_admin"
-        target="_blank"
-        rel="noreferrer"
+      <Button
+        text="Начать бесплатно"
+        variant="secondary"
+        onClick={() => console.log('Start')}
         style={{
-          display: 'inline-block',
-          padding: '12px 24px',
-          backgroundColor: '#007BFF',
-          color: '#fff',
-          borderRadius: '6px',
-          textDecoration: 'none',
           width: '301px',
-          textAlign: 'center',
-          fontWeight: '600',
-          cursor: 'pointer',
-          userSelect: 'none',
+          height: '54px',
+          padding: '15px 40px',
+          backgroundColor: '#3B82F6',
+          color: '#FFFFFF',
+          border: 'none',
+          borderRadius: '8px',
         }}
-      >
-        Подключить
-      </a>
+      />
     </div>
   </div>
+
+  {/* Можно добавить блок Personal здесь, если нужно */}
 </div>
+
+          style={{
+            fontSize: '24px',
+            margin: 0,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+<{/* Блок Personal */}
+<div
+  style={{
+    position: 'relative',
+    width: '589.75px',
+    height: '373px',
+    borderRadius: '24px',
+    padding: '24px',
+    backgroundColor: '#357EEB',
+    color: '#FFFFFF',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    fontFamily: 'SF Pro Display, sans-serif',
+  }}
+>
+  {/* Иконка */}
+  <img
+    src="/images/prizePersonal.png"
+    alt="PrizePersonal"
+    style={{
+      position: 'absolute',
+      bottom: '0',
+      left: '0',
+      width: '225px',
+      height: '252px',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+    }}
+  />
+
+  {/* Контент в двух колонках */}
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+      alignItems: 'flex-start',
+    }}
+  >
+    {/* Левая колонка */}
+    <div style={{ width: '60%' }}>
+      <h2
+        style={{
+          fontSize: '24px',
+          margin: 0,
+          whiteSpace: 'nowrap',
+          textAlign: 'center',
+        }}
+      >
+        Премиальный тариф “Personal”
+      </h2>
+      <p
+        style={{
+          marginTop: '8px',
+          textAlign: 'left',
+        }}
+      >
+        Персонально подберем для вас нужные функции
+      </p>
+    </div>
+
+    {/* Правая колонка */}
+    <ul
+      style={{
+        listStylePosition: 'inside',
+        textAlign: 'right',
+        paddingLeft: 0,
+        margin: 0,
+        marginTop: '52px',
+        color: '#FFFFFF',
+      }}
+    >
+      <li>
+        <img src="/images/cloudWhite.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>Создание ГБ</span>
+      </li>
+      <li>
+        <img src="/images/layerWhite.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>Создание курсов</span>
+      </li>
+      <li>
+        <img src="/images/studentWhite.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>До 30 учеников</span>
+      </li>
+      <li>
+        <img src="/images/Component 133White.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>До 3 сотрудников</span>
+      </li>
+    </ul>
+  </div>
+
+  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    <Button
+      text="Получить консультацию"
+      variant="secondary"
+      onClick={() => console.log('Start')}
+      style={{
+        width: '301px',
+        height: '54px',
+        padding: '15px 40px',
+        backgroundColor: '#FFFFFF',
+        color: '#3B82F6',
+        border: 'none',
+        borderRadius: '8px',
+      }}
+    />
+  </div>
+</div>
+
 
 {/* Блок Personal */}
 <div
@@ -569,230 +683,120 @@ export const TariffPlansInfo: FC = () => {
   </div>
 </div>
 
-          style={{
-            fontSize: '24px',
-            margin: 0,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-{/* ... предыдущий код блока Start ... */}
-<div
-  style={{
-    position: 'relative',
-    width: '589.75px',
-    height: '373px',
-    borderRadius: '24px',
-    padding: '24px',
-    backgroundColor: '#BBCEEB',
-    color: '#000000',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    fontFamily: 'SF Pro Display, sans-serif',
-  }}
->
-  <img
-    src="/images/prizeStart.png"
-    alt="PrizeStart"
-    style={{
-      position: 'absolute',
-      bottom: '0',
-      left: '0',
-      width: '225px',
-      height: '252px',
-      objectFit: 'contain',
-      pointerEvents: 'none',
-    }}
-  />
+{/* Блок Start */}
+<div style={{
+  position: 'relative',
+  width: '589.75px',
+  height: '373px',
+  borderRadius: '24px',
+  padding: '24px',
+  backgroundColor: '#BBCEEB',
+  color: '#000000',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  fontFamily: 'SF Pro Display, sans-serif',
+}}>
+  <img src="/images/prizeStart.png" alt="PrizeStart" style={{
+    position: 'absolute',
+    bottom: '0',
+    left: '0',
+    width: '225px',
+    height: '252px',
+    objectFit: 'contain',
+    pointerEvents: 'none',
+  }} />
 
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      width: '100%',
-      alignItems: 'flex-start',
-    }}
-  >
-    <div style={{ width: '100%', textAlign: 'center' }}>
-      <h2
-        style={{
-          fontSize: '24px',
-          margin: 0,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
-        Бесплатный тариф &ldquo;Start&rdquo;
-      </h2>
-      <p style={{ marginTop: '8px', paddingLeft: '12px', textAlign: 'left' }}>
-        14 дней бесплатно
-      </p>
-    </div>
-
-    <ul
-      style={{
-        listStylePosition: 'inside',
-        textAlign: 'right',
-        paddingLeft: 0,
-        margin: 0,
-        marginTop: '52px',
-        whiteSpace: 'nowrap',
-      }}
-    >
-      <li><img src="/images/Component 1.png" alt="icon" /> 1 курс</li>
-      <li><img src="/images/profile-2user.png" alt="icon" /> До 10 учеников</li>
-      <li><img src="/images/Component 2.png" alt="icon" /> Конструктор лендингов</li>
-      <li><img src="/images/sms-notification.png" alt="icon" /> Прием платежей и онлайн касса</li>
-    </ul>
+  <div style={{ width: '100%', textAlign: 'center' }}>
+    <h2 style={{ fontSize: '24px', margin: 0, whiteSpace: 'nowrap' }}>
+      Бесплатный тариф &ldquo;Start&rdquo;
+    </h2>
+    <p style={{ marginTop: '8px', paddingLeft: '12px', textAlign: 'left' }}>
+      14 дней бесплатно
+    </p>
   </div>
 
-  {/* Здесь блок с белым списком и кнопкой консультации из feature/crossdom3 */}
-  <div style={{ marginTop: '24px' }}>
-    <ul
-      style={{
-        listStylePosition: 'inside',
-        paddingLeft: 0,
-        margin: 0,
-        color: '#fff',
-      }}
-    >
-      <li>
-        <img src="/images/cloudWhite.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>Создание ГБ</span>
-      </li>
-      <li>
-        <img src="/images/layerWhite.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>Создание курсов</span>
-      </li>
-      <li>
-        <img src="/images/studentWhite.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>До 30 учеников</span>
-      </li>
-      <li>
-        <img src="/images/Component 133White.png" alt="icon" />
-        <span style={{ color: 'white', marginLeft: '8px' }}>До 3 сотрудников</span>
-      </li>
-    </ul>
+  <ul style={{
+    listStylePosition: 'inside',
+    textAlign: 'right',
+    paddingLeft: 0,
+    margin: '52px 0 0 0',
+    whiteSpace: 'nowrap',
+  }}>
+    <li><img src="/images/Component 1.png" alt="icon" /> 1 курс</li>
+    <li><img src="/images/profile-2user.png" alt="icon" /> До 10 учеников</li>
+    <li><img src="/images/Component 2.png" alt="icon" /> Конструктор лендингов</li>
+    <li><img src="/images/sms-notification.png" alt="icon" /> Прием платежей и онлайн касса</li>
+  </ul>
 
-    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-      <a
-        href="https://t.me/coursehub_admin"
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          display: 'inline-block',
-          width: '301px',
-          height: '54px',
-          padding: '15px 40px',
-          backgroundColor: '#FFFFFF',
-          color: '#3B82F6',
-          border: 'none',
-          borderRadius: '8px',
-          fontWeight: '600',
-          textAlign: 'center',
-          lineHeight: '24px',
-          textDecoration: 'none',
-          cursor: 'pointer',
-          userSelect: 'none',
-        }}
-      >
-        Получить консультацию
-      </a>
-    </div>
-  </div>
-</div>
-
-    <a
-      href="https://t.me/coursehub_admin"
-      target="_blank"
-      rel="noreferrer"
-      style={{
-        display: 'inline-block',
-        padding: '12px 24px',
-        backgroundColor: '#0D28BB',
-        color: '#fff',
-        borderRadius: '6px',
-        textDecoration: 'none',
-        width: '301px',
-        textAlign: 'center',
-        fontWeight: '600',
-        cursor: 'pointer',
-        marginTop: '12px',
-      }}
-    >
+  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+    <a href="https://t.me/coursehub_admin" target="_blank" rel="noreferrer" style={{
+      display: 'inline-block',
+      width: '301px',
+      height: '54px',
+      padding: '15px 40px',
+      backgroundColor: '#FFFFFF',
+      color: '#3B82F6',
+      borderRadius: '8px',
+      fontWeight: '600',
+      textAlign: 'center',
+      lineHeight: '24px',
+      textDecoration: 'none',
+      cursor: 'pointer',
+    }}>
       Получить консультацию
     </a>
   </div>
+</div>
 
 {/* Блок Personal */}
-<div
-  style={{
-    position: 'relative',
-    width: '589.75px',
-    height: '373px',
-    borderRadius: '24px',
-    padding: '24px',
-    backgroundColor: '#357EEB', // синий фон
-    color: '#FFFFFF', // белый текст
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    fontFamily: 'SF Pro Display, sans-serif',
-    marginTop: '24px',
-  }}
->
-  <img
-    src="/images/prizePersonal.png"
-    alt="PrizePersonal"
-    style={{
-      position: 'absolute',
-      bottom: '0',
-      left: '0',
-      width: '225px',
-      height: '252px',
-      objectFit: 'contain',
-      pointerEvents: 'none',
-      zIndex: 0,
-    }}
-  />
+<div style={{
+  position: 'relative',
+  width: '589.75px',
+  height: '373px',
+  borderRadius: '24px',
+  padding: '24px',
+  backgroundColor: '#357EEB',
+  color: '#FFFFFF',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  fontFamily: 'SF Pro Display, sans-serif',
+  marginTop: '24px',
+}}>
+  <img src="/images/prizePersonal.png" alt="PrizePersonal" style={{
+    position: 'absolute',
+    bottom: '0',
+    left: '0',
+    width: '225px',
+    height: '252px',
+    objectFit: 'contain',
+    pointerEvents: 'none',
+    zIndex: 0,
+  }} />
 
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'space-between',
-      width: '100%',
-      alignItems: 'flex-start',
-      zIndex: 1, // чтобы текст был поверх картинки
-    }}
-  >
+  <div style={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    alignItems: 'flex-start',
+    zIndex: 1,
+  }}>
     <div style={{ width: '60%' }}>
-      <h2
-        style={{
-          fontSize: '24px',
-          margin: 0,
-          whiteSpace: 'nowrap',
-          textAlign: 'center',
-        }}
-      >
+      <h2 style={{ fontSize: '24px', margin: 0, whiteSpace: 'nowrap', textAlign: 'center' }}>
         Премиальный тариф &ldquo;Personal&rdquo;
       </h2>
       <p style={{ marginTop: '8px', textAlign: 'left' }}>
         Персонально подберем для вас нужные функции
       </p>
 
-      <ul
-        style={{
-          listStylePosition: 'inside',
-          textAlign: 'left',
-          paddingLeft: 0,
-          marginTop: '16px',
-          color: 'white',
-          lineHeight: 1.6,
-        }}
-      >
+      <ul style={{
+        listStylePosition: 'inside',
+        paddingLeft: 0,
+        marginTop: '16px',
+        color: '#ffffff',
+        lineHeight: 1.6,
+      }}>
         <li style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
           <img src="/images/cloudWhite.png" alt="icon" style={{ marginRight: 8 }} />
           <span>Создание ГБ</span>
@@ -812,66 +816,107 @@ export const TariffPlansInfo: FC = () => {
       </ul>
     </div>
 
-    <div style={{ width: '40%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-      <a
-        href="https://t.me/coursehub_admin"
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          display: 'inline-block',
-          width: '301px',
-          height: '54px',
-          padding: '15px 40px',
-          backgroundColor: '#FFFFFF',
-          color: '#3B82F6',
-          borderRadius: '8px',
-          fontWeight: '600',
-          textAlign: 'center',
-          lineHeight: '24px',
-          textDecoration: 'none',
-          cursor: 'pointer',
-          border: 'none',
-          userSelect: 'none',
-        }}
-      >
+    <div style={{
+      width: '40%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    }}>
+      <a href="https://t.me/coursehub_admin" target="_blank" rel="noreferrer" style={{
+        display: 'inline-block',
+        width: '301px',
+        height: '54px',
+        padding: '15px 40px',
+        backgroundColor: '#FFFFFF',
+        color: '#3B82F6',
+        borderRadius: '8px',
+        fontWeight: '600',
+        textAlign: 'center',
+        lineHeight: '24px',
+        textDecoration: 'none',
+        cursor: 'pointer',
+      }}>
         Получить консультацию
       </a>
     </div>
   </div>
 </div>
 
-          style={{
-            display: 'inline-block',
-            padding: '12px 24px',
-            backgroundColor: '#fff',
-            color: '#3B82F6',
-            borderRadius: '6px',
-            textDecoration: 'none',
-            width: '301px',
-            textAlign: 'center',
-            fontWeight: '600',
-          }}
-        >
-<a
-  href="https://platform.coursehb.ru/create-school/"
-  target="_blank"
-  rel="noreferrer"
-  style={{
-    display: 'inline-block',
-    marginTop: '20px',
-    padding: '12px 24px',
-    fontSize: '16px',
-    fontWeight: 600,
-    backgroundColor: '#0D28BB',
-    color: '#fff',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    textDecoration: 'none',
-    userSelect: 'none',
-  }}
->
-  Попробовать бесплатно
-</a>
+{/* CTA блок */}
+<div style={{
+  width: '100%',
+  maxWidth: '1219.5px',
+  height: '350px',
+  borderRadius: '32px',
+  padding: '16px',
+  gap: '16px',
+  border: '1px solid #ccc',
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'flex-start',
+  justifyContent: 'space-between',
+  margin: '40px auto',
+  backgroundColor: '#357EEB',
+  fontFamily: 'SF Pro Display, sans-serif',
+  fontSize: '18px',
+  fontWeight: 500,
+  lineHeight: 1.4,
+  boxSizing: 'border-box',
+  color: '#ffffff',
+}}>
+  <div style={{
+    flex: '1 1 0',
+    maxWidth: '600px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+  }}>
+    <p style={{ fontSize: '18px', fontWeight: 400, lineHeight: '1.6' }}>
+      <span style={{ fontSize: '24px', fontWeight: 600 }}>
+        Создавайте свой проект на Course Hub прямо сейчас.
+      </span>
+      <br />
+      Попробуйте весь функционал в процессе использования
+      <br />
+      и убедитесь, насколько он удобен.
+    </p>
+    <a
+      href="https://platform.coursehb.ru/create-school/"
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        marginTop: '20px',
+        padding: '12px 24px',
+        fontSize: '16px',
+        fontWeight: 600,
+        backgroundColor: '#0D28BB',
+        color: '#fff',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        textDecoration: 'none',
+        userSelect: 'none',
+      }}
+    >
+      Попробовать бесплатно
+    </a>
+  </div>
+
+  <div style={{
+    flex: '1 1 0',
+    maxWidth: '600px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+  }}>
+    <img
+      src="src/assets/img/common/cta-image.png"
+      alt="Slice 3213"
+      style={{ width: '478px', height: '330px', marginBottom: '16px' }}
+    />
+  </div>
+</div>
 
 
           {isModalOpen && selected && (
@@ -881,12 +926,7 @@ export const TariffPlansInfo: FC = () => {
           )}
         </section>
       </motion.div>
-// В конце компонента (например, страницы)
-<Footer />
-</>
-)
-
-// Блок с тарифными планами — можно вынести в отдельный компонент
+// Данные тарифов и иконок — можно вынести в отдельный компонент
 const planFeatures: Record<string, { features: string[]; disabled?: string[] }> = {
   Junior: {
     features: [
@@ -912,6 +952,10 @@ const planFeatures: Record<string, { features: string[]; disabled?: string[] }> 
       '500 учеников',
       'Безлимит',
     ],
+    // можно добавить disabled, если нужно
+  },
+};
+
     disabled: ['White Label', 'Свой домен'],
   },
 };
@@ -931,10 +975,41 @@ const featureIcons: Record<string, string> = {
   'Свой домен': '/icons/domain.svg',
 };
 
-// Верстка блоков с уровнями (Junior, Middle, Senior)
-<div className={styles.yearPrice}>
-  <div className={`${styles.yearPrice} ${styles.junior}`}>Junior</div>
-  <div className={`${styles.yearPrice} ${styles.middle}`}>Middle</div>
-  <div className={`${styles.yearPrice} ${styles.senior}`}>Senior</div>
-</div>
+return (
+  <>
+    {/* Верстка блоков с уровнями (Junior, Middle, Senior) */}
+    <div className={styles.yearPrice}>
+      <div className={`${styles.yearPrice} ${styles.junior}`}>Junior</div>
+      <div className={`${styles.yearPrice} ${styles.middle}`}>Middle</div>
+      <div className={`${styles.yearPrice} ${styles.senior}`}>Senior</div>
+    </div>
+
+    {/* Рендерим фичи для каждого плана */}
+    {Object.entries(planFeatures).map(([plan, { features, disabled }]) => (
+      <div key={plan} className={styles.planBlock}>
+        <h3>{plan}</h3>
+        <ul>
+          {features.map((feature) => (
+            <li key={feature}>
+              <img src={featureIcons[feature]} alt={feature} />
+              {feature}
+            </li>
+          ))}
+          {disabled?.map((feature) => (
+            <li
+              key={feature}
+              style={{ opacity: 0.4, textDecoration: 'line-through' }}
+            >
+              <img src={featureIcons[feature]} alt={feature} />
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <Footer />
+  </>
+);
+
 
