@@ -10,7 +10,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   
   // Получаем значения переменных с проверками
-  const isProduction = env.VITE_RUN_MODE === 'PRODUCTION'
+  const runMode = env.VITE_RUN_MODE || 'DEV'
+  const isProduction = runMode === 'PRODUCTION'
+  const isDev = mode === 'development'
   const apiUrl = isProduction 
     ? (env.VITE_PROD_API_URL || 'https://apidev.coursehb.ru')
     : (env.VITE_DEV_API_URL || 'http://sandbox.coursehb.ru')
@@ -19,13 +21,20 @@ export default defineConfig(({ mode }) => {
     : (env.VITE_DEV_IP || 'http://91.211.248.84:8000')
 
   console.log('Vite config - Mode:', mode)
+  console.log('Vite config - VITE_RUN_MODE:', env.VITE_RUN_MODE)
+  console.log('Vite config - Run Mode:', runMode)
   console.log('Vite config - Is Production:', isProduction)
   console.log('Vite config - API URL:', apiUrl)
   console.log('Vite config - Video URL:', videoUrl)
 
-  return {
-    plugins: [
-      react(),
+  // Плагины для разных режимов
+  const plugins: any[] = [
+    react(),
+  ]
+
+  // Добавляем оптимизацию изображений только для продакшена
+  if (isProduction) {
+    plugins.push(
       viteImagemin({
         gifsicle: {
           optimizationLevel: 7,
@@ -55,14 +64,24 @@ export default defineConfig(({ mode }) => {
         webp: {
           quality: 80,
         },
-      }),
+      })
+    )
+  }
+
+  // Добавляем визуализатор только для продакшена
+  if (isProduction) {
+    plugins.push(
       visualizer({
         filename: 'stats.html',
         open: true,
         gzipSize: true,
         brotliSize: true,
-      }),
-    ],
+      })
+    )
+  }
+
+  return {
+    plugins,
     define: {
       global: 'globalThis',
     },
@@ -97,7 +116,7 @@ export default defineConfig(({ mode }) => {
           silenceDeprecations: ['mixed-decls'],
         },
       },
-      devSourcemap: true,
+      devSourcemap: isDev, // Включаем sourcemap только в dev режиме
       modules: {
         localsConvention: 'camelCase',
       },
@@ -166,6 +185,16 @@ export default defineConfig(({ mode }) => {
           assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
         },
       },
+    },
+    // Оптимизации для dev режима
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'react-router-dom',
+        '@reduxjs/toolkit',
+        'react-redux',
+      ],
     },
   }
 })
