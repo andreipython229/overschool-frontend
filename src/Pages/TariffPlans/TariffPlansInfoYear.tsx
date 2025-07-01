@@ -220,7 +220,9 @@ const navigate = useNavigate();
 >
   <span className={styles.monthly}>Ежемесячно</span>
 </button>
-t
+
+
+
             <div className={styles.yearlyBlock}>
               <span>Годовая</span>
               <span className={styles.discountBadge}>Экономия 20%</span>
@@ -250,7 +252,7 @@ t
               flexWrap: 'wrap',
               alignItems: 'flex-start',
               justifyContent: 'flex-start',
-              margin: '40px auto', // Центрируем по горизонтали и добавляем отступ сверху и снизу
+              margin: '40px auto', 
               backgroundColor: '#fff',
               fontFamily: 'SF Pro Display, sans-serif',
               fontSize: '18px',
