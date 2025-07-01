@@ -4,6 +4,7 @@ import { Typography } from '@mui/material'
 import { Footer } from 'components/Footer/index'
 import { useNavigate } from 'react-router-dom'
 
+
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
@@ -67,6 +68,9 @@ type TariffCardProps = {
   onOpenModal: () => void
 }
 
+
+
+
 const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
   const backgroundClass =
     plan.name === 'Junior'
@@ -114,7 +118,7 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
           {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
         </div>
 
-       <a
+<a
   href="https://t.me/coursehub_admin"
   target="_blank"
   rel="noreferrer"
@@ -150,16 +154,35 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
     color: plan.name === 'Senior' ? 'white' : 'black',
   }}
 >
-{planFeatures[plan.name].features.map((feature, index) => (
+{planFeatures[plan.name].features.map((item, index) => {
+  const icon = typeof item === 'string'
+    ? featureIcons[item] || '/img/account/statistic.svg'
+    : item.icon;
+  const text = typeof item === 'string' ? item : item.text;
+
+  return (
     <li key={index} className={styles.featureItem}>
-      <img src={feature.icon} alt="Иконка" /> {feature.text}
+      <img src={icon} alt="Иконка" style={{ marginRight: '8px', width: '20px', height: '20px' }} />
+      {text}
     </li>
-  ))}
+  );
+})}
 
+{planFeatures[plan.name].disabled?.map((item, index) => {
+  const icon = typeof item === 'object' ? item.icon : undefined;
+  const text = typeof item === 'string' ? item : item.text;
 
-  {planFeatures[plan.name].disabled?.map((Disabl, index) => (
-    <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
-      <img src={Disabl.icon} alt="Иконка" /> {Disabl.text}
+  return (
+    <li
+      key={`disabled-${index}`}
+      className={`${styles.featureItem} ${styles.listItemDisabled}`}
+    >
+      {icon && <img src={icon} alt="Иконка" style={{ marginRight: '8px', width: '20px', height: '20px' }} />}
+      {text}
+    </li>
+  );
+})}
+
     </li>
   ))}
 </ul>
@@ -193,312 +216,280 @@ export const TariffPlansInfo: FC = () => {
         className={styles.container}
       >
 <section className={styles.TariffPlansPage}>
- <div className={styles.TariffPlansPage_plansBlock}></div>
-          <Typography
-            gutterBottom
-            variant="h1"
-            sx={{
-              textAlign: 'center',
-              fontFamily: 'SF Pro Text, sans-serif',
-              fontSize: '46px',
-              fontWeight: 750,
-              lineHeight: '100%',
-              letterSpacing: '0px',
-              color: 'black',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              width: '100%',
-              margin: '0 auto',
-            }}
-          >
-            Тарифные планы для обучения Course hub
-          </Typography>
-          <div className={styles.savingsBlock}>
-            <span className={styles.monthly}>Ежемесячно</span>
-            <div className={styles.yearlyBlock}>
-<a
-  href="https://platform.coursehb.ru/tariff-plans/"
-  target="_blank"
-  rel="noreferrer"
-  style={{
-    background: 'none',
-    border: 'none',
-    padding: 0,
-    margin: 0,
-    font: 'inherit',
-    color: 'inherit',
-    cursor: 'pointer',
-  }}
->
-  Годовая
-  <span className={styles.discountBadge}>Экономия 20%</span>
-</a>
+  <div className={styles.TariffPlansPage_plansBlock}></div>
 
-            </div>
-          </div>
-
-          <div
-            style={{
-              width: '1119.5px',
-              height: '250px',
-              borderRadius: '32px',
-              padding: '16px',
-              gap: '16px',
-              border: '1px solid #ccc',
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-              margin: '40px auto', // Центрируем по горизонтали и добавляем отступ сверху и снизу
-              backgroundColor: '#fff',
-              fontFamily: 'SF Pro Display, sans-serif',
-              fontSize: '18px',
-              fontWeight: 500,
-              lineHeight: 1.4,
-            }}
-          >
-            {[
-              'Мессенджер с чатами и каналами',
-              'Автоматический зачёт',
-              'Выдача сертификатов',
-              'Публикация в каталоге CourseHub',
-              'Искусственный интеллект Course Hub Ai',
-              'Домашние задания',
-              'Умные комментарии к урокам',
-              'Аналитика обучения',
-              'Отдельный сайт для каждого курса',
-              'Рассылка по всем ученикам',
-              'Мобильное приложение',
-            ].map((text, index) => (
-              <div key={index} style={{ flex: '0 0 30%', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                <span style={{ marginRight: '8px', color: '#4CAF50' }}>+</span>
-                {text}
-              </div>
-            ))}
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              gap: '32px',
-              width: '100%',
-              maxWidth: '1280px',
-              margin: '0 auto',
-            }}
-          >
-            {/* Блок Start */}
-            <div
-              style={{
-                position: 'relative',
-                width: '589.75px',
-                height: '373px',
-                borderRadius: '24px',
-                padding: '24px',
-                backgroundColor: '#BBCEEB',
-                color: '#000000',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                fontFamily: 'SF Pro Display, sans-serif',
-              }}
-            >
-              {/* Иконка */}
-              <img
-                src="/images/prizeStart.png"
-                alt="PrizeStart"
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  left: '0',
-                  width: '225px',
-                  height: '252px',
-                  objectFit: 'contain',
-                  pointerEvents: 'none',
-                }}
-              />
-
-              {/* Контент в двух колонках */}
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  alignItems: 'flex-start',
-                }}
-              >
-                {/* Левая колонка */}
-               <div style={{ width: '100%', textAlign: 'center' }}>
-              <h2
-                style={{
-                  fontSize: '24px',
-                  margin: 0,
-                  whiteSpace: 'nowrap',      // Не переносить строку
-                  overflow: 'hidden',        // Обрезать при переполнении (если нужно)
-                  textOverflow: 'ellipsis',  // Показать троеточие при обрезке (если нужно)
-                }}
-              >
-                Бесплатный тариф &ldquo;Start&rdquo;
-               </h2>
-               {/* Подзаголовок ближе к левому краю */}
-              <p
-                style={{
-                  marginTop: '8px',
-                  paddingLeft: '12px',
-                  textAlign: 'left',
-                }}
-              >
-                14 дней бесплатно
-              </p>
-            </div>
-              {/* Правая колонка — список */}
-            <ul
-              style={{
-                listStylePosition: 'inside',
-                textAlign: 'right',
-                paddingLeft: 0,
-                margin: 0,
-                marginTop: '52px', // ⬅️ добавь эту строку
-                whiteSpace: 'nowrap',       // 🔹 Не переносить строку
-                //whiteSpace: 'normal'
-              }}
-            >
-
-              <li><img src="/images/Component 1.png" alt="icon" />1 курс</li>
-              <li><img src="/images/profile-2user.png" alt="icon" />До 10 учеников</li>
-              <li><img src="/images/Component 2.png" alt="icon" />Конструктор лендингов</li>
-              <li><img src="/images/sms-notification.png" alt="icon" />Прием платежей и</li>
-              <li>онлайн касса</li>
-            </ul>
-
-           </div>
-         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-  <a
-    href="https://t.me/coursehub_admin"
-    target="_blank"
-    rel="noreferrer"
-    style={{
-      display: 'inline-block',
-      padding: '12px 24px',
-      backgroundColor: '#007BFF',
-      color: '#fff',
-      borderRadius: '6px',
-      textDecoration: 'none',
-      width: '301px',
-      textAlign: 'center', // чтобы текст выровнялся по центру внутри кнопки
-      fontWeight: '600',
+  <Typography
+    gutterBottom
+    variant="h1"
+    sx={{
+      textAlign: 'center',
+      fontFamily: 'SF Pro Text, sans-serif',
+      fontSize: '46px',
+      fontWeight: 750,
+      lineHeight: '100%',
+      letterSpacing: '0px',
+      color: 'black',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      width: '100%',
+      margin: '0 auto',
     }}
   >
-    Подключить
-  </a>
-</div>
+    Тарифные планы для обучения Course Hub
+  </Typography>
 
-          </div>
-         {/* Блок Personal */}
-         <div
-          style={{
-            position: 'relative',
-            width: '589.75px',
-            height: '373px',
-            borderRadius: '24px',
-            padding: '24px',
-            backgroundColor: '#357EEB',
-           color: '#FFFFFF', // <-- Белый цвет текста
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            fontFamily: 'SF Pro Display, sans-serif',
-          }}
-        >
-          {/* Иконка */}
-          <img
-            src="/images/prizePersonal.png"
-            alt="SprizePersonal"
-            style={{
-              position: 'absolute',
-              bottom: '0',
-              left: '0',
-              width: '225px',
-              height: '252px',
-              objectFit: 'contain',
-              pointerEvents: 'none',
-            }}
-          />
+  <div className={styles.savingsBlock}>
+    <span className={styles.monthly}>Ежемесячно</span>
+    <div className={styles.yearlyBlock}>
+      <a
+        href="https://platform.coursehb.ru/tariff-plans/"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          margin: 0,
+          font: 'inherit',
+          color: 'inherit',
+          cursor: 'pointer',
+        }}
+      >
+        Годовая
+        <span className={styles.discountBadge}>Экономия 20%</span>
+      </a>
+    </div>
+  </div>
 
-          {/* Контент в двух колонках */}
-          <div
+  <div
+    style={{
+      width: '1119.5px',
+      height: '250px',
+      borderRadius: '32px',
+      padding: '16px',
+      gap: '16px',
+      border: '1px solid #ccc',
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+      margin: '40px auto',
+      backgroundColor: '#fff',
+      fontFamily: 'SF Pro Display, sans-serif',
+      fontSize: '18px',
+      fontWeight: 500,
+      lineHeight: 1.4,
+    }}
+  >
+    {[
+      'Мессенджер с чатами и каналами',
+      'Автоматический зачёт',
+      'Выдача сертификатов',
+      'Публикация в каталоге CourseHub',
+      'Искусственный интеллект Course Hub Ai',
+      'Домашние задания',
+      'Умные комментарии к урокам',
+      'Аналитика обучения',
+      'Отдельный сайт для каждого курса',
+      'Рассылка по всем ученикам',
+      'Мобильное приложение',
+    ].map((text, index) => (
+      <div key={index} style={{ flex: '0 0 30%', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
+        <span style={{ marginRight: '8px', color: '#4CAF50' }}>+</span>
+        {text}
+      </div>
+    ))}
+  </div>
+
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      gap: '32px',
+      width: '100%',
+      maxWidth: '1280px',
+      margin: '0 auto',
+    }}
+  >
+    {/* Блок Start */}
+    <div
+      style={{
+        position: 'relative',
+        width: '589.75px',
+        height: '373px',
+        borderRadius: '24px',
+        padding: '24px',
+        backgroundColor: '#BBCEEB',
+        color: '#000000',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        fontFamily: 'SF Pro Display, sans-serif',
+      }}
+    >
+      <img
+        src="/images/prizeStart.png"
+        alt="PrizeStart"
+        style={{
+          position: 'absolute',
+          bottom: '0',
+          left: '0',
+          width: '225px',
+          height: '252px',
+          objectFit: 'contain',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          alignItems: 'flex-start',
+        }}
+      >
+        <div style={{ width: '100%', textAlign: 'center' }}>
+          <h2
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              alignItems: 'flex-start',
+              fontSize: '24px',
+              margin: 0,
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
-            {/* Левая колонка: Заголовок + Подзаголовок */}
-            <div style={{ width: '60%' }}>
-              <h2
-                style={{
-                  fontSize: '24px',
-                  margin: 0,
-                  whiteSpace: 'nowrap',
-                  textAlign: 'center',
-                }}
-              >
-                Премиальный тариф &ldquo;Personal&rdquo;
-              </h2>
+            Бесплатный тариф “Start”
+          </h2>
+          <p style={{ marginTop: '8px', paddingLeft: '12px', textAlign: 'left' }}>14 дней бесплатно</p>
+        </div>
 
-              <p
-                style={{
-                  marginTop: '8px',
-                  textAlign: 'left',
-                }}
-              >
-                Персонально подберем для вас нужные функции
-              </p>
-            </div>
-
-            {/* Правая колонка — список */}
-           <ul
+        <ul
           style={{
             listStylePosition: 'inside',
             textAlign: 'right',
             paddingLeft: 0,
             margin: 0,
             marginTop: '52px',
-            color: '#FFFFFF',
+            whiteSpace: 'nowrap',
           }}
         >
-          <li><img src="/images/cloudWhite.png" alt="icon" /><span style={{ color: 'white' }}>Создание ГБ</span></li>
-          <li><img src="/images/layerWhite.png" alt="icon" /><span style={{ color: 'white' }}>Создание курсов</span></li>
-          <li><img src="/images/studentWhite.png" alt="icon" /><span style={{ color: 'white' }}>До 30 учеников</span></li>
-          <li><img src="/images/Component 133White.png" alt="icon" /><span style={{ color: 'white' }}>До 3 сотрудников</span></li>
+          <li><img src="/images/Component 1.png" alt="icon" /> 1 курс</li>
+          <li><img src="/images/profile-2user.png" alt="icon" /> До 10 учеников</li>
+          <li><img src="/images/Component 2.png" alt="icon" /> Конструктор лендингов</li>
+          <li><img src="/images/sms-notification.png" alt="icon" /> Прием платежей и онлайн касса</li>
         </ul>
+      </div>
 
-</div>
-<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-  <a
-    href="https://t.me/coursehub_admin"
-    target="_blank"
-    rel="noreferrer"
-    style={{
-      display: 'inline-block',
-      padding: '12px 24px',
-      backgroundColor: '#0D28BB',
-      color: '#fff',
-      borderRadius: '6px',
-      textDecoration: 'none',
-      width: '301px',
-      textAlign: 'center',
-      fontWeight: '600',
-    }}
-  >
-    Получить консультацию
-  </a>
-</div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <a
+          href="https://t.me/coursehub_admin"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'inline-block',
+            padding: '12px 24px',
+            backgroundColor: '#007BFF',
+            color: '#fff',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            width: '301px',
+            textAlign: 'center',
+            fontWeight: '600',
+          }}
+        >
+          Подключить
+        </a>
+      </div>
+    </div>
 
+    {/* Блок Personal */}
+    <div
+      style={{
+        position: 'relative',
+        width: '589.75px',
+        height: '373px',
+        borderRadius: '24px',
+        padding: '24px',
+        backgroundColor: '#357EEB',
+        color: '#FFFFFF',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        fontFamily: 'SF Pro Display, sans-serif',
+      }}
+    >
+      <img
+        src="/images/prizePersonal.png"
+        alt="PrizePersonal"
+        style={{
+          position: 'absolute',
+          bottom: '0',
+          left: '0',
+          width: '225px',
+          height: '252px',
+          objectFit: 'contain',
+          pointerEvents: 'none',
+        }}
+      />
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          alignItems: 'flex-start',
+        }}
+      >
+        <div style={{ width: '60%' }}>
+          <h2 style={{ fontSize: '24px', margin: 0, whiteSpace: 'nowrap', textAlign: 'center' }}>
+            Премиальный тариф “Personal”
+          </h2>
+          <p style={{ marginTop: '8px', textAlign: 'left' }}>
+            Персонально подберем для вас нужные функции
+          </p>
         </div>
-         </div>
-        </div>
+
+        <ul
+          style={{
+            listStylePosition: 'inside',
+            textAlign: 'right',
+            paddingLeft: 0,
+            margin: 0,
+            marginTop: '52px',
+          }}
+        >
+          <li>Создание ГБ</li>
+          <li>Создание курсов</li>
+          <li>До 30 учеников</li>
+          <li>До 3 сотрудников</li>
+        </ul>
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <a
+          href="https://t.me/coursehub_admin"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'inline-block',
+            padding: '12px 24px',
+            backgroundColor: '#fff',
+            color: '#3B82F6',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            width: '301px',
+            textAlign: 'center',
+            fontWeight: '600',
+          }}
+        >
+          Получить консультацию
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 
         <div
@@ -566,29 +557,34 @@ export const TariffPlansInfo: FC = () => {
   Попробовать бесплатно
 </a>
 
-          <div
-            style={{
-              flex: '1 1 0',
-              maxWidth: '600px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              textAlign: 'center',
-            }}
-          >
 import ctaImage from 'src/assets/img/common/cta-image.png';
 
-<img
-  src={ctaImage}
-  alt="CTA"
-  style={{ /* стили по необходимости */ }}
-/>
+<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
+  <div style={{ flex: '1 1 0', maxWidth: '600px' }}>
+    <p style={{ fontSize: '70px', fontWeight: 400 }}>
+      {/* Здесь можно вставить ваш текст CTA, например: */}
+      Начните обучение уже сегодня
+    </p>
+  </div>
 
-              alt="Slice 3213"
-              style={{ width: '478px', height: '330px', marginBottom: '16px' }}
-            />
-          </div>
-        </div>
+  <div
+    style={{
+      flex: '1 1 0',
+      maxWidth: '600px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}
+  >
+    <img
+      src={ctaImage}
+      alt="CTA"
+      style={{ width: '478px', height: '330px', marginBottom: '16px' }}
+    />
+  </div>
+</div>
+
 
           {isModalOpen && selected && (
             <Portal closeModal={closeModal}>
@@ -597,8 +593,60 @@ import ctaImage from 'src/assets/img/common/cta-image.png';
           )}
         </section>
       </motion.div>
-      <Footer />
-    </>
-  )
-}
+const planFeatures: Record<string, { features: string[]; disabled?: string[] }> = {
+  Junior: {
+    features: [
+      'Безлимит ГБ',
+      '1 курс',
+      'До 10 учеников',
+      '1 сотрудник',
+    ],
+    disabled: ['White Label', 'Свой домен'],
+  },
+  Middle: {
+    features: [
+      'Безлимит ГБ',
+      '10 курсов',
+      '50 учеников',
+      '11 сотрудников',
+    ],
+    disabled: ['White Label', 'Свой домен'],
+  },
+  Senior: {
+    features: [
+      '50 курсов',
+      '500 учеников',
+      'Безлимит',
+    ],
+    disabled: ['White Label', 'Свой домен'],
+  },
+};
 
+const featureIcons: Record<string, string> = {
+  'Безлимит ГБ': '/img/account/statistic.svg',
+  '1 курс': '/icons/course.svg',
+  'До 10 учеников': '/icons/students.svg',
+  '1 сотрудник': '/icons/staff.svg',
+  '10 курсов': '/icons/courses.svg',
+  '50 учеников': '/icons/group.svg',
+  '11 сотрудников': '/icons/team.svg',
+  '50 курсов': '/icons/large-courses.svg',
+  '500 учеников': '/icons/large-group.svg',
+  'Безлимит': '/icons/unlimited.svg',
+  'White Label': '/icons/white-label.svg',
+  'Свой домен': '/icons/domain.svg',
+};
+
+// Верстка блоков с уровнями (Junior, Middle, Senior)
+<div className={styles.yearPrice}>
+  <div className={`${styles.yearPrice} ${styles.junior}`}>Junior</div>
+  <div className={`${styles.yearPrice} ${styles.middle}`}>Middle</div>
+  <div className={`${styles.yearPrice} ${styles.senior}`}>Senior</div>
+</div>
+
+// Закрытие компонента и футер
+<Footer />
+</>
+)
+
+        
