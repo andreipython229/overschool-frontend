@@ -5,4 +5,4 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --network-timeout 500000
 COPY . .
 EXPOSE 3000
-CMD ['yarn', 'build', '&&', 'yarn', 'serve']
+CMD ["sh", "-c", "yarn build && yarn serve"]
