@@ -105,6 +105,7 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       open: true,
+      allowedHosts: ['platform.coursehb.ru', 'localhost', '127.0.0.1'],
       proxy: {
         '/api/socket.io': {
           target: apiUrl,
