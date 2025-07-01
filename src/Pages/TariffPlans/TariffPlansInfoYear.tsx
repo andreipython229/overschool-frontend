@@ -4,6 +4,7 @@ import { Typography } from '@mui/material'
 import { Footer } from 'components/Footer/index'
 import { useNavigate } from 'react-router-dom'
 
+
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
@@ -13,6 +14,7 @@ import { useBoolean } from '@/customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
 import { Path } from '@/enum/pathE'
+
 
 type Feature = { icon: string; text: string };
 type Disabl = { icon: string; text: string };
@@ -162,7 +164,8 @@ export const TariffPlansInfoYear: FC = () => {
   const { data, isSuccess } = useFetchTariffPlanTableQuery()
   const [isModalOpen, { on: openModal, off: closeModal }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
-  const navigate = useNavigate();
+const navigate = useNavigate();
+
 
   // Используем только годовые тарифы (id 3, 4, 5)
   const tariffPlanTable = (data && isSuccess && data.length > 0)
@@ -203,20 +206,21 @@ export const TariffPlansInfoYear: FC = () => {
             Тарифные планы для обучения Course hub
           </Typography>
           <div className={styles.savingsBlock}>
-            <button
-              onClick={() => navigate(Path.TariffPlansInfo)}
-              style={{
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                margin: 0,
-                font: 'inherit',
-                color: 'inherit',
-                cursor: 'pointer',
-              }}
-            >
-              <span className={styles.monthly}>Ежемесячно</span>
-            </button>
+<button
+  onClick={() => navigate(Path.TariffPlansInfo)}
+  style={{
+    background: 'none',
+    border: 'none',
+    padding: 0,
+    margin: 0,
+    font: 'inherit',
+    color: 'inherit',
+    cursor: 'pointer',
+  }}
+>
+  <span className={styles.monthly}>Ежемесячно</span>
+</button>
+
             <div className={styles.yearlyBlock}>
               <span>Годовая</span>
               <span className={styles.discountBadge}>Экономия 20%</span>
@@ -546,7 +550,8 @@ export const TariffPlansInfoYear: FC = () => {
             }}
           >
             <img
-              src="src/assets/img/common/cta-image.png"
+<img src="/images/Slice 3213.png" alt="Slice" />
+
               alt="Slice 3213"
               style={{ width: '478px', height: '330px', marginBottom: '16px' }}
             />
