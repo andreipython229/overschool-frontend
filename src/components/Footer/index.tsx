@@ -90,9 +90,9 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
             <p>Instagram</p>
           </a> 
           <p>Вконтакте</p>
-            <a href="https://t.me/@course_hb" target="_blank" rel="noopener noreferrer">
-              <p>Telegram</p>
-            </a>
+         <a href="https://t.me/coursehub_admin" target="_blank" rel="noreferrer">
+            <p>Telegram</p>
+          </a>
         </div>
         <div className={styles.wrapper_box_users}>
           <h1>ПОЛЬЗОВАТЕЛЯМ</h1>
