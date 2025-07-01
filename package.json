@@ -86,6 +86,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "serve": "vite serve --host 0.0.0.0 --no-open",
+    "deploy": "vite --host 0.0.0.0 --no-open",
     "test": "vitest",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx,json,scss}",
