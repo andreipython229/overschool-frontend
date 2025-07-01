@@ -575,7 +575,7 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background: color.adjust($color: #357eeb, $lightness: -10%, $space: hsl);
+    background: color.adjust($color: #357eeb, $lightness: -10%);
   }
 
   @media (max-width: 1500px) {
