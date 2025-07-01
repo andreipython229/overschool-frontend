@@ -1,37 +1,41 @@
-import { useAuthSocialQuery, useLazyGetUserInfoQuery } from 'api/userLoginService'
+import { useLazyGetUserInfoQuery } from 'api/userLoginService'
 import { LoaderLayout } from 'components/Loaders/LoaderLayout'
 import { Path } from 'enum/pathE'
-import { RoleE } from 'enum/roleE'
-import { FC, useEffect } from 'react'
-import { generatePath, useNavigate } from 'react-router-dom'
-import { selectUser } from 'selectors'
+import { FC, useEffect, useMemo } from 'react'
+import { generatePath, useNavigate, useSearchParams } from 'react-router-dom'
+import { selectUser } from '@/selectors'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
-import { auth, authState, id, role, userEmail, userName } from 'store/redux/users/slice'
+import { auth, authState, id, role, userEmail, userName } from '@/store/redux/users/slice'
+import { RoleE } from '@/enum/roleE'
 
 export const SocialAuthPage: FC = () => {
-  const { data: authData, isSuccess, isFetching: isLoading } = useAuthSocialQuery()
   const dispatch = useAppDispatch()
-  const { auth: authetificationState } = useAppSelector(selectUser)
+  const [searchParams] = useSearchParams()
+  const { auth: authetificationState, authState: authStateRedux, userId, email } = useAppSelector(selectUser)
   const navigate = useNavigate()
-  const [getUserInfo] = useLazyGetUserInfoQuery()
+  const [getUserInfo, { isSuccess }] = useLazyGetUserInfoQuery()
+
+  const authData = useMemo(() => {
+    return Object.fromEntries(searchParams.entries())
+  }, [searchParams])
 
   useEffect(() => {
-    if (authData) {
+    if (authData && authData.access && authData.refresh && authData.id && authData.email) {
       dispatch(authState({ access: authData.access, refresh: authData.refresh }))
-      dispatch(id(authData.user.id))
-      dispatch(userEmail(authData.user.email))
-      localStorage.setItem('id', authData.user.id.toString())
+      dispatch(id(Number(authData.id)))
+      dispatch(userEmail(authData.email))
+      localStorage.setItem('id', authData.id.toString())
     }
-  }, [authData])
+  }, [authData, dispatch])
 
   useEffect(() => {
-    if (authetificationState) {
+    if (authetificationState && isSuccess) {
       navigate(generatePath(Path.ChooseSchool))
     }
-  }, [authetificationState])
+  }, [authetificationState, navigate, isSuccess])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (authStateRedux && userId && email) {
       getUserInfo()
         .unwrap()
         .then(resp => {
@@ -41,7 +45,7 @@ export const SocialAuthPage: FC = () => {
         })
         .catch(() => navigate(generatePath(Path.LoginPage)))
     }
-  }, [isSuccess, isLoading])
+  }, [authStateRedux, userId, email, getUserInfo, dispatch, navigate])
 
   return <LoaderLayout></LoaderLayout>
 }

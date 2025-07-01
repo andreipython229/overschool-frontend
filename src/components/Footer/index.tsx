@@ -1,16 +1,16 @@
 import { Link, useParams } from 'react-router-dom'
 import { FC } from 'react'
-import { FooterPath, Path } from 'enum/pathE'
-import { footerlogo, locationfooter, mailfooter, line } from '../../assets/img/common/index'
-import { useFetchSchoolQuery } from 'api/schoolService'
-import { useAppSelector } from 'store/hooks'
-import { schoolSelector } from '../../selectors'
+import { FooterPath } from '@/enum/pathE'
+import { footerlogo, locationfooter, mailfooter, line } from '@/assets/img/common/index'
+import { useFetchSchoolQuery } from '@/api/schoolService'
+import { useAppSelector } from '@/store/hooks'
+import { schoolSelector } from '@/selectors'
 import styles from './footer.module.scss'
 interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
 
-import {ScrollToTopButton} from "../ScrollToTopButton/ScrollToTopButton";
+import {ScrollToTopButton} from "@/components/ScrollToTopButton/ScrollToTopButton";
 
 export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
     // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
@@ -86,9 +86,11 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
         </div>
         <div className={styles.wrapper_box_networks}>
           <h1>СОЦ.СЕТИ</h1>
-          <p>Instagram</p>
+          <a href="https://www.instagram.com/course___hub" target="_blank" rel="noopener noreferrer">
+            <p>Instagram</p>
+          </a> 
           <p>Вконтакте</p>
-          <a href="https://t.me/@course_hb" target="_blank" rel="noopener noreferrer">
+         <a href="https://t.me/coursehub_admin" target="_blank" rel="noreferrer">
             <p>Telegram</p>
           </a>
         </div>

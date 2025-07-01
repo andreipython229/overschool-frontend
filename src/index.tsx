@@ -6,7 +6,7 @@ import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 
 import {App} from './App'
-import {AppMobile} from 'AppMobile'
+import {AppMobile} from './AppMobile'
 import {store} from './store/redux/store'
 
 import './index.css'

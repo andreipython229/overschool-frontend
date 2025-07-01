@@ -1,5 +1,3 @@
-@import '../../../scss/mixin.scss';
-
 .container {
   @include display(flex, column);
   background-color: transparent;

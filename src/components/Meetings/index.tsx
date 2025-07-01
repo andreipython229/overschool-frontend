@@ -52,6 +52,10 @@ export const SchoolMeetings: FC = () => {
     navigate(`/school/${schoolName}/webinars/`)
   }
 
+  const handleGoToMain = () => {
+    navigate(`/school/${schoolName}/courses-stats/`);
+  };
+
   const renderMeetingLinks = () => {
     if (meetingsSuccess) {
       return (
@@ -125,6 +129,11 @@ export const SchoolMeetings: FC = () => {
         />
       </div>
       <div className={styles.meeting_header_text}>Видеоконференции</div>
+      <div className={styles.wrapper_goBack}>
+        <button onClick={handleGoToMain}>
+          На главную
+        </button>
+      </div>
       {isLogin && (
         <>
           <div className={styles.generate_meeting_btn_wrapper}>

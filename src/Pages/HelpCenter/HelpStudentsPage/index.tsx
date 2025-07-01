@@ -7,11 +7,9 @@ import students5 from '../../../assets/img/createProject/students5.png'
 import students6 from '../../../assets/img/createProject/students6.png'
 import firstStep from '../../../assets/img/createProject/firstStep.png'
 import secondStep from '../../../assets/img/createProject/secondStep.png'
-import { useAppSelector } from '../../../store/hooks'
-import {selectUser} from '../../../selectors'
-import { Path } from 'enum/pathE'
+import { Path } from '@/enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
-import {logo} from "../../../assets/img/common";
+import {logo} from "@/assets/img/common";
 import styles from '../HelpPage.module.scss'
 
 export const HelpStudentsPage = () => {

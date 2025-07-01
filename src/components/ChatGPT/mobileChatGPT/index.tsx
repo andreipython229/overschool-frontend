@@ -10,14 +10,14 @@ import {
   useDeleteChatMutation,
   useAssignChatOrderMutation,
   CreateChatPayload,
-} from '../../../api/chatgptService'
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { closeHwModalPath } from 'components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
-import OverAiIcon from '../../../assets/img/common/newIconModal.svg'
-import { deleteIconPath } from 'components/Questions/config/svgIconPath'
+} from '@/api/chatgptService'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { closeHwModalPath } from '@/components/Modal/ModalCheckHomeWork/config/svgIconsPsth'
+import OverAiIcon from '@/assets/img/common/newIconModal.svg'
+import { deleteIconPath } from '@/components/Questions/config/svgIconPath'
 import styles from './mobilechatgpt.module.scss'
-import { useAppSelector } from 'store/hooks'
-import { selectUser } from 'selectors'
+import { useAppSelector } from '@/store/hooks'
+import { selectUser } from '@/selectors'
 
 interface ChatGPTProps {
   isDialogOpen: boolean;
@@ -157,7 +157,7 @@ const MobileChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }
     }
   }
 
-  const formatBotAnswer = (answer: string): JSX.Element => {
+  const formatBotAnswer = (answer: string): React.ReactElement => {
     const escapeHtml = (str: string): string => {
       return str
         .replace(/&/g, '&amp;')

@@ -1,8 +1,8 @@
-FROM node:18-alpine
+# Build stage
+FROM node:latest
 WORKDIR /code
-COPY package.json yarn.lock /code/
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile --network-timeout 500000
-COPY . /code/
+COPY . .
 RUN yarn build
-RUN yarn global add serve
-CMD ["serve", "-s", "build"]
+CMD ["yarn", "serve"]

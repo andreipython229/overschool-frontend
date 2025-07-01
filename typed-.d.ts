@@ -28,16 +28,7 @@ declare module "*.jpeg" {
   export default imageJpeg
 }
 
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      REACT_APP_BASE_URL_HOST: string;
-    }
-  }
-}
-
-
-declare module "*.jpg";
-declare module "*.png";
-declare module "*.jpeg";
-declare module "*.gif";
+declare module "*.jpg"
+declare module "*.png"
+declare module "*.jpeg"
+declare module "*.gif"

@@ -1,26 +1,21 @@
-import { Button } from '../../../components/common/Button/Button'
-import { useAppSelector } from '../../../store/hooks'
-import { selectUser } from '../../../selectors'
-import { Path } from 'enum/pathE'
+import { Button } from '@/components/common/Button/Button'
+import { Path } from '@/enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
-import { Footer } from "../../../components/Footer/index";
-import { InitPageHeader } from "../../Initial/newInitialPageHeader";
-import { FC, memo, useState } from "react";
+import { Footer } from "@/components/Footer/index";
+import { InitPageHeader } from "@/Pages/Initial/newInitialPageHeader";
 import styles from "../HelpPagesCommon.module.scss";
 import mainHelpStyles from "../HelpPage.module.scss";
-import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import { ArrowLeftIconPath } from '../../../assets/Icons/svgIconPath'
+import { IconSvg } from '@/components/common/IconSvg/IconSvg'
+import { ArrowLeftIconPath } from '@/assets/Icons/svgIconPath'
+import platformSettings from "@/assets/img/help/Изображение для 'помощь_ (7).png"
+import platformSettings2 from "@/assets/img/help/Изображение для 'помощь_ (8).png"
+import ctaImage from '@/assets/img/common/cta-image.png'
 
 export const HelpPlatformSettings = () => {
-  const { role } = useAppSelector(selectUser)
   const navigate = useNavigate()
 
   const handleHelpPage = () => {
     navigate(generatePath(Path.HelpPage))
-  }
-
-  const handleLoginPage = () => {
-    navigate(generatePath(Path.LoginPage))
   }
 
   const handleRegistrationUser = () => {
@@ -60,7 +55,7 @@ export const HelpPlatformSettings = () => {
           </div>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (7).png")}
+              src={platformSettings}
               alt="Окно входа"
             />
           </div>
@@ -69,7 +64,7 @@ export const HelpPlatformSettings = () => {
         <div className={styles.section}>
           <div className={styles.img_part}>
             <img
-              src={require("../../../assets/img/help/Изображение для 'помощь_ (8).png")}
+              src={platformSettings2}
               alt="Кнопка входа"
             />
           </div>
@@ -95,7 +90,7 @@ export const HelpPlatformSettings = () => {
             </p>
             <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
             <div className={mainHelpStyles.ctaImage}>
-              <img src={require("../../../assets/img/common/cta-image.png")} alt="CTA-изображение" />
+              <img src={ctaImage} alt="CTA-изображение" />
             </div>
           </div>
         </div>

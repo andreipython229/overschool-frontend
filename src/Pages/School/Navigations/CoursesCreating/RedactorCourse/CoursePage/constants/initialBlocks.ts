@@ -36,8 +36,21 @@ export const initialBlocks: BlockKeys = {
     canUp: false,
     canDown: true
   },
-  trainingProgram: {
+  advantage: {
     id: 3,
+    content: blocksNamesE.advantage,
+    description: "",
+    chips: [
+        { id: -1, position: 0, photo: "", title: 'Удаленная работа', description: '' },
+        { id: -1, position: 1, photo: "", title: 'Постоянное развитие', description: '' },
+        { id: -1, position: 2, photo: "", title: 'Высокие зарплаты', description: '' },
+    ],
+    visible: true,
+    canUp: true,
+    canDown: true
+  },
+  trainingProgram: {
+    id: 4,
     content: blocksNamesE.trainingProgram,
     visible: true,
     canUp: true,
@@ -45,7 +58,7 @@ export const initialBlocks: BlockKeys = {
     sections: []
   },
   trainingPurpose: {
-    id: 4,
+    id: 5,
     content: blocksNamesE.trainingPurpose,
     description: "",
     chips: [
@@ -57,7 +70,7 @@ export const initialBlocks: BlockKeys = {
     canDown: true,
   },
   linkButton: {
-    id: 5,
+    id: 6,
     content: blocksNamesE.linkButton,
     name: 'Кнопка 1',
     link: 'https://example.com',
@@ -66,5 +79,5 @@ export const initialBlocks: BlockKeys = {
     canUp: true,
     canDown: false,
     onlyShow: true,
-      }
+  },
 }

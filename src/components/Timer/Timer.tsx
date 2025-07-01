@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 interface TimerProps {
   targetDate: Date
   target?: string
@@ -46,7 +46,7 @@ const Timer: React.FC<TimerProps> = ({ targetDate, target }) => {
     return `${unit === 'days' ? value : value.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}${unitForms[unit]}`
   }
 
-  const timerComponents: JSX.Element[] = []
+  const timerComponents: ReactElement[] = []
 
   Object.keys(timeLeft).forEach(interval => {
     if (!timeLeft[interval as keyof typeof timeLeft] && !target) {
