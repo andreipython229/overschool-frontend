@@ -17,7 +17,7 @@ interface IProps {
 
 export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLessonBlocks }) => {
   const [buttonName, setButtonName] = useState<string>(button.name)
-  const [buttonLink, setButtonLink] = useState<string>(button.link)
+  const [buttonLink, setButtonLink] = useState<string>(button.link === 'https://overschool.by' ? '' : button.link)
   const [colorPalette, setColorPalette] = useState<string>(button.color)
   const [removeButton, { isLoading: isDeleting }] = useDeleteButtonMutation()
   const [updateData, { isLoading: isUpdating }] = useUpdateButtonsDataMutation()
