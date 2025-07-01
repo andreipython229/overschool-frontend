@@ -4,6 +4,7 @@ import { Typography } from '@mui/material'
 import { Footer } from 'components/Footer/index'
 import { useNavigate } from 'react-router-dom'
 
+
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
@@ -68,6 +69,9 @@ type TariffCardProps = {
   onOpenModal: () => void
 }
 
+
+
+
 const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
   const backgroundClass =
     plan.name === 'Junior'
@@ -115,16 +119,46 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
           {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
         </div>
 
-        <Button
-          text="Подключить"
-          variant="primary"
-          onClick={(e) => {
-            e.stopPropagation()
-            onSelect(plan)
-            onOpenModal()
-          }}
-          style={{ marginTop: '1em', width: '100%' }}
-        />
+<a
+  href="https://platform.coursehb.ru/create-school/"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: 'inline-block',
+    marginTop: '20px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: 600,
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    userSelect: 'none',
+  }}
+>
+  Попробовать бесплатно
+</a>
+
+  href="https://t.me/coursehub_admin"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: 'inline-block',
+    marginTop: '1em',
+    width: '100%',
+    padding: '12px',
+    textAlign: 'center',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    fontWeight: '600',
+    borderRadius: '6px',
+    textDecoration: 'none',
+  }}
+>
+  Подключить
+</a>
+
 
         <hr className={styles.cardDivider} />
 
@@ -141,17 +175,44 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
     color: plan.name === 'Senior' ? 'white' : 'black',
   }}
 >
-{planFeatures[plan.name].features.map((feature, index) => (
-  <li key={index} className={styles.featureItem}>
-    <img src={feature.icon} alt="Иконка" /> {feature.text}
-  </li>
-))}
+{planFeatures[plan.name].features.map((item, index) => {
+  const icon = typeof item === 'string' ? featureIcons[item] || '/img/account/statistic.svg' : item.icon;
+  const text = typeof item === 'string' ? item : item.text;
 
-{planFeatures[plan.name].disabled?.map((disabl, index) => (
-  <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
-    <img src={disabl.icon} alt="Иконка" /> {disabl.text}
-  </li>
-))}
+  return (
+    <li key={index} className={styles.featureItem}>
+      {icon && (
+        <img
+          src={icon}
+          alt="Иконка"
+          style={{ marginRight: '8px', width: '20px', height: '20px' }}
+        />
+      )}
+      {text}
+    </li>
+  );
+})}
+
+{planFeatures[plan.name].disabled?.map((item, index) => {
+  const icon = typeof item === 'string' ? featureIcons[item] : item.icon;
+  const text = typeof item === 'string' ? item : item.text;
+
+  return (
+    <li
+      key={`disabled-${index}`}
+      className={`${styles.featureItem} ${styles.listItemDisabled}`}
+    >
+      {icon && (
+        <img
+          src={icon}
+          alt="Иконка"
+          style={{ marginRight: '8px', width: '20px', height: '20px' }}
+        />
+      )}
+      {text}
+    </li>
+  );
+})}
 
     </li>
   ))}
@@ -168,7 +229,7 @@ export const TariffPlansInfo: FC = () => {
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
   const navigate = useNavigate();
 
-  // Используем только годовые тарифы (id 3, 4, 5)
+  // Используем только годовые тарифы (id 5, 4, 3)
   const tariffPlanTable = (data && isSuccess && data.length > 0)
     ? data.filter(plan => [2, 3, 4].includes(Number(plan.id)))
     : [];
@@ -186,278 +247,60 @@ export const TariffPlansInfo: FC = () => {
         className={styles.container}
       >
 <section className={styles.TariffPlansPage}>
-  <div className={styles.TariffPlansPage_plansBlock}></div>
-  <Typography
-    gutterBottom
-    variant="h1"
-    sx={{
-      textAlign: 'center',
-      fontFamily: 'SF Pro Text, sans-serif',
-      fontSize: '46px',
-      fontWeight: 750,
-      lineHeight: '100%',
-      letterSpacing: '0px',
-      color: 'black',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      width: '100%',
-      margin: '0 auto',
-    }}
-  >
-    Тарифные планы для обучения Course hub
-  </Typography>
-  <div className={styles.savingsBlock}>
-    <span className={styles.monthly}>Ежемесячно</span>
-    <div className={styles.yearlyBlock}>
-      <button
-        onClick={() => navigate(Path.TariffPlansInfoYear)}
-        style={{
-          background: 'none',
-          border: 'none',
-          padding: 0,
-          margin: 0,
-          font: 'inherit',
-          color: 'inherit',
-          cursor: 'pointer',
-        }}
-      >
-        Годовая
-      </button>
-    </div>
+<div className={styles.TariffPlansPage_plansBlock}></div>
+
+<Typography
+  gutterBottom
+  variant="h1"
+  sx={{
+    textAlign: 'center',
+    fontFamily: 'SF Pro Text, sans-serif',
+    fontSize: '46px',
+    fontWeight: 750,
+    lineHeight: '100%',
+    letterSpacing: '0px',
+    color: 'black',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    width: '100%',
+    margin: '0 auto',
+  }}
+>
+  Тарифные планы для обучения Course Hub
+</Typography>
+
+<div className={styles.savingsBlock}>
+  <span className={styles.monthly}>Ежемесячно</span>
+  <div className={styles.yearlyBlock}>
+    <button
+      onClick={() => navigate(Path.TariffPlansInfoYear)}
+      style={{
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        margin: 0,
+        font: 'inherit',
+        color: 'inherit',
+        cursor: 'pointer',
+      }}
+    >
+      Годовая
+      <span className={styles.discountBadge}>Экономия 20%</span>
+    </button>
   </div>
-</section>
+</div>
 
-                <span className={styles.discountBadge}>Экономия 20%</span>
-              </button>
-            </div>
-          </div>
+<div className={styles.TariffPlansPage_plansBlock_cardGroup}>
+  {tariffPlanTable.map((plan) => (
+    <TariffCard
+      key={plan.id ?? plan.name}
+      plan={plan}
+      onSelect={setSelected}
+      onOpenModal={openModal}
+    />
+  ))}
+</div>
 
-          <div className={styles.TariffPlansPage_plansBlock_cardGroup}>
-            {tariffPlanTable.map((plan) => (
-              <TariffCard
-                key={plan.id ?? plan.name}
-                plan={plan}
-                onSelect={setSelected}
-                onOpenModal={openModal}
-              />
-            ))}
-          </div>
-
-          <div
-            style={{
-              width: '1119.5px',
-              height: '250px',
-              borderRadius: '32px',
-              padding: '16px',
-              gap: '16px',
-              border: '1px solid #ccc',
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-              margin: '40px auto', // Центрируем по горизонтали и добавляем отступ сверху и снизу
-              backgroundColor: '#fff',
-              fontFamily: 'SF Pro Display, sans-serif',
-              fontSize: '18px',
-              fontWeight: 500,
-              lineHeight: 1.4,
-            }}
-          >
-            {[
-              'Мессенджер с чатами и каналами',
-              'Автоматический зачёт',
-              'Выдача сертификатов',
-              'Публикация в каталоге CourseHub',
-              'Искусственный интеллект Course Hub Ai',
-              'Домашние задания',
-              'Умные комментарии к урокам',
-              'Аналитика обучения',
-              'Отдельный сайт для каждого курса',
-              'Рассылка по всем ученикам',
-              'Мобильное приложение',
-            ].map((text, index) => (
-              <div key={index} style={{ flex: '0 0 30%', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
-                <span style={{ marginRight: '8px', color: '#4CAF50' }}>+</span>
-                {text}
-              </div>
-            ))}
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              gap: '32px',
-              width: '100%',
-              maxWidth: '1280px',
-              margin: '0 auto',
-            }}
-          >
-            {/* Блок Start */}
-            <div
-              style={{
-                position: 'relative',
-                width: '589.75px',
-                height: '373px',
-                borderRadius: '24px',
-                padding: '24px',
-                backgroundColor: '#BBCEEB',
-                color: '#000000',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                fontFamily: 'SF Pro Display, sans-serif',
-              }}
-            >
-              {/* Иконка */}
-              <img
-                src="/images/prizeStart.png"
-                alt="PrizeStart"
-                style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  left: '0',
-                  width: '225px',
-                  height: '252px',
-                  objectFit: 'contain',
-                  pointerEvents: 'none',
-                }}
-              />
-
-              {/* Контент в двух колонках */}
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                  alignItems: 'flex-start',
-                }}
-              >
-                {/* Левая колонка */}
-               <div style={{ width: '100%', textAlign: 'center' }}>
-              <h2
-                style={{
-                  fontSize: '24px',
-                  margin: 0,
-                  whiteSpace: 'nowrap',      // Не переносить строку
-                  overflow: 'hidden',        // Обрезать при переполнении (если нужно)
-                  textOverflow: 'ellipsis',  // Показать троеточие при обрезке (если нужно)
-                }}
-              >
-                Бесплатный тариф &ldquo;Start&rdquo;
-               </h2>
-               {/* Подзаголовок ближе к левому краю */}
-              <p
-                style={{
-                  marginTop: '8px',
-                  paddingLeft: '12px',
-                  textAlign: 'left',
-                }}
-              >
-                14 дней бесплатно
-              </p>
-            </div>
-              {/* Правая колонка — список */}
-            <ul
-              style={{
-                listStylePosition: 'inside',
-                textAlign: 'right',
-                paddingLeft: 0,
-                margin: 0,
-                marginTop: '52px', // ⬅️ добавь эту строку
-                whiteSpace: 'nowrap',       // 🔹 Не переносить строку
-                //whiteSpace: 'normal'
-              }}
-            >
-             
-              <li><img src="/images/Component 1.png" alt="icon" />1 курс</li>
-              <li><img src="/images/profile-2user.png" alt="icon" />До 10 учеников</li>
-              <li><img src="/images/Component 2.png" alt="icon" />Конструктор лендингов</li>
-              <li><img src="/images/sms-notification.png" alt="icon" />Прием платежей и</li>
-              <li>онлайн касса</li>
-            </ul>
-
-           </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              text="Начать бесплатно"
-              variant="secondary"
-              onClick={() => console.log('Start')}
-              style={{
-              width: '301px',
-              height: '54px',
-              padding: '15px 40px',
-
-              backgroundColor: '#3B82F6', // синий фон
-              color: '#FFFFFF',           // белый текст
-              border: 'none',             // если нужен плоский стиль
-              borderRadius: '8px',        // (по желанию) скругление углов
-              }}
-            />
-          </div>
-          </div>
-         {/* Блок Personal */}
-         <div
-          style={{
-            position: 'relative',
-            width: '589.75px',
-            height: '373px',
-            borderRadius: '24px',
-            padding: '24px',
-            backgroundColor: '#357EEB',
-           color: '#FFFFFF', // <-- Белый цвет текста
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            fontFamily: 'SF Pro Display, sans-serif',
-          }}
-        >
-          {/* Иконка */}
-          <img
-            src="/images/prizePersonal.png"
-            alt="SprizePersonal"
-            style={{
-              position: 'absolute',
-              bottom: '0',
-              left: '0',
-              width: '225px',
-              height: '252px',
-              objectFit: 'contain',
-              pointerEvents: 'none',
-            }}
-          />
-
-          {/* Контент в двух колонках */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              alignItems: 'flex-start',
-            }}
-          >
-            {/* Левая колонка: Заголовок + Подзаголовок */}
-            <div style={{ width: '60%' }}>
-              <h2
-                style={{
-                  fontSize: '24px',
-                  margin: 0,
-                  whiteSpace: 'nowrap',
-                  textAlign: 'center',
-                }}
-              >
-                Премиальный тариф &ldquo;Personal&rdquo;
-              </h2>
-
-              <p
-                style={{
-                  marginTop: '8px',
-                  textAlign: 'left',
-                }}
-              >
-                Персонально подберем для вас нужные функции
-              </p>
-            </div>
 <div
   style={{
     width: '1119.5px',
@@ -491,7 +334,15 @@ export const TariffPlansInfo: FC = () => {
     'Рассылка по всем ученикам',
     'Мобильное приложение',
   ].map((text, index) => (
-    <div key={index} style={{ flex: '0 0 30%', marginBottom: '12px', display: 'flex', alignItems: 'center' }}>
+    <div
+      key={index}
+      style={{
+        flex: '0 0 30%',
+        marginBottom: '12px',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
       <span style={{ marginRight: '8px', color: '#4CAF50' }}>+</span>
       {text}
     </div>
@@ -525,7 +376,6 @@ export const TariffPlansInfo: FC = () => {
       fontFamily: 'SF Pro Display, sans-serif',
     }}
   >
-    {/* Иконка */}
     <img
       src="/images/prizeStart.png"
       alt="PrizeStart"
@@ -540,7 +390,6 @@ export const TariffPlansInfo: FC = () => {
       }}
     />
 
-    {/* Контент в двух колонках */}
     <div
       style={{
         display: 'flex',
@@ -549,7 +398,6 @@ export const TariffPlansInfo: FC = () => {
         alignItems: 'flex-start',
       }}
     >
-      {/* Левая колонка */}
       <div style={{ width: '100%', textAlign: 'center' }}>
         <h2
           style={{
@@ -560,7 +408,7 @@ export const TariffPlansInfo: FC = () => {
             textOverflow: 'ellipsis',
           }}
         >
-          Бесплатный тариф “Start”
+          Бесплатный тариф &ldquo;Start&rdquo;
         </h2>
         <p
           style={{
@@ -572,7 +420,7 @@ export const TariffPlansInfo: FC = () => {
           14 дней бесплатно
         </p>
       </div>
-      {/* Правая колонка — список */}
+
       <ul
         style={{
           listStylePosition: 'inside',
@@ -583,13 +431,300 @@ export const TariffPlansInfo: FC = () => {
           whiteSpace: 'nowrap',
         }}
       >
-        <li>1 курс</li>
-        <li>До 10 учеников</li>
-        <li>Конструктор лендингов</li>
-        <li>Прием платежей и</li>
+        <li><img src="/images/Component 1.png" alt="icon" />1 курс</li>
+        <li><img src="/images/profile-2user.png" alt="icon" />До 10 учеников</li>
+        <li><img src="/images/Component 2.png" alt="icon" />Конструктор лендингов</li>
+        <li><img src="/images/sms-notification.png" alt="icon" />Прием платежей и</li>
         <li>онлайн касса</li>
       </ul>
     </div>
+
+    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Button
+        text="Начать бесплатно"
+        variant="secondary"
+        onClick={() => console.log('Start')}
+        style={{
+          width: '301px',
+          height: '54px',
+          padding: '15px 40px',
+          backgroundColor: '#3B82F6',
+          color: '#FFFFFF',
+          border: 'none',
+          borderRadius: '8px',
+        }}
+      />
+    </div>
+  </div>
+</div>
+
+          style={{
+            fontSize: '24px',
+            margin: 0,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: '32px',
+    width: '100%',
+    maxWidth: '1280px',
+    margin: '0 auto',
+  }}
+>
+  {/* Блок Start */}
+  <div
+    style={{
+      position: 'relative',
+      width: '589.75px',
+      height: '373px',
+      borderRadius: '24px',
+      padding: '24px',
+      backgroundColor: '#BBCEEB',
+      color: '#000000',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      fontFamily: 'SF Pro Display, sans-serif',
+    }}
+  >
+    <img
+      src="/images/prizeStart.png"
+      alt="PrizeStart"
+      style={{
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        width: '225px',
+        height: '252px',
+        objectFit: 'contain',
+        pointerEvents: 'none',
+      }}
+    />
+
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '100%',
+        alignItems: 'flex-start',
+      }}
+    >
+      <div style={{ width: '100%', textAlign: 'center' }}>
+        <h2
+          style={{
+            fontSize: '24px',
+            margin: 0,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          Бесплатный тариф &ldquo;Start&rdquo;
+        </h2>
+        <p
+          style={{
+            marginTop: '8px',
+            paddingLeft: '12px',
+            textAlign: 'left',
+          }}
+        >
+          14 дней бесплатно
+        </p>
+      </div>
+
+      <ul
+        style={{
+          listStylePosition: 'inside',
+          textAlign: 'right',
+          paddingLeft: 0,
+          margin: 0,
+          marginTop: '52px',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        <li><img src="/images/Component 1.png" alt="icon" />1 курс</li>
+        <li><img src="/images/profile-2user.png" alt="icon" />До 10 учеников</li>
+        <li><img src="/images/Component 2.png" alt="icon" />Конструктор лендингов</li>
+        <li><img src="/images/sms-notification.png" alt="icon" />Прием платежей и</li>
+        <li>онлайн касса</li>
+      </ul>
+    </div>
+
+    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Button
+        text="Начать бесплатно"
+        variant="secondary"
+        onClick={() => console.log('Start')}
+        style={{
+          width: '301px',
+          height: '54px',
+          padding: '15px 40px',
+          backgroundColor: '#3B82F6',
+          color: '#FFFFFF',
+          border: 'none',
+          borderRadius: '8px',
+        }}
+      />
+    </div>
+  </div>
+
+  {/* Блок Personal */}
+  <div
+    style={{
+      position: 'relative',
+      width: '589.75px',
+      height: '373px',
+      borderRadius: '24px',
+      padding: '24px',
+      backgroundColor: '#E7D4F8',
+      color: '#000000',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      fontFamily: 'SF Pro Display, sans-serif',
+    }}
+  >
+    <img
+      src="/images/prizePersonal.png"
+      alt="PrizePersonal"
+      style={{
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        width: '225px',
+        height: '252px',
+        objectFit: 'contain',
+        pointerEvents: 'none',
+      }}
+    />
+
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '100%',
+        alignItems: 'flex-start',
+      }}
+    >
+      <div style={{ width: '60%' }}>
+        <h2
+          style={{
+            fontSize: '24px',
+            margin: 0,
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+          }}
+        >
+          Премиальный тариф &ldquo;Personal&rdquo;
+        </h2>
+
+        <p
+          style={{
+            marginTop: '8px',
+            textAlign: 'left',
+          }}
+        >
+          Персонально подберем для вас нужные функции
+        </p>
+      </div>
+    </div>
+
+    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Button
+        text="Оставить заявку"
+        variant="secondary"
+        onClick={() => console.log('Personal')}
+        style={{
+          width: '301px',
+          height: '54px',
+          padding: '15px 40px',
+          backgroundColor: '#9333EA',
+          color: '#FFFFFF',
+          border: 'none',
+          borderRadius: '8px',
+        }}
+      />
+    </div>
+  </div>
+</div>
+
+            fontSize: '24px',
+            margin: 0,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: '32px',
+    width: '100%',
+    maxWidth: '1280px',
+    margin: '0 auto',
+  }}
+>
+  {/* Блок Start */}
+  <div
+    style={{
+      position: 'relative',
+      width: '589.75px',
+      height: '373px',
+      borderRadius: '24px',
+      padding: '24px',
+      backgroundColor: '#BBCEEB',
+      color: '#000000',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      fontFamily: 'SF Pro Display, sans-serif',
+    }}
+  >
+    <h2
+      style={{
+        fontSize: '24px',
+        margin: 0,
+        whiteSpace: 'nowrap',
+        textAlign: 'center',
+      }}
+    >
+      Бесплатный тариф “Start”
+    </h2>
+    <p
+      style={{
+        marginTop: '8px',
+        paddingLeft: '12px',
+        textAlign: 'left',
+      }}
+    >
+      14 дней бесплатно
+    </p>
+
+    <ul
+      style={{
+        listStylePosition: 'inside',
+        textAlign: 'right',
+        paddingLeft: 0,
+        margin: 0,
+        marginTop: '52px',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      <li>1 курс</li>
+      <li>До 10 учеников</li>
+      <li>Конструктор лендингов</li>
+      <li>Прием платежей и</li>
+      <li>онлайн касса</li>
+    </ul>
+
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <Button
         text="Начать бесплатно"
@@ -624,10 +759,9 @@ export const TariffPlansInfo: FC = () => {
       fontFamily: 'SF Pro Display, sans-serif',
     }}
   >
-    {/* Иконка */}
     <img
       src="/images/prizePersonal.png"
-      alt="SprizePersonal"
+      alt="PrizePersonal"
       style={{
         position: 'absolute',
         bottom: '0',
@@ -639,7 +773,6 @@ export const TariffPlansInfo: FC = () => {
       }}
     />
 
-    {/* Контент в двух колонках */}
     <div
       style={{
         display: 'flex',
@@ -648,7 +781,6 @@ export const TariffPlansInfo: FC = () => {
         alignItems: 'flex-start',
       }}
     >
-      {/* Левая колонка: Заголовок + Подзаголовок */}
       <div style={{ width: '60%' }}>
         <h2
           style={{
@@ -671,7 +803,6 @@ export const TariffPlansInfo: FC = () => {
         </p>
       </div>
 
-      {/* Правая колонка — список с иконками */}
       <ul
         style={{
           listStylePosition: 'inside',
@@ -700,11 +831,12 @@ export const TariffPlansInfo: FC = () => {
         </li>
       </ul>
     </div>
+
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <Button
         text="Получить консультацию"
         variant="secondary"
-        onClick={() => console.log('Start')}
+        onClick={() => console.log('Personal')}
         style={{
           width: '301px',
           height: '54px',
@@ -814,31 +946,291 @@ export const TariffPlansInfo: FC = () => {
         borderRadius: '25px',
       }}
     />
-    <p style={{ fontSize: '70px', fontWeight: 400 }}></p>
   </div>
 </div>
 
 
-            text=    "Получить консультацию"
-            variant="secondary"
-            onClick={() => console.log('Start')}
-            style={{
-                width: '301px',
-            height: '54px',
-            padding: '15px 40px',
-            backgroundColor:'#FFFFFF', // синий фон
-            color:    '#3B82F6'  ,      // белый текст
-            border: 'none',             // если нужен плоский стиль
-            borderRadius: '8px',        // (по желанию) скругление углов
-            }}
-          />
-        </div>
-         </div>
-        </div>
+  {/* Контент в двух колонках */}
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+      alignItems: 'flex-start',
+    }}
+  >
+    {/* Левая колонка */}
+    <div style={{ width: '60%' }}>
+      <h2
+        style={{
+          fontSize: '24px',
+          margin: 0,
+          whiteSpace: 'nowrap',
+          textAlign: 'center',
+        }}
+      >
+        Премиальный тариф “Personal”
+      </h2>
+      <p
+        style={{
+          marginTop: '8px',
+          textAlign: 'left',
+        }}
+      >
+        Персонально подберем для вас нужные функции
+      </p>
+    </div>
+
+    {/* Правая колонка */}
+    <ul
+      style={{
+        listStylePosition: 'inside',
+        textAlign: 'right',
+        paddingLeft: 0,
+        margin: 0,
+        marginTop: '52px',
+        color: '#FFFFFF',
+      }}
+    >
+      <li>
+        <img src="/images/cloudWhite.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>Создание ГБ</span>
+      </li>
+      <li>
+        <img src="/images/layerWhite.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>Создание курсов</span>
+      </li>
+      <li>
+        <img src="/images/studentWhite.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>До 30 учеников</span>
+      </li>
+      <li>
+        <img src="/images/Component 133White.png" alt="icon" style={{ marginRight: 8 }} />
+        <span>До 3 сотрудников</span>
+      </li>
+    </ul>
+  </div>
+
+  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    <Button
+      text="Получить консультацию"
+      variant="secondary"
+      onClick={() => console.log('Start')}
+      style={{
+        width: '301px',
+        height: '54px',
+        padding: '15px 40px',
+        backgroundColor: '#FFFFFF',
+        color: '#3B82F6',
+        border: 'none',
+        borderRadius: '8px',
+      }}
+    />
+  </div>
+</div>
 
 
+{/* Блок Personal */}
+<div
 
+{/* Блок Start */}
+<div
+  style={{
+    position: 'relative',
+    width: '589.75px',
+    height: '373px',
+    borderRadius: '24px',
+    padding: '24px',
+    backgroundColor: '#BBCEEB',
+    color: '#000000',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    fontFamily: 'SF Pro Display, sans-serif',
+  }}
+>
+  <img
+    src="/images/prizeStart.png"
+    alt="PrizeStart"
+    style={{
+      position: 'absolute',
+      bottom: '0',
+      left: '0',
+      width: '225px',
+      height: '252px',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+    }}
+  />
 
+  <div style={{ width: '100%', textAlign: 'center' }}>
+    <h2
+      style={{
+        fontSize: '24px',
+        margin: 0,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      }}
+    >
+      Бесплатный тариф &ldquo;Start&rdquo;
+    </h2>
+    <p style={{ marginTop: '8px', paddingLeft: '12px', textAlign: 'left' }}>
+      14 дней бесплатно
+    </p>
+  </div>
+
+  <ul
+    style={{
+      listStylePosition: 'inside',
+      textAlign: 'right',
+      paddingLeft: 0,
+      margin: '52px 0 0 0',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    <li><img src="/images/Component 1.png" alt="icon" /> 1 курс</li>
+    <li><img src="/images/profile-2user.png" alt="icon" /> До 10 учеников</li>
+    <li><img src="/images/Component 2.png" alt="icon" /> Конструктор лендингов</li>
+    <li><img src="/images/sms-notification.png" alt="icon" /> Прием платежей и онлайн касса</li>
+  </ul>
+
+  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+    <a
+      href="https://t.me/coursehub_admin"
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        display: 'inline-block',
+        width: '301px',
+        height: '54px',
+        padding: '15px 40px',
+        backgroundColor: '#007BFF',
+        color: '#fff',
+        borderRadius: '8px',
+        fontWeight: '600',
+        textAlign: 'center',
+        lineHeight: '24px',
+        textDecoration: 'none',
+        cursor: 'pointer',
+      }}
+    >
+      Подключить
+    </a>
+  </div>
+</div>
+
+{/* Блок Personal */}
+<div
+  style={{
+    position: 'relative',
+    width: '589.75px',
+    height: '373px',
+    borderRadius: '24px',
+    padding: '24px',
+    backgroundColor: '#357EEB',
+    color: '#FFFFFF',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    fontFamily: 'SF Pro Display, sans-serif',
+    marginTop: '24px',
+  }}
+>
+  <img
+    src="/images/prizePersonal.png"
+    alt="PrizePersonal"
+    style={{
+      position: 'absolute',
+      bottom: '0',
+      left: '0',
+      width: '225px',
+      height: '252px',
+      objectFit: 'contain',
+      pointerEvents: 'none',
+      zIndex: 0,
+    }}
+  />
+
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%',
+      alignItems: 'flex-start',
+      zIndex: 1,
+    }}
+  >
+    <div style={{ width: '60%' }}>
+      <h2 style={{ fontSize: '24px', margin: 0, whiteSpace: 'nowrap', textAlign: 'center' }}>
+        Премиальный тариф &ldquo;Personal&rdquo;
+      </h2>
+      <p style={{ marginTop: '8px', textAlign: 'left' }}>
+        Персонально подберем для вас нужные функции
+      </p>
+
+      <ul
+        style={{
+          listStylePosition: 'inside',
+          paddingLeft: 0,
+          marginTop: '16px',
+          color: '#ffffff',
+          lineHeight: 1.6,
+        }}
+      >
+        <li style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+          <img src="/images/cloudWhite.png" alt="icon" style={{ marginRight: 8 }} />
+          Создание ГБ
+        </li>
+        <li style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+          <img src="/images/layerWhite.png" alt="icon" style={{ marginRight: 8 }} />
+          Создание курсов
+        </li>
+        <li style={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}>
+          <img src="/images/studentWhite.png" alt="icon" style={{ marginRight: 8 }} />
+          До 30 учеников
+        </li>
+        <li style={{ display: 'flex', alignItems: 'center' }}>
+          <img src="/images/Component 133White.png" alt="icon" style={{ marginRight: 8 }} />
+          До 3 сотрудников
+        </li>
+      </ul>
+    </div>
+
+    <div
+      style={{
+        width: '40%',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+      }}
+    >
+      <a
+        href="https://t.me/coursehub_admin"
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          display: 'inline-block',
+          width: '301px',
+          height: '54px',
+          padding: '15px 40px',
+          backgroundColor: '#FFFFFF',
+          color: '#3B82F6',
+          borderRadius: '8px',
+          fontWeight: '600',
+          textAlign: 'center',
+          lineHeight: '24px',
+          textDecoration: 'none',
+          cursor: 'pointer',
+        }}
+      >
+        Получить консультацию
+      </a>
+    </div>
+  </div>
+</div>
+
+{/* CTA блок */}
 <div
   style={{
     width: '100%',
@@ -862,7 +1254,6 @@ export const TariffPlansInfo: FC = () => {
     color: '#ffffff',
   }}
 >
-  {/* Текстовая часть с кнопкой */}
   <div
     style={{
       flex: '1 1 0',
@@ -873,7 +1264,60 @@ export const TariffPlansInfo: FC = () => {
       textAlign: 'center',
     }}
   >
-    <p style={{ fontSize: '18px', fontWeight:
+    <p style={{ fontSize: '18px', fontWeight: 400, lineHeight: '1.6' }}>
+      <span style={{ fontSize: '24px', fontWeight: 600 }}>
+        Создавайте свой проект на Course Hub прямо сейчас.
+      </span>
+      <br />
+      Попробуйте весь функционал в процессе использования
+      <br />
+      и убедитесь, насколько он удобен.
+    </p>
+    <a
+      href="https://platform.coursehb.ru/create-school/"
+      target="_blank"
+      rel="noreferrer"
+      style={{
+        marginTop: '20px',
+        padding: '12px 24px',
+        fontSize: '16px',
+        fontWeight: 600,
+        backgroundColor: '#0D28BB',
+        color: '#fff',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        textDecoration: 'none',
+        userSelect: 'none',
+      }}
+    >
+      Попробовать бесплатно
+    </a>
+  </div>
+
+  <div
+    style={{
+      flex: '1 1 0',
+      maxWidth: '600px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}
+  >
+    <img
+      src="/images/333.png"
+      alt="CTA Image"
+      style={{
+        width: '478px',
+        height: '330px',
+        marginBottom: '16px',
+        border: '20px solid #324195',
+        borderRadius: '25px',
+      }}
+    />
+  </div>
+</div>
+
 
 
           {isModalOpen && selected && (
@@ -883,21 +1327,59 @@ export const TariffPlansInfo: FC = () => {
           )}
         </section>
       </motion.div>
-<div className={styles.yearPrice}>
-  {Object.entries(planFeatures).map(([planName, { features, disabled }]) => (
-    <div key={planName} className={`${styles.yearPrice} ${styles[planName.toLowerCase()]}`}>
-      <h3>{planName}</h3>
-      <ul>
-        {features.map((feature) => (
-          <li key={feature}>{feature}</li>
-        ))}
-        {disabled?.length > 0 && (
-          <li style={{ opacity: 0.5 }}>
-            Недоступно: {disabled.join(', ')}
-          </li>
-        )}
-      </ul>
-    </div>
-  ))}
-</div>
+const planFeatures: Record<string, { features: string[]; disabled?: string[] }> = {
+  Junior: {
+    features: ['Безлимит ГБ', '1 курс', 'До 10 учеников', '1 сотрудник'],
+    disabled: ['White Label', 'Свой домен'],
+  },
+  Middle: {
+    features: ['Безлимит ГБ', '10 курсов', '50 учеников', '11 сотрудников'],
+    disabled: ['White Label', 'Свой домен'],
+  },
+  Senior: {
+    features: ['50 курсов', '500 учеников', 'Безлимит'],
+  },
+};
 
+const featureIcons: Record<string, string> = {
+  'Безлимит ГБ': '/img/account/statistic.svg',
+  '1 курс': '/icons/course.svg',
+  'До 10 учеников': '/icons/students.svg',
+  '1 сотрудник': '/icons/staff.svg',
+  '10 курсов': '/icons/courses.svg',
+  '50 учеников': '/icons/group.svg',
+  '11 сотрудников': '/icons/team.svg',
+  '50 курсов': '/icons/large-courses.svg',
+  '500 учеников': '/icons/large-group.svg',
+  'Безлимит': '/icons/unlimited.svg',
+  'White Label': '/icons/white-label.svg',
+  'Свой домен': '/icons/domain.svg',
+};
+
+return (
+  <div className={styles.plansWrapper}>
+    {Object.entries(planFeatures).map(([planName, { features, disabled }]) => (
+      <div key={planName} className={`${styles.planBlock} ${styles[planName.toLowerCase()]}`}>
+        <h3 className={styles.planTitle}>{planName}</h3>
+        <ul className={styles.featuresList}>
+          {features.map(feature => (
+            <li key={feature} className={styles.featureItem}>
+              <img src={featureIcons[feature]} alt={feature} className={styles.featureIcon} />
+              <span>{feature}</span>
+            </li>
+          ))}
+          {disabled?.map(feature => (
+            <li
+              key={feature}
+              className={`${styles.featureItem} ${styles.disabledFeature}`}
+              style={{ opacity: 0.4, textDecoration: 'line-through' }}
+            >
+              <img src={featureIcons[feature]} alt={feature} className={styles.featureIcon} />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+);

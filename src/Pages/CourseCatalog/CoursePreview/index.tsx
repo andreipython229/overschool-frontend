@@ -90,6 +90,12 @@ export const CoureCatalogPreview: FC = () => {
   useEffect(() => {
     if (params && params.courseId) {
       fetchLanding(Number(params.courseId))
+          .then(response => {
+            console.log('API response:', response)
+          })
+          .catch(err => {
+            console.error('API error:', err)
+          })
     }
   }, [params])
 
