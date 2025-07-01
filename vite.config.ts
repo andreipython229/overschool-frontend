@@ -68,18 +68,6 @@ export default defineConfig(({ mode }) => {
     )
   }
 
-  // Добавляем визуализатор только для продакшена
-  if (isProduction) {
-    plugins.push(
-      visualizer({
-        filename: 'stats.html',
-        open: true,
-        gzipSize: true,
-        brotliSize: true,
-      })
-    )
-  }
-
   return {
     plugins,
     define: {
