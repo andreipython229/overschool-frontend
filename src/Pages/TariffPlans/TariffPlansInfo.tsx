@@ -852,97 +852,26 @@ export const TariffPlansInfo: FC = () => {
             fontWeight: '600',
           }}
         >
-<div
+<a
+  href="https://platform.coursehb.ru/create-school/"
+  target="_blank"
+  rel="noreferrer"
   style={{
-    width: '100%',
-    maxWidth: '1219.5px',
-    height: '350px',
-    borderRadius: '32px',
-    padding: '16px',
-    gap: '16px',
-    border: '1px solid #ccc',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: '40px auto',
-    backgroundColor: '#357EEB',
-    fontFamily: 'SF Pro Display, sans-serif',
-    fontSize: '18px',
-    fontWeight: 500,
-    lineHeight: 1.4,
-    boxSizing: 'border-box',
-    color: '#ffffff',
+    display: 'inline-block',
+    marginTop: '20px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: 600,
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    userSelect: 'none',
   }}
 >
-  {/* Левая колонка: текст + кнопка */}
-  <div
-    style={{
-      flex: '1 1 0',
-      maxWidth: '600px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      textAlign: 'center',
-    }}
-  >
-    <p style={{ fontSize: '24px', fontWeight: 600, lineHeight: '1.2' }}>
-      Создавайте свой проект на Course Hub прямо сейчас.
-    </p>
-    <p style={{ fontSize: '18px', fontWeight: 400, lineHeight: '1.6', marginTop: '8px' }}>
-      Попробуйте весь функционал в процессе использования<br />
-      и убедитесь, насколько он удобен.
-    </p>
-    <a
-      href="https://platform.coursehb.ru/create-school/"
-      target="_blank"
-      rel="noreferrer"
-      style={{
-        display: 'inline-block',
-        marginTop: '20px',
-        padding: '12px 24px',
-        fontSize: '16px',
-        fontWeight: 600,
-        backgroundColor: '#0D28BB',
-        color: '#fff',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        textDecoration: 'none',
-        userSelect: 'none',
-      }}
-    >
-      Попробовать бесплатно
-    </a>
-  </div>
-
-  {/* Правая колонка: заголовок + картинка */}
-  <div
-    style={{
-      flex: '1 1 0',
-      maxWidth: '600px',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      gap: '12px',
-    }}
-  >
-    <p style={{ fontSize: '70px', fontWeight: 400, margin: 0 }}>
-      Начните обучение уже сегодня
-    </p>
-    <img
-      src="/images/cta-image.png"
-      alt="CTA"
-      style={{
-        width: '478px',
-        height: '330px',
-        border: '20px solid #324195',
-        borderRadius: '25px',
-      }}
-    />
-  </div>
-</div>
+  Попробовать бесплатно
+</a>
 
 
           {isModalOpen && selected && (
