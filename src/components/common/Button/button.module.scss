@@ -58,8 +58,8 @@
   }
 }
 .secondary {
-  color: #FFFFFF;
-  background: #357EEB;
+  color: #357EEB;
+  background: #FFFFFF;
   padding: 13px;
   @include font(600, 18px);
   font-family: 'Inter', sans-serif;
@@ -74,7 +74,8 @@
     color: #fff;
     background: #ba75ff;
   }
-}
+ }
+
 .disabled {
   color: #808080;
   background-color: #cfe2ff;
