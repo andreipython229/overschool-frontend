@@ -120,6 +120,7 @@ export default defineConfig(({ mode }) => {
       modules: {
         localsConvention: 'camelCase',
       },
+
     },
     server: {
       port: 3000,
@@ -178,6 +179,43 @@ export default defineConfig(({ mode }) => {
               'react-select',
               'uuid',
               'yup',
+            ],
+            mui: [
+              '@mui/material',
+              '@mui/icons-material',
+              '@mui/lab',
+              '@emotion/react',
+              '@emotion/styled',
+            ],
+            editor: [
+              'draft-js',
+              'draft-convert',
+              'draft-js-export-html',
+              'draftjs-to-html',
+              'html-to-draftjs',
+              'react-quill',
+              '@monaco-editor/react',
+            ],
+            charts: [
+              'chart.js',
+              'chartjs',
+              'chartjs-plugin-datalabels',
+              'react-chartjs-2',
+            ],
+            media: [
+              'howler',
+              'use-sound',
+            ],
+            utils: [
+              'luxon',
+              'crypto-js',
+              'formik',
+              'framer-motion',
+              'html-react-parser',
+              'immutable',
+              'react-hot-toast',
+              'swiper',
+              'xlsx',
             ]
           },
           chunkFileNames: 'assets/js/[name]-[hash].js',
