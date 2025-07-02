@@ -11,6 +11,18 @@ export default defineConfig({
     pluginReact(),
     pluginSass(),
   ],
+  source: {
+    entry: {
+      index: './src/index.tsx',
+    },
+    define: {
+      'import.meta.env.VITE_RUN_MODE': JSON.stringify(process.env.VITE_RUN_MODE || 'DEV'),
+      'import.meta.env.VITE_BASE_URL': JSON.stringify(process.env.VITE_BASE_URL || ''),
+      'import.meta.env.VITE_BASE_URL_HOST': JSON.stringify(process.env.VITE_BASE_URL_HOST || ''),
+      'import.meta.env.VITE_HOST': JSON.stringify(process.env.VITE_HOST || ''),
+      'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || ''),
+    },
+  },
   tools: {
     rspack: {
       module: {
@@ -31,11 +43,6 @@ export default defineConfig({
           },
         ],
       },
-    },
-  },
-  source: {
-    entry: {
-      index: './src/index.tsx',
     },
   },
   resolve: {
