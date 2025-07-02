@@ -1,0 +1,2035 @@
+ПОИСК НЕИСПОЛЬЗУЕМЫХ ИЗОБРАЖЕНИЙ
+==================================================
+
+Всего найдено изображений: 455
+Используемых изображений: 378
+Неиспользуемых изображений: 77
+
+НЕИСПОЛЬЗУЕМЫЕ ИЗОБРАЖЕНИЯ:
+------------------------------
+Logo180p.png (images\Logo180p.png)
+Logo48p.png (images\Logo48p.png)
+Logo64p.png (images\Logo64p.png)
+whiteStudent.png (images\whiteStudent.png)
+cactus.png (images\certificate\cactus.png)
+director-sign.png (images\certificate\director-sign.png)
+teacher-sign.png (images\certificate\teacher-sign.png)
+OpenChat.png (src\assets\img\chat\OpenChat.png)
+SelectChat.png (src\assets\img\chat\SelectChat.png)
+hw_checkhaw.png (src\assets\img\CheckHW\hw_checkhaw.png)
+HW_checkhw.png (src\assets\img\CheckHW\HW_checkhw.png)
+hw_checkpag.png (src\assets\img\CheckHW\hw_checkpag.png)
+HW_checkpage.png (src\assets\img\CheckHW\HW_checkpage.png)
+HW_mentor.png (src\assets\img\CheckHW\HW_mentor.png)
+2941039.jpg (src\assets\img\common\2941039.jpg)
+account-settings-hover.png (src\assets\img\common\account-settings-hover.png)
+account-settings.png (src\assets\img\common\account-settings.png)
+add-employee-hover.png (src\assets\img\common\add-employee-hover.png)
+anton.png (src\assets\img\common\anton.png)
+chat1.svg (src\assets\img\common\chat1.svg)
+close_hw_modal.svg (src\assets\img\common\close_hw_modal.svg)
+cv.png (src\assets\img\common\cv.png)
+domain-hover.png (src\assets\img\common\domain-hover.png)
+exit1.svg (src\assets\img\common\exit1.svg)
+good.png (src\assets\img\common\good.png)
+group-settings-hover.png (src\assets\img\common\group-settings-hover.png)
+guide-start-hover.png (src\assets\img\common\guide-start-hover.png)
+guide-start.png (src\assets\img\common\guide-start.png)
+iconModal.svg (src\assets\img\common\iconModal.svg)
+medal-star.svg (src\assets\img\common\medal-star.svg)
+platform-settings-hover.png (src\assets\img\common\platform-settings-hover.png)
+school-hover.png (src\assets\img\common\school-hover.png)
+school_1.png (src\assets\img\common\school_1.png)
+social_meniu.svg (src\assets\img\common\social_meniu.svg)
+status-up.svg (src\assets\img\common\status-up.svg)
+whyChooseLogo.png (src\assets\img\common\whyChooseLogo.png)
+whyChooseLogo1.png (src\assets\img\common\whyChooseLogo1.png)
+back_arr.svg (src\assets\img\createCourse\back_arr.svg)
+books55px.svg (src\assets\img\createCourse\books55px.svg)
+dontShow.svg (src\assets\img\createCourse\dontShow.svg)
+download_img_bg.png (src\assets\img\createCourse\download_img_bg.png)
+forward_arr.svg (src\assets\img\createCourse\forward_arr.svg)
+notPublic.svg (src\assets\img\createCourse\notPublic.svg)
+tag_icon.svg (src\assets\img\createCourse\tag_icon.svg)
+vebinar.svg (src\assets\img\createCourse\typeClasses\vebinar.svg)
+account_logout.png (src\assets\img\manageAccount\account_logout.png)
+account_page.png (src\assets\img\manageAccount\account_page.png)
+account_page_finish.png (src\assets\img\manageAccount\account_page_finish.png)
+main_page.png (src\assets\img\manageAccount\main_page.png)
+groups1.png (src\assets\img\manageSchool\groups1.png)
+groups2.png (src\assets\img\manageSchool\groups2.png)
+school_settings_button.png (src\assets\img\manageSchool\school_settings_button.png)
+school_settings_general.png (src\assets\img\manageSchool\school_settings_general.png)
+school_settings_header.png (src\assets\img\manageSchool\school_settings_header.png)
+school_settings_header_set.png (src\assets\img\manageSchool\school_settings_header_set.png)
+school_settings_payment.png (src\assets\img\manageSchool\school_settings_payment.png)
+school_settings_personal.png (src\assets\img\manageSchool\school_settings_personal.png)
+school_settings_personal_mentor..png (src\assets\img\manageSchool\school_settings_personal_mentor..png)
+school_settings_stamp.png (src\assets\img\manageSchool\school_settings_stamp.png)
+overai_button.png (src\assets\img\overAI\overai_button.png)
+overai_example_algorithm.png (src\assets\img\overAI\overai_example_algorithm.png)
+overai_example_automation.png (src\assets\img\overAI\overai_example_automation.png)
+overai_example_code.png (src\assets\img\overAI\overai_example_code.png)
+overai_example_learning.png (src\assets\img\overAI\overai_example_learning.png)
+accardion_arr.svg (src\assets\img\studentPage\accardion_arr.svg)
+arr-right-v1.svg (src\assets\img\studentPage\arr-right-v1.svg)
+arrow-down.svg (src\assets\img\studentPage\arrow-down.svg)
+avatarEllipse.png (src\assets\img\studentPage\avatarEllipse.png)
+payments-mastercard.svg (src\components\Modal\TariffDetailModal\assets\SVG\payments-mastercard.svg)
+payments-visa.svg (src\components\Modal\TariffDetailModal\assets\SVG\payments-visa.svg)
+five.png (src\Pages\Bonuses\components\PrizeBoxDeposit\assets\five.png)
+background-banner.jpg (src\Pages\CreateNewSchool\assets\background-banner.jpg)
+vectorBack.png (src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\images\vectorBack.png)
+vectorContent.png (src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\images\vectorContent.png)
+vectorForward.png (src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\images\vectorForward.png)
+course-hub-banner.png (src\Pages\Settings\NotificationBannerSettings\assets\course-hub-banner.png)
+Vector (3).png (src\Pages\TariffPlans\images\Vector (3).png)
+
+
+ИСПОЛЬЗУЕМЫЕ ИЗОБРАЖЕНИЯ:
+------------------------------
+logo.png (logo.png)
+  - manifest.json (найдено: logo.png)
+  - stats.html (найдено: logo.png)
+  - src\api\baseQueryReauth.ts (найдено: logo)
+  - ... и еще 60 ссылок
+
+maskable.png (maskable.png)
+  - manifest.json (найдено: maskable.png)
+
+apple-touch-icon.png.png (images\apple-touch-icon.png.png)
+  - index.html (найдено: apple-touch-icon)
+
+cloud.png (images\cloud.png)
+  - index.html (найдено: cloud)
+  - stats.html (найдено: cloud.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: cloud)
+  - ... и еще 6 ссылок
+
+cloudWhite.png (images\cloudWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: cloudWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: cloudWhite.png)
+
+Component 1.png (images\Component 1.png)
+  - src\components\UploadedFile\uploadedfile.module.scss (найдено: Component 1)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: Component 1.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: Component 1.png)
+
+Component 133.png (images\Component 133.png)
+  - src\components\UploadedFile\uploadedfile.module.scss (найдено: Component 133)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: Component 133.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: Component 133.png)
+
+Component 133White.png (images\Component 133White.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: Component 133White.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: Component 133White.png)
+
+Component 2.png (images\Component 2.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: Component 2.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: Component 2.png)
+
+cta-image.png (images\cta-image.png)
+  - stats.html (найдено: cta-image.png)
+  - src\Pages\HelpCenter\HelpAddEmployee\index.tsx (найдено: cta-image.png)
+  - src\Pages\HelpCenter\HelpChat\index.tsx (найдено: cta-image.png)
+  - ... и еще 11 ссылок
+
+hit.png (images\hit.png)
+  - stats.html (найдено: hit.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: hit)
+  - src\components\AddCodeEditor\index.tsx (найдено: hit)
+  - ... и еще 136 ссылок
+
+layer.png (images\layer.png)
+  - package.json (найдено: layer)
+  - stats.html (найдено: layer)
+  - vite.config.ts (найдено: layer)
+  - ... и еще 27 ссылок
+
+layerWhite.png (images\layerWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: layerWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: layerWhite.png)
+
+Logo128p.png (images\Logo128p.png)
+  - index.html (найдено: Logo128p.png)
+
+Logo192p.png (images\Logo192p.png)
+  - stats.html (найдено: Logo192p.png)
+  - src\assets\img\common\index.ts (найдено: Logo192p.png)
+
+middle.png (images\middle.png)
+  - package.json (найдено: middle)
+  - stats.html (найдено: middle.png)
+  - src\components\Chart\index.tsx (найдено: middle)
+  - ... и еще 22 ссылок
+
+prizePersonal.png (images\prizePersonal.png)
+  - stats.html (найдено: prizePersonal.png)
+  - src\Pages\Initial\MobileHeaderAdmin\MobileHeaderAdmin.tsx (найдено: prizePersonal.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: prizePersonal.png)
+  - ... и еще 2 ссылок
+
+prizeStart.png (images\prizeStart.png)
+  - stats.html (найдено: prizeStart.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: prizeStart.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: prizeStart.png)
+  - ... и еще 1 ссылок
+
+profile-2user.png (images\profile-2user.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: profile-2user.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: profile-2user.png)
+
+senior.png (images\senior.png)
+  - stats.html (найдено: senior.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.module.scss (найдено: senior)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: senior.png)
+  - ... и еще 3 ссылок
+
+Slice 3213.png (images\Slice 3213.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: Slice 3213.png)
+
+sms-notification.png (images\sms-notification.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: sms-notification)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: sms-notification.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: sms-notification.png)
+
+start.png (images\start.png)
+  - manifest.json (найдено: start)
+  - package.json (найдено: start)
+  - stats.html (найдено: start.png)
+  - ... и еще 187 ссылок
+
+student.png (images\student.png)
+  - stats.html (найдено: student.png)
+  - src\App.tsx (найдено: student)
+  - src\api\chatsService.tsx (найдено: student)
+  - ... и еще 155 ссылок
+
+studentWhite.png (images\studentWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: studentWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: studentWhite.png)
+
+V.png (images\V.png)
+  - .eslintrc.json (найдено: V)
+  - stats.html (найдено: V)
+  - vite.config.ts (найдено: V)
+  - ... и еще 180 ссылок
+
+X.png (images\X.png)
+  - index.html (найдено: X)
+  - stats.html (найдено: X)
+  - src\api\baseApi.ts (найдено: X)
+  - ... и еще 61 ссылок
+
+certificate-header.png (images\certificate\certificate-header.png)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Certificates\Certificate.tsx (найдено: certificate-header.png)
+
+certificate-stamp.png (images\certificate\certificate-stamp.png)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Certificates\Certificate.tsx (найдено: certificate-stamp.png)
+
+character.png (images\certificate\character.png)
+  - stats.html (найдено: character)
+  - src\components\MyEditor\MyEditor.tsx (найдено: character)
+  - src\components\MyEditor\Link\Link.tsx (найдено: character)
+  - ... и еще 2 ссылок
+
+coursehub-logo.png (images\certificate\coursehub-logo.png)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Certificates\Certificate.tsx (найдено: coursehub-logo.png)
+
+pencils.png (images\certificate\pencils.png)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Certificates\certificate.module.scss (найдено: pencils)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Certificates\Certificate.tsx (найдено: pencils.png)
+
+lesson.svg (src\assets\img\account\lesson.svg)
+  - stats.html (найдено: lesson)
+  - src\api\index.ts (найдено: lesson)
+  - src\api\lessonAccessService.ts (найдено: lesson)
+  - ... и еще 130 ссылок
+
+payment.svg (src\assets\img\account\payment.svg)
+  - stats.html (найдено: payment)
+  - src\api\paymentModules.ts (найдено: payment)
+  - src\api\prodamusService.ts (найдено: payment)
+  - ... и еще 18 ссылок
+
+setting.svg (src\assets\img\account\setting.svg)
+  - .eslintrc.json (найдено: setting)
+  - stats.html (найдено: setting.svg)
+  - src\api\schoolService.ts (найдено: setting)
+  - ... и еще 84 ссылок
+
+statistic.svg (src\assets\img\account\statistic.svg)
+  - stats.html (найдено: statistic)
+  - src\api\courseStat.ts (найдено: statistic)
+  - src\components\BannerStatistics\index.tsx (найдено: statistic)
+  - ... и еще 8 ссылок
+
+2869065.jpg (src\assets\img\common\2869065.jpg)
+  - stats.html (найдено: 2869065.jpg)
+  - src\assets\img\common\index.ts (найдено: 2869065.jpg)
+
+3-user.png (src\assets\img\common\3-user.png)
+  - stats.html (найдено: 3-user.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: 3-user.png)
+
+accaunt.png (src\assets\img\common\accaunt.png)
+  - stats.html (найдено: accaunt.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: accaunt.png)
+
+add-employee.png (src\assets\img\common\add-employee.png)
+  - src\enum\pathE.ts (найдено: add-employee)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: add-employee)
+
+Admin.png (src\assets\img\common\Admin.png)
+  - stats.html (найдено: Admin.png)
+  - src\api\chatsService.tsx (найдено: Admin)
+  - src\api\tgNotificationsServices.ts (найдено: Admin)
+  - ... и еще 64 ссылок
+
+Admin2.png (src\assets\img\common\Admin2.png)
+  - stats.html (найдено: Admin2.png)
+  - src\assets\img\common\index.ts (найдено: Admin2.png)
+
+analytics.png (src\assets\img\common\analytics.png)
+  - stats.html (найдено: analytics.png)
+  - src\assets\img\common\index.ts (найдено: analytics.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: analytics)
+  - ... и еще 3 ссылок
+
+analytics_new.png (src\assets\img\common\analytics_new.png)
+  - stats.html (найдено: analytics_new.png)
+  - src\assets\img\common\index.ts (найдено: analytics_new.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: analytics_new)
+  - ... и еще 1 ссылок
+
+android.png (src\assets\img\common\android.png)
+  - stats.html (найдено: android.png)
+  - src\assets\img\common\index.ts (найдено: android.png)
+  - src\components\common\Button\button.module.scss (найдено: android.png)
+  - ... и еще 2 ссылок
+
+annex.png (src\assets\img\common\annex.png)
+  - stats.html (найдено: annex.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: annex.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: annex.png)
+  - ... и еще 2 ссылок
+
+annex2.png (src\assets\img\common\annex2.png)
+  - src\Pages\Initial\newInitial.module.scss (найдено: annex2.png)
+
+Appstore.png (src\assets\img\common\Appstore.png)
+  - stats.html (найдено: Appstore.png)
+  - src\assets\img\common\index.ts (найдено: Appstore.png)
+
+arrow-up.svg (src\assets\img\common\arrow-up.svg)
+  - stats.html (найдено: arrow-up.svg)
+  - src\assets\img\common\index.ts (найдено: arrow-up.svg)
+
+arrow.png (src\assets\img\common\arrow.png)
+  - stats.html (найдено: arrow.png)
+  - src\assets\img\common\index.ts (найдено: arrow.png)
+  - src\components\AllStudentsBlock\all_students_block.module.scss (найдено: arrow)
+  - ... и еще 75 ссылок
+
+arrowDown.svg (src\assets\img\common\arrowDown.svg)
+  - stats.html (найдено: arrowDown.svg)
+  - src\assets\img\common\index.ts (найдено: arrowDown.svg)
+  - src\components\BannerStatistics\bannerstatistics.module.scss (найдено: arrowDown)
+  - ... и еще 14 ссылок
+
+arrowDownTableAZ.svg (src\assets\img\common\arrowDownTableAZ.svg)
+  - stats.html (найдено: arrowDownTableAZ.svg)
+  - src\assets\img\common\index.ts (найдено: arrowDownTableAZ.svg)
+
+arrowDownTableZA.svg (src\assets\img\common\arrowDownTableZA.svg)
+  - stats.html (найдено: arrowDownTableZA.svg)
+  - src\assets\img\common\index.ts (найдено: arrowDownTableZA.svg)
+
+arrowMobile.png (src\assets\img\common\arrowMobile.png)
+  - stats.html (найдено: arrowMobile.png)
+  - src\Pages\CourseCatalog\CoursePreview\Blocks\PurposeTrainingViewBlock.tsx (найдено: arrowMobile.png)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\CoursePage\Blocks\PurposeOfTrainingBlock.tsx (найдено: arrowMobile.png)
+
+avatar.svg (src\assets\img\common\avatar.svg)
+  - stats.html (найдено: avatar.svg)
+  - src\api\userProgressService.ts (найдено: avatar)
+  - src\assets\img\common\index.ts (найдено: avatar.svg)
+  - ... и еще 70 ссылок
+
+blackArrowDown.svg (src\assets\img\common\blackArrowDown.svg)
+  - stats.html (найдено: blackArrowDown.svg)
+  - src\assets\img\common\index.ts (найдено: blackArrowDown.svg)
+  - src\components\common\AuthSelect\authSelect.module.scss (найдено: blackArrowDown.svg)
+
+book.svg (src\assets\img\common\book.svg)
+  - stats.html (найдено: book)
+  - src\assets\img\common\index.ts (найдено: book)
+  - src\components\StudentsTable\StudentsExport\StudentCourseExport.tsx (найдено: book)
+  - ... и еще 3 ссылок
+
+callfooter.png (src\assets\img\common\callfooter.png)
+  - stats.html (найдено: callfooter.png)
+  - src\assets\img\common\index.ts (найдено: callfooter.png)
+  - src\components\Footer\index.tsx (найдено: callfooter)
+
+cam.png (src\assets\img\common\cam.png)
+  - stats.html (найдено: cam.png)
+  - vite.config.ts (найдено: cam)
+  - src\App.tsx (найдено: cam)
+  - ... и еще 7 ссылок
+
+chat.png (src\assets\img\common\chat.png)
+  - stats.html (найдено: chat.png)
+  - src\api\autowebinarsService.ts (найдено: chat)
+  - src\api\chatgptService.ts (найдено: chat)
+  - ... и еще 58 ссылок
+
+chatst.png (src\assets\img\common\chatst.png)
+  - stats.html (найдено: chatst.png)
+  - src\assets\img\common\index.ts (найдено: chatst.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: chatst)
+  - ... и еще 3 ссылок
+
+chat_course.png (src\assets\img\common\chat_course.png)
+  - stats.html (найдено: chat_course.png)
+  - src\assets\img\common\index.ts (найдено: chat_course.png)
+
+chat_group.png (src\assets\img\common\chat_group.png)
+  - stats.html (найдено: chat_group.png)
+  - src\assets\img\common\index.ts (найдено: chat_group.png)
+
+chat_new.png (src\assets\img\common\chat_new.png)
+  - stats.html (найдено: chat_new.png)
+  - src\assets\img\common\index.ts (найдено: chat_new.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: chat_new)
+  - ... и еще 1 ссылок
+
+checkHW.png (src\assets\img\common\checkHW.png)
+  - stats.html (найдено: checkHW.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: checkHW.png)
+
+close.svg (src\assets\img\common\close.svg)
+  - stats.html (найдено: close.svg)
+  - src\assets\Icons\svgIconPath.ts (найдено: close)
+  - src\assets\img\common\index.ts (найдено: close.svg)
+  - ... и еще 135 ссылок
+
+closeIcon.png (src\assets\img\common\closeIcon.png)
+  - stats.html (найдено: closeIcon.png)
+  - src\assets\img\common\index.ts (найдено: closeIcon.png)
+
+comp.png (src\assets\img\common\comp.png)
+  - stats.html (найдено: comp.png)
+  - tsconfig.json (найдено: comp)
+  - tsconfig.node.json (найдено: comp)
+  - ... и еще 346 ссылок
+
+comp_new.png (src\assets\img\common\comp_new.png)
+  - stats.html (найдено: comp_new.png)
+  - src\assets\img\common\index.ts (найдено: comp_new.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: comp_new)
+  - ... и еще 1 ссылок
+
+comp_new_desctop.png (src\assets\img\common\comp_new_desctop.png)
+  - stats.html (найдено: comp_new_desctop.png)
+  - src\assets\img\common\index.ts (найдено: comp_new_desctop.png)
+
+constructor_desc.png (src\assets\img\common\constructor_desc.png)
+  - stats.html (найдено: constructor_desc.png)
+  - src\assets\img\common\index.ts (найдено: constructor_desc.png)
+
+constructor_new.png (src\assets\img\common\constructor_new.png)
+  - stats.html (найдено: constructor_new.png)
+  - src\assets\img\common\index.ts (найдено: constructor_new.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: constructor_new)
+
+construktor.png (src\assets\img\common\construktor.png)
+  - stats.html (найдено: construktor.png)
+  - src\assets\img\common\index.ts (найдено: construktor.png)
+
+courseLogo.svg (src\assets\img\common\courseLogo.svg)
+  - stats.html (найдено: courseLogo.svg)
+  - src\assets\img\common\index.ts (найдено: courseLogo.svg)
+
+cta-image.png (src\assets\img\common\cta-image.png)
+  - stats.html (найдено: cta-image.png)
+  - src\Pages\HelpCenter\HelpAddEmployee\index.tsx (найдено: cta-image.png)
+  - src\Pages\HelpCenter\HelpChat\index.tsx (найдено: cta-image.png)
+  - ... и еще 11 ссылок
+
+dateInf.png (src\assets\img\common\dateInf.png)
+  - stats.html (найдено: dateInf.png)
+  - src\assets\img\common\index.ts (найдено: dateInf.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: dateInf)
+  - ... и еще 3 ссылок
+
+default-icon.png (src\assets\img\common\default-icon.png)
+  - stats.html (найдено: default-icon.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: default-icon.png)
+
+deleteIcon.svg (src\assets\img\common\deleteIcon.svg)
+  - stats.html (найдено: deleteIcon.svg)
+  - src\assets\img\common\index.ts (найдено: deleteIcon.svg)
+  - src\components\ChatGPT\mobileChatGPT\index.tsx (найдено: deleteIcon)
+  - ... и еще 8 ссылок
+
+domain.png (src\assets\img\common\domain.png)
+  - stats.html (найдено: domain)
+  - src\api\baseApi.ts (найдено: domain)
+  - src\api\DomainService.ts (найдено: domain)
+  - ... и еще 10 ссылок
+
+domen.png (src\assets\img\common\domen.png)
+  - stats.html (найдено: domen.png)
+  - src\enum\pathE.ts (найдено: domen)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: domen.png)
+
+done.svg (src\assets\img\common\done.svg)
+  - index.html (найдено: done)
+  - stats.html (найдено: done.svg)
+  - src\assets\img\common\index.ts (найдено: done.svg)
+  - ... и еще 12 ссылок
+
+done_icon.svg (src\assets\img\common\done_icon.svg)
+  - stats.html (найдено: done_icon.svg)
+  - src\assets\img\common\index.ts (найдено: done_icon.svg)
+  - src\components\common\Checkbox\checkbox.module.scss (найдено: done_icon.svg)
+  - ... и еще 1 ссылок
+
+exit.svg (src\assets\img\common\exit.svg)
+  - stats.html (найдено: exit.svg)
+  - src\assets\img\common\index.ts (найдено: exit.svg)
+  - src\components\common\Modal\Modal.tsx (найдено: exit)
+  - ... и еще 25 ссылок
+
+Facebook.png (src\assets\img\common\Facebook.png)
+  - stats.html (найдено: Facebook.png)
+  - src\assets\img\common\index.ts (найдено: Facebook.png)
+
+faq.png (src\assets\img\common\faq.png)
+  - src\Pages\HelpCenter\HelpPage.module.scss (найдено: faq)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: faq)
+
+feedback.svg (src\assets\img\common\feedback.svg)
+  - stats.html (найдено: feedback.svg)
+  - src\api\feedbacksService.ts (найдено: feedback)
+  - src\api\index.ts (найдено: feedback)
+  - ... и еще 13 ссылок
+
+footerlogo.png (src\assets\img\common\footerlogo.png)
+  - stats.html (найдено: footerlogo.png)
+  - src\assets\img\common\index.ts (найдено: footerlogo.png)
+  - src\components\Footer\index.tsx (найдено: footerlogo)
+  - ... и еще 1 ссылок
+
+full_logotype.svg (src\assets\img\common\full_logotype.svg)
+  - stats.html (найдено: full_logotype.svg)
+  - src\assets\img\common\index.ts (найдено: full_logotype.svg)
+
+gb.png (src\assets\img\common\gb.png)
+  - stats.html (найдено: gb.png)
+  - src\components\AddAudio\addaudio.module.scss (найдено: gb)
+  - src\components\AddPost\addPost.module.scss (найдено: gb)
+  - ... и еще 180 ссылок
+
+gb2.png (src\assets\img\common\gb2.png)
+  - src\Pages\Initial\newInitial.module.scss (найдено: gb2.png)
+
+Google.png (src\assets\img\common\Google.png)
+  - stats.html (найдено: Google)
+  - src\assets\img\common\index.ts (найдено: Google)
+  - src\incomprehensiblePages\Аvailable\Аvailable.tsx (найдено: Google)
+  - ... и еще 2 ссылок
+
+Google.svg (src\assets\img\common\Google.svg)
+  - stats.html (найдено: Google.svg)
+  - src\assets\img\common\index.ts (найдено: Google.svg)
+  - src\incomprehensiblePages\Аvailable\Аvailable.tsx (найдено: Google)
+  - ... и еще 2 ссылок
+
+group-settings.png (src\assets\img\common\group-settings.png)
+  - stats.html (найдено: groupsettings.png)
+  - src\enum\pathE.ts (найдено: group-settings)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: group-settings)
+
+groupsettings.png (src\assets\img\common\groupsettings.png)
+  - stats.html (найдено: groupsettings.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: groupsettings.png)
+
+hat.png (src\assets\img\common\hat.png)
+  - stats.html (найдено: hat.png)
+  - src\App.tsx (найдено: hat)
+  - src\api\autowebinarsService.ts (найдено: hat)
+  - ... и еще 71 ссылок
+
+header.svg (src\assets\img\common\header.svg)
+  - stats.html (найдено: header)
+  - src\api\baseApi.ts (найдено: header)
+  - src\api\chatgptService.ts (найдено: header)
+  - ... и еще 169 ссылок
+
+help-header.png (src\assets\img\common\help-header.png)
+  - stats.html (найдено: help-header)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: help-header)
+
+help-header1.png (src\assets\img\common\help-header1.png)
+  - stats.html (найдено: help-header1.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: help-header1.png)
+
+helpicon.png (src\assets\img\common\helpicon.png)
+  - stats.html (найдено: helpicon.png)
+  - src\assets\img\common\index.ts (найдено: helpicon.png)
+
+infoPic.png (src\assets\img\common\infoPic.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: infoPic)
+  - src\Pages\Initial\newInitial.module.scss (найдено: infoPic)
+
+infoPic_new.png (src\assets\img\common\infoPic_new.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: infoPic_new.png)
+  - src\Pages\Initial\newInitial.module.scss (найдено: infoPic_new.png)
+
+Instagram.svg (src\assets\img\common\Instagram.svg)
+  - stats.html (найдено: Instagram)
+  - src\assets\Icons\svgIconPath.ts (найдено: Instagram)
+  - src\assets\Icons\svgIcons.ts (найдено: Instagram)
+  - ... и еще 9 ссылок
+
+isecurity.svg (src\assets\img\common\isecurity.svg)
+  - stats.html (найдено: isecurity.svg)
+  - src\assets\img\common\index.ts (найдено: isecurity.svg)
+
+left-arrow.png (src\assets\img\common\left-arrow.png)
+  - stats.html (найдено: left-arrow.png)
+  - src\assets\img\common\index.ts (найдено: left-arrow.png)
+
+line.png (src\assets\img\common\line.png)
+  - .sassrc.js (найдено: line)
+  - index.html (найдено: line)
+  - stats.html (найдено: line.png)
+  - ... и еще 272 ссылок
+
+locationfooter.png (src\assets\img\common\locationfooter.png)
+  - stats.html (найдено: locationfooter.png)
+  - src\assets\img\common\index.ts (найдено: locationfooter.png)
+  - src\components\Footer\index.tsx (найдено: locationfooter)
+  - ... и еще 1 ссылок
+
+Logo192p.png (src\assets\img\common\Logo192p.png)
+  - stats.html (найдено: Logo192p.png)
+  - src\assets\img\common\index.ts (найдено: Logo192p.png)
+
+logoHeader.png (src\assets\img\common\logoHeader.png)
+  - stats.html (найдено: logoHeader.png)
+  - src\assets\img\common\index.ts (найдено: logoHeader.png)
+  - src\components\Header\Header.tsx (найдено: logoHeader)
+  - ... и еще 7 ссылок
+
+logoHeaderLogin.png (src\assets\img\common\logoHeaderLogin.png)
+  - stats.html (найдено: logoHeaderLogin.png)
+  - src\assets\img\common\index.ts (найдено: logoHeaderLogin.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage(old).tsx (найдено: logoHeaderLogin)
+  - ... и еще 1 ссылок
+
+logotype.svg (src\assets\img\common\logotype.svg)
+  - stats.html (найдено: logotype.svg)
+  - src\assets\img\common\index.ts (найдено: logotype.svg)
+  - src\components\Header\Header.tsx (найдено: logotype)
+  - ... и еще 3 ссылок
+
+logout.svg (src\assets\img\common\logout.svg)
+  - stats.html (найдено: logout.svg)
+  - src\api\baseQueryReauth.ts (найдено: logout)
+  - src\api\userLoginService.ts (найдено: logout)
+  - ... и еще 13 ссылок
+
+loop.svg (src\assets\img\common\loop.svg)
+  - stats.html (найдено: loop)
+  - src\components\slider\sliderMobile.tsx (найдено: loop)
+
+Mail.png (src\assets\img\common\Mail.png)
+  - stats.html (найдено: Mail.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: Mail)
+  - src\assets\Icons\svgIcons.ts (найдено: Mail)
+  - ... и еще 7 ссылок
+
+mail.svg (src\assets\img\common\mail.svg)
+  - stats.html (найдено: mail.svg)
+  - src\App.tsx (найдено: mail)
+  - src\api\apiTypes.ts (найдено: mail)
+  - ... и еще 95 ссылок
+
+mailfooter.png (src\assets\img\common\mailfooter.png)
+  - stats.html (найдено: mailfooter.png)
+  - src\assets\img\common\index.ts (найдено: mailfooter.png)
+  - src\components\Footer\index.tsx (найдено: mailfooter)
+  - ... и еще 1 ссылок
+
+map-pin.png (src\assets\img\common\map-pin.png)
+  - stats.html (найдено: map-pin.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: map-pin.png)
+
+mentor.png (src\assets\img\common\mentor.png)
+  - stats.html (найдено: mentor)
+
+menuIcon.png (src\assets\img\common\menuIcon.png)
+  - stats.html (найдено: menuIcon.png)
+  - src\assets\img\common\index.ts (найдено: menuIcon.png)
+
+message.svg (src\assets\img\common\message.svg)
+  - .sassrc.js (найдено: message)
+  - stats.html (найдено: message.svg)
+  - src\api\apiTypes.ts (найдено: message)
+  - ... и еще 63 ссылок
+
+mobile.png (src\assets\img\common\mobile.png)
+  - stats.html (найдено: mobile.png)
+  - src\assets\img\common\index.ts (найдено: mobile.png)
+  - src\components\Autowebinars\WebinarCard\card.module.scss (найдено: mobile)
+  - ... и еще 34 ссылок
+
+navbar_menu.svg (src\assets\img\common\navbar_menu.svg)
+  - stats.html (найдено: navbar_menu.svg)
+  - src\assets\img\common\index.ts (найдено: navbar_menu.svg)
+  - src\components\Navbar\navbar.module.scss (найдено: navbar_menu)
+  - ... и еще 2 ссылок
+
+newIconModal.svg (src\assets\img\common\newIconModal.svg)
+  - stats.html (найдено: newIconModal.svg)
+  - src\components\ChatGPT\index.tsx (найдено: newIconModal.svg)
+  - src\components\ChatGPT\mobileChatGPT\index.tsx (найдено: newIconModal.svg)
+  - ... и еще 1 ссылок
+
+noAvatar.svg (src\assets\img\common\noAvatar.svg)
+  - stats.html (найдено: noAvatar.svg)
+  - src\assets\img\common\index.ts (найдено: noAvatar.svg)
+  - src\components\Previous\GlobalPrevious\index.tsx (найдено: noAvatar)
+  - ... и еще 2 ссылок
+
+Notification.svg (src\assets\img\common\Notification.svg)
+  - stats.html (найдено: Notification)
+  - src\api\index.ts (найдено: Notification)
+  - src\api\prodamusService.ts (найдено: Notification)
+  - ... и еще 24 ссылок
+
+ok.png (src\assets\img\common\ok.png)
+  - .eslintrc.json (найдено: ok)
+  - package.json (найдено: ok)
+  - stats.html (найдено: ok.png)
+  - ... и еще 257 ссылок
+
+OverAi.png (src\assets\img\common\OverAi.png)
+  - stats.html (найдено: OverAi.png)
+  - src\components\ChatGPT\index.tsx (найдено: OverAi)
+  - src\components\ChatGPT\mobileChatGPT\index.tsx (найдено: OverAi)
+  - ... и еще 4 ссылок
+
+Personal.png (src\assets\img\common\Personal.png)
+  - stats.html (найдено: Personal.png)
+  - src\App.tsx (найдено: Personal)
+  - src\AppMobile.tsx (найдено: Personal)
+  - ... и еще 21 ссылок
+
+phone.svg (src\assets\img\common\phone.svg)
+  - package.json (найдено: phone)
+  - stats.html (найдено: phone.svg)
+  - src\api\apiTypes.ts (найдено: phone)
+  - ... и еще 39 ссылок
+
+platform-settings.png (src\assets\img\common\platform-settings.png)
+  - src\enum\pathE.ts (найдено: platform-settings)
+
+plus.png (src\assets\img\common\plus.png)
+  - .eslintrc.json (найдено: plus)
+  - stats.html (найдено: plus.png)
+  - src\assets\img\common\index.ts (найдено: plus.png)
+  - ... и еще 6 ссылок
+
+present_image.png (src\assets\img\common\present_image.png)
+  - stats.html (найдено: present_image.png)
+  - src\Pages\Settings\NotificationBannerSettings\BannerPreview.tsx (найдено: present_image.png)
+
+prizeNoAvatar.svg (src\assets\img\common\prizeNoAvatar.svg)
+  - stats.html (найдено: prizeNoAvatar.svg)
+  - src\assets\img\common\index.ts (найдено: prizeNoAvatar.svg)
+  - src\Pages\Settings\superAdmin.module.scss (найдено: prizeNoAvatar.svg)
+
+prizePersonal.png (src\assets\img\common\prizePersonal.png)
+  - stats.html (найдено: prizePersonal.png)
+  - src\Pages\Initial\MobileHeaderAdmin\MobileHeaderAdmin.tsx (найдено: prizePersonal.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: prizePersonal.png)
+  - ... и еще 2 ссылок
+
+profile.svg (src\assets\img\common\profile.svg)
+  - stats.html (найдено: profile)
+  - src\api\index.ts (найдено: profile)
+  - src\api\profileService.ts (найдено: profile)
+  - ... и еще 30 ссылок
+
+profile_select_arr.svg (src\assets\img\common\profile_select_arr.svg)
+  - src\Pages\Profile\profile.module.scss (найдено: profile_select_arr.svg)
+
+questions-mobile.png (src\assets\img\common\questions-mobile.png)
+  - src\components\Questions\OptionsWithPictures\optionsWithPictures.module.scss (найдено: questions-mobile.png)
+  - src\components\Questions\PicturesAndOptions\picturesAndOptions.module.scss (найдено: questions-mobile.png)
+  - src\components\Questions\TextOptions\previewtextOptions.module.scss (найдено: questions-mobile.png)
+  - ... и еще 2 ссылок
+
+questions.png (src\assets\img\common\questions.png)
+  - stats.html (найдено: questions)
+  - src\api\index.ts (найдено: questions)
+  - src\api\questionsAndAnswersService.ts (найдено: questions)
+  - ... и еще 33 ссылок
+
+record.png (src\assets\img\common\record.png)
+  - stats.html (найдено: record.png)
+  - src\assets\img\common\index.ts (найдено: record.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: record)
+  - ... и еще 3 ссылок
+
+record_new.png (src\assets\img\common\record_new.png)
+  - stats.html (найдено: record_new.png)
+  - src\assets\img\common\index.ts (найдено: record_new.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: record_new)
+  - ... и еще 1 ссылок
+
+record_new_desk.png (src\assets\img\common\record_new_desk.png)
+  - stats.html (найдено: record_new_desk.png)
+  - src\assets\img\common\index.ts (найдено: record_new_desk.png)
+  - src\Pages\Initial\newInitial.tsx (найдено: record_new_desk)
+
+removebg.png (src\assets\img\common\removebg.png)
+  - stats.html (найдено: removebg.png)
+  - src\assets\img\common\index.ts (найдено: removebg.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: removebg)
+  - ... и еще 3 ссылок
+
+result.png (src\assets\img\common\result.png)
+  - stats.html (найдено: result.png)
+  - src\api\apiTypes.ts (найдено: result)
+  - src\api\baseQueryReauth.ts (найдено: result)
+  - ... и еще 58 ссылок
+
+rocket.png (src\assets\img\common\rocket.png)
+  - stats.html (найдено: rocket.png)
+  - src\assets\img\common\index.ts (найдено: rocket.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: rocket)
+  - ... и еще 2 ссылок
+
+rocket2.png (src\assets\img\common\rocket2.png)
+  - src\Pages\Initial\newInitial.module.scss (найдено: rocket2.png)
+
+rocketfree.png (src\assets\img\common\rocketfree.png)
+  - stats.html (найдено: rocketfree.png)
+  - src\assets\img\common\index.ts (найдено: rocketfree.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: rocketfree)
+  - ... и еще 1 ссылок
+
+rocket_new.png (src\assets\img\common\rocket_new.png)
+  - stats.html (найдено: rocket_new.png)
+  - src\assets\img\common\index.ts (найдено: rocket_new.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: rocket_new)
+
+school.png (src\assets\img\common\school.png)
+  - package.json (найдено: school)
+  - stats.html (найдено: school)
+  - src\App.tsx (найдено: school)
+  - ... и еще 224 ссылок
+
+security.svg (src\assets\img\common\security.svg)
+  - stats.html (найдено: security.svg)
+  - src\assets\img\common\index.ts (найдено: security.svg)
+  - src\components\Modal\LoginModal\LoginModal.tsx (найдено: security)
+  - ... и еще 6 ссылок
+
+setting 2.svg (src\assets\img\common\setting 2.svg)
+  - stats.html (найдено: setting 2.svg)
+  - src\assets\img\common\index.ts (найдено: setting 2.svg)
+
+settingsPlatform.png (src\assets\img\common\settingsPlatform.png)
+  - stats.html (найдено: settingsPlatform.png)
+  - src\Pages\HelpCenter\HelpPage\index.tsx (найдено: settingsPlatform.png)
+
+Social.svg (src\assets\img\common\Social.svg)
+  - stats.html (найдено: Social)
+  - src\App.tsx (найдено: Social)
+  - src\AppMobile.tsx (найдено: Social)
+  - ... и еще 11 ссылок
+
+Student.png (src\assets\img\common\Student.png)
+  - stats.html (найдено: Student.png)
+  - src\App.tsx (найдено: Student)
+  - src\AppMobile.tsx (найдено: Student)
+  - ... и еще 157 ссылок
+
+student.svg (src\assets\img\common\student.svg)
+  - stats.html (найдено: student.svg)
+  - src\App.tsx (найдено: student)
+  - src\api\chatsService.tsx (найдено: student)
+  - ... и еще 155 ссылок
+
+Student2.png (src\assets\img\common\Student2.png)
+  - stats.html (найдено: Student2.png)
+  - src\assets\img\common\index.ts (найдено: Student2.png)
+
+student_nobile_cabinet.png (src\assets\img\common\student_nobile_cabinet.png)
+  - stats.html (найдено: student_nobile_cabinet.png)
+  - src\assets\img\common\index.ts (найдено: student_nobile_cabinet.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: student_nobile_cabinet)
+  - ... и еще 1 ссылок
+
+switch.svg (src\assets\img\common\switch.svg)
+  - stats.html (найдено: switch)
+  - src\components\AllStudentsBlock\index.tsx (найдено: switch)
+  - src\components\BannerStatistics\index.tsx (найдено: switch)
+  - ... и еще 26 ссылок
+
+tariff.png (src\assets\img\common\tariff.png)
+  - stats.html (найдено: tariff)
+  - src\api\index.ts (найдено: tariff)
+  - src\api\tariffPlanService.ts (найдено: tariff)
+  - ... и еще 30 ссылок
+
+Teacher.png (src\assets\img\common\Teacher.png)
+  - stats.html (найдено: Teacher.png)
+  - src\AppMobile.tsx (найдено: Teacher)
+  - src\api\apiTypes.ts (найдено: Teacher)
+  - ... и еще 51 ссылок
+
+teacher.svg (src\assets\img\common\teacher.svg)
+  - stats.html (найдено: teacher.svg)
+  - src\App.tsx (найдено: teacher)
+  - src\api\chatsService.tsx (найдено: teacher)
+  - ... и еще 41 ссылок
+
+Teacher2.png (src\assets\img\common\Teacher2.png)
+  - stats.html (найдено: Teacher2.png)
+  - src\assets\img\common\index.ts (найдено: Teacher2.png)
+
+Telegram.svg (src\assets\img\common\Telegram.svg)
+  - stats.html (найдено: Telegram)
+  - src\assets\Icons\svgIconPath.ts (найдено: Telegram)
+  - src\assets\Icons\svgIcons.ts (найдено: Telegram)
+  - ... и еще 16 ссылок
+
+timer.svg (src\assets\img\common\timer.svg)
+  - src\components\BannerStatistics\index.tsx (найдено: timer)
+  - src\components\ChatGPT\index.tsx (найдено: timer)
+  - src\components\ChatGPT\mobileChatGPT\index.tsx (найдено: timer)
+  - ... и еще 17 ссылок
+
+unlimited.png (src\assets\img\common\unlimited.png)
+  - stats.html (найдено: unlimited)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: unlimited.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: unlimited)
+  - ... и еще 2 ссылок
+
+unlimited2.png (src\assets\img\common\unlimited2.png)
+  - stats.html (найдено: unlimited2.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: unlimited2.png)
+  - src\Pages\Initial\newInitial.module.scss (найдено: unlimited2.png)
+  - ... и еще 1 ссылок
+
+unSecurity.svg (src\assets\img\common\unSecurity.svg)
+  - stats.html (найдено: unSecurity.svg)
+  - src\assets\img\common\index.ts (найдено: unSecurity.svg)
+  - src\components\Modal\LoginModal\LoginModal.tsx (найдено: unSecurity)
+  - ... и еще 6 ссылок
+
+user_avatar_appeal.svg (src\assets\img\common\user_avatar_appeal.svg)
+  - stats.html (найдено: user_avatar_appeal.svg)
+  - src\components\AppealsStatsTable\AppealsStatsTableRow\index.tsx (найдено: user_avatar_appeal.svg)
+
+VK.svg (src\assets\img\common\VK.svg)
+  - stats.html (найдено: VK)
+  - src\assets\Icons\svgIconPath.ts (найдено: VK)
+  - src\assets\Icons\svgIcons.ts (найдено: VK)
+  - ... и еще 7 ссылок
+
+X.svg (src\assets\img\common\X.svg)
+  - index.html (найдено: X)
+  - stats.html (найдено: X)
+  - src\api\baseApi.ts (найдено: X)
+  - ... и еще 56 ссылок
+
+yandex.svg (src\assets\img\common\yandex.svg)
+  - stats.html (найдено: yandex.svg)
+  - src\assets\img\common\index.ts (найдено: yandex.svg)
+  - src\Pages\CreateNewSchool\CreateNewSchool.tsx (найдено: yandex)
+  - ... и еще 1 ссылок
+
+youtube.svg (src\assets\img\common\youtube.svg)
+  - package.json (найдено: youtube)
+  - stats.html (найдено: youtube)
+  - src\assets\Icons\svgIconPath.ts (найдено: youtube)
+  - ... и еще 22 ссылок
+
+frontend.jpg (src\assets\img\course\frontend.jpg)
+  - src\Pages\Initial\config\coursesImgsData.ts (найдено: frontend.jpg)
+
+java.jpg (src\assets\img\course\java.jpg)
+  - stats.html (найдено: java)
+  - src\components\blocks\codeBlock\index.tsx (найдено: java)
+  - src\constants\other.ts (найдено: java)
+  - ... и еще 1 ссылок
+
+python.jpg (src\assets\img\course\python.jpg)
+  - stats.html (найдено: python)
+  - src\constants\other.ts (найдено: python)
+  - src\Pages\Initial\config\coursesImgsData.ts (найдено: python.jpg)
+
+qa.jpg (src\assets\img\course\qa.jpg)
+  - stats.html (найдено: qa)
+  - src\Pages\Initial\config\coursesImgsData.ts (найдено: qa.jpg)
+
+setting.svg (src\assets\img\course\setting.svg)
+  - .eslintrc.json (найдено: setting)
+  - stats.html (найдено: setting.svg)
+  - src\api\schoolService.ts (найдено: setting)
+  - ... и еще 84 ссылок
+
+ui.jpg (src\assets\img\course\ui.jpg)
+  - .eslintrc.json (найдено: ui)
+  - .sassrc.js (найдено: ui)
+  - package.json (найдено: ui)
+  - ... и еще 145 ссылок
+
+course.png (src\assets\img\CourseCardsTS\course.png)
+  - manifest.json (найдено: course)
+  - stats.html (найдено: course.png)
+  - vite.config.ts (найдено: course)
+  - ... и еще 211 ссылок
+
+home-tasks-admin.svg (src\assets\img\CourseCardsTS\home-tasks-admin.svg)
+  - stats.html (найдено: home-tasks-admin.svg)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: home-tasks-admin.svg)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: home-tasks-admin.svg)
+
+home-tasks-dark.svg (src\assets\img\CourseCardsTS\home-tasks-dark.svg)
+  - stats.html (найдено: home-tasks-dark.svg)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: home-tasks-dark.svg)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: home-tasks-dark.svg)
+
+home-tasks.png (src\assets\img\CourseCardsTS\home-tasks.png)
+  - stats.html (найдено: home-tasks)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: home-tasks)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: home-tasks)
+
+home-tasks.svg (src\assets\img\CourseCardsTS\home-tasks.svg)
+  - stats.html (найдено: home-tasks.svg)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: home-tasks.svg)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: home-tasks)
+
+tests-admin.svg (src\assets\img\CourseCardsTS\tests-admin.svg)
+  - stats.html (найдено: tests-admin.svg)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: tests-admin.svg)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: tests-admin.svg)
+
+tests-dark.svg (src\assets\img\CourseCardsTS\tests-dark.svg)
+  - stats.html (найдено: tests-dark.svg)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: tests-dark.svg)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: tests-dark.svg)
+
+tests.png (src\assets\img\CourseCardsTS\tests.png)
+  - stats.html (найдено: tests)
+  - src\api\modulesServices.ts (найдено: tests)
+  - src\api\questionsAndAnswersService.ts (найдено: tests)
+  - ... и еще 11 ссылок
+
+tests.svg (src\assets\img\CourseCardsTS\tests.svg)
+  - stats.html (найдено: tests.svg)
+  - src\api\modulesServices.ts (найдено: tests)
+  - src\api\questionsAndAnswersService.ts (найдено: tests)
+  - ... и еще 11 ссылок
+
+video-admin.svg (src\assets\img\CourseCardsTS\video-admin.svg)
+  - stats.html (найдено: video-admin.svg)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: video-admin.svg)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: video-admin.svg)
+
+video-dark.svg (src\assets\img\CourseCardsTS\video-dark.svg)
+  - stats.html (найдено: video-dark.svg)
+  - src\Pages\School\Navigations\CoursesCreating\CoursesCard.tsx (найдено: video-dark.svg)
+  - src\Pages\School\Navigations\CoursesCreating\SettingCourse\CardImageUpload.tsx (найдено: video-dark.svg)
+
+video.png (src\assets\img\CourseCardsTS\video.png)
+  - stats.html (найдено: video)
+  - vite.config.ts (найдено: video)
+  - src\api\index.ts (найдено: video)
+  - ... и еще 34 ссылок
+
+video.svg (src\assets\img\CourseCardsTS\video.svg)
+  - stats.html (найдено: video.svg)
+  - vite.config.ts (найдено: video)
+  - src\api\index.ts (найдено: video)
+  - ... и еще 34 ссылок
+
+addCourse.svg (src\assets\img\createCourse\addCourse.svg)
+  - src\components\Modal\CoursesModal\AddCourseModal.tsx (найдено: addCourse)
+  - src\components\Modal\StudentLogs\SettingsGroupModal\Main.tsx (найдено: addCourse)
+  - src\Pages\School\Navigations\CoursesCreating\coursePage.module.scss (найдено: addCourse.svg)
+
+audio.svg (src\assets\img\createCourse\audio.svg)
+  - stats.html (найдено: audio.svg)
+  - src\api\filesService.ts (найдено: audio)
+  - src\components\AddAudio\index.tsx (найдено: audio)
+  - ... и еще 22 ссылок
+
+button.svg (src\assets\img\createCourse\button.svg)
+  - stats.html (найдено: button.svg)
+  - src\api\blocksService.ts (найдено: button)
+  - src\components\AddAudio\addaudio.module.scss (найдено: button)
+  - ... и еще 225 ссылок
+
+code.svg (src\assets\img\createCourse\code.svg)
+  - stats.html (найдено: code.svg)
+  - src\index.css (найдено: code)
+  - src\api\coursesServices.ts (найдено: code)
+  - ... и еще 33 ссылок
+
+contents.svg (src\assets\img\createCourse\contents.svg)
+  - src\components\MyEditor\config\svgIconsPath.ts (найдено: contents)
+  - src\components\StudentsTable\Student\index.tsx (найдено: contents)
+  - src\constants\iconSvgConstants.ts (найдено: contents)
+  - ... и еще 2 ссылок
+
+course-background.jpeg (src\assets\img\createCourse\course-background.jpeg)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Constructor\constructor.module.scss (найдено: course-background.jpeg)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\CoursePage\Blocks\styles\headerBlock.module.scss (найдено: course-background.jpeg)
+
+embed.svg (src\assets\img\createCourse\embed.svg)
+  - stats.html (найдено: embed.svg)
+  - src\components\AddPost\index.tsx (найдено: embed.svg)
+  - src\utils\youtubeParser.ts (найдено: embed)
+
+file.svg (src\assets\img\createCourse\file.svg)
+  - stats.html (найдено: file.svg)
+  - scripts\fix-scss-mixed-declarations.ts (найдено: file)
+  - scripts\fix-scss-use-order.ts (найдено: file)
+  - ... и еще 101 ссылок
+
+formula.svg (src\assets\img\createCourse\formula.svg)
+  - stats.html (найдено: formula.svg)
+  - src\components\AddPost\index.tsx (найдено: formula.svg)
+  - src\components\CustomizedMenu\index.tsx (найдено: formula)
+  - ... и еще 5 ссылок
+
+link.svg (src\assets\img\createCourse\link.svg)
+  - index.html (найдено: link)
+  - stats.html (найдено: link)
+  - src\index.css (найдено: link)
+  - ... и еще 83 ссылок
+
+picture.svg (src\assets\img\createCourse\picture.svg)
+  - stats.html (найдено: picture.svg)
+  - src\api\questionsAndAnswersService.ts (найдено: picture)
+  - src\components\AddPicture\index.tsx (найдено: picture.svg)
+  - ... и еще 18 ссылок
+
+public.svg (src\assets\img\createCourse\public.svg)
+  - stats.html (найдено: public)
+  - src\App.tsx (найдено: public)
+  - src\AppMobile.tsx (найдено: public)
+  - ... и еще 29 ссылок
+
+quote.svg (src\assets\img\createCourse\quote.svg)
+  - stats.html (найдено: quote.svg)
+  - src\components\AddPost\index.tsx (найдено: quote.svg)
+  - src\components\MyEditor\MyEditor.tsx (найдено: quote)
+  - ... и еще 3 ссылок
+
+search.svg (src\assets\img\createCourse\search.svg)
+  - stats.html (найдено: search)
+  - src\App.tsx (найдено: search)
+  - src\api\modulesServices.ts (найдено: search)
+  - ... и еще 41 ссылок
+
+setting.svg (src\assets\img\createCourse\setting.svg)
+  - .eslintrc.json (найдено: setting)
+  - stats.html (найдено: setting.svg)
+  - src\api\schoolService.ts (найдено: setting)
+  - ... и еще 84 ссылок
+
+star.svg (src\assets\img\createCourse\star.svg)
+  - manifest.json (найдено: star)
+  - package.json (найдено: star)
+  - stats.html (найдено: star)
+  - ... и еще 192 ссылок
+
+table.svg (src\assets\img\createCourse\table.svg)
+  - package.json (найдено: table)
+  - stats.html (найдено: table.svg)
+  - vite.config.ts (найдено: table)
+  - ... и еще 75 ссылок
+
+text.svg (src\assets\img\createCourse\text.svg)
+  - package.json (найдено: text)
+  - stats.html (найдено: text.svg)
+  - src\App.module.scss (найдено: text)
+  - ... и еще 487 ссылок
+
+video.svg (src\assets\img\createCourse\video.svg)
+  - stats.html (найдено: video.svg)
+  - vite.config.ts (найдено: video)
+  - src\api\index.ts (найдено: video)
+  - ... и еще 34 ссылок
+
+book.svg (src\assets\img\createCourse\typeClasses\book.svg)
+  - stats.html (найдено: book)
+  - src\assets\img\common\index.ts (найдено: book)
+  - src\components\StudentsTable\StudentsExport\StudentCourseExport.tsx (найдено: book)
+  - ... и еще 3 ссылок
+
+classes.svg (src\assets\img\createCourse\typeClasses\classes.svg)
+  - stats.html (найдено: classes)
+  - src\components\AddPost\addPost.module.scss (найдено: classes)
+  - src\components\AddVideo\config\svgIconsPath.ts (найдено: classes)
+  - ... и еще 25 ссылок
+
+list.svg (src\assets\img\createCourse\typeClasses\list.svg)
+  - package.json (найдено: list)
+  - stats.html (найдено: list)
+  - src\assets\Icons\svgIconPath.ts (найдено: list)
+  - ... и еще 59 ссылок
+
+addStudents.png (src\assets\img\createProject\addStudents.png)
+  - stats.html (найдено: addStudents.png)
+  - src\components\Modal\StudentLogs\AddStudentModal\AddStudentCourseModal.tsx (найдено: addStudents)
+  - src\Pages\HelpCenter\HelpCoursesPage\index.tsx (найдено: addStudents.png)
+
+createLesson.png (src\assets\img\createProject\createLesson.png)
+  - stats.html (найдено: createLesson.png)
+  - src\api\modulesServices.ts (найдено: createLesson)
+  - src\customHooks\useCreateLesson.tsx (найдено: createLesson)
+  - ... и еще 1 ссылок
+
+firstStep.png (src\assets\img\createProject\firstStep.png)
+  - stats.html (найдено: firstStep.png)
+  - src\Pages\Certificate\coursePreview.module.scss (найдено: firstStep)
+  - src\Pages\CourseCatalog\CoursePreview\index.tsx (найдено: firstStep.png)
+  - ... и еще 10 ссылок
+
+frame.png (src\assets\img\createProject\frame.png)
+  - package.json (найдено: frame)
+  - stats.html (найдено: frame)
+  - vite.config.ts (найдено: frame)
+  - ... и еще 100 ссылок
+
+register.png (src\assets\img\createProject\register.png)
+  - index.html (найдено: register)
+  - stats.html (найдено: register.png)
+  - src\api\schoolCreationService.tsx (найдено: register)
+  - ... и еще 6 ссылок
+
+register2.png (src\assets\img\createProject\register2.png)
+  - stats.html (найдено: register2.png)
+  - src\Pages\HelpCenter\HelpSchoolPage\index.tsx (найдено: register2.png)
+
+secondStep.png (src\assets\img\createProject\secondStep.png)
+  - stats.html (найдено: secondStep.png)
+  - src\Pages\Certificate\coursePreview.module.scss (найдено: secondStep)
+  - src\Pages\CourseCatalog\CoursePreview\index.tsx (найдено: secondStep.png)
+  - ... и еще 10 ссылок
+
+students1.png (src\assets\img\createProject\students1.png)
+  - stats.html (найдено: students1.png)
+  - src\Pages\HelpCenter\HelpStudentsPage\index.tsx (найдено: students1.png)
+
+students2.png (src\assets\img\createProject\students2.png)
+  - stats.html (найдено: students2.png)
+  - src\Pages\HelpCenter\HelpStudentsPage\index.tsx (найдено: students2.png)
+
+students3.png (src\assets\img\createProject\students3.png)
+  - stats.html (найдено: students3.png)
+  - src\Pages\HelpCenter\HelpStudentsPage\index.tsx (найдено: students3.png)
+
+students4.png (src\assets\img\createProject\students4.png)
+  - stats.html (найдено: students4.png)
+  - src\Pages\HelpCenter\HelpStudentsPage\index.tsx (найдено: students4.png)
+
+students5.png (src\assets\img\createProject\students5.png)
+  - stats.html (найдено: students5.png)
+  - src\Pages\HelpCenter\HelpStudentsPage\index.tsx (найдено: students5.png)
+
+students6.png (src\assets\img\createProject\students6.png)
+  - stats.html (найдено: students6.png)
+  - src\Pages\HelpCenter\HelpStudentsPage\index.tsx (найдено: students6.png)
+
+access_groups_settings.png (src\assets\img\help\access_groups_settings.png)
+  - stats.html (найдено: access_groups_settings.png)
+  - src\Pages\HelpCenter\HelpGroupSettings\index.tsx (найдено: access_groups_settings.png)
+
+go_to_groups_settings.png (src\assets\img\help\go_to_groups_settings.png)
+  - stats.html (найдено: go_to_groups_settings.png)
+  - src\Pages\HelpCenter\HelpGroupSettings\index.tsx (найдено: go_to_groups_settings.png)
+
+groups_settings.png (src\assets\img\help\groups_settings.png)
+  - stats.html (найдено: groups_settings.png)
+  - src\Pages\HelpCenter\HelpGroupSettings\index.tsx (найдено: groups_settings.png)
+
+login.png (src\assets\img\help\login.png)
+  - stats.html (найдено: login.png)
+  - src\api\userLoginService.ts (найдено: login)
+  - src\components\Header\Header.tsx (найдено: login)
+  - ... и еще 18 ссылок
+
+login_btn.png (src\assets\img\help\login_btn.png)
+  - stats.html (найдено: login_btn.png)
+  - src\Pages\HelpCenter\HelpCheckHW\index.tsx (найдено: login_btn.png)
+  - src\Pages\HelpCenter\HelpDomainLink\index.tsx (найдено: login_btn.png)
+
+overai_opportunity.png (src\assets\img\help\overai_opportunity.png)
+  - stats.html (найдено: overai_opportunity.png)
+  - src\Pages\HelpCenter\HelpOverAI\index.tsx (найдено: overai_opportunity.png)
+
+overai_window.png (src\assets\img\help\overai_window.png)
+  - stats.html (найдено: overai_window.png)
+  - src\Pages\HelpCenter\HelpOverAI\index.tsx (найдено: overai_window.png)
+
+Изображение для 'помощь_ (1).png (src\assets\img\help\Изображение для 'помощь_ (1).png)
+  - stats.html (найдено: Изображение для 'помощь_ (1).png)
+  - src\Pages\HelpCenter\HelpSchoolSettings\index.tsx (найдено: Изображение для 'помощь_ (1).png)
+
+Изображение для 'помощь_ (10).png (src\assets\img\help\Изображение для 'помощь_ (10).png)
+  - stats.html (найдено: Изображение для 'помощь_ (10).png)
+  - src\Pages\HelpCenter\HelpUserAccount\index.tsx (найдено: Изображение для 'помощь_ (10).png)
+
+Изображение для 'помощь_ (11).png (src\assets\img\help\Изображение для 'помощь_ (11).png)
+  - stats.html (найдено: Изображение для 'помощь_ (11).png)
+  - src\Pages\HelpCenter\HelpChat\index.tsx (найдено: Изображение для 'помощь_ (11).png)
+
+Изображение для 'помощь_ (2).png (src\assets\img\help\Изображение для 'помощь_ (2).png)
+  - stats.html (найдено: Изображение для 'помощь_ (2).png)
+  - src\Pages\HelpCenter\HelpSchoolSettings\index.tsx (найдено: Изображение для 'помощь_ (2).png)
+
+Изображение для 'помощь_ (3).png (src\assets\img\help\Изображение для 'помощь_ (3).png)
+  - stats.html (найдено: Изображение для 'помощь_ (3).png)
+  - src\Pages\HelpCenter\HelpAddEmployee\index.tsx (найдено: Изображение для 'помощь_ (3).png)
+
+Изображение для 'помощь_ (4).png (src\assets\img\help\Изображение для 'помощь_ (4).png)
+  - stats.html (найдено: Изображение для 'помощь_ (4).png)
+  - src\Pages\HelpCenter\HelpAddEmployee\index.tsx (найдено: Изображение для 'помощь_ (4).png)
+
+Изображение для 'помощь_ (5).png (src\assets\img\help\Изображение для 'помощь_ (5).png)
+  - stats.html (найдено: Изображение для 'помощь_ (5).png)
+  - src\Pages\HelpCenter\HelpAddEmployee\index.tsx (найдено: Изображение для 'помощь_ (5).png)
+
+Изображение для 'помощь_ (6).png (src\assets\img\help\Изображение для 'помощь_ (6).png)
+  - stats.html (найдено: Изображение для 'помощь_ (6).png)
+  - src\Pages\HelpCenter\HelpAddEmployee\index.tsx (найдено: Изображение для 'помощь_ (6).png)
+
+Изображение для 'помощь_ (7).png (src\assets\img\help\Изображение для 'помощь_ (7).png)
+  - stats.html (найдено: Изображение для 'помощь_ (7).png)
+  - src\Pages\HelpCenter\HelpPlatformSettings\index.tsx (найдено: Изображение для 'помощь_ (7).png)
+
+Изображение для 'помощь_ (8).png (src\assets\img\help\Изображение для 'помощь_ (8).png)
+  - stats.html (найдено: Изображение для 'помощь_ (8).png)
+  - src\Pages\HelpCenter\HelpPlatformSettings\index.tsx (найдено: Изображение для 'помощь_ (8).png)
+
+Изображение для 'помощь_ (9).png (src\assets\img\help\Изображение для 'помощь_ (9).png)
+  - stats.html (найдено: Изображение для 'помощь_ (9).png)
+  - src\Pages\HelpCenter\HelpUserAccount\index.tsx (найдено: Изображение для 'помощь_ (9).png)
+
+Изображение для 'помощь_.png (src\assets\img\help\Изображение для 'помощь_.png)
+  - stats.html (найдено: Изображение для 'помощь_.png)
+  - src\Pages\HelpCenter\HelpAddEmployee\index.tsx (найдено: Изображение для 'помощь_)
+  - src\Pages\HelpCenter\HelpChat\index.tsx (найдено: Изображение для 'помощь_)
+  - ... и еще 3 ссылок
+
+createProject.jpg (src\assets\img\mainPage\createProject.jpg)
+  - stats.html (найдено: createProject)
+  - src\incomprehensiblePages\CreateProject\CreateProject.tsx (найдено: createProject.jpg)
+  - src\Pages\Certificate\coursePreview.module.scss (найдено: createProject)
+  - ... и еще 14 ссылок
+
+first.jpg (src\assets\img\mainPage\first.jpg)
+  - stats.html (найдено: first)
+  - src\components\Agreement\Agreement.module.scss (найдено: first)
+  - src\components\ChatGPT\index.tsx (найдено: first)
+  - ... и еще 81 ссылок
+
+getstart.jpg (src\assets\img\mainPage\getstart.jpg)
+  - src\incomprehensiblePages\GetStart\GetStart.tsx (найдено: getstart.jpg)
+
+overIcon.jpg (src\assets\img\mainPage\overIcon.jpg)
+  - src\components\ChatGPT\mobileChatGPT\mobilechatgpt.module.scss (найдено: overIcon.jpg)
+  - src\Pages\School\config\svgIconsPath.ts (найдено: overIcon)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Constructor\ModulesAndLessonsBlock\LessonsBlock\index.tsx (найдено: overIcon)
+  - ... и еще 4 ссылок
+
+second.jpg (src\assets\img\mainPage\second.jpg)
+  - stats.html (найдено: second)
+  - src\api\tgNotificationsServices.ts (найдено: second)
+  - src\components\AddVideo\index.tsx (найдено: second)
+  - ... и еще 41 ссылок
+
+stack.svg (src\assets\img\mainPage\stack.svg)
+  - stats.html (найдено: stack)
+  - src\incomprehensiblePages\Quality\Quality.tsx (найдено: stack.svg)
+
+third.jpg (src\assets\img\mainPage\third.jpg)
+  - src\components\Modal\TariffDetailModal\TariffDetailModal.tsx (найдено: third)
+  - src\components\StudentProgressBlock\index.tsx (найдено: third)
+  - src\incomprehensiblePages\Create\Create.tsx (найдено: third.jpg)
+  - ... и еще 3 ссылок
+
+groups.png (src\assets\img\manageSchool\groups.png)
+  - stats.html (найдено: groups)
+  - src\api\apiTypes.ts (найдено: groups)
+  - src\api\coursesServices.ts (найдено: groups)
+  - ... и еще 45 ссылок
+
+cardAvatar.png (src\assets\img\meetings\cardAvatar.png)
+  - stats.html (найдено: cardAvatar.png)
+  - src\components\Autowebinars\WebinarCard\card.module.scss (найдено: cardAvatar.png)
+  - src\components\Meetings\card\card.module.scss (найдено: cardAvatar.png)
+  - ... и еще 1 ссылок
+
+cardBg.png (src\assets\img\meetings\cardBg.png)
+  - stats.html (найдено: cardBg.png)
+  - src\components\Autowebinars\WebinarCard\card.module.scss (найдено: cardBg.png)
+  - src\components\Meetings\card\card.module.scss (найдено: cardBg.png)
+  - ... и еще 1 ссылок
+
+warning.svg (src\assets\img\notifications\warning.svg)
+  - stats.html (найдено: warning)
+  - src\components\ChatGPT\chatgpt.module.scss (найдено: warning)
+  - src\components\ChatGPT\index.tsx (найдено: warning)
+  - ... и еще 12 ссылок
+
+overai_chat.png (src\assets\img\overAI\overai_chat.png)
+  - src\api\chatgptService.ts (найдено: overai_chat)
+  - src\components\ChatGPT\index.tsx (найдено: overai_chat)
+  - src\components\ChatGPT\mobileChatGPT\index.tsx (найдено: overai_chat)
+
+arr-left.svg (src\assets\img\studentPage\arr-left.svg)
+  - src\MobilePages\StudentLessonPreview\lesson.module.scss (найдено: arr-left.svg)
+
+arr-right.svg (src\assets\img\studentPage\arr-right.svg)
+  - src\MobilePages\StudentLessonPreview\lesson.module.scss (найдено: arr-right.svg)
+
+folder-todo.png (src\assets\img\studentPage\folder-todo.png)
+  - src\Pages\Courses\CoursesPage\CourseCard\StudentView\index.tsx (найдено: folder-todo.png)
+
+logo.png (src\assets\img\studentPage\logo.png)
+  - manifest.json (найдено: logo.png)
+  - stats.html (найдено: logo.png)
+  - src\api\baseQueryReauth.ts (найдено: logo)
+  - ... и еще 60 ссылок
+
+search-icon.svg (src\assets\img\studentPage\search-icon.svg)
+  - src\Pages\School\StudentsStats\studentsStats.module.css (найдено: search-icon.svg)
+  - src\Pages\School\StudentsStats\studentsStats.module.scss (найдено: search-icon.svg)
+
+amocmr.png (src\assets\img\systemLogo\amocmr.png)
+  - stats.html (найдено: amocmr.png)
+  - src\assets\img\common\index.ts (найдено: amocmr.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: amocmr)
+  - ... и еще 3 ссылок
+
+bitriks.png (src\assets\img\systemLogo\bitriks.png)
+  - stats.html (найдено: bitriks.png)
+  - src\assets\img\common\index.ts (найдено: bitriks.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: bitriks)
+  - ... и еще 3 ссылок
+
+googleanalytics.png (src\assets\img\systemLogo\googleanalytics.png)
+  - stats.html (найдено: googleanalytics.png)
+  - src\assets\img\common\index.ts (найдено: googleanalytics.png)
+  - src\MobilePages\MobileInitPage\MobileInitPage.tsx (найдено: googleanalytics)
+  - ... и еще 1 ссылок
+
+kassa.png (src\assets\img\systemLogo\kassa.png)
+  - stats.html (найдено: kassa.png)
+  - src\assets\img\common\index.ts (найдено: kassa.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: kassa)
+  - ... и еще 3 ссылок
+
+metrika.png (src\assets\img\systemLogo\metrika.png)
+  - stats.html (найдено: metrika.png)
+  - src\assets\img\common\index.ts (найдено: metrika.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: metrika)
+  - ... и еще 3 ссылок
+
+tbank.png (src\assets\img\systemLogo\tbank.png)
+  - stats.html (найдено: tbank.png)
+  - src\assets\img\common\index.ts (найдено: tbank.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: tbank)
+  - ... и еще 3 ссылок
+
+tilda.png (src\assets\img\systemLogo\tilda.png)
+  - stats.html (найдено: tilda.png)
+  - src\assets\img\common\index.ts (найдено: tilda.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: tilda)
+  - ... и еще 3 ссылок
+
+vk.png (src\assets\img\systemLogo\vk.png)
+  - stats.html (найдено: vk.png)
+  - src\api\prodamusService.ts (найдено: vk)
+  - src\assets\Icons\svgIconPath.ts (найдено: vk)
+  - ... и еще 12 ссылок
+
+wordpress.png (src\assets\img\systemLogo\wordpress.png)
+  - stats.html (найдено: wordpress.png)
+  - src\assets\img\common\index.ts (найдено: wordpress.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: wordpress)
+  - ... и еще 3 ссылок
+
+youtube.png (src\assets\img\systemLogo\youtube.png)
+  - package.json (найдено: youtube)
+  - stats.html (найдено: youtube.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: youtube)
+  - ... и еще 22 ссылок
+
+zapier.png (src\assets\img\systemLogo\zapier.png)
+  - stats.html (найдено: zapier.png)
+  - src\assets\img\common\index.ts (найдено: zapier.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: zapier)
+  - ... и еще 3 ссылок
+
+zoom.png (src\assets\img\systemLogo\zoom.png)
+  - stats.html (найдено: zoom.png)
+  - src\assets\img\common\index.ts (найдено: zoom.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: zoom)
+  - ... и еще 4 ссылок
+
+cloud.png (src\assets\img\technicalWorks\cloud.png)
+  - index.html (найдено: cloud)
+  - stats.html (найдено: cloud.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: cloud)
+  - ... и еще 6 ссылок
+
+obstacle.png (src\assets\img\technicalWorks\obstacle.png)
+  - src\Pages\TechnicalWorks\Game\Game.module.scss (найдено: obstacle.png)
+  - src\Pages\TechnicalWorks\Game\Game.tsx (найдено: obstacle)
+
+person-relax.png (src\assets\img\technicalWorks\person-relax.png)
+  - stats.html (найдено: person-relax.png)
+  - src\Pages\TechnicalWorks\TechnicalWorks.tsx (найдено: person-relax.png)
+
+player-jump.png (src\assets\img\technicalWorks\player-jump.png)
+  - src\Pages\TechnicalWorks\Game\Game.module.scss (найдено: player-jump.png)
+
+player-run.png (src\assets\img\technicalWorks\player-run.png)
+  - src\Pages\TechnicalWorks\Game\Game.module.scss (найдено: player-run.png)
+
+bg1.jpg (src\assets\mobileImg\bg1.jpg)
+  - src\Pages\ChooseSchool\chooseSchool.module.scss (найдено: bg1)
+  - src\Pages\ChooseSchool\ChooseSchool.tsx (найдено: bg1)
+
+bgmobileprevios.svg (src\assets\mobileImg\bgmobileprevios.svg)
+  - src\MobilePages\MobileCoursesPage\mobileCoursesPage.module.scss (найдено: bgmobileprevios.svg)
+
+check.svg (src\assets\mobileImg\check.svg)
+  - stats.html (найдено: check)
+  - src\api\userHomeworkService.ts (найдено: check)
+  - src\components\AllStudentsBlock\index.tsx (найдено: check)
+  - ... и еще 95 ссылок
+
+progress.svg (src\assets\mobileImg\progress.svg)
+  - package.json (найдено: progress)
+  - stats.html (найдено: progress)
+  - src\api\userProgressService.ts (найдено: progress)
+  - ... и еще 35 ссылок
+
+test.svg (src\assets\mobileImg\test.svg)
+  - package.json (найдено: test)
+  - stats.html (найдено: test)
+  - scripts\fix-scss-mixed-declarations.ts (найдено: test)
+  - ... и еще 69 ссылок
+
+input.png (src\components\common\Input\Input\images\input.png)
+  - package.json (найдено: input)
+  - stats.html (найдено: input)
+  - src\components\AddAudio\addaudio.module.scss (найдено: input)
+  - ... и еще 162 ссылок
+
+image.png (src\components\Header\config\image.png)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+image.png (src\components\LessonComments\image.png)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+image.png (src\components\Loaders\SimpleLoader\assets\image.png)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+image1.png (src\components\Loaders\SimpleLoader\assets\image1.png)
+  - stats.html (найдено: image1.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image1)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image1.png)
+
+image2.png (src\components\Loaders\SimpleLoader\assets\image2.png)
+  - stats.html (найдено: image2.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image2)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image2.png)
+
+image3.png (src\components\Loaders\SimpleLoader\assets\image3.png)
+  - stats.html (найдено: image3.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image3)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image3.png)
+
+image4.png (src\components\Loaders\SimpleLoader\assets\image4.png)
+  - stats.html (найдено: image4.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image4)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image4.png)
+
+image5.png (src\components\Loaders\SimpleLoader\assets\image5.png)
+  - stats.html (найдено: image5.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image5)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image5.png)
+
+image6.png (src\components\Loaders\SimpleLoader\assets\image6.png)
+  - stats.html (найдено: image6.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image6)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image6.png)
+
+image7.png (src\components\Loaders\SimpleLoader\assets\image7.png)
+  - stats.html (найдено: image7.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image7)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image7.png)
+
+image8.png (src\components\Loaders\SimpleLoader\assets\image8.png)
+  - stats.html (найдено: image8.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image8)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image8.png)
+
+image9.png (src\components\Loaders\SimpleLoader\assets\image9.png)
+  - stats.html (найдено: image9.png)
+  - src\components\Loaders\SimpleLoader\index.tsx (найдено: image9)
+  - src\components\Loaders\SimpleLoader\assets\index.ts (найдено: image9.png)
+
+close-blue.png (src\components\Modal\AddMeetingModal\images\close-blue.png)
+  - src\components\Modal\AddMeetingModal\addMeeting.module.scss (найдено: close-blue.png)
+
+e77ebcdf563407e2f547281160fe3223.png (src\components\Modal\Chat\assets\e77ebcdf563407e2f547281160fe3223.png)
+  - src\components\Modal\Chat\chat.module.scss (найдено: e77ebcdf563407e2f547281160fe3223.png)
+
+image.svg (src\components\Modal\ModalSuccessHomeworkSended\assets\image.svg)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+image.png (src\components\Modal\StudentModalCheckHomeWork\config\image.png)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+image.png (src\components\StudentGroupMiniCard\assets\image.png)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+1st_place.png (src\components\StudentProgressBlock\assets\1st_place.png)
+  - stats.html (найдено: 1st_place.png)
+  - src\components\StudentProgressBlock\index.tsx (найдено: 1st_place.png)
+
+2nd_place.png (src\components\StudentProgressBlock\assets\2nd_place.png)
+  - stats.html (найдено: 2nd_place.png)
+  - src\components\StudentProgressBlock\index.tsx (найдено: 2nd_place.png)
+
+3rd_place.png (src\components\StudentProgressBlock\assets\3rd_place.png)
+  - stats.html (найдено: 3rd_place.png)
+  - src\components\StudentProgressBlock\index.tsx (найдено: 3rd_place.png)
+
+bg_top.png (src\components\StudentProgressBlock\assets\bg_top.png)
+  - src\components\StudentProgressBlock\studentProgress.module.scss (найдено: bg_top.png)
+
+defaultPerson.png (src\components\StudentProgressBlock\assets\defaultPerson.png)
+  - stats.html (найдено: defaultPerson.png)
+  - src\components\StudentProgressBlock\index.tsx (найдено: defaultPerson.png)
+  - src\Pages\Bonuses\components\PrizeWinner\index.tsx (найдено: defaultPerson.png)
+
+add-circle-black.png (src\components\StudentsMeetings\images\add-circle-black.png)
+  - src\components\StudentsMeetings\studentMeeting.module.scss (найдено: add-circle-black.png)
+
+add-circle.png (src\components\StudentsMeetings\images\add-circle.png)
+  - src\components\StudentsMeetings\studentMeeting.module.scss (найдено: add-circle.png)
+
+left-white.png (src\components\StudentsMeetings\images\left-white.png)
+  - src\components\Meetings\meetings.module.scss (найдено: left-white.png)
+  - src\components\StudentsMeetings\studentMeeting.module.scss (найдено: left-white.png)
+
+left.png (src\components\StudentsMeetings\images\left.png)
+  - stats.html (найдено: left)
+  - src\App.module.scss (найдено: left)
+  - src\assets\img\common\index.ts (найдено: left)
+  - ... и еще 234 ссылок
+
+settings.png (src\components\StudentsMeetings\images\settings.png)
+  - .eslintrc.json (найдено: settings)
+  - stats.html (найдено: settings.png)
+  - src\api\schoolService.ts (найдено: settings)
+  - ... и еще 75 ссылок
+
+previewImage.png (src\components\VideoPlayer\assets\previewImage.png)
+  - stats.html (найдено: previewImage.png)
+  - src\components\StudentAccardion\ExerciseItem\ExerciseImageItem.tsx (найдено: previewImage.png)
+  - src\components\VideoPlayer\player.tsx (найдено: previewImage.png)
+
+42e4f94c0f1f41739229dd27db2cd920.jpeg (src\Pages\Bonuses\assets\42e4f94c0f1f41739229dd27db2cd920.jpeg)
+  - src\Pages\Bonuses\bonuses.module.scss (найдено: 42e4f94c0f1f41739229dd27db2cd920.jpeg)
+
+6ee131fef24842205c3a8e509bce5611.jpeg (src\Pages\Bonuses\assets\6ee131fef24842205c3a8e509bce5611.jpeg)
+  - src\Pages\Bonuses\bonuses.module.scss (найдено: 6ee131fef24842205c3a8e509bce5611.jpeg)
+
+box.png (src\Pages\Bonuses\assets\box.png)
+  - stats.html (найдено: box.png)
+  - vite.config.ts (найдено: box)
+  - src\index.css (найдено: box)
+  - ... и еще 220 ссылок
+
+image.png (src\Pages\Bonuses\assets\image.png)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+noPrize.png (src\Pages\Bonuses\assets\noPrize.png)
+  - stats.html (найдено: noPrize.png)
+  - src\Pages\Bonuses\index.tsx (найдено: noPrize.png)
+
+tip1.png (src\Pages\Bonuses\assets\tip1.png)
+  - stats.html (найдено: tip1.png)
+  - src\Pages\Bonuses\index.tsx (найдено: tip1.png)
+
+10.png (src\Pages\Bonuses\assets\iconsPng\10.png)
+  - package.json (найдено: 10)
+  - stats.html (найдено: 10)
+  - src\App.module.scss (найдено: 10)
+  - ... и еще 499 ссылок
+
+15.png (src\Pages\Bonuses\assets\iconsPng\15.png)
+  - package.json (найдено: 15)
+  - stats.html (найдено: 15)
+  - src\assets\Icons\svgIcons.ts (найдено: 15)
+  - ... и еще 303 ссылок
+
+20.png (src\Pages\Bonuses\assets\iconsPng\20.png)
+  - .eslintrc.json (найдено: 20)
+  - package.json (найдено: 20)
+  - stats.html (найдено: 20)
+  - ... и еще 393 ссылок
+
+25.png (src\Pages\Bonuses\assets\iconsPng\25.png)
+  - package.json (найдено: 25)
+  - stats.html (найдено: 25)
+  - src\App.module.scss (найдено: 25)
+  - ... и еще 284 ссылок
+
+30.png (src\Pages\Bonuses\assets\iconsPng\30.png)
+  - stats.html (найдено: 30)
+  - vite.config.ts (найдено: 30)
+  - src\index.css (найдено: 30)
+  - ... и еще 271 ссылок
+
+35.png (src\Pages\Bonuses\assets\iconsPng\35.png)
+  - index.html (найдено: 35)
+  - manifest.json (найдено: 35)
+  - stats.html (найдено: 35)
+  - ... и еще 246 ссылок
+
+40.png (src\Pages\Bonuses\assets\iconsPng\40.png)
+  - stats.html (найдено: 40)
+  - src\index.css (найдено: 40)
+  - src\index.tsx (найдено: 40)
+  - ... и еще 268 ссылок
+
+45.png (src\Pages\Bonuses\assets\iconsPng\45.png)
+  - stats.html (найдено: 45)
+  - vite.config.ts (найдено: 45)
+  - src\assets\Icons\svgIcons.ts (найдено: 45)
+  - ... и еще 128 ссылок
+
+5.png (src\Pages\Bonuses\assets\iconsPng\5.png)
+  - index.html (найдено: 5)
+  - manifest.json (найдено: 5)
+  - package.json (найдено: 5)
+  - ... и еще 590 ссылок
+
+75.png (src\Pages\Bonuses\assets\iconsPng\75.png)
+  - stats.html (найдено: 75)
+  - src\App.module.scss (найдено: 75)
+  - src\api\paymentModules.ts (найдено: 75)
+  - ... и еще 258 ссылок
+
+boxes.png (src\Pages\Bonuses\assets\iconsPng\boxes.png)
+  - stats.html (найдено: boxes.png)
+  - src\api\schoolBonusService.ts (найдено: boxes)
+  - src\Pages\Bonuses\index.tsx (найдено: boxes.png)
+  - ... и еще 1 ссылок
+
+course.png (src\Pages\Bonuses\assets\iconsPng\course.png)
+  - manifest.json (найдено: course)
+  - stats.html (найдено: course.png)
+  - vite.config.ts (найдено: course)
+  - ... и еще 211 ссылок
+
+courses.png (src\Pages\Bonuses\assets\iconsPng\courses.png)
+  - stats.html (найдено: courses)
+  - src\api\coursesServices.ts (найдено: courses)
+  - src\api\courseStat.ts (найдено: courses)
+  - ... и еще 84 ссылок
+
+english.png (src\Pages\Bonuses\assets\iconsPng\english.png)
+  - stats.html (найдено: english)
+
+cloud.png (src\Pages\Bonuses\components\PrizeBoxDeposit\assets\cloud.png)
+  - index.html (найдено: cloud)
+  - stats.html (найдено: cloud.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: cloud)
+  - ... и еще 6 ссылок
+
+single.png (src\Pages\Bonuses\components\PrizeBoxDeposit\assets\single.png)
+  - stats.html (найдено: single.png)
+  - src\MobilePages\MobileInitPage\mobileInitPage.module.scss (найдено: single)
+  - src\Pages\Bonuses\components\PrizeBoxDeposit\index.tsx (найдено: single.png)
+  - ... и еще 1 ссылок
+
+ten.png (src\Pages\Bonuses\components\PrizeBoxDeposit\assets\ten.png)
+  - .eslintrc.json (найдено: ten)
+  - .sassrc.js (найдено: ten)
+  - index.html (найдено: ten)
+  - ... и еще 383 ссылок
+
+border.svg (src\Pages\Certificate\img\border.svg)
+  - stats.html (найдено: border)
+  - src\App.module.scss (найдено: border)
+  - src\index.css (найдено: border)
+  - ... и еще 292 ссылок
+
+complete.png (src\Pages\Certificate\img\complete.png)
+  - stats.html (найдено: complete.png)
+  - scripts\fix-scss-mixed-declarations.ts (найдено: complete)
+  - scripts\fix-scss-use-order.ts (найдено: complete)
+  - ... и еще 41 ссылок
+
+courseName.svg (src\Pages\Certificate\img\courseName.svg)
+  - src\api\coursesServices.ts (найдено: courseName)
+  - src\components\FiltersButton\SearchFilterGroup\SearchFilterGroup.tsx (найдено: courseName)
+  - src\components\Header\header.module.scss (найдено: courseName)
+  - ... и еще 14 ссылок
+
+courseNameSkills.svg (src\Pages\Certificate\img\courseNameSkills.svg)
+  - src\Pages\Certificate\Certificate.module.scss (найдено: courseNameSkills.svg)
+
+logo.png (src\Pages\Certificate\img\logo.png)
+  - manifest.json (найдено: logo.png)
+  - stats.html (найдено: logo.png)
+  - src\api\baseQueryReauth.ts (найдено: logo)
+  - ... и еще 60 ссылок
+
+logo.svg (src\Pages\Certificate\img\logo.svg)
+  - manifest.json (найдено: logo)
+  - stats.html (найдено: logo)
+  - src\api\baseQueryReauth.ts (найдено: logo)
+  - ... и еще 60 ссылок
+
+logoHorizontal.svg (src\Pages\Certificate\img\logoHorizontal.svg)
+  - src\Pages\Certificate\Certificate.tsx (найдено: logoHorizontal.svg)
+
+QR.png (src\Pages\Certificate\img\QR.png)
+  - stats.html (найдено: QR.png)
+  - src\Pages\Certificate\Certificate.module.scss (найдено: QR)
+  - src\Pages\Certificate\Certificate.tsx (найдено: QR.png)
+
+signature.png (src\Pages\Certificate\img\signature.png)
+  - stats.html (найдено: signature.png)
+  - src\api\prodamusService.ts (найдено: signature)
+  - src\components\Modal\LinkGenerating\LinkGenerating.tsx (найдено: signature)
+  - ... и еще 8 ссылок
+
+stamp.png (src\Pages\Certificate\img\stamp.png)
+  - stats.html (найдено: stamp)
+  - src\components\BannerStatistics\index.tsx (найдено: stamp)
+  - src\Pages\Certificate\Certificate.module.scss (найдено: stamp)
+  - ... и еще 8 ссылок
+
+admin.png (src\Pages\ChooseSchool\components\imgs\admin.png)
+  - stats.html (найдено: admin.png)
+  - src\App.tsx (найдено: admin)
+  - src\api\userProgressService.ts (найдено: admin)
+  - ... и еще 38 ссылок
+
+logo.png (src\Pages\ChooseSchool\components\imgs\logo.png)
+  - manifest.json (найдено: logo.png)
+  - stats.html (найдено: logo.png)
+  - src\api\baseQueryReauth.ts (найдено: logo)
+  - ... и еще 60 ссылок
+
+mobileBg.png (src\Pages\ChooseSchool\components\imgs\mobileBg.png)
+  - stats.html (найдено: mobileBg.png)
+  - src\Pages\ChooseSchool\ChooseSchool.tsx (найдено: mobileBg.png)
+
+selectedAdmin.png (src\Pages\ChooseSchool\components\imgs\selectedAdmin.png)
+  - stats.html (найдено: selectedAdmin.png)
+  - src\Pages\ChooseSchool\components\schoolSelect.tsx (найдено: selectedAdmin.png)
+
+selectedStudent.png (src\Pages\ChooseSchool\components\imgs\selectedStudent.png)
+  - stats.html (найдено: selectedStudent.png)
+  - src\components\StudentsTableWrapper\index.tsx (найдено: selectedStudent)
+  - src\Pages\ChooseSchool\components\schoolSelect.tsx (найдено: selectedStudent.png)
+
+selectedTeacher.png (src\Pages\ChooseSchool\components\imgs\selectedTeacher.png)
+  - stats.html (найдено: selectedTeacher.png)
+  - src\components\Modal\StudentLogs\SettingsGroupModal\Main.tsx (найдено: selectedTeacher)
+  - src\Pages\ChooseSchool\components\schoolSelect.tsx (найдено: selectedTeacher.png)
+
+student.png (src\Pages\ChooseSchool\components\imgs\student.png)
+  - stats.html (найдено: student.png)
+  - src\App.tsx (найдено: student)
+  - src\api\chatsService.tsx (найдено: student)
+  - ... и еще 155 ссылок
+
+teacher.png (src\Pages\ChooseSchool\components\imgs\teacher.png)
+  - stats.html (найдено: teacher.png)
+  - src\App.tsx (найдено: teacher)
+  - src\api\chatsService.tsx (найдено: teacher)
+  - ... и еще 41 ссылок
+
+image.png (src\Pages\CoursesStats\SearchCoursesBlock\assets\image.png)
+  - index.html (найдено: image)
+  - manifest.json (найдено: image)
+  - package.json (найдено: image)
+  - ... и еще 153 ссылок
+
+background.jpg (src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\images\background.jpg)
+  - manifest.json (найдено: background)
+  - stats.html (найдено: background.jpg)
+  - src\App.module.scss (найдено: background)
+  - ... и еще 295 ссылок
+
+up.png (src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\images\up.png)
+  - .eslintrc.json (найдено: up)
+  - package.json (найдено: up)
+  - stats.html (найдено: up.png)
+  - ... и еще 279 ссылок
+
+upWhite.png (src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\images\upWhite.png)
+  - src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\comments.module.scss (найдено: upWhite.png)
+
+user.png (src\Pages\School\Navigations\CoursesCreating\RedactorCourse\Comments\images\user.png)
+  - package.json (найдено: user)
+  - stats.html (найдено: user.png)
+  - src\api\allUsersList.tsx (найдено: user)
+  - ... и еще 190 ссылок
+
+settings-icon.png (src\Pages\Settings\PaymentMethods\icons\settings-icon.png)
+  - stats.html (найдено: settings-icon.png)
+  - src\Pages\Settings\PaymentMethods\index.tsx (найдено: settings-icon.png)
+
+vector.png (src\Pages\Settings\PaymentMethods\icons\vector.png)
+  - stats.html (найдено: vector.png)
+  - src\Pages\Settings\PaymentMethods\index.tsx (найдено: vector.png)
+  - src\Pages\StudentCourse\StudentLessonPreview\StudentTestPreview\index.tsx (найдено: vector)
+  - ... и еще 1 ссылок
+
+add.png (src\Pages\TariffPlans\images\add.png)
+  - index.html (найдено: add)
+  - stats.html (найдено: add.png)
+  - vite.config.ts (найдено: add)
+  - ... и еще 395 ссылок
+
+addMobile.png (src\Pages\TariffPlans\images\addMobile.png)
+  - stats.html (найдено: addMobile.png)
+  - src\Pages\TariffPlans\TariffsComponents\MobileBenefit.tsx (найдено: addMobile.png)
+
+banner.png (src\Pages\TariffPlans\images\banner.png)
+  - stats.html (найдено: banner.png)
+  - src\api\courseStat.ts (найдено: banner)
+  - src\api\schoolBonusService.ts (найдено: banner)
+  - ... и еще 30 ссылок
+
+cloud.png (src\Pages\TariffPlans\images\cloud.png)
+  - index.html (найдено: cloud)
+  - stats.html (найдено: cloud.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: cloud)
+  - ... и еще 6 ссылок
+
+cloudWhite.png (src\Pages\TariffPlans\images\cloudWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: cloudWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: cloudWhite.png)
+
+Component 133.png (src\Pages\TariffPlans\images\Component 133.png)
+  - src\components\UploadedFile\uploadedfile.module.scss (найдено: Component 133)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: Component 133.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: Component 133.png)
+
+Component 133White.png (src\Pages\TariffPlans\images\Component 133White.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: Component 133White.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: Component 133White.png)
+
+hit.png (src\Pages\TariffPlans\images\hit.png)
+  - stats.html (найдено: hit.png)
+  - src\assets\Icons\svgIconPath.ts (найдено: hit)
+  - src\components\AddCodeEditor\index.tsx (найдено: hit)
+  - ... и еще 136 ссылок
+
+layer.png (src\Pages\TariffPlans\images\layer.png)
+  - package.json (найдено: layer)
+  - stats.html (найдено: layer)
+  - vite.config.ts (найдено: layer)
+  - ... и еще 27 ссылок
+
+layerWhite.png (src\Pages\TariffPlans\images\layerWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: layerWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: layerWhite.png)
+
+middle.png (src\Pages\TariffPlans\images\middle.png)
+  - package.json (найдено: middle)
+  - stats.html (найдено: middle.png)
+  - src\components\Chart\index.tsx (найдено: middle)
+  - ... и еще 22 ссылок
+
+personalMobile.png (src\Pages\TariffPlans\images\personalMobile.png)
+  - stats.html (найдено: personalMobile.png)
+  - src\Pages\TariffPlans\TariffsComponents\TariffsMobile.tsx (найдено: personalMobile.png)
+
+prizePersonal.png (src\Pages\TariffPlans\images\prizePersonal.png)
+  - stats.html (найдено: prizePersonal.png)
+  - src\Pages\Initial\MobileHeaderAdmin\MobileHeaderAdmin.tsx (найдено: prizePersonal.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: prizePersonal.png)
+  - ... и еще 2 ссылок
+
+prizeStart.png (src\Pages\TariffPlans\images\prizeStart.png)
+  - stats.html (найдено: prizeStart.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: prizeStart.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: prizeStart.png)
+  - ... и еще 1 ссылок
+
+senior.png (src\Pages\TariffPlans\images\senior.png)
+  - stats.html (найдено: senior.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.module.scss (найдено: senior)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: senior.png)
+  - ... и еще 3 ссылок
+
+start.png (src\Pages\TariffPlans\images\start.png)
+  - manifest.json (найдено: start)
+  - package.json (найдено: start)
+  - stats.html (найдено: start.png)
+  - ... и еще 187 ссылок
+
+startMobile.png (src\Pages\TariffPlans\images\startMobile.png)
+  - stats.html (найдено: startMobile.png)
+  - src\Pages\TariffPlans\TariffsComponents\TariffsMobile.tsx (найдено: startMobile.png)
+
+student.png (src\Pages\TariffPlans\images\student.png)
+  - stats.html (найдено: student.png)
+  - src\App.tsx (найдено: student)
+  - src\api\chatsService.tsx (найдено: student)
+  - ... и еще 155 ссылок
+
+studentWhite.png (src\Pages\TariffPlans\images\studentWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfo.tsx (найдено: studentWhite.png)
+  - src\Pages\TariffPlans\TariffPlansInfoYear.tsx (найдено: studentWhite.png)
+
