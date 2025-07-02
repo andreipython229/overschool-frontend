@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .modalBackground {
     position: fixed;
     top: 0;

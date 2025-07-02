@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .inputDefault {
   @include display(flex, row, flex-start, center);
   width: 100%;

@@ -1,9 +1,10 @@
 module.exports = {
   quietDeps: true,
-  style: 'expanded',
+  silenceDeprecations: ['mixed-decls'],
+  style: 'compressed',
   loadPaths: ['src/scss'],
   outputStyle: 'expanded',
-  sourceMap: true,
+  sourceMap: process.env.NODE_ENV === 'development',
   sourceMapContents: true,
   sourceMapEmbed: true,
   sourceMapRoot: 'src',

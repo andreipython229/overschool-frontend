@@ -11,3 +11,10 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+// Rsbuild environment variables support
+declare global {
+  interface Window {
+    __RSBUILD_ENV__: ImportMetaEnv
+  }
+}
