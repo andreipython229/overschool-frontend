@@ -89,8 +89,8 @@
     "serve": "rsbuild dev --host 0.0.0.0",
     "deploy": "rsbuild dev --host 0.0.0.0",
     "test": "vitest",
-    "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
-    "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx,json,scss}",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint --fix src/**/*.{ts,tsx}",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json,scss} --config ./.prettierrc",
     "type-check": "yarn exec tsc --noEmit"
   },
