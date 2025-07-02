@@ -582,7 +582,7 @@ export const TariffPlansInfo: FC = () => {
     marginTop: '20px',
     padding: '12px 24px',
     fontSize: '16px',
-    fontWeight: '601',
+    fontWeight: '603',
     backgroundColor: '#0D28BB',
     color: '#fff',
     textDecoration: 'none',
