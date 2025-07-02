@@ -2,18 +2,15 @@ import React, { FC, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Typography } from '@mui/material'
 import { Footer } from 'components/Footer/index'
-import { useNavigate } from 'react-router-dom'
 
 import { InitPageHeader } from '../Initial/newInitialPageHeader'
 import { Button } from '../../components/common/Button/Button'
 import styles from './TariffPlansInfo.module.scss'
-import { TariffPlansInfoYear } from './TariffPlansInfoYear'
 
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { useBoolean } from '@/customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
-import { Path } from '@/enum/pathE'
 
 type Feature = { icon: string; text: string };
 type Disabl = { icon: string; text: string };
@@ -54,6 +51,45 @@ const planFeatures: Record<string, { features: Feature[]; disabled: Disabl[] }> 
   },
 };
 
+// добавлен этот компонент потому что на сервере выдавало ошибку 401, если API доступен, то можно убрать(без него на водно тарифы)
+const fallbackTariffData: TariffPlanT[] = [
+  {
+    id: 1,
+    name: 'Junior',
+    price: '468',
+    price_rf_rub: 468,
+    number_of_courses: 1,
+    number_of_staff: 1,
+    students_per_month: 10,
+    total_students: 10,
+    student_count_by_month: 10,
+    discount_12_months_byn: 468,
+  },
+  {
+    id: 2,
+    name: 'Middle',
+    price: '948',
+    price_rf_rub: 948,
+    number_of_courses: 10,
+    number_of_staff: 11,
+    students_per_month: 50,
+    total_students: 50,
+    student_count_by_month: 50,
+    discount_12_months_byn: 948,
+  },
+  {
+    id: 3,
+    name: 'Senior',
+    price: '1788',
+    price_rf_rub: 1788,
+    number_of_courses: 50,
+    number_of_staff: null,
+    students_per_month: 500,
+    total_students: 500,
+    student_count_by_month: 500,
+    discount_12_months_byn: 1788,
+  },
+]
 
 const tariffIcons: Record<string, string> = {
   Junior: '/images/start.png',
@@ -108,22 +144,34 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
         </div>
       )}
 
-  <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
-  <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
+      <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+        <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
         <div className={styles.yearPrice}>
-          {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
+          {plan.name === 'Junior' && '468 BYN/год'}
+          {plan.name === 'Middle' && '948 BYN/год'}
+          {plan.name === 'Senior' && '1788 BYN/год'}
         </div>
 
-        <Button
-          text="Подключить"
-          variant="primary"
-          onClick={(e) => {
-            e.stopPropagation()
-            onSelect(plan)
-            onOpenModal()
-          }}
-          style={{ marginTop: '1em', width: '100%' }}
-        />
+       <a
+  href="https://t.me/coursehub_admin"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: 'inline-block',
+    marginTop: '1em',
+    width: '100%',
+    padding: '12px',
+    textAlign: 'center',
+    backgroundColor: '#007BFF',
+    color: '#fff',
+    fontWeight: '600',
+    borderRadius: '6px',
+    textDecoration: 'none',
+  }}
+>
+  Подключить
+</a>
+
 
         <hr className={styles.cardDivider} />
 
@@ -145,7 +193,7 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
       <img src={feature.icon} alt="Иконка" /> {feature.text}
     </li>
   ))}
-  
+
 
   {planFeatures[plan.name].disabled?.map((Disabl, index) => (
     <li key={`disabled-${index}`} className={`${styles.featureItem} ${styles.listItemDisabled}`}>
@@ -163,14 +211,9 @@ export const TariffPlansInfo: FC = () => {
   const { data, isSuccess } = useFetchTariffPlanTableQuery()
   const [isModalOpen, { on: openModal, off: closeModal }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
-  const navigate = useNavigate();
 
-  // Используем только годовые тарифы (id 3, 4, 5)
-  const tariffPlanTable = (data && isSuccess && data.length > 0)
-    ? data.filter(plan => [2, 3, 4].includes(Number(plan.id)))
-    : [];
-
-  console.log('tariffPlanTable', tariffPlanTable)
+  // Используем данные с сервера, если они есть, иначе fallback
+  const tariffPlanTable = (data && isSuccess && data.length > 0) ? data : fallbackTariffData
 
   return (
     <>
@@ -182,8 +225,8 @@ export const TariffPlansInfo: FC = () => {
         transition={{ delay: 0.5, ease: 'easeInOut', duration: 1.3 }}
         className={styles.container}
       >
-<section className={styles.TariffPlansPage}>
- <div className={styles.TariffPlansPage_plansBlock}></div>
+        <section className={styles.TariffPlansPage}>
+          <div className={styles.TariffPlansPage_plansBlock}></div>
           <Typography
             gutterBottom
             variant="h1"
@@ -206,21 +249,8 @@ export const TariffPlansInfo: FC = () => {
           <div className={styles.savingsBlock}>
             <span className={styles.monthly}>Ежемесячно</span>
             <div className={styles.yearlyBlock}>
-              <button
-                onClick={() => navigate(Path.TariffPlansInfoYear)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: 0,
-                  margin: 0,
-                  font: 'inherit',
-                  color: 'inherit',
-                  cursor: 'pointer',
-                }}
-              >
-                Годовая
-                <span className={styles.discountBadge}>Экономия 20%</span>
-              </button>
+              <span>Годовая</span>
+              <span className={styles.discountBadge}>Экономия 20%</span>
             </div>
           </div>
 
@@ -361,7 +391,7 @@ export const TariffPlansInfo: FC = () => {
                 //whiteSpace: 'normal'
               }}
             >
-             
+
               <li><img src="/images/Component 1.png" alt="icon" />1 курс</li>
               <li><img src="/images/profile-2user.png" alt="icon" />До 10 учеников</li>
               <li><img src="/images/Component 2.png" alt="icon" />Конструктор лендингов</li>
@@ -370,23 +400,27 @@ export const TariffPlansInfo: FC = () => {
             </ul>
 
            </div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button
-              text="Начать бесплатно"
-              variant="secondary"
-              onClick={() => console.log('Start')}
-              style={{
-              width: '301px',
-              height: '54px',
-              padding: '15px 40px',
+         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+  <a
+    href="https://t.me/coursehub_admin"
+    target="_blank"
+    rel="noreferrer"
+    style={{
+      display: 'inline-block',
+      padding: '12px 24px',
+      backgroundColor: '#007BFF',
+      color: '#fff',
+      borderRadius: '6px',
+      textDecoration: 'none',
+      width: '301px',
+      textAlign: 'center', // чтобы текст выровнялся по центру внутри кнопки
+      fontWeight: '600',
+    }}
+  >
+    Подключить
+  </a>
+</div>
 
-              backgroundColor: '#3B82F6', // синий фон
-              color: '#FFFFFF',           // белый текст
-              border: 'none',             // если нужен плоский стиль
-              borderRadius: '8px',        // (по желанию) скругление углов
-              }}
-            />
-          </div>
           </div>
          {/* Блок Personal */}
          <div
@@ -467,28 +501,33 @@ export const TariffPlansInfo: FC = () => {
           <li><img src="/images/studentWhite.png" alt="icon" /><span style={{ color: 'white' }}>До 30 учеников</span></li>
           <li><img src="/images/Component 133White.png" alt="icon" /><span style={{ color: 'white' }}>До 3 сотрудников</span></li>
         </ul>
-         </div>
+
+        </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button
+          <a
+  href="https://t.me/coursehub_admin"
+  target="_blank"
+  rel="noreferrer"
 
-            text=    "Получить консультацию"
-            variant="secondary"
-            onClick={() => console.log('Start')}
-            style={{
-                width: '301px',
-            height: '54px',
-            padding: '15px 40px',
-            backgroundColor:'#FFFFFF', // синий фон
-            color:    '#3B82F6'  ,      // белый текст
-            border: 'none',             // если нужен плоский стиль
-            borderRadius: '8px',        // (по желанию) скругление углов
-            }}
-          />
+             style={{
+    display: 'inline-block',
+    padding: '12px 24px',
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    borderRadius: '6px',
+    textDecoration: 'none',
+    width: '301px',
+    textAlign: 'center', // чтобы текст выровнялся по центру внутри кнопки
+
+
+    fontWeight: '600',
+      }}
+          >
+          Получить консультацию
+          </a>
         </div>
          </div>
         </div>
-
-
 
 
         <div
@@ -533,27 +572,29 @@ export const TariffPlansInfo: FC = () => {
               Попробуйте весь функционал в процессе использования<br />
               и убедитесь, насколько он удобен.
             </p>
- <a
-    href="https://platform.coursehb.ru/create-school/"
-    style={{
-      display: 'inline-block',
-      marginTop: '20px',
-      padding: '12px 24px',
-      fontSize: '16px',
-      fontWeight: 600,
-      backgroundColor: '#0D28BB',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '6px',
-      cursor: 'pointer',
-      textDecoration: 'none',
-      textAlign: 'center',
-      userSelect: 'none',
-    }}
-  >
-    Попробовать бесплатно
-  </a>
+
+            <a
+  href="https://platform.coursehb.ru/create-school/"
+  target="_blank"
+  rel="noreferrer"
+  style={{
+    display: 'inline-block',
+    marginTop: '20px',
+    padding: '12px 24px',
+    fontSize: '16px',
+    fontWeight: '600',
+    backgroundColor: '#0D28BB',
+    color: '#fff',
+    textDecoration: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+  }}
+>
+  Попробовать бесплатно
+</a>
+
 </div>
+
           <div
             style={{
               flex: '1 1 0',
@@ -565,7 +606,7 @@ export const TariffPlansInfo: FC = () => {
             }}
           >
             <img
-              src="src/assets/img/common/cta-image.png"
+              src="/images/cta-image.png"
               alt="Slice 3213"
               style={{ width: '478px', height: '330px', marginBottom: '16px' }}
             />
