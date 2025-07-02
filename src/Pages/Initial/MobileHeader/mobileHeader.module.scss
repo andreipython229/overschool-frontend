@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .mobile_header {
   background: #cfe2ff;
   box-shadow: 0px 0px 25px 0px #357EEB;

@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .header_block_text {
   font-style: normal;
   @include font(500, 16px, 19px);

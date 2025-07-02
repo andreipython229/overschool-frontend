@@ -35,7 +35,7 @@ const findLinkEntities = (
 export const decorator = new CompositeDecorator([
   {
     strategy: findLinkEntities,
-    component: LinkComponent,
+    component: LinkComponent as any,
   },
 ]);
 

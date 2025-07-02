@@ -17,8 +17,8 @@ import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDeta
 import { Portal } from 'components/Modal/Portal'
 import { Path } from '@/enum/pathE'
 
-type Feature = { icon: string; text: string };
-type Disabl = { icon: string; text: string };
+type Feature = { icon: string; text: string }
+type Disabl = { icon: string; text: string }
 
 const planFeatures: Record<string, { features: Feature[]; disabled: Disabl[] }> = {
   Junior: {
@@ -29,8 +29,9 @@ const planFeatures: Record<string, { features: Feature[]; disabled: Disabl[] }> 
       { icon: '/images/Component 133.png', text: '4 сотрудника' },
     ],
     disabled: [
-      { icon: '/images/X.png', text: 'White Label'},
-      { icon: '/images/X.png', text: 'Свой домен'},],
+      { icon: '/images/X.png', text: 'White Label' },
+      { icon: '/images/X.png', text: 'Свой домен' },
+    ],
   },
   Middle: {
     features: [
@@ -40,8 +41,9 @@ const planFeatures: Record<string, { features: Feature[]; disabled: Disabl[] }> 
       { icon: '/images/Component 133.png', text: '11 сотрудников' },
     ],
     disabled: [
-      { icon: '/images/X.png', text: 'White Label'},
-      { icon: '/images/X.png', text: 'Свой домен'},],
+      { icon: '/images/X.png', text: 'White Label' },
+      { icon: '/images/X.png', text: 'Свой домен' },
+    ],
   },
   Senior: {
     features: [
@@ -51,8 +53,9 @@ const planFeatures: Record<string, { features: Feature[]; disabled: Disabl[] }> 
       { icon: '/images/Component 133White.png', text: 'безлимит' },
     ],
     disabled: [
-      { icon: '/images/V.png', text: 'White Label'},
-      { icon: '/images/V.png', text: 'Свой домен'},],
+      { icon: '/images/V.png', text: 'White Label' },
+      { icon: '/images/V.png', text: 'Свой домен' },
+    ],
   },
 };
 
@@ -75,13 +78,7 @@ type TariffCardProps = {
 
 const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
   const backgroundClass =
-    plan.name === 'Junior'
-      ? styles.cardJunior
-      : plan.name === 'Middle'
-      ? styles.cardMiddle
-      : plan.name === 'Senior'
-      ? styles.cardSenior
-      : ''
+    plan.name === 'Junior' ? styles.cardJunior : plan.name === 'Middle' ? styles.cardMiddle : plan.name === 'Senior' ? styles.cardSenior : ''
 
   const planClassName = styles[plan.name.toLowerCase()] || ''
 
@@ -114,8 +111,8 @@ const TariffCard: FC<TariffCardProps> = ({ plan, onSelect, onOpenModal }) => {
         </div>
       )}
 
-  <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
-  <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
+      <div className={styles.TariffPlansPage_plansBlock_cardGroup_card_text}>
+        <img src={tariffIcons[plan.name]} alt={`${plan.name} Icon`} className={styles.tariffIcon} />
         <div className={styles.yearPrice}>
           {Number(plan.price).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} BYN/месяц
         </div>
@@ -230,14 +227,10 @@ export const TariffPlansInfo: FC = () => {
   const { data, isSuccess } = useFetchTariffPlanTableQuery()
   const [isModalOpen, { on: openModal, off: closeModal }] = useBoolean()
   const [selected, setSelected] = useState<TariffPlanT | null>(null)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   // Используем только годовые тарифы (id 5, 4, 3)
-  const tariffPlanTable = (data && isSuccess && data.length > 0)
-    ? data.filter(plan => [2, 3, 4].includes(Number(plan.id)))
-    : [];
-
-  console.log('tariffPlanTable', tariffPlanTable)
+  const tariffPlanTable = data && isSuccess && data.length > 0 ? data.filter(plan => [2, 3, 4].includes(Number(plan.id))) : []
 
   return (
     <>
@@ -909,7 +902,7 @@ backgroundColor: '#0D28BB',
               <TariffDetailModal tariff={selected} setShowModal={closeModal} />
             </Portal>
           )}
-        </section>
+        </div>
       </motion.div>
 <div className={styles.yearPrice}>
   <div className={`${styles.yearPrice} ${styles.junior}`}>Junior</div>

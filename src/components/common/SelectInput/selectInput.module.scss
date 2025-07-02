@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .wrapper {
   @include display(flex, row, center);
   padding: 2px 0 24px 0;

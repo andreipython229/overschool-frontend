@@ -27,7 +27,7 @@ const modalVariants = {
     scale: 1,
     transition: {
       duration: 0.2,
-      ease: 'easeOut',
+      ease: 'easeOut' as const,
     },
   },
   exit: {
@@ -35,7 +35,7 @@ const modalVariants = {
     scale: 0.95,
     transition: {
       duration: 0.15,
-      ease: 'easeIn',
+      ease: 'easeIn' as const,
     },
   },
 };
