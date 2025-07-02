@@ -1,146 +1,158 @@
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import { Route, Navigate } from 'react-router-dom'
 
 import { RoleE } from 'enum/roleE'
-import { CoursesStats } from 'Pages/CoursesStats/CoursesStats'
-import { HomeWork } from 'Pages/HomeWork/HomeWork'
-import { HelpCenter } from 'Pages/HelpCenter/HelpCenter'
 import { TariffPlans } from 'Pages/TariffPlans/TariffPlans'
-import { School } from 'Pages/School/School'
 import { Path, Student, SettingsPath, CreateCoursePath } from 'enum/pathE'
-import { CoursePage } from 'Pages/School/Navigations/CoursesCreating/CoursePage'
-import { StudentLessonPreview } from 'Pages/StudentCourse/StudentLessonPreview'
-import { StudentCourse } from 'Pages/StudentCourse'
-import { Main } from 'Pages/Settings/Main/Main'
-import { Employees } from 'Pages/Settings/Employees/Employees'
-import { Logs } from 'Pages/Settings/Logs/Logs'
-import { DecorPlatform } from 'Pages/Settings/DecorPlatform/DecorPlatform'
-import { RedactorCourse } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/RedactorCourse'
-import { Constructor } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Constructor/Constructor'
-import { SettingCourse } from 'Pages/School/Navigations/CoursesCreating/SettingCourse/SettingCourse'
-import { StudentsStats } from 'Pages/School/StudentsStats/StudentsStats'
-import { CoursePageConstruct } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/CoursePage'
-import { Comments } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Comments/Comments'
-import { Profile } from 'Pages/Profile/Profile'
-import { Settings } from 'Pages/Settings/Settings'
-import { Group } from '../Pages/Group'
-import { Passport } from 'Pages/Settings/Passport'
-import { SchoolAppeals } from 'Pages/SchoolAppeals'
-import { PaymentMethods } from 'Pages/Settings/PaymentMethods'
-import { SchoolMeetings } from '../components/Meetings'
-import { Webinars } from 'components/Autowebinars/AutoWebinars'
-import StudentSchoolMeeting from '../components/StudentsMeetings'
-import { Materials } from 'Pages/School/Navigations/CoursesCreating/MaterialsPage'
-import { CourseMaterials } from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/CourseMaterials/CourseMaterials'
-import { DomainSettings } from '../Pages/Settings/Domain'
-import { PromotionSettings } from 'Pages/Settings/Promotions/Bonuses'
-import { EmailNewsLetter } from 'Pages/Settings/EmailNewsLetter'
-import { NotificationBanner } from 'Pages/Settings/NotificationBannerSettings'
-import { Rating } from 'Pages/Rating'
-import { AdminOrTeacherReplyHomework } from 'Pages/HomeWork/AdminOrTeacherReply'
-import { BonusesPage } from 'Pages/Bonuses'
-import { BonusesSettings } from 'Pages/Settings/Bonuses'
-import { SettingsInvitesProgram } from 'Pages/Settings/InviteProgram'
-import Certificate from 'Pages/School/Navigations/CoursesCreating/RedactorCourse/Certificates/Certificate'
+
+// Import lazy components
+import {
+  Profile,
+  Settings,
+  School,
+  CoursePage,
+  RedactorCourse,
+  Constructor,
+  SettingCourse,
+  StudentsStats,
+  CoursePageConstruct,
+  Comments,
+  Group,
+  Passport,
+  SchoolAppeals,
+  PaymentMethods,
+  SchoolMeetings,
+  Webinars,
+  StudentSchoolMeeting,
+  Materials,
+  LoadingSpinner,
+  CourseMaterials,
+  DomainSettings,
+  PromotionSettings,
+  EmailNewsLetter,
+  NotificationBanner,
+  Rating,
+  AdminOrTeacherReplyHomework,
+  BonusesPage,
+  BonusesSettings,
+  SettingsInvitesProgram,
+  CertificateComponent,
+  StudentCourse,
+  StudentLessonPreview,
+  HomeWork,
+  CoursesStats,
+  HelpCenter,
+  Main,
+  Employees,
+  Logs,
+  DecorPlatform,
+} from './lazyComponents'
+
+// Wrapper component for Suspense
+const LazyComponent = ({ component: Component }: { component: React.ComponentType }) => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <Component />
+  </Suspense>
+)
 
 export const navByRolesConfig: { [key: number]: ReactNode } = {
   [RoleE.SuperAdmin]: (
     <>
-      <Route path={Path.Profile} element={<Profile />} />
-      <Route path={Path.Settings} element={<Settings />}>
-        <Route index element={<Main />} />
-        <Route path={SettingsPath.Main} element={<Main />} />
-        <Route path={SettingsPath.Employees} element={<Employees />} />
-        <Route path={SettingsPath.Logs} element={<Logs />} />
-        <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
-        <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
-        <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
-        <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
-        <Route path={SettingsPath.PromotionSettings} element={<PromotionSettings />} />
-        <Route path={SettingsPath.Bonuses} element={<BonusesSettings />} />
-        <Route path={SettingsPath.Referal} element={<SettingsInvitesProgram />} />
+      <Route path={Path.Profile} element={<LazyComponent component={Profile} />} />
+      <Route path={Path.Settings} element={<LazyComponent component={Settings} />}>
+        <Route index element={<LazyComponent component={Main} />} />
+        <Route path={SettingsPath.Main} element={<LazyComponent component={Main} />} />
+        <Route path={SettingsPath.Employees} element={<LazyComponent component={Employees} />} />
+        <Route path={SettingsPath.Logs} element={<LazyComponent component={Logs} />} />
+        <Route path={SettingsPath.PaymentMethods} element={<LazyComponent component={PaymentMethods} />} />
+        <Route path={SettingsPath.Decoration} element={<LazyComponent component={DecorPlatform} />} />
+        <Route path={SettingsPath.SchoolPassport} element={<LazyComponent component={Passport} />} />
+        <Route path={SettingsPath.DomainSettings} element={<LazyComponent component={DomainSettings} />} />
+        <Route path={SettingsPath.PromotionSettings} element={<LazyComponent component={PromotionSettings} />} />
+        <Route path={SettingsPath.Bonuses} element={<LazyComponent component={BonusesSettings} />} />
+        <Route path={SettingsPath.Referal} element={<LazyComponent component={SettingsInvitesProgram} />} />
       </Route>
-      <Route path={Path.HelpCenter} element={<HelpCenter />} />
+      <Route path={Path.HelpCenter} element={<LazyComponent component={HelpCenter} />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
     </>
   ),
   [RoleE.Student]: (
     <>
-      <Route path={Path.Profile} element={<Profile />} />
+      <Route path={Path.Profile} element={<LazyComponent component={Profile} />} />
       <Route path={Path.Courses}>
-        <Route index element={<CoursePage />} />
-        <Route path={Path.Bonus} element={<BonusesPage />} />
+        <Route index element={<LazyComponent component={CoursePage} />} />
+        <Route path={Path.Bonus} element={<LazyComponent component={BonusesPage} />} />
         <Route path={Student.Course}>
-          <Route index element={<StudentCourse />} />
-          <Route path={Student.Lesson} element={<StudentLessonPreview />} />
+          <Route index element={<LazyComponent component={StudentCourse} />} />
+          <Route path={Student.Lesson} element={<LazyComponent component={StudentLessonPreview} />} />
         </Route>
       </Route>
-      <Route path={Path.HelpCenter} element={<HelpCenter />} />
+      <Route path={Path.HelpCenter} element={<LazyComponent component={HelpCenter} />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
-      <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
-      <Route path={Path.Rating} element={<Rating />} />
+      <Route path={Path.Meetings} element={<LazyComponent component={StudentSchoolMeeting} />} />
+      <Route path={Path.Rating} element={<LazyComponent component={Rating} />} />
     </>
   ),
   [RoleE.Admin]: (
     <>
-      <Route path={Path.Courses} element={<School />}>
-        <Route index element={<CoursePage />} />
-        <Route path={Path.Group} element={<Group />} />
-        <Route path={Path.CreateCourse} element={<RedactorCourse />}>
+      <Route path={Path.Courses} element={<LazyComponent component={School} />}>
+        <Route index element={<LazyComponent component={CoursePage} />} />
+        <Route path={Path.Group} element={<LazyComponent component={Group} />} />
+        <Route path={Path.CreateCourse} element={<LazyComponent component={RedactorCourse} />}>
           <Route index element={<Navigate to={CreateCoursePath.Constructor} />} />
-          <Route path={CreateCoursePath.Constructor} element={<Constructor />} />
-          <Route path={CreateCoursePath.Student} element={<StudentsStats />} />
-          <Route path={CreateCoursePath.Settings} element={<SettingCourse />} />
-          <Route path={CreateCoursePath.Page} element={<CoursePageConstruct />} />
-          <Route path={CreateCoursePath.Comments} element={<Comments />} />
-          <Route path={CreateCoursePath.Materials} element={<CourseMaterials />} />
-          <Route path={CreateCoursePath.Certificates} element={<Certificate />} />
+          <Route path={CreateCoursePath.Constructor} element={<LazyComponent component={Constructor} />} />
+          <Route path={CreateCoursePath.Student} element={<LazyComponent component={StudentsStats} />} />
+          <Route path={CreateCoursePath.Settings} element={<LazyComponent component={SettingCourse} />} />
+          <Route path={CreateCoursePath.Page} element={<LazyComponent component={CoursePageConstruct} />} />
+          <Route path={CreateCoursePath.Comments} element={<LazyComponent component={Comments} />} />
+          <Route path={CreateCoursePath.Materials} element={<LazyComponent component={CourseMaterials} />} />
+          <Route path={CreateCoursePath.Certificates} element={<LazyComponent component={CertificateComponent} />} />
         </Route>
       </Route>
-      <Route path={Path.Profile} element={<Profile />} />
-      <Route path={Path.CourseStats} element={<CoursesStats />} />
-      <Route path={Path.Settings} element={<Settings />}>
+      <Route path={Path.Profile} element={<LazyComponent component={Profile} />} />
+      <Route path={Path.CourseStats} element={<LazyComponent component={CoursesStats} />} />
+      <Route path={Path.Settings} element={<LazyComponent component={Settings} />}>
         <Route index element={<Navigate to={SettingsPath.Main} />} />
-        <Route path={SettingsPath.Main} element={<Main />} />
-        <Route path={SettingsPath.Employees} element={<Employees />} />
-        <Route path={SettingsPath.Decoration} element={<DecorPlatform />} />
-        <Route path={SettingsPath.SchoolPassport} element={<Passport />} />
-        <Route path={SettingsPath.PaymentMethods} element={<PaymentMethods />} />
-        <Route path={SettingsPath.DomainSettings} element={<DomainSettings />} />
-        <Route path={SettingsPath.PromotionSettings} element={<PromotionSettings />} />
-        <Route path={SettingsPath.EmailNewsLetter} element={<EmailNewsLetter />} />
-        <Route path={SettingsPath.Banner} element={<NotificationBanner />} />
-        <Route path={SettingsPath.Bonuses} element={<BonusesSettings />} />
-        <Route path={SettingsPath.Referal} element={<SettingsInvitesProgram />} />
+        <Route path={SettingsPath.Main} element={<LazyComponent component={Main} />} />
+        <Route path={SettingsPath.Employees} element={<LazyComponent component={Employees} />} />
+        <Route path={SettingsPath.Decoration} element={<LazyComponent component={DecorPlatform} />} />
+        <Route path={SettingsPath.SchoolPassport} element={<LazyComponent component={Passport} />} />
+        <Route path={SettingsPath.PaymentMethods} element={<LazyComponent component={PaymentMethods} />} />
+        <Route path={SettingsPath.DomainSettings} element={<LazyComponent component={DomainSettings} />} />
+        <Route path={SettingsPath.PromotionSettings} element={<LazyComponent component={PromotionSettings} />} />
+        <Route path={SettingsPath.EmailNewsLetter} element={<LazyComponent component={EmailNewsLetter} />} />
+        <Route path={SettingsPath.Banner} element={<LazyComponent component={NotificationBanner} />} />
+        <Route path={SettingsPath.Bonuses} element={<LazyComponent component={BonusesSettings} />} />
+        <Route path={SettingsPath.Referal} element={<LazyComponent component={SettingsInvitesProgram} />} />
       </Route>
-      <Route path={Path.HomeWork} element={<School />}>
-        <Route index element={<HomeWork />} />
-        <Route path={Path.CheckHomeWork} element={<AdminOrTeacherReplyHomework />} />
+      <Route path={Path.HomeWork} element={<LazyComponent component={School} />}>
+        <Route index element={<LazyComponent component={HomeWork} />} />
+        <Route path={Path.CheckHomeWork} element={<LazyComponent component={AdminOrTeacherReplyHomework} />} />
       </Route>
-      <Route path={Path.HelpCenter} element={<HelpCenter />} />
+      <Route path={Path.HelpCenter} element={<LazyComponent component={HelpCenter} />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
-      <Route path={Path.Appeals} element={<SchoolAppeals />} />
-      <Route path={Path.Meetings} element={<SchoolMeetings />} />
-      <Route path={Path.Webinars} element={<Webinars />} />
-      <Route path={Path.Rating} element={<Rating />} />
+      <Route path={Path.Appeals} element={<LazyComponent component={SchoolAppeals} />} />
+      <Route path={Path.Meetings} element={<LazyComponent component={SchoolMeetings} />} />
+      <Route path={Path.Webinars} element={<LazyComponent component={Webinars} />} />
+      <Route path={Path.Rating} element={<LazyComponent component={Rating} />} />
     </>
   ),
   [RoleE.Teacher]: (
     <>
-      <Route path={Path.Profile} element={<Profile />} />
-      <Route path={Path.Group} element={<Group />} />
-      <Route path={Path.HomeWork} element={<School />}>
-        <Route index element={<HomeWork />} />
-        <Route path={Path.CheckHomeWork} element={<AdminOrTeacherReplyHomework />} />
+      <Route path={Path.Profile} element={<LazyComponent component={Profile} />} />
+      <Route path={Path.Group} element={<LazyComponent component={Group} />} />
+      <Route path={Path.HomeWork} element={<LazyComponent component={School} />}>
+        <Route index element={<LazyComponent component={HomeWork} />} />
+        <Route path={Path.CheckHomeWork} element={<LazyComponent component={AdminOrTeacherReplyHomework} />} />
       </Route>
-      <Route path={Path.CourseStats} element={<CoursesStats />} />
-      <Route path={Path.Courses} element={<School />}>
-        <Route path={Path.Bonus} element={<BonusesPage />} />
+      <Route path={Path.CourseStats} element={<LazyComponent component={CoursesStats} />} />
+      <Route path={Path.Courses} element={<LazyComponent component={School} />}>
+        <Route path={Path.Bonus} element={<LazyComponent component={BonusesPage} />} />
       </Route>
-      <Route path={Path.CourseStudent} element={<StudentsStats />} />
-      <Route path={Path.HelpCenter} element={<HelpCenter />} />
+      <Route path={Path.CourseStudent} element={<LazyComponent component={StudentsStats} />} />
+      <Route path={Path.HelpCenter} element={<LazyComponent component={HelpCenter} />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
-      <Route path={Path.Meetings} element={<StudentSchoolMeeting />} />
+      <Route path={Path.Meetings} element={<LazyComponent component={StudentSchoolMeeting} />} />
     </>
   ),
 }

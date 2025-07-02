@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .container {
   @include display(flex, row, space-between, center);
   position: relative;

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import styles from './checkButton.module.scss'
 
 const spring = {
-  type: "spring",
+  type: "spring" as const,
   stiffness: 700,
   damping: 30
 };

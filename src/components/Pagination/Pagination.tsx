@@ -1,4 +1,3 @@
-
 import { FC, memo } from 'react'
 import classnames from 'classnames'
 
@@ -43,7 +42,7 @@ export const Pagination: FC<paginationT> = memo(({ onPageChange, currentPage, pa
         </li>
         {paginationRange?.map(pageNumber => {
           if (pageNumber === DOTS) {
-            return <li className="pagination-item dots">&#8230;</li>
+            return <li key={"dots-" + Math.random()} className="pagination-item dots">&#8230;</li>
           }
 
           return (
