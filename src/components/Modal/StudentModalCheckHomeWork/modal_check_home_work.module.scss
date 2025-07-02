@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .modal_content {
   border-radius: 1.75rem;
   padding: 30px 33px 40px;

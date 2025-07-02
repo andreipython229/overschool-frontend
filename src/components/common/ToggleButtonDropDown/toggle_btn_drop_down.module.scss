@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .modal_btn_is_toggle {
   position: relative;
   display: inline-block;

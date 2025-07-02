@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .nav_btn {
   display: inline-block;
   font-family: 'Inter', sans-serif;

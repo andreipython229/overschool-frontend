@@ -4,7 +4,6 @@ import { Route, Navigate } from 'react-router-dom'
 import { RoleE } from 'enum/roleE'
 import { TariffPlans } from 'Pages/TariffPlans/TariffPlans'
 import { Path, Student, SettingsPath, CreateCoursePath } from 'enum/pathE'
-import { LoadingSpinner } from './lazyComponents'
 
 // Import lazy components
 import {
@@ -26,6 +25,7 @@ import {
   Webinars,
   StudentSchoolMeeting,
   Materials,
+  LoadingSpinner,
   CourseMaterials,
   DomainSettings,
   PromotionSettings,
@@ -45,7 +45,7 @@ import {
   Main,
   Employees,
   Logs,
-  DecorPlatform
+  DecorPlatform,
 } from './lazyComponents'
 
 // Wrapper component for Suspense

@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .chart_header_container {
     display: flex;
     justify-content: space-between;

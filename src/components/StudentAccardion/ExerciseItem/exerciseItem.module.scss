@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .accardionWrapper_component_exerciseWrapper {
   //@include display(flex, column, center, center);
   //padding: 0 89px 0 94px;
