@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 @use 'sass:color';
 
 .statistics {
@@ -292,7 +295,7 @@
 
       &:hover {
         cursor: pointer;
-        background-color: color.adjust($color: #fdfaff, $lightness: -3%, $space: hsl);
+        background-color: color.adjust($color: #fdfaff, $lightness: -3%);
         transform: scale(1.05);
       }
 

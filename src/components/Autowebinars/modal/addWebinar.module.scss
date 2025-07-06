@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .modal {
   &_closed {
     @include position_t_r(absolute, 20px, 30px);

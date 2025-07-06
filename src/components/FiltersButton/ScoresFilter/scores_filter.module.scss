@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .scores_container {
   @include position_t_l(absolute, 0, 0);
   @include display(flex, column, space-between, center);

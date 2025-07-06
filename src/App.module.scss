@@ -1,6 +1,14 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 body {
   height: auto;
 }
+
+a {
+  text-decoration: none;
+}
+
 .container {
   width: 100vw;
   width: 100%;

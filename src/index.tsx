@@ -10,6 +10,7 @@ import {AppMobile} from './AppMobile'
 import {store} from './store/redux/store'
 
 import './index.css'
+import './scss/global.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 

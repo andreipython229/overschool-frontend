@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 :root {
   --track-height: 0.5rem;
   --thumb-height: 1rem;

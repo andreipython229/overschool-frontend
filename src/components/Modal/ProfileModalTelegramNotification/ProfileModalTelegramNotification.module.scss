@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .modalTelegram {
   @include position_t_l(absolute, 50%, 50%, 5);
   @include display(flex, column);

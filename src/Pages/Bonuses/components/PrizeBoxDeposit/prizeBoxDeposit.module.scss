@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .wrapperBox:last-child:nth-child(odd):not(:first-child):not(:only-child) {
   grid-column: span 2;
 }

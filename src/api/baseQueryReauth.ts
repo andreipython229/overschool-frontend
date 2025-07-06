@@ -1,6 +1,6 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { authState, logoutState } from 'store/redux/users/slice'
-import { refreshApi } from './userLoginService'
+import { refreshApi } from './refreshApi'
 import { RootState } from 'store/redux/store'
 import { Mutex } from 'async-mutex'
 import { baseQuery } from './baseApi'
