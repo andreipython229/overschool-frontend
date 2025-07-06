@@ -6,4 +6,5 @@ export const blocksNamesE = {
   trainingPurpose: "trainingPurpose",
   linkButton: "linkButton",
   advantage: "advantage",
+  income: "income",
 }

@@ -1,0 +1,166 @@
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+.wrapper {
+  position: relative;
+  width: 1040px;
+  font-family: 'SFPRORegular';
+
+  h2 {
+    text-align: left;
+    padding: 1rem 0 1rem;
+    color: $color-blue;
+    @include font(700, 28px, 33.41px);
+    margin-bottom: 20px;
+
+    @media only screen and (min-width: 320px) and (max-width: 550px) {
+      max-width: 290px;
+      margin: 3rem 0.5rem;
+    }
+  }
+
+  &_cardContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    justify-content: center; 
+    column-gap: 20px;
+    align-items: center;
+    height: auto;
+
+    &_addButton {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background: none;
+        color: $color-blue;
+        visibility: hidden; // По умолчанию кнопки невидимы
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+      }
+
+    &_chip {
+      position: relative;
+      width: 100%;
+      margin: 10px 20px;
+      min-height: 100px;
+
+      &:first-child {
+        grid-column: span 2;
+        background-color: #CFE2FF;
+        border-radius: 12px;
+        max-width: 800px;
+        margin-left: 120px;
+      }
+
+      &_addButtonBefor,
+      &_addButtonAfter {
+        position: absolute;
+        top: 30px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        font-size: 20px;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background: none;
+        color: $color-blue;
+        visibility: hidden; // По умолчанию кнопки невидимы
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+      }
+
+      &_addButtonBefor {
+        left: -40px;
+      }
+
+      &_addButtonAfter {
+        right: -40px;
+      }
+
+      &_addButtonBefor:hover,
+      &_addButtonAfter:hover {
+        color: #1e4b8e;
+        border-radius: 50%;
+        background: rgba(1, 1, 1, 0.15);
+      }
+    }
+
+    &_addButton {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      font-size: 20px;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background: none;
+      color: $color-blue;
+    }
+
+    &_addButton:hover {
+      color: #7730BD;
+      border-radius: 50%;
+      background: rgba(1, 1, 1, 0.15);
+    }
+  }
+
+  &:hover {
+    .wrapper_cardContainer_addButton,
+    .wrapper_cardContainer_chip_addButtonBefor,
+    .wrapper_cardContainer_chip_addButtonAfter {
+      visibility: visible; // При наведении контейнер становится видимым
+      opacity: 1;
+    }
+  }
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .wrapper {
+    max-width: 550px;
+    width: 100%;
+
+    &_cardContainer {
+      display: grid;
+      grid-template-columns: repeat(1, 0.9fr); 
+      row-gap: 15px;
+      justify-content: center; 
+      align-items: center;
+
+      &_chip {
+        &:first-child {
+          grid-column: span 1;
+          background-color: #CFE2FF;
+          border-radius: 12px;
+          max-width: 800px;
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1110px) {
+  .wrapper {
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+
+    &_cardContainer {
+
+      &_chip {
+        &:first-child {
+          margin-left: 60px;
+        }
+      }
+    }
+  }
+}

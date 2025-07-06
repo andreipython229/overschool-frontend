@@ -80,4 +80,16 @@ export const initialBlocks: BlockKeys = {
     canDown: false,
     onlyShow: true,
   },
+  income: {
+    id: 7,
+    content: blocksNamesE.income,
+    description: "",
+    chips: [
+        { id: -1, position: 0, photo: "", title: 'Карточка 1', description: '' },
+        { id: -1, position: 1, photo: "", title: 'Карточка 2', description: '' },
+    ],
+    visible: true,
+    canUp: true,
+    canDown: true,
+  },
 }

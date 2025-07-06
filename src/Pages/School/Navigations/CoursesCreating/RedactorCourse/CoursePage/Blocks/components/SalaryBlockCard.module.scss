@@ -1,0 +1,203 @@
+@font-face {
+  font-family: 'SFPRORegular';
+  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+}
+
+.firstWrapper {
+  flex-direction: row-reverse;
+
+  .wrapper_imageBox {
+    position: absolute;
+    top: -32px;
+
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .wrapper_title {
+    display: none;
+  }
+}
+
+
+.wrapper {
+  width: 100%;
+  min-height: 130px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  background: #CADBF4;
+  border-radius: 12px;
+  padding: 15px;
+  
+  button {
+    padding: 3px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: #808080;
+    visibility: hidden; // По умолчанию кнопки невидимы
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease-in-out;
+  }
+
+  &:hover button {
+    visibility: visible; // При наведении контейнер становится видимым
+    opacity: 1;
+  }
+
+  button:hover {
+    color: #808080;
+    background: rgba(207, 226, 255, 0.12);
+    border-radius: 5px;
+  }
+
+  &_imageBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    img {
+      width: 100px;
+      height: 150px;
+      object-fit: contain;
+      border: none;
+    }
+
+    &_error {
+      z-index: 5;
+      position: absolute;
+      bottom: -20px;
+      font-size: 15px;
+      padding: 5px;
+      border-radius: 10px;
+      color: rgb(224, 24, 24);
+      background: rgba(224, 24, 24, 0.3);
+      margin: 5px 5px 0 5px;
+      text-align: center;
+    }
+  }
+
+  &_text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &_title {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    position: relative;
+    margin-bottom: 15px;
+
+    textarea {
+      color: $color-darkblue;
+      @include font(700, 30px, 100%);
+      border: none;
+      background: none;
+      outline: none;
+      font-family: 'SFPRORegular';
+      resize: none;
+    }
+  }
+
+  &_description {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    textarea {
+      width: 100%;
+      color: #324195;
+      text-align: left;
+      border: none;
+      background: none;
+      @include font(500, 26px, 100%);
+      outline: none;
+      font-family: 'SFPRORegular';
+      resize: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .firstWrapper {
+
+    .wrapper_imageBox {
+      position: relative;
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+  }
+  .wrapper {
+    width: 100%;
+
+    &_imageBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      img {
+        width: 80px;
+        height: 80px;
+      }
+
+    }
+
+    &_title {
+      position: relative;
+
+      textarea {
+        @include font(700, 18px, 100%);
+      }
+    }
+
+    &_description {
+      textarea {
+        @include font(500, 16px, 100%);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1361px) {
+  
+  .wrapper {
+    padding-left: 10;
+
+    &_imageBox {
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    &_title {
+      position: relative;
+
+      textarea {
+        @include font(700, 24px, 100%);
+      }
+    }
+    &_description {
+      textarea {
+        @include font(500, 20px, 100%);
+      }
+    }
+  }
+}
