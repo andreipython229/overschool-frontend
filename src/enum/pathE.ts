@@ -32,7 +32,7 @@ export enum Path {
   CreateSchool = '/create-school',
   Chat = '',
   Certificate = 'certificate/:certLink',
-  Catalog = 'course-catalog',
+  Catalog = '/course-catalog/',
   CatalogCourse = ':courseId/',
   LoginPage = '/login',
   HelpPage = '/help',
