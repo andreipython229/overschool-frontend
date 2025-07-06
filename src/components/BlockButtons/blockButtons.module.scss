@@ -4,15 +4,17 @@
 .button {
   text-decoration: none;
   background: #ba75ff;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border-radius: 10px;
   color: #f3f4f6;
-  font-weight: 600;
+  //font-weight: 600;
   transition: ease-in 0.3s;
   word-wrap: break-word;
-  max-width: 230px;
+  max-width: 100%;
   overflow: hidden;
   text-align: center;
+  height: 37px;
+  font-size: 14px;
 
   &:hover {
     opacity: 0.8;
@@ -22,10 +24,13 @@
 .createButton {
   font-weight: 500;
   display: flex;
-  gap: 5px;
+  gap: 10px;
   align-items: center;
-  padding: 10px 40px;
-  width: fit-content;
+  padding: 10px 20px 10px 20px;
+  width: 194px;
+  height: 37px;
+  white-space: nowrap;
+  margin-top: 20px;
 }
 
 .wrapper {
@@ -65,7 +70,7 @@
 
       &_title {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 14px;
         font-family: 'SFPRORegular', sans-serif;
       }
     }
@@ -95,7 +100,9 @@
     }
 
     &_delete {
-      padding: 10px 25px;
+      padding: 10px 25px 10px 25px;
+      width: 110px;
+      height: 39px;
       @include font(500, 16px, 19.09px);
     }
   }

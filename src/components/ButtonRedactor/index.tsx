@@ -16,7 +16,7 @@ interface IProps {
 }
 
 export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLessonBlocks }) => {
-  const [buttonName, setButtonName] = useState<string>(button.name)
+  const [buttonName, setButtonName] = useState<string>(button.name === 'Новая кнопка' ? '' : button.link)
   const [buttonLink, setButtonLink] = useState<string>(button.link === 'https://overschool.by' ? '' : button.link)
   const [colorPalette, setColorPalette] = useState<string>(button.color)
   const [removeButton, { isLoading: isDeleting }] = useDeleteButtonMutation()
@@ -93,7 +93,7 @@ export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLes
             }}
             required
             type="text"
-            placeholder="Введите текст"
+            // placeholder="Введите текст"
             width={'100%'}
           />
         </div>
@@ -107,7 +107,7 @@ export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLes
             name=""
             required
             type="text"
-            placeholder="Вставьте ссылку"
+            // placeholder="Вставьте ссылку"
             width={'100%'}
           />
         </div>
@@ -122,7 +122,7 @@ export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLes
         <div style={{ display: 'flex', flexDirection: 'column', height: '207px', gap: '20px' }}>
           <p className={styles.text}>Выбор цвета кнопки:</p>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-            <HexColorPicker color={colorPalette} onChange={setColorPalette} style={{ height: '100%', width: '100%' }} />
+            <HexColorPicker color={colorPalette} onChange={setColorPalette} style={{ height: '160px', width: '240px' }} />
           </div>
         </div>
       </div>
