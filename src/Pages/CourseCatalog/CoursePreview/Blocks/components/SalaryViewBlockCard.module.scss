@@ -1,6 +1,9 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../../../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
 }
 
 .firstWrapper {
