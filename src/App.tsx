@@ -173,6 +173,22 @@ export const App = () => {
             <Route index element={<CourseCatalogPage />} />
             <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
           </Route>
+          <Route
+            path="/certificate/preview"
+            element={
+              <Certificate
+                previewData={{
+                  user_full_name: "Иван Иванов",
+                  course_name: "React для начинающих",
+                  school_name: "CourseHUB",
+                  date: new Date().toISOString(),
+                  signature: "",
+                  sections: [],
+                  stampType: "stamp1"
+                }}
+              />
+            }
+          />
           <Route path={Path.Certificate} element={<Certificate />} />
           <Route path={Path.InitialPage} element={<Initial />} />
           <Route path={Path.TariffPlansInfo} element={<TariffPlansInfo />} />
