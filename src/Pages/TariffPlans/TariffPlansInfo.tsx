@@ -604,6 +604,24 @@ export const TariffPlansInfo: FC = () => {
             </div>
           </div>
 
+          <div
+            style={{
+              flex: '1 1 0',
+              maxWidth: '600px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+            }}
+          >
+            <img
+              src="/images/Slice 3213.png"
+              alt="Slice 3213"
+              style={{ width: '478px', height: '330px', marginBottom: '16px' }}
+            />
+          </div>
+        </div>
+
           {isModalOpen && selected && (
             <Portal closeModal={closeModal}>
               <TariffDetailModal tariff={selected} setShowModal={closeModal} />
