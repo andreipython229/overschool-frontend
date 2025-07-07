@@ -89,6 +89,17 @@ export type AdvanT = {
   canDown: boolean;
 }
 
+export type SalaryT = {
+  id: number;
+  content: string;
+  description: string,
+  chips: CardDataT[];
+  visible: boolean;
+  onlyShow?: boolean;
+  canUp: boolean;
+  canDown: boolean;
+}
+
 export type BlockKeys = {
   header: HeaderT,
   stats: StatsT,
@@ -97,6 +108,7 @@ export type BlockKeys = {
   trainingProgram: TrainingProgT,
   trainingPurpose: TrainingPurpT,
   linkButton: LinkButtonT,
+  income: SalaryT,
   // advantage: AdvanT,
 }
 

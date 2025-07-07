@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { Path } from 'enum/pathE'
 import {LinkViewBlock} from "./Blocks/LinkViewBlock";
 import { AdvantageViewBlock } from './Blocks/AdvantageViewBlock'
+import { SalaryViewBlock } from './Blocks/SalaryViewBlock'
 
 export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
   const landing = useAppSelector(state => state.landing.blocks)
@@ -30,6 +31,8 @@ export const LandingBlocks: FC<LandingBlockT> = ({ openModal }) => {
         return <AudienceViewBlock />;
       case blocksNamesE.advantage:
         return <AdvantageViewBlock />
+      case blocksNamesE.income:
+        return <SalaryViewBlock />
       case blocksNamesE.trainingProgram:
         return <TrainingProgram />;
       case blocksNamesE.trainingPurpose:

@@ -18,6 +18,7 @@ import {useParams} from "react-router-dom";
 import {SimpleLoader} from "components/Loaders/SimpleLoader";
 import {LinkBlock} from "./Blocks/LinkBlock";
 import { AdvantageBlock } from './Blocks/AdvantageBlock';
+import { SalaryBlock } from './Blocks/SalaryBlock';
 
 export const BlocksController: FC<BlocksControllerT> = ({ openModal }) => {
   const params = useParams()
@@ -52,8 +53,10 @@ export const BlocksController: FC<BlocksControllerT> = ({ openModal }) => {
         return <TrainingProgram />
       case blocksNamesE.trainingPurpose:
         return <PurposeOfTrainingBlock />
-      case blocksNamesE.linkButton:
-        return <LinkBlock />
+      case blocksNamesE.income:
+        return <SalaryBlock/>
+      // case blocksNamesE.linkButton:
+      //   return <LinkBlock />
       default:
         return null
     }
