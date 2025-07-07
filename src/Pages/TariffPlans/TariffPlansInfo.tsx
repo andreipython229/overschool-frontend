@@ -628,8 +628,7 @@ export const TariffPlansInfo: FC = () => {
             <img
               src="/images/Slice 3213.png"
               alt="Slice 3213"
-              style={{ width: '478px', height: '330px', marginBottom: '16px' }}
-            />
+              style={{ width: '478px', height: '330px', marginBottom: '16px' }} />
           </div>
         </div>
 
