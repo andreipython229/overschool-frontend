@@ -594,6 +594,7 @@ export const TariffPlansInfo: FC = () => {
 >
   Попробовать бесплатно
 </a>
+</div>
 
 </div>
 
