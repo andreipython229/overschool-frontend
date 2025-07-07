@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .modal-wrapper {
     position: fixed;
     top: 10%;

@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 @font-face {
   font-family: 'SF Pro Display';
   src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");

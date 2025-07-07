@@ -1,3 +1,6 @@
+@use "@/scss/mixin.scss" as *;
+@use "@/scss/variable.scss" as *;
+
 .redactorCourse {
   font-family: $font-family-inter;
   @include display(flex);

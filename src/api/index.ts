@@ -1,6 +1,7 @@
 export { coursesServices, CoursesPageService } from './coursesServices'
 export { autowebinarsService } from './autowebinarsService'
-export { userLoginService, authApi, refreshApi } from './userLoginService'
+export { userLoginService, authApi } from './userLoginService'
+export { refreshApi } from './refreshApi'
 export { modulesServices } from './modulesServices'
 export { schoolHeaderService } from './schoolHeaderService'
 export { schoolService } from './schoolService'
