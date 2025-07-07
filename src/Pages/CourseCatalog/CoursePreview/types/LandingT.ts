@@ -9,3 +9,8 @@ export type AudienceCardViewPropT = {
 export type AdvantageCardViewPropT = {
   position: number,
 }
+
+export type SalaryCardViewPropT = {
+  position: number,
+  isFirst?:boolean,
+}
