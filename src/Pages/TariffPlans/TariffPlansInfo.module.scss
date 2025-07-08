@@ -1,10 +1,23 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 24px 0;
+  max-width: 100vw;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  font-family: 'Manrope', sans-serif;
 }
 
 .container {
@@ -15,8 +28,6 @@
   padding: 0 16px; /* добавь, если нужны отступы слева/справа */
   width: 100%;
 }
-
-
 
 .TariffPlansPage {
   height: 100%;
@@ -36,10 +47,10 @@
   margin-left: auto;
   margin-right: auto;
 
-   white-space: nowrap; /* Не переносить текст */
-  overflow: hidden;     /* Убрать лишнее, если не влезает */
+  white-space: nowrap; /* Не переносить текст */
+  overflow: hidden; /* Убрать лишнее, если не влезает */
   text-overflow: ellipsis; /* Добавить ... при обрезке */
-   font-size: clamp(28px, 4vw, 46px);
+  font-size: clamp(28px, 4vw, 46px);
 
   white-space: nowrap;
   overflow: hidden;
@@ -53,7 +64,6 @@
     line-height: 36px;
   }
 }
-
 
 .TariffPlansPage_plansBlock {
   display: flex;
@@ -72,7 +82,6 @@
   text-align: center;
   margin: 20px 0;
 }
-
 
 .TariffPlansPage_plansBlock h1 {
   margin-top: 18px;
@@ -140,12 +149,12 @@
   justify-content: space-around;
 }
 .TariffPlansPage_plansBlock_cardGroup_card {
-  width: 340px;          /* фиксированная ширина */
-  height: 764px;         /* высота */
+  width: 340px; /* фиксированная ширина */
+  height: 764px; /* высота */
   border-radius: 24px;
   padding: 32px 16px 32px 16px; /* сверху, справа, снизу, слева */
   gap: 40px;
-  background: #E8F1FF;
+  background: #e8f1ff;
   box-shadow: 0 0 8px rgba(50, 65, 149, 0.3);
   display: flex;
   flex-direction: column;
@@ -153,15 +162,11 @@
   transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
 
-
-
-
 .TariffPlansPage_plansBlock_cardGroup_card:hover {
   box-shadow: 0 6px 12px rgba(186, 117, 255, 0.2), 0 12px 24px rgba(186, 117, 255, 0.25);
   transform: translateY(-4px);
   background: linear-gradient(135deg, #f8f1ff, #ffffff);
 }
-
 
 .TariffPlansPage_banner {
   margin-top: 65px;
@@ -294,43 +299,99 @@
 }
 
 @keyframes bgAnimate1 {
-  from { transform: translate3d(0, 0, 0); }
-  20% { transform: translate3d(50%, 100%, 0); }
-  30% { transform: translate3d(150%, 150%, 0); }
-  50% { transform: translate3d(400%, 200%, 0); }
-  70% { transform: translate3d(300%, 70%, 0); }
-  90% { transform: translate3d(100%, 30%, 0); }
-  to   { transform: translate3d(0, 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(50%, 100%, 0);
+  }
+  30% {
+    transform: translate3d(150%, 150%, 0);
+  }
+  50% {
+    transform: translate3d(400%, 200%, 0);
+  }
+  70% {
+    transform: translate3d(300%, 70%, 0);
+  }
+  90% {
+    transform: translate3d(100%, 30%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes bgAnimate2 {
-  from { transform: translate3d(0%, 0%, 0); }
-  20% { transform: translate3d(-100%, -100%, 0); }
-  30% { transform: translate3d(-200%, -150%, 0); }
-  50% { transform: translate3d(-400%, -200%, 0); }
-  70% { transform: translate3d(-300%, -60%, 0); }
-  90% { transform: translate3d(-100%, -10%, 0); }
-  to   { transform: translate3d(0%, 0%, 0); }
+  from {
+    transform: translate3d(0%, 0%, 0);
+  }
+  20% {
+    transform: translate3d(-100%, -100%, 0);
+  }
+  30% {
+    transform: translate3d(-200%, -150%, 0);
+  }
+  50% {
+    transform: translate3d(-400%, -200%, 0);
+  }
+  70% {
+    transform: translate3d(-300%, -60%, 0);
+  }
+  90% {
+    transform: translate3d(-100%, -10%, 0);
+  }
+  to {
+    transform: translate3d(0%, 0%, 0);
+  }
 }
 
 @keyframes bgAnimate3 {
-  from { transform: translate3d(0, 0, 0); }
-  20% { transform: translate3d(-150%, 10%, 0); }
-  30% { transform: translate3d(-300%, 100%, 0); }
-  50% { transform: translate3d(-400%, 200%, 0); }
-  70% { transform: translate3d(-250%, 150%, 0); }
-  90% { transform: translate3d(-50%, 100%, 0); }
-  to   { transform: translate3d(0, 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(-150%, 10%, 0);
+  }
+  30% {
+    transform: translate3d(-300%, 100%, 0);
+  }
+  50% {
+    transform: translate3d(-400%, 200%, 0);
+  }
+  70% {
+    transform: translate3d(-250%, 150%, 0);
+  }
+  90% {
+    transform: translate3d(-50%, 100%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes bgAnimate4 {
-  from { transform: translate3d(0, 0, 0); }
-  20% { transform: translate3d(150%, -10%, 0); }
-  30% { transform: translate3d(350%, -80%, 0); }
-  50% { transform: translate3d(400%, -150%, 0); }
-  70% { transform: translate3d(250%, -140%, 0); }
-  90% { transform: translate3d(100%, -80%, 0); }
-  to   { transform: translate3d(0, 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  20% {
+    transform: translate3d(150%, -10%, 0);
+  }
+  30% {
+    transform: translate3d(350%, -80%, 0);
+  }
+  50% {
+    transform: translate3d(400%, -150%, 0);
+  }
+  70% {
+    transform: translate3d(250%, -140%, 0);
+  }
+  90% {
+    transform: translate3d(100%, -80%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .bg {
@@ -338,7 +399,10 @@
   height: 100%;
 }
 
-.bg_wrap1, .bg_wrap2, .bg_wrap3, .bg_wrap4 {
+.bg_wrap1,
+.bg_wrap2,
+.bg_wrap3,
+.bg_wrap4 {
   z-index: -1;
   position: absolute;
   width: 50px;
@@ -405,8 +469,6 @@
   margin-bottom: 2rem;
 }
 
-
-
 .savingsBlock {
   width: 565px;
   height: 64px;
@@ -415,13 +477,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
-  background: linear-gradient(90deg, #BBCEEB 0%, #BBCEEB 100%);
+  background: linear-gradient(90deg, #bbceeb 0%, #bbceeb 100%);
   color: #000;
   font-weight: 600;
   font-size: 18px;
   box-sizing: border-box;
 }
-
 
 .card {
   display: flex;
@@ -442,15 +503,13 @@
   object-fit: cover;
 }
 
-
-
 .buttonConnect {
   width: 195px;
   height: 54px;
   border-radius: 10px;
   padding: 16px 40px;
   gap: 10px;
-  background-color: #357EEB;
+  background-color: #357eeb;
   color: white;
   border: none;
   cursor: pointer;
@@ -467,23 +526,19 @@
   background-color: #2a65c1;
 }
 
-
-
 .TariffPlansPage_plansBlock_cardGroup_card button {
-  background-color: #005BFF; // синий цвет кнопки
+  background-color: #005bff; // синий цвет кнопки
   color: white;
   border-radius: 12px;
   padding: 10px 20px;
   font-weight: 600;
 }
 
-
-
 .TariffPlansPage_plansBlock_cardGroup_card_text {
   display: flex;
   flex-direction: column;
   align-items: center; /* Центрируем содержимое по горизонтали */
-  text-align: center;  /* Для текста */
+  text-align: center; /* Для текста */
 }
 
 .tariffIcon {
@@ -493,9 +548,8 @@
   height: auto;
 }
 
-
 .TariffPlansPage_plansBlock_cardGroup_card {
-  background: #CFE2FF;
+  background: #cfe2ff;
   border-radius: 24px;
   box-shadow: 0 0 8px rgba(50, 65, 149, 0.3);
   padding: 20px;
@@ -505,7 +559,7 @@
 }
 
 .disabled {
-  color: #A0A0A0;
+  color: #a0a0a0;
   text-decoration: line-through;
 }
 
@@ -520,7 +574,7 @@ li {
   gap: 8px;
   margin-bottom: 8px;
   font-size: 16px;
-  color:black ; /* Синий цвет текста */
+  color: black; /* Синий цвет текста */
 }
 .seniorList li {
   color: white;
@@ -530,8 +584,6 @@ li img {
   height: 20px;
 }
 
-
-
 .custom-header {
   font-family: 'SF Pro Display', sans-serif;
   font-weight: 600; /* SemiBold */
@@ -539,24 +591,20 @@ li img {
   line-height: 100%; /* или 1 */
   letter-spacing: 0;
   text-align: center;
-  color: 'black',
+  color: 'black';
 }
 
-
-
 .cardJunior {
-  background: #E8F1FF; /* голубой */
+  background: #e8f1ff; /* голубой */
 }
 
 .cardMiddle {
-  background: #CFE2FF; /* синий */
+  background: #cfe2ff; /* синий */
 }
 
 .cardSenior {
   background: #324195; /* розовый */
 }
-
-
 
 .cardJunior {
   color: #000000; // белый текст
@@ -587,27 +635,20 @@ li img {
   pointer-events: none;
 }
 
-
-
-
-
-
-
 .card-title {
-    font-family: 'SF Pro Display', sans-serif;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 100%;
-    letter-spacing: 0;
-    margin: 0;
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0;
+  margin: 0;
 }
-
 
 .savingsBlock {
   display: flex;
-  justify-content: center;  // Центрирует по горизонтали
-  align-items: center;      // Центрирует по вертикали, если нужно
-  margin: 0 auto 1.5em;      // Центрирует блок и задаёт отступ снизу
+  justify-content: center; // Центрирует по горизонтали
+  align-items: center; // Центрирует по вертикали, если нужно
+  margin: 0 auto 1.5em; // Центрирует блок и задаёт отступ снизу
   gap: 12px;
   font-weight: 600;
   font-size: 16px;
@@ -615,7 +656,6 @@ li img {
   max-width: 100%;
   text-align: center;
 }
-
 
 .monthly {
   background-color: #a8d8ff; // голубой
@@ -640,10 +680,8 @@ li img {
   }
 }
 
-
-
 .planLabel {
-  font-family: "SF Pro Display", sans-serif;
+  font-family: 'SF Pro Display', sans-serif;
   font-weight: 700;
   font-size: 32px;
   line-height: 100%;
@@ -679,8 +717,6 @@ li img {
   margin: 16px auto;
 }
 
-
-
 .navbar {
   position: fixed;
   height: 60px;
@@ -688,10 +724,8 @@ li img {
   width: 100%;
   z-index: 1100;
   background-color: #fff; /* белый фон */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* тень для отделения от контента */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* тень для отделения от контента */
 }
-
-
 
 .plansLabelGroup div {
   margin-top: 10px;
@@ -717,23 +751,20 @@ li img {
   background-color: #4d5766;
 }
 
-
-
-
 .yearPrice {
-  font-weight: bold;      /* Делает шрифт жирным */
-  font-size: 27px;        /* Увеличивает размер шрифта */
+  font-weight: bold; /* Делает шрифт жирным */
+  font-size: 27px; /* Увеличивает размер шрифта */
 }
 .TariffPlansInfo_yearPrice__gK-jv {
-    font-family: "SF Pro Display", sans-serif;
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 100%;
-    letter-spacing: 0;
-    text-align: center;
-    margin-top: 10px;
-    width: 200px;
-    height: 38px;
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-align: center;
+  margin-top: 10px;
+  width: 200px;
+  height: 38px;
 }
 
 .junior {
@@ -754,9 +785,6 @@ li img {
   }
 }
 
-
-
-
 .courseHubTitle {
   text-align: center;
   h1 {
@@ -766,13 +794,11 @@ li img {
   }
 }
 
-
 .highlighted {
   background-color: #fff176; // жёлтый, можно заменить на нужный из Figma
   padding: 4px 8px;
   border-radius: 6px;
 }
-
 
 /* Добавляем отступ снизу навигации */
 .InitPageHeader {
@@ -786,13 +812,9 @@ li img {
   /* остальные стили */
 }
 
-
-
-
 .navigationWrapper {
   margin-bottom: 20px; /* Отступ под навигацией, чтобы заголовок был ниже */
 }
-
 
 .main-content {
   padding-top: 80px; /* увеличено, чтобы заголовок был ниже */
@@ -800,10 +822,8 @@ li img {
 
 .TariffPlansPage {
   padding: 40px;
-  background-color: #f9f9f9;
+  background-color: transparent;
 }
-
-
 
 .TariffPlansPage_plansBlock_cardGroup {
   margin-top: 45px;
@@ -817,33 +837,27 @@ li img {
   margin-right: auto;
 }
 
-
-
-
-
 .active {
   color: #1976d2;
   text-decoration: underline;
 }
 
-
-
 .TariffPlansPage_header {
-  white-space: nowrap;       /* не переносить строки */
-  overflow: hidden;          /* скрыть лишнее */
-  text-overflow: ellipsis;   /* добавить "..." при обрезке */
-   font-size: clamp(28px, 4vw, 46px);
+  white-space: nowrap; /* не переносить строки */
+  overflow: hidden; /* скрыть лишнее */
+  text-overflow: ellipsis; /* добавить "..." при обрезке */
+  font-size: clamp(28px, 4vw, 46px);
 }
 
 .footer {
   margin-top: 60px;
   padding: 40px 20px;
-  background-color: #FFFFFF;     /* белый фон */
-  color: #002B5B;                /* тёмно-синий текст */
+  background-color: #ffffff; /* белый фон */
+  color: #002b5b; /* тёмно-синий текст */
   text-align: center;
   font-family: 'SF Pro Display', sans-serif;
   font-size: 14px;
-  border-top: 1px solid #CCCCCC; /* светло-серая линия сверху */
+  border-top: 1px solid #cccccc; /* светло-серая линия сверху */
 }
 
 .footerContainer {
@@ -863,18 +877,18 @@ li img {
   margin-bottom: 20px;
 
   a {
-    color: #002B5B;           /* тёмно-синие ссылки */
+    color: #002b5b; /* тёмно-синие ссылки */
     margin: 0 12px;
     text-decoration: none;
     transition: color 0.3s;
 
     &:hover {
-      color: #0056b3;         /* ярче при наведении */
+      color: #0056b3; /* ярче при наведении */
     }
   }
 }
 
 .footerCopy {
   font-size: 12px;
-  color: #666666;             /* более мягкий тёмно-серый для копирайта */
+  color: #666666; /* более мягкий тёмно-серый для копирайта */
 }

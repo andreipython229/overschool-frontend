@@ -26,10 +26,10 @@
       "sizes": "192x192"
     },
     {
-      "src": "maskable.png",
+      "src": "images/logomobile",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "maskable"
+      "purpose": "logomobile.png"
     }
   ],
   "related_applications": [

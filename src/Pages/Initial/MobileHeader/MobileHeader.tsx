@@ -1,71 +1,74 @@
-import { FC, useState } from "react";
-import { useNavigate, generatePath } from "react-router-dom";
-import { logoHeader, MenuIcon, CloseIcon, Personal, HelpIcon } from "../../../assets/img/common/index";
-import styles from "./mobileHeader.module.scss";
-import StatusUp from '../../../components/common/IconSvg/StatusIcon';
-import Book from '../../../components/common/IconSvg/BookIcon';
-import Security from '../../../components/common/IconSvg/SecurityIcon';
-import Timer from '../../../components/common/IconSvg/TimerIcon';
-import ChatIcon from '../../../components/common/IconSvg/ChatIcon';
-import MedalStar from '../../../components/common/IconSvg/MedalStarIcon';
-import TelegramIcon from '@mui/icons-material/Telegram';
+import { FC, useState } from 'react'
+import { useNavigate, generatePath } from 'react-router-dom'
+import { logoHeader, MenuIcon, CloseIcon, Personal, HelpIcon } from '../../../assets/img/common/index'
+import styles from './mobileHeader.module.scss'
+import StatusUp from '../../../components/common/IconSvg/StatusIcon'
+import Book from '../../../components/common/IconSvg/BookIcon'
+import Security from '../../../components/common/IconSvg/SecurityIcon'
+import Timer from '../../../components/common/IconSvg/TimerIcon'
+import ChatIcon from '../../../components/common/IconSvg/ChatIcon'
+import MedalStar from '../../../components/common/IconSvg/MedalStarIcon'
+import TelegramIcon from '@mui/icons-material/Telegram'
 import { Path } from 'enum/pathE'
-import { useAppSelector } from '../../../store/hooks';
-import { authSelector } from '../../../selectors';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { authSelector } from '../../../selectors'
+import { logoutState } from '@/store/redux/users/slice'
 
 export const MobileHeader: FC = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [isPlatformOpen, setIsPlatformOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const navigate = useNavigate();
-  const isLogin = useAppSelector(authSelector);
-  const telegramLink = isLogin ? "https://t.me/course_hb" : "https://t.me/coursehub_admin";
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [isPlatformOpen, setIsPlatformOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const navigate = useNavigate()
+  const isLogin = useAppSelector(authSelector)
+  const dispatch = useAppDispatch()
+  const telegramLink = isLogin ? 'https://t.me/course_hb' : 'https://t.me/coursehub_admin'
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+    setMenuOpen(!menuOpen)
+  }
 
   const togglePlatformMenu = () => {
-    setIsPlatformOpen(!isPlatformOpen);
-  };
+    setIsPlatformOpen(!isPlatformOpen)
+  }
 
   const toggleLoginMenu = () => {
-    setIsLoginOpen(!isLoginOpen);
-  };
+    setIsLoginOpen(!isLoginOpen)
+  }
 
   const handleLoginPage = () => {
-      navigate(generatePath(Path.LoginPage))
-    }
+    navigate(generatePath(Path.LoginPage))
+  }
 
-    const handleRegistrationUser = () => {
-        const paramsString = localStorage.getItem('utmParams')
-        if (paramsString !== null) {
-          const parsedParams = JSON.parse(paramsString)
-          const queryParams = Object.keys(parsedParams)
-            .map(key => `${key}=${parsedParams[key]}`)
-            .join('&')
-          const pathWithParams = `${Path.CreateSchool}?${queryParams}`
-          navigate(pathWithParams)
-        } else {
-          navigate(Path.CreateSchool)
-        }
-      }
+  const handleLogout = () => {
+    dispatch(logoutState())
+    navigate(Path.InitialPage)
+  }
+
+  const handleRegistrationUser = () => {
+    const paramsString = localStorage.getItem('utmParams')
+    if (paramsString !== null) {
+      const parsedParams = JSON.parse(paramsString)
+      const queryParams = Object.keys(parsedParams)
+        .map(key => `${key}=${parsedParams[key]}`)
+        .join('&')
+      const pathWithParams = `${Path.CreateSchool}?${queryParams}`
+      navigate(pathWithParams)
+    } else {
+      navigate(Path.CreateSchool)
+    }
+  }
 
   return (
-    <header className={`${styles.mobile_header} ${menuOpen ? styles.menu_open : ""}`}>
+    <header className={`${styles.mobile_header} ${menuOpen ? styles.menu_open : ''}`}>
       <div className={styles.header_container}>
-        <div className={styles.logo} onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+        <div className={styles.logo} onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <img src={logoHeader} alt="Logotype" />
         </div>
 
-        <div className={`${styles.nav_links} ${menuOpen ? styles.hidden : ""}`}>
+        <div className={`${styles.nav_links} ${menuOpen ? styles.hidden : ''}`}>
           <div className={`${styles.nav_item} ${isPlatformOpen ? styles.active : ''}`} onClick={togglePlatformMenu}>
             Платформа
-            {isPlatformOpen ? (
-              <span>▼</span>
-            ) : (
-              <span>▲</span>
-            )}
+            {isPlatformOpen ? <span>▼</span> : <span>▲</span>}
             {isPlatformOpen && (
               <div className={styles.submenu}>
                 <a href="https://coursehb.ru/dlya-nachinayushchih">
@@ -103,7 +106,6 @@ export const MobileHeader: FC = () => {
                   <h5>Помощь</h5>
                   <img src={HelpIcon} alt="HelpIcon" className={styles.icon} />
                 </a>
-
               </div>
             )}
           </div>
@@ -112,29 +114,21 @@ export const MobileHeader: FC = () => {
               <TelegramIcon className={styles.icon} style={{ color: '#357EEB', width: 24, height: 24 }} />
             </a>
           </div>
-          <div className={`${styles.nav_item} ${isLoginOpen ? styles.active : ''}`} onClick={toggleLoginMenu}>
-            Войти
+          <div className={`${styles.nav_item} ${isLoginOpen ? styles.active : ''}`} onClick={isLogin ? handleLogout : toggleLoginMenu}>
+            {isLogin ? 'Выйти' : 'Войти'}
             {isLoginOpen && (
               <div className={`${styles.submenu} ${styles.login}`}>
-                <button onClick={handleRegistrationUser}>
-                  Создать платформу
-                </button>
-                <button onClick={handleLoginPage}>
-                  Вход
-                </button>
+                <button onClick={handleRegistrationUser}>Создать платформу</button>
+                <button onClick={handleLoginPage}>Вход</button>
               </div>
             )}
           </div>
         </div>
 
         <div className={styles.menu_icon} onClick={toggleMenu}>
-          {menuOpen ? (
-            <img src={CloseIcon} alt="Close menu" width={22} height={16} />
-          ) : (
-            <img src={MenuIcon} alt="Open menu" width={22} height={16} />
-          )}
+          {menuOpen ? <img src={CloseIcon} alt="Close menu" width={22} height={16} /> : <img src={MenuIcon} alt="Open menu" width={22} height={16} />}
         </div>
       </div>
     </header>
-  );
-};
+  )
+}

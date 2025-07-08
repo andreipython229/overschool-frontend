@@ -4,6 +4,7 @@ import { Route, Navigate } from 'react-router-dom'
 import { RoleE } from 'enum/roleE'
 import { TariffPlans } from 'Pages/TariffPlans/TariffPlans'
 import { Path, Student, SettingsPath, CreateCoursePath } from 'enum/pathE'
+import { LoadingSpinner } from '../App'
 
 // Import lazy components
 import {
@@ -25,7 +26,6 @@ import {
   Webinars,
   StudentSchoolMeeting,
   Materials,
-  LoadingSpinner,
   CourseMaterials,
   DomainSettings,
   PromotionSettings,
