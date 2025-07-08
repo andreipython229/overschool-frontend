@@ -122,7 +122,7 @@ export const ButtonRedactor: FC<IProps> = ({ button, block, lessonBlocks, setLes
         <div style={{ display: 'flex', flexDirection: 'column', height: '207px', gap: '20px' }}>
           <p className={styles.text}>Выбор цвета кнопки:</p>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-            <HexColorPicker color={colorPalette} onChange={setColorPalette} style={{ height: '160px', width: '240px' }} />
+            <HexColorPicker color={colorPalette} onChange={setColorPalette}/>
           </div>
         </div>
       </div>
