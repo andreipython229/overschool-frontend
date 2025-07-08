@@ -7,7 +7,6 @@ import { useGetSchoolsMutation } from '../../api/getSchoolService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { selectUser, schoolSelector } from '../../selectors'
 import { RoleE } from '../../enum/roleE'
-import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
 import { clearSchoolData, setSchoolData } from '../../store/redux/school/schoolSlice'
 import { useBoolean } from '../../customHooks'
 import mobileImg from './components/imgs/mobileBg.png'
@@ -30,6 +29,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
 import { clearTariffState } from 'store/redux/tariff/tariffSlice'
 import { Toaster } from 'react-hot-toast'
+import { LoaderLayout } from '@/components/Loaders/LoaderLayout'
 
 export type SchoolT = {
   school_id: number
@@ -161,19 +161,7 @@ export const ChooseSchool = () => {
       <div className={styles.bg1}>
         <div className={styles.bg3}>
           {isLoading ? (
-            <div
-              style={{
-                width: '100vw',
-                height: '70vh',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'transparent',
-              }}
-            >
-              <SimpleLoader style={{ height: '80px' }} />
-            </div>
+            <LoaderLayout />
           ) : (
             <motion.div
               className={styles.container}
