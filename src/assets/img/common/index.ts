@@ -23,7 +23,7 @@ import chatGroup from './chat_group.png'
 import chatCourse from './chat_course.png'
 import arrowDownTableAZ from './arrowDownTableAZ.svg'
 import arrowDownTableZA from './arrowDownTableZA.svg'
-import full_logo from './full_logotype.svg'
+
 import logoHeader from './logoHeader.png'
 import plus from './plus.png'
 import footerlogo from './footerlogo.png'
@@ -119,7 +119,6 @@ export {
   chatCourse,
   arrowDownTableAZ,
   arrowDownTableZA,
-  full_logo,
   footerlogo,
   callfooter,
   mailfooter,
