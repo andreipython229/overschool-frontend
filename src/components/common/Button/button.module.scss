@@ -84,6 +84,8 @@
   background-color: #cfe2ff;
   cursor: not-allowed !important;
   font-family: 'Manrope', sans-serif;
+  width: 109px;
+  height: 37px;
 }
 .registrationDisabled {
   color: #ffff;
@@ -377,12 +379,15 @@
   font-family: 'SFPRORegular';
   color: #ffffff;
   background: #357eeb;
-  @include font(700, 20px, 23.87px);
+  @include font(500, 14px, 100%);
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffffff;
     background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
   }
+  letter-spacing: 0;
+  height: 37px;
+  gap: 10px;
 }
 
 .newSecondary {
@@ -701,6 +706,8 @@
     color: #ffffff;
     background: #357eeb;
   }
+  width: 93px;
+  height: 37px;
 }
 
 .newDelete {

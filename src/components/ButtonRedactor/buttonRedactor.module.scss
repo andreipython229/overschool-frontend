@@ -2,7 +2,6 @@
 @use "@/scss/variable.scss" as *;
 
 .wrapper {
-  width: 100%;
   padding: 10px;
   @include display(flex, column, center, flex-start);
   gap: 20px;
@@ -12,7 +11,7 @@
 
 .text {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   color: #332f36;
   font-family: 'SFPRORegular', sans-serif;
   text-align: left;
@@ -26,13 +25,16 @@
 
 .buttonsBlock {
   button {
-    padding: 10px 25px;
+    padding: 10px 20px 10px 20px;
     font-family: 'SFPRORegular', sans-serif;
     font-size: 14px;
     font-weight: 500;
-    line-height: 16.71px;
+    line-height: 100%;
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+    width: 109px;
+    height: 37px;
+    gap: 10px;
   }
 }
