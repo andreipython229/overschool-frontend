@@ -46,7 +46,7 @@ export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isLoading }] = useGetSchoolsMutation()
   const [logout] = useLazyLogoutQuery()
-  const { role: userRole, authState, email } = useAppSelector(selectUser)
+  const { role: userRole } = useAppSelector(selectUser)
   const { schoolName } = useAppSelector(schoolSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
   const [selectedSchool, setSelectedSchool] = useState<SchoolT>()
@@ -90,13 +90,11 @@ export const ChooseSchool = () => {
         setSchools(data)
       })
       .catch(err => {
-        if (err.status === 401) {
-          localStorage.clear()
-          logout()
-          dispatch(logoutState())
-          dispatch(clearUserProfile())
-          navigate(generatePath(Path.InitialPage))
-        }
+        localStorage.clear()
+        logout()
+        dispatch(logoutState())
+        dispatch(clearUserProfile())
+        navigate(generatePath(Path.LoginPage))
       })
   }, [])
 

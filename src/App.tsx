@@ -1,12 +1,13 @@
 import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState, Suspense, lazy } from 'react'
-import { Path, FooterPath, PathParams } from '@/enum/pathE'
+import { Path, FooterPath } from '@/enum/pathE'
 import { useAppSelector } from '@/store/hooks'
 import { authSelector, schoolSelector, selectUser } from '@/selectors'
 import { navByRolesConfig } from '@/config'
 import { scrollToTop } from 'utils/scrollToTop'
 import styles from './App.module.scss'
 import { Toaster } from 'react-hot-toast'
+import { SimpleLoader } from './components/Loaders/SimpleLoader'
 
 // Lazy components
 const PageNotFound = lazy(() => import('@/Pages/PageNotFound/PageNotFound').then(module => ({ default: module.PageNotFound })))
@@ -48,18 +49,8 @@ const SocialAuthPage = lazy(() => import('@/ServicePages/SocialAuthPage').then(m
 const WebinarPage = lazy(() => import('@/Pages/Webinar/webinarPage').then(module => ({ default: module.default })))
 
 // Loading component
-const LoadingSpinner = () => (
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    height: '100vh',
-    fontSize: '18px',
-    color: '#666'
-  }}>
-    Загрузка...
-  </div>
-)
+export const LoadingSpinner = () => <SimpleLoader loaderColor="#357EEB" style={{ width: '100px', height: '100px', margin: 'auto', position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }} />
+
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
@@ -76,8 +67,6 @@ export const App = () => {
       navigate(generatePath(`${Path.School}/${Path.Courses}`, { school_name: schoolName as string }))
     }
   }, [isLogin])
-
-  console.log(pathname === Path.SocialAuth)
 
   useEffect(() => {
     if (
