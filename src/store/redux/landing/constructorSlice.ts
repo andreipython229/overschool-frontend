@@ -32,6 +32,7 @@ export const slice = createSlice({
         trainingProgram: initialBlocks.trainingProgram,
         trainingPurpose: initialBlocks.trainingPurpose,
         linkButton: initialBlocks.linkButton,
+        income: initialBlocks.income,
       }
     },
     addFile: (state, action: PayloadAction<{key: string, file: File | Blob}>) => {

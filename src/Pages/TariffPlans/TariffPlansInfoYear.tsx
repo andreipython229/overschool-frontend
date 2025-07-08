@@ -224,6 +224,8 @@ export const TariffPlansInfoYear: FC = () => {
               <span className={styles.monthly}>Ежемесячно</span>
             </button>
 
+
+
             <div className={styles.yearlyBlock}>
               <span>Годовая</span>
               <span className={styles.discountBadge}>Экономия 20%</span>

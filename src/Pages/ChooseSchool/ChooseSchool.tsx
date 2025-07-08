@@ -7,7 +7,6 @@ import { useGetSchoolsMutation } from '../../api/getSchoolService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
 import { selectUser, schoolSelector } from '../../selectors'
 import { RoleE } from '../../enum/roleE'
-import { SimpleLoader } from '../../components/Loaders/SimpleLoader'
 import { clearSchoolData, setSchoolData } from '../../store/redux/school/schoolSlice'
 import { useBoolean } from '../../customHooks'
 import mobileImg from './components/imgs/mobileBg.png'
@@ -30,6 +29,7 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
 import { clearTariffState } from 'store/redux/tariff/tariffSlice'
 import { Toaster } from 'react-hot-toast'
+import { LoaderLayout } from '@/components/Loaders/LoaderLayout'
 
 export type SchoolT = {
   school_id: number
@@ -46,7 +46,7 @@ export const ChooseSchool = () => {
   const navigate = useNavigate()
   const [getSchools, { isLoading }] = useGetSchoolsMutation()
   const [logout] = useLazyLogoutQuery()
-  const { role: userRole, authState, email } = useAppSelector(selectUser)
+  const { role: userRole } = useAppSelector(selectUser)
   const { schoolName } = useAppSelector(schoolSelector)
   const [schools, setSchools] = useState<SchoolT[]>([])
   const [selectedSchool, setSelectedSchool] = useState<SchoolT>()
@@ -90,13 +90,11 @@ export const ChooseSchool = () => {
         setSchools(data)
       })
       .catch(err => {
-        if (err.status === 401) {
-          localStorage.clear()
-          logout()
-          dispatch(logoutState())
-          dispatch(clearUserProfile())
-          navigate(generatePath(Path.InitialPage))
-        }
+        localStorage.clear()
+        logout()
+        dispatch(logoutState())
+        dispatch(clearUserProfile())
+        navigate(generatePath(Path.LoginPage))
       })
   }, [])
 
@@ -163,19 +161,7 @@ export const ChooseSchool = () => {
       <div className={styles.bg1}>
         <div className={styles.bg3}>
           {isLoading ? (
-            <div
-              style={{
-                width: '100vw',
-                height: '70vh',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'transparent',
-              }}
-            >
-              <SimpleLoader style={{ height: '80px' }} />
-            </div>
+            <LoaderLayout />
           ) : (
             <motion.div
               className={styles.container}

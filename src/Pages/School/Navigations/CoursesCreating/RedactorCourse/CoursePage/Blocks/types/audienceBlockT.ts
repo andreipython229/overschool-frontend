@@ -1,6 +1,7 @@
 export interface CardPropsT {
   position: number;
   onDelete: () => void;
+  isFirst?: boolean; 
 }
 
 export interface CardDataT {
