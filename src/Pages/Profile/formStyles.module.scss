@@ -112,3 +112,33 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .form_avatarWrapper {
+    margin-left: 0 !important;
+    margin-bottom: 16px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form_avatarWrapper_avatarBlock_img {
+    max-width: 80px;
+    width: 100%;
+    height: auto;
+  }
+  .form {
+    padding: 0 4px;
+  }
+  input,
+  .teacherInput {
+    font-size: 14px;
+    width: 100%;
+    min-width: 0;
+  }
+  .form_avatarWrapperMobile {
+    margin: 0 auto 8px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
