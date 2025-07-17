@@ -2,6 +2,7 @@
 @use "@/scss/variable.scss" as *;
 
 .wrapper {
+  width: 750px;
   padding: 10px;
   @include display(flex, column, center, flex-start);
   gap: 20px;
@@ -37,4 +38,42 @@
     height: 37px;
     gap: 10px;
   }
+}
+
+/* Кастомизация палитры цвета react-colorful */
+:global(.react-colorful) {
+  width: 240px !important;
+  height: 160px !important;
+  gap: 6px;
+}
+
+:global(.react-colorful__saturation) {
+  border-radius: 10px !important;
+}
+
+:global(.react-colorful__hue.react-colorful__last-control) {
+  width: 240px;
+  height: 10px;
+  border-radius: 10px;
+}
+
+:global(.react-colorful__pointer-fill) {
+  background: #fff !important;   // белая заливка
+  border-radius: 50%;
+}
+
+:global(.react-colorful__pointer.react-colorful__saturation-pointer) {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #357EEB;
+  top: 3px;
+  left: 220px;
+}
+
+:global(.react-colorful__pointer.react-colorful__hue-pointer) {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #357EEB;
+  top: 165px;
+  left: 220px;
 }

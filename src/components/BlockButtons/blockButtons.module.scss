@@ -7,13 +7,12 @@
   padding: 10px 20px;
   border-radius: 10px;
   color: #f3f4f6;
-  //font-weight: 600;
   transition: ease-in 0.3s;
   word-wrap: break-word;
-  max-width: 100%;
+  max-width: 300px;
   overflow: hidden;
   text-align: center;
-  height: 37px;
+  min-height: 37px;
   font-size: 14px;
 
   &:hover {
