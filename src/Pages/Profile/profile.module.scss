@@ -515,3 +515,227 @@ h5 {
     animation: bgAnimate4 10s linear infinite;
   }
 }
+
+@media (max-width: 600px) {
+  .profile_table {
+    display: block;
+    width: 100%;
+  }
+  .profile_table tr,
+  .profile_table td {
+    display: block;
+    width: 100%;
+  }
+  .profile_title {
+    font-size: 22px;
+    margin-left: 0;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .profile_rating {
+    font-size: 11px;
+    padding: 8px;
+    text-align: center;
+  }
+  .profile_block {
+    margin-bottom: 8px;
+    padding: 0 8px;
+  }
+  .profile_table span {
+    font-size: 14px;
+    margin-left: 0;
+    display: block;
+    word-break: break-all;
+  }
+  .profile_headerInfoMobile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 12px 0 12px;
+  }
+  .profile_headerField {
+    font-size: 15px;
+    font-weight: 400;
+    text-align: left;
+    word-break: break-all;
+    padding-right: 8px;
+    padding-left: 2px;
+  }
+  .container,
+  .notification {
+    max-width: 500px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px 12px 12px 12px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+    background: #fff;
+  }
+  .forms_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .container_notification_toggle {
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+  .container_notification_toggle > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    min-width: 0;
+    width: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .container_notification_toggle h5,
+  .container_notification_toggle span {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  .container_notification_toggle svg {
+    flex-shrink: 0;
+    width: 24px;
+    max-width: 28px;
+    height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .container_notification_toggle > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    min-width: 0;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  // Ограничение ширины текстового блока с адаптацией
+  .container_notification_toggle span,
+  .container_notification_toggle h5 {
+    display: block;
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 38vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+  }
+  @media (max-width: 400px) {
+    .container_notification_toggle span,
+    .container_notification_toggle h5 {
+      max-width: 38vw;
+    }
+  }
+  // Ограничение для ползунка
+  .container_notification_toggle {
+    padding: 0 !important;
+    border-width: 1px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container_notification_toggle a {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .container_notification_toggle h5,
+  .container_notification_toggle .notificationText {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 600px) {
+  // Адаптация блока кнопок выхода и сохранить
+  .profile_block > div[style*="display: flex"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+  }
+  .profile_block_delete,
+  .profile_block_btn {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .profile_block_delete {
+    margin-right: 12px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile_block_btn {
+    height: 48px !important;
+    min-height: 44px !important;
+    font-size: 16px !important;
+    border-radius: 10px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+
+.referralRow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .referralRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .referralInputWrapper {
+    margin-bottom: 6px;
+  }
+  .referralRow button {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .referralRow button:last-child {
+    margin-bottom: 0;
+  }
+}
