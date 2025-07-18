@@ -23,26 +23,31 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
     const { mmddyyyy, hoursAndMinutes } = convertDate(new Date(dataToRender[i].last_active || ''))
 
     // Дата добавления в группу
-    const dateAdded = dataToRender[i].date_added;
-    const { mmddyyyy: added_date, hoursAndMinutes: added_time } = dateAdded ?
-          convertDate(new Date(dateAdded)) :
-          { mmddyyyy: '', hoursAndMinutes: '' };
+    const dateAdded = dataToRender[i].date_added
+    const { mmddyyyy: added_date, hoursAndMinutes: added_time } = dateAdded ? convertDate(new Date(dateAdded)) : { mmddyyyy: '', hoursAndMinutes: '' }
 
     // Дата удаления из группы
-    const dateRemoved = dataToRender[i].date_removed;
-    const { mmddyyyy: removed_date, hoursAndMinutes: removed_time } = dateRemoved ?
-          convertDate(new Date(dateRemoved)) :
-          { mmddyyyy: '', hoursAndMinutes: '' };
+    const dateRemoved = dataToRender[i].date_removed
+    const { mmddyyyy: removed_date, hoursAndMinutes: removed_time } = dateRemoved
+      ? convertDate(new Date(dateRemoved))
+      : { mmddyyyy: '', hoursAndMinutes: '' }
+
+    // Дата продления
+    const extensionDate = dataToRender[i].extension_date
+    const { mmddyyyy: extension_date, hoursAndMinutes: extension_time } = extensionDate
+      ? convertDate(new Date(extensionDate))
+      : { mmddyyyy: '', hoursAndMinutes: '' }
 
     const progress = dataToRender[i].progress ? `${dataToRender[i].progress}%` : '0%'
-
 
     const row: GenerateRow = {
       id: i,
       Имя: {
         // name: `${dataToRender[i].first_name || 'Без'} ${dataToRender[i].last_name || 'Имени'}`,
-        name: (dataToRender[i].last_name && dataToRender[i].first_name) ? `${dataToRender[i].last_name}  ${dataToRender[i].first_name}` :
-                        (dataToRender[i].last_name || dataToRender[i].first_name || "Нет имени"),
+        name:
+          dataToRender[i].last_name && dataToRender[i].first_name
+            ? `${dataToRender[i].last_name}  ${dataToRender[i].first_name}`
+            : dataToRender[i].last_name || dataToRender[i].first_name || 'Нет имени',
         avatar: dataToRender[i].avatar,
       },
       Email: dataToRender[i].email,
@@ -53,10 +58,13 @@ export const generateData = (columnsList: studentsTableHeader | undefined, data:
       Группа: dataToRender[i].group_name,
       'Дата добавления в группу': `${added_date} ${added_time}`,
       'Дата удаления из группы': `${removed_date} ${removed_time}`,
-      'Прогресс': progress,
+      Прогресс: progress,
       'Номер телефона': dataToRender[i].phone_number || '',
-      'Доступ': dataToRender[i].access ? 'активен' : 'неактивен',
-      'Период доступа': dataToRender[i].access_period ?? ''
+      Доступ: dataToRender[i].access ? 'активен' : 'неактивен',
+      'Период доступа': dataToRender[i].access_period ?? '',
+      'Срок продления (дни)': dataToRender[i].extension_period ?? '',
+      'Дата закрытия доступа': dataToRender[i].access_closure_date ?? '',
+      'Дата продления': dataToRender[i].extension_date ? `${extension_date} в ${extension_time}` : '',
     }
 
     Object.entries(row).forEach(([key, value]) => {
