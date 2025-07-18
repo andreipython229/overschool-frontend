@@ -12,6 +12,7 @@ export type PathParams = {
 
 export enum Path {
   ChooseSchool = '/chooseSchool',
+  AccessLogs = 'access-logs',
   InitialPage = '/',
   School = '/school/:school_name',
   DefaultSchool = '/school/Coursehub',

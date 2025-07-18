@@ -45,6 +45,7 @@ import {
   Main,
   Employees,
   Logs,
+  AccessLogs,
   DecorPlatform,
 } from './lazyComponents'
 
@@ -135,6 +136,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.Meetings} element={<LazyComponent component={SchoolMeetings} />} />
       <Route path={Path.Webinars} element={<LazyComponent component={Webinars} />} />
       <Route path={Path.Rating} element={<LazyComponent component={Rating} />} />
+      <Route path={Path.AccessLogs} element={<LazyComponent component={AccessLogs} />} />
     </>
   ),
   [RoleE.Teacher]: (

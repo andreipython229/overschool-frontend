@@ -37,4 +37,5 @@ export { courseLandingServices } from './courseLandingServices'
 export {domainService } from './DomainService'
 export { ratingService } from './ratingService'
 export { feedbacksService } from './feedbacksService'
+export * from './accessLogsService'
 
