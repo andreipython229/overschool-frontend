@@ -70,6 +70,9 @@ export const FooterMobile: FC<IFooter> = ({ schoolTariffPlan }) => {
               <p>Публичный договор оферты</p>
             </Link>
           )}
+          <Link to={`/school/${defaultSchoolName}/${FooterPath.PWA}`} style={{ marginBottom: '20px' }}>
+            <p>Установка приложения</p>
+          </Link>
         </FooterSection>
         <div className={styles.wrapper_box_contact}>
           <h1>ПОЧТА</h1>

@@ -53,6 +53,7 @@ export enum Path {
   Webinars = 'webinars',
   WebinarPage = 'webinar/:slug',
   Materials = 'materials',
+  PWA = 'pwa',
   CourseMaterials = 'create-course/:course_id/materials',
   Rating = 'rating',
   Bonus = 'bonus',

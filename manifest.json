@@ -8,9 +8,6 @@
   "scope": "/",
   "short_name": "CourseHub",
   "start_url": ".",
-  "serviceworker": {
-    "src": "service-worker.js"
-  },
   "theme_color": "#357EEB",
   "categories": ["business", "education"],
   "screenshots": [],
@@ -26,10 +23,22 @@
       "sizes": "192x192"
     },
     {
-      "src": "images/logomobile",
+      "src": "images/Logo192p.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/apple-touch-icon.png.png",
+      "type": "image/png",
+      "sizes": "180x180",
+      "purpose": "any"
+    },
+    {
+      "src": "images/Logo512p.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "logomobile.png"
+      "purpose": "any maskable"
     }
   ],
   "related_applications": [
