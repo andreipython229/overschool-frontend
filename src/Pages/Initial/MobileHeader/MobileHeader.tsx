@@ -44,6 +44,10 @@ export const MobileHeader: FC = () => {
     navigate(Path.InitialPage)
   }
 
+  const handleChoosePlatform = () => {
+    navigate(Path.ChooseSchool)
+  }
+
   const handleRegistrationUser = () => {
     const paramsString = localStorage.getItem('utmParams')
     if (paramsString !== null) {
@@ -114,12 +118,12 @@ export const MobileHeader: FC = () => {
               <TelegramIcon className={styles.icon} style={{ color: '#357EEB', width: 24, height: 24 }} />
             </a>
           </div>
-          <div className={`${styles.nav_item} ${isLoginOpen ? styles.active : ''}`} onClick={isLogin ? handleLogout : toggleLoginMenu}>
+          <div className={`${styles.nav_item} ${isLoginOpen ? styles.active : ''}`} onClick={toggleLoginMenu}>
             {isLogin ? 'Выйти' : 'Войти'}
             {isLoginOpen && (
               <div className={`${styles.submenu} ${styles.login}`}>
-                <button onClick={handleRegistrationUser}>Создать платформу</button>
-                <button onClick={handleLoginPage}>Вход</button>
+                <button onClick={isLogin ? handleChoosePlatform : handleRegistrationUser}>{isLogin ? 'Выбрать платформу' : 'Создать платформу'}</button>
+                <button onClick={isLogin ? handleLogout : handleLoginPage}>{isLogin ? 'Выйти из профиля' : 'Войти в профиль'}</button>
               </div>
             )}
           </div>
