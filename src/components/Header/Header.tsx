@@ -7,6 +7,7 @@ import { Path } from 'enum/pathE'
 import { useFetchSchoolHeaderQuery, useGetSchoolProgressionDataMutation } from '../../api/schoolHeaderService'
 import { IconSvg } from '../common/IconSvg/IconSvg'
 import { logOutIconPath } from './config/svgIconsPath'
+import { accessLogsIconPath } from './config/newSvgIconsPath'
 import { useLazyLogoutQuery } from 'api/userLoginService'
 import { schoolProgressSelector, schoolSelector, selectUser, selectUserProfile, tariffSelector } from '../../selectors'
 import { logoHeader } from '../../assets/img/common'
@@ -965,6 +966,12 @@ export const Header = memo(() => {
               <MenuItem onClick={goToChooseSchool}>
                 <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={HomeIconPath} />
                 <Link to={Path.ChooseSchool}>Смена платформы</Link>
+              </MenuItem>
+            )}
+            {userRole === RoleE.Admin && (
+              <MenuItem onClick={() => navigate(`/school/${schoolName}/access-logs`)}>
+                <IconSvg viewBoxSize="0 0 24 24" width={18} height={18} path={accessLogsIconPath} />
+                <Link to={`/school/${schoolName}/access-logs`}>Логи выдачи доступа</Link>
               </MenuItem>
             )}
             {schoolRoles && schoolRoles.roles.includes('Студент') && (

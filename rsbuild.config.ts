@@ -3,14 +3,12 @@ import { pluginReact } from '@rsbuild/plugin-react'
 import { pluginSass } from '@rsbuild/plugin-sass'
 import path from 'path'
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV === 'DEV'
+const isDevelopment = process.env.VITE_RUN_MODE === 'DEV'
 const isProduction = process.env.NODE_ENV === 'production'
 
 export default defineConfig({
-  plugins: [
-    pluginReact(),
-    pluginSass(),
-  ],
+  plugins: [pluginReact(), pluginSass()],
   source: {
     entry: {
       index: './src/index.tsx',
@@ -48,22 +46,22 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'components': path.resolve(__dirname, './src/components'),
-      'assets': path.resolve(__dirname, './src/assets'),
-      'src': path.resolve(__dirname, './src'),
-      'utils': path.resolve(__dirname, './src/utils'),
-      'customHooks': path.resolve(__dirname, './src/customHooks'),
-      'types': path.resolve(__dirname, './src/types'),
-      'enum': path.resolve(__dirname, './src/enum'),
-      'selectors': path.resolve(__dirname, './src/selectors'),
-      'store': path.resolve(__dirname, './src/store'),
-      'api': path.resolve(__dirname, './src/api'),
-      'Pages': path.resolve(__dirname, './src/Pages'),
-      'MobilePages': path.resolve(__dirname, './src/MobilePages'),
-      'config': path.resolve(__dirname, './src/config'),
-      'ServicePages': path.resolve(__dirname, './src/ServicePages'),
-      'constants': path.resolve(__dirname, './src/constants'),
-      'scss': path.resolve(__dirname, './src/scss'),
+      components: path.resolve(__dirname, './src/components'),
+      assets: path.resolve(__dirname, './src/assets'),
+      src: path.resolve(__dirname, './src'),
+      utils: path.resolve(__dirname, './src/utils'),
+      customHooks: path.resolve(__dirname, './src/customHooks'),
+      types: path.resolve(__dirname, './src/types'),
+      enum: path.resolve(__dirname, './src/enum'),
+      selectors: path.resolve(__dirname, './src/selectors'),
+      store: path.resolve(__dirname, './src/store'),
+      api: path.resolve(__dirname, './src/api'),
+      Pages: path.resolve(__dirname, './src/Pages'),
+      MobilePages: path.resolve(__dirname, './src/MobilePages'),
+      config: path.resolve(__dirname, './src/config'),
+      ServicePages: path.resolve(__dirname, './src/ServicePages'),
+      constants: path.resolve(__dirname, './src/constants'),
+      scss: path.resolve(__dirname, './src/scss'),
     },
   },
   html: {
@@ -73,12 +71,12 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://apidev.coursehb.ru',
+        target: isDevelopment ? 'http://sandbox.coursehb.ru' : 'https://api.coursehb.ru',
         changeOrigin: true,
         secure: false,
       },
       '/video': {
-        target: 'http://45.88.76.53:8000',
+        target: isDevelopment ? 'http://91.211.248.84:8000' : 'http://45.88.76.53:8000',
         changeOrigin: true,
         secure: false,
       },
@@ -99,4 +97,4 @@ export default defineConfig({
       strategy: 'split-by-module',
     },
   },
-}) 
+})

@@ -5,8 +5,10 @@ import * as services from '../../api/index'
 import * as slices from './index'
 import { modulesReduce } from './modules/modules'
 import errorMiddleware from '../DomainErrorMiddleware'
+import { accessLogsApi } from '../../api/accessLogsService'
 
 export const rootReducer = combineReducers({
+  [accessLogsApi.reducerPath]: accessLogsApi.reducer,
   [services.refreshApi.reducerPath]: services.refreshApi.reducer,
   [services.authApi.reducerPath]: services.authApi.reducer,
   [services.userProgressService.reducerPath]: services.userProgressService.reducer,
@@ -126,6 +128,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
         services.ratingService.middleware,
         services.feedbacksService.middleware,
         services.autowebinarsService.middleware,
+        accessLogsApi.middleware,
         errorMiddleware,
       ),
   })

@@ -112,6 +112,18 @@ export const StudentsTableWrapper: FC<StudentsTableWrapperT> = memo(
           case 'Номер телефона':
             handleAddSortToFilters('phone_number', direction)
             break
+          case 'Период доступа':
+            handleAddSortToFilters('access_period', direction)
+            break
+          case 'Срок продления (дни)':
+            handleAddSortToFilters('extension_period', direction)
+            break
+          case 'Дата закрытия доступа':
+            handleAddSortToFilters('access_closure_date', direction)
+            break
+          case 'Дата продления':
+            handleAddSortToFilters('extension_date', direction)
+            break
         }
       } else if (handleAddSortToFilters && tableType == 'Группа') {
         switch (col) {

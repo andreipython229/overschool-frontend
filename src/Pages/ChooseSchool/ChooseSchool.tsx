@@ -78,6 +78,7 @@ export const ChooseSchool = () => {
         setSchoolsWithDomain(domainSchoolsArray)
       }
     }
+    console.log('Schools:', schools, 'Filtered:', filteredSchool, 'Length:', filteredSchool?.length)
   }, [DomainSuccess, DomainData, schools])
 
   useEffect(() => {
@@ -116,14 +117,16 @@ export const ChooseSchool = () => {
     return school.name.toLowerCase().includes(search.toLowerCase())
   })
 
-  const [isVertical, setIsVertical] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsVertical(window.innerWidth < 640)
+      const mobile = window.innerWidth <= 768
+      setIsMobile(mobile)
+      console.log('Window width:', window.innerWidth, 'Is mobile:', mobile)
     }
 
-    handleResize() // вызовите для установки начального состояния
+    handleResize()
     window.addEventListener('resize', handleResize)
 
     return () => window.removeEventListener('resize', handleResize)
@@ -244,14 +247,26 @@ export const ChooseSchool = () => {
               <div className={styles.schoolBox}>
                 {schools && filteredSchool ? (
                   <Swiper
-                    className={styles.swiper}
+                    className={`${styles.swiper} ${isMobile ? 'swiper-vertical' : ''}`}
                     modules={[Navigation, Pagination]}
                     pagination={{
                       dynamicBullets: true,
                     }}
-                    spaceBetween={5}
-                    slidesPerView={isVertical ? 2 : 3} // При вертикальной ориентации показываем 1 слайд
-                    direction={isVertical ? 'vertical' : 'horizontal'} // Устанавливаем направление
+                    spaceBetween={isMobile ? 20 : 10}
+                    slidesPerView={isMobile ? 1 : 3}
+                    direction={isMobile ? "vertical" : "horizontal"}
+                    style={{
+                      height: isMobile ? '400px' : 'auto',
+                      overflow: 'hidden',
+                      width: '100%'
+                    }}
+                    onInit={(swiper) => {
+                      console.log('Swiper initialized:', {
+                        isMobile: isMobile,
+                        slidesPerView: swiper.params.slidesPerView,
+                        direction: swiper.params.direction
+                      })
+                    }}
                   >
                     {filteredSchool.map((school, index) => (
                       <SwiperSlide className={styles.slide} key={index}>
@@ -261,7 +276,7 @@ export const ChooseSchool = () => {
                               e.preventDefault()
                               handleSchool(school)
                             }}
-                            style={{ textDecoration: 'none', overflow: 'hidden' }}
+                            style={{ textDecoration: 'none', width: '100%', height: '100%' }}
                             to={generatePath(`${Path.School}/${Path.Courses}`, { school_name: school.name })}
                           >
                             <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
@@ -272,14 +287,14 @@ export const ChooseSchool = () => {
                               e.preventDefault()
                               handleSchool(school)
                             }}
-                            style={{ textDecoration: 'none', overflow: 'hidden' }}
+                            style={{ textDecoration: 'none', width: '100%', height: '100%' }}
                             to={generatePath(`${Path.School}/${Path.Courses}`, { school_name: school.name })}
                           >
                             <SchoolSelect role={school.role} logo={logotype} schoolName={school.name} />
                           </Link>
                         ) : (
                           <div
-                            // className={styles.bg}
+                            style={{ width: '100%', height: '100%' }}
                             onClick={() => {
                               setSelectedSchool(school)
                               open()

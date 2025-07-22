@@ -211,7 +211,7 @@ export const TariffPlansInfo: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <InitPageHeader />  
+      <InitPageHeader />
       <motion.div
         initial={{ opacity: 0, y: 1000 }}
         animate={{ opacity: 1, y: 0 }}

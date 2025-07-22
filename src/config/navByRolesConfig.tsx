@@ -45,7 +45,9 @@ import {
   Main,
   Employees,
   Logs,
+  AccessLogs,
   DecorPlatform,
+  PWA,
 } from './lazyComponents'
 
 // Wrapper component for Suspense
@@ -74,6 +76,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       </Route>
       <Route path={Path.HelpCenter} element={<LazyComponent component={HelpCenter} />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
+      <Route path={Path.PWA} element={<LazyComponent component={PWA} />} />
     </>
   ),
   [RoleE.Student]: (
@@ -91,6 +94,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Meetings} element={<LazyComponent component={StudentSchoolMeeting} />} />
       <Route path={Path.Rating} element={<LazyComponent component={Rating} />} />
+      <Route path={Path.PWA} element={<LazyComponent component={PWA} />} />
     </>
   ),
   [RoleE.Admin]: (
@@ -135,6 +139,8 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.Meetings} element={<LazyComponent component={SchoolMeetings} />} />
       <Route path={Path.Webinars} element={<LazyComponent component={Webinars} />} />
       <Route path={Path.Rating} element={<LazyComponent component={Rating} />} />
+      <Route path={Path.AccessLogs} element={<LazyComponent component={AccessLogs} />} />
+      <Route path={Path.PWA} element={<LazyComponent component={PWA} />} />
     </>
   ),
   [RoleE.Teacher]: (
@@ -153,6 +159,7 @@ export const navByRolesConfig: { [key: number]: ReactNode } = {
       <Route path={Path.HelpCenter} element={<LazyComponent component={HelpCenter} />} />
       <Route path={Path.TariffPlans} element={<TariffPlans />} />
       <Route path={Path.Meetings} element={<LazyComponent component={StudentSchoolMeeting} />} />
+      <Route path={Path.PWA} element={<LazyComponent component={PWA} />} />
     </>
   ),
 }

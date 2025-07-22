@@ -28,6 +28,23 @@ import { Portal } from 'components/Modal/Portal'
 import { NotificationsIconPath, FilterIconPath } from '../../assets/Icons/svgIconPath'
 import { clearUserProfile } from 'store/redux/users/profileSlice'
 
+// Хук для определения мобильной версии (<=600px)
+function useIsMobile(breakpoint = 600) {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth <= breakpoint : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= breakpoint);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 type notifForStudentAndTeacher = {
   id: number
   info: string
@@ -36,6 +53,7 @@ type notifForStudentAndTeacher = {
 }
 
 export const Profile = () => {
+  const isMobile = useIsMobile(600);
   const [changePasswordFunc, { isError, isSuccess }] = useChangePasswordMutation()
   const [changeEmailFunc] = useUpdateProfileMutation()
   const [confirmEmail] = useConfirmEmailMutation()
@@ -431,15 +449,28 @@ export const Profile = () => {
       {userRole === 6 && (
         <div className={styles.container}>
           <h5 className={styles.profile_block_title}>Реферальная ссылка:</h5>
-          <div style={{ display: 'flex', width: '100%', marginBottom: '20px', alignItems: 'center', gap: '5px' }}>
-            <Input
-              name=""
-              type="text"
-              onChange={event => setReferralLink(event.target.value)}
-              value={referralLink}
-              placeholder="Введите ссылку"
-              disabled={!isRestrictedUser}
-            />
+          <div className={styles.referralRow}>
+            {isMobile ? (
+              <div className={styles.referralInputWrapper}>
+                <Input
+                  name=""
+                  type="text"
+                  onChange={event => setReferralLink(event.target.value)}
+                  value={referralLink}
+                  placeholder="Введите ссылку"
+                  disabled={!isRestrictedUser}
+                />
+              </div>
+            ) : (
+              <Input
+                name=""
+                type="text"
+                onChange={event => setReferralLink(event.target.value)}
+                value={referralLink}
+                placeholder="Введите ссылку"
+                disabled={!isRestrictedUser}
+              />
+            )}
             <Button style={{ fontSize: '12px', height: '43px' }} variant={'newPrimary'} text={'Скопировать'} />
             <Button style={{ fontSize: '12px' }} variant={'emptyInside'} text={'Партнеры'} />
           </div>

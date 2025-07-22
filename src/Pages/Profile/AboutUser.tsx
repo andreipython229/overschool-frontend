@@ -24,6 +24,14 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
   const dispatch = useAppDispatch()
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 600);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const { data, isFetching, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
   const [updateProfile, { isSuccess }] = useUpdateProfileMutation()
@@ -194,35 +202,73 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
         </div>
       )}
       <h1 className={styles.profile_title}>Настройка профиля</h1>
-      <table className={styles.profile_table}>
-        <tr>
-          <td>
-            <div className={formStyles.form_avatarWrapper} style={{marginLeft: '-20px', marginBottom: '30px'}}>
-              <div className={formStyles.form_avatarWrapper_avatarBlock}>
-                {avatar_url ? (
+      {isMobile ? (
+        <>
+          <div className={formStyles.form_avatarWrapperMobile}>
+            <div className={formStyles.form_avatarWrapper_avatarBlock}>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={onChangeAvatar}
+                style={{ display: 'none' }}
+                id="avatar-input-mobile"
+              />
+              <label htmlFor="avatar-input-mobile" style={{ cursor: 'pointer' }}>
+                {avatarUrl || avatar_url ? (
                   <div className={styles.profile_block}>
-                    <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={profileData.avatar} alt="" />
+                    <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatarUrl || profileData.avatar} alt="" />
                   </div>
                 ) : (
                   <div className={styles.profile_block_avatarBlock_avatar} />
                 )}
-
-              </div>
-              {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
+              </label>
             </div>
-          </td>
-          <td>
-            <tr>
-              <span style={{fontWeight:'500'}}>Имя пользователя:</span>
-              <span style={{fontWeight:'400'}}>{first_name}</span>
-            </tr>
-            <tr>
-              <span style={{fontWeight:'500'}}>Email:</span>
-              <span style={{fontWeight:'400'}}>{email}</span>
-            </tr>
-          </td>
-        </tr>
-      </table>
+            {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
+          </div>
+          <div className={styles.profile_headerInfoMobile}>
+            <div className={styles.profile_headerField}><span>Имя пользователя:</span> <span>{first_name}</span></div>
+            <div className={styles.profile_headerField}><span>Email:</span> <span>{email}</span></div>
+          </div>
+        </>
+      ) : (
+        <table className={styles.profile_table}>
+          <tr>
+            <td>
+              <div className={formStyles.form_avatarWrapper} style={{marginLeft: '-20px', marginBottom: '30px'}}>
+                <div className={formStyles.form_avatarWrapper_avatarBlock}>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={onChangeAvatar}
+                    style={{ display: 'none' }}
+                    id="avatar-input-desktop"
+                  />
+                  <label htmlFor="avatar-input-desktop" style={{ cursor: 'pointer' }}>
+                    {avatarUrl || avatar_url ? (
+                      <div className={styles.profile_block}>
+                        <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatarUrl || profileData.avatar} alt="" />
+                      </div>
+                    ) : (
+                      <div className={styles.profile_block_avatarBlock_avatar} />
+                    )}
+                  </label>
+                </div>
+                {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
+              </div>
+            </td>
+            <td>
+              <tr>
+                <span style={{fontWeight:'500'}}>Имя пользователя:</span>
+                <span style={{fontWeight:'400'}}>{first_name}</span>
+              </tr>
+              <tr>
+                <span style={{fontWeight:'500'}}>Email:</span>
+                <span style={{fontWeight:'400'}}>{email}</span>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      )}
       <div style={{marginTop:'20px'}} className={styles.profile_block}>
         <Input
           name={'first_name'}

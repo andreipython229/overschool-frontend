@@ -38,6 +38,7 @@
   gap: 16px;
   transition: opacity 0.3s ease, visibility 0.3s ease;
   flex-shrink: 1;
+  align-items: center;
 
   @media (max-width: 360px) {
     left: 75px;

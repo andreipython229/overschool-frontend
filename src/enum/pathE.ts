@@ -12,6 +12,7 @@ export type PathParams = {
 
 export enum Path {
   ChooseSchool = '/chooseSchool',
+  AccessLogs = 'access-logs',
   InitialPage = '/',
   School = '/school/:school_name',
   DefaultSchool = '/school/Coursehub',
@@ -52,6 +53,7 @@ export enum Path {
   Webinars = 'webinars',
   WebinarPage = 'webinar/:slug',
   Materials = 'materials',
+  PWA = 'pwa',
   CourseMaterials = 'create-course/:course_id/materials',
   Rating = 'rating',
   Bonus = 'bonus',

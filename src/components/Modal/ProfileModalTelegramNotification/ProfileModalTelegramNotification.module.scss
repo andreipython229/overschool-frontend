@@ -21,6 +21,13 @@
     width: 100%;
 
   }
+  @media (max-width: 600px) {
+    width: 100%;
+    max-width: calc(100vw - 32px);
+    min-width: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   &_title {
     display: flex;
@@ -44,7 +51,6 @@
   &_wrapper_title {
     font-size: 20px;
   }
-
 
   &_container {
     padding: 36px 130px;
@@ -77,6 +83,44 @@
       color: #357EEB;
       transition: color 0.3s;
     }
+  }
+}
+
+.modalTelegram_wrapper {
+  @media (max-width: 600px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+}
+
+.modalTelegram_wrapper_title {
+  @media (max-width: 600px) {
+    text-align: left;
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: normal;
+    word-break: break-word;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  @media (max-width: 400px) {
+    font-size: 14px;
+  }
+}
+
+.modalTelegram_container {
+  @media (max-width: 600px) {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 }
 
@@ -114,6 +158,16 @@
     line-height: 13px;
     letter-spacing: 0.05em;
     color: #d2d7dc;
+  }
+  @media (max-width: 600px) {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
 }
 

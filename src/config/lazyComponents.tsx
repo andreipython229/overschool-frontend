@@ -68,5 +68,7 @@ export const HelpCenter = lazy(() => import('../Pages/HelpCenter/HelpCenter').th
 export const Main = lazy(() => import('../Pages/Settings/Main/Main').then(module => ({ default: module.Main })))
 export const Employees = lazy(() => import('../Pages/Settings/Employees/Employees').then(module => ({ default: module.Employees })))
 export const Logs = lazy(() => import('../Pages/Settings/Logs/Logs').then(module => ({ default: module.Logs })))
+export const AccessLogs = lazy(() => import('../Pages/AccessLogs/AccessLogs').then(module => ({ default: module.AccessLogs })))
 export const DecorPlatform = lazy(() => import('../Pages/Settings/DecorPlatform/DecorPlatform').then(module => ({ default: module.DecorPlatform })))
+export const PWA = lazy(() => import('../Pages/PWA/PWA').then(module => ({ default: module.PWA })))
 

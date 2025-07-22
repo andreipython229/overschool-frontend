@@ -91,7 +91,12 @@
   //background-image: linear-gradient(to right top, #e4bae0, #ebd3ef, #ead4f9, #f4effe, #ebebeb);
 
   @media only screen and (min-width: 320px) and (max-width: 1000px) {
-    width: 100vw;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100% !important;
+    overflow: hidden !important;
   }
 }
 
@@ -211,11 +216,11 @@
 
 .schoolBox {
   @media only screen and (min-width: 320px) and (max-width: 1300px) {
-    width: 100vw;
+    width: 100%;
     // height: 500px;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: auto;
+    flex-direction: row;
+    overflow-x: visible;
+    overflow-y: visible;
     padding: 0;
   }
 
@@ -234,13 +239,84 @@
 .swiper {
   height: 100%;
   width: 100%;
+  
   @media screen and (max-width: 550px) {
     min-height: 400px;
   }
 }
 
-.swiper-wrapper {
-  width: calc(100vw - 2rem);
+// Стили для мобильного свайпера
+@media screen and (max-width: 768px) {
+  .swiper {
+    height: 400px !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  
+  :global(.swiper-slide) {
+    height: auto !important;
+    max-height: 180px !important;
+    width: 100% !important;
+  }
+}
+
+// Глобальные стили для Swiper (не в модулях)
+:global(.swiper) {
+  overflow: visible !important;
+}
+
+:global(.swiper-wrapper) {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  transform: translate3d(0px, 0px, 0px) !important;
+}
+
+:global(.swiper-slide) {
+  flex-shrink: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+// Стили для вертикального свайпера
+:global(.swiper-vertical) {
+  .swiper-wrapper {
+    flex-direction: column !important;
+  }
+  
+  .swiper-slide {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+// Дополнительные глобальные стили для мобильных устройств
+@media screen and (max-width: 768px) {
+  :global(.swiper) {
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 400px !important;
+    display: block !important;
+  }
+  
+  :global(.swiper-wrapper) {
+    flex-direction: column !important;
+    transform: translate3d(0px, 0px, 0px) !important;
+    width: 100% !important;
+    display: flex !important;
+  }
+  
+  :global(.swiper-slide) {
+    height: auto !important;
+    max-height: 180px !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
 }
 
 .slide {
@@ -249,11 +325,29 @@
   justify-content: center;
   flex-direction: column;
   height: 100%;
-  max-height: 350px;
+  max-height: 525px;
   max-width: 450px;
+  flex-shrink: 0;
+  
   @media screen and (max-width: 550px) {
     max-height: 130px;
     max-width: calc(92vw - 2rem);
+  }
+}
+
+// Стили для слайдов в мобильном свайпере
+@media screen and (max-width: 768px) {
+  .slide {
+    max-height: 180px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    margin-bottom: 10px !important;
+    margin-right: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 
@@ -715,5 +809,11 @@
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     padding: 0 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100% !important;
+    padding: 0 1rem !important;
+    overflow: visible !important;
   }
 }

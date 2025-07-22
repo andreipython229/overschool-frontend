@@ -732,11 +732,14 @@ screen and (max-aspect-ratio: 1/1) {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #e0e0e0 !important;
   }
   .navIcon svg {
     width: 38px !important;
     height: 38px !important;
     display: block;
+    color: #e0e0e0 !important;
+    fill: #e0e0e0 !important;
   }
 }
 

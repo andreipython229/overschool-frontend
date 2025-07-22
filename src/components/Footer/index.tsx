@@ -117,6 +117,9 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
               <p>Публичный договор оферты</p>
             </Link>
           )}
+          <Link to={`/school/${defaultSchoolName}/${FooterPath.PWA}`}>
+            <p>Установка PWA</p>
+          </Link>
         </div>
       </div>
       <div style={{ width: '100%' }}>
