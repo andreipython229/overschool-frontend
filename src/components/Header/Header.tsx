@@ -181,7 +181,7 @@ export const Header = memo(() => {
         .unwrap()
         .then(data => {
           console.log('Fetched groups:', data)
-          if (data.results.length === 0) {
+          if (data && data.results && data.results.length === 0) {
             console.log('No groups found. Please check if:')
             console.log('1. The school has any groups')
             console.log('2. You have proper permissions')
@@ -241,14 +241,12 @@ export const Header = memo(() => {
   }
 
   useEffect(() => {
-    if (userProfile) {
-      if ('additional_roles' in userProfile && userProfile.additional_roles.length > 0) {
-        const rolesForSchool = userProfile.additional_roles.find((role: additionalRoleT) => role.school_id === schoolId)
+    if (userProfile && userProfile.additional_roles && Array.isArray(userProfile.additional_roles) && userProfile.additional_roles.length > 0) {
+      const rolesForSchool = userProfile.additional_roles.find((role: additionalRoleT) => role.school_id === schoolId)
 
-        setSchoolRoles(rolesForSchool)
-      }
+      setSchoolRoles(rolesForSchool)
     }
-  }, [userProfile])
+  }, [userProfile, schoolId])
 
   useEffect(() => {
     if (isError && error && 'originalStatus' in error && error.originalStatus === 401) {
@@ -346,7 +344,7 @@ export const Header = memo(() => {
           } else if (receivedMessage.type === 'full_chat_info') {
             setTotalUnreadMessages(receivedMessage.message.total_unread)
 
-            if (receivedMessage.message.chats.length > 0 && chats) {
+            if (receivedMessage.message.chats && receivedMessage.message.chats.length > 0 && chats) {
               const fetchChats: ChatI[] = receivedMessage.message.chats
               if (fetchChats) {
                 setFetchedChats(fetchChats)

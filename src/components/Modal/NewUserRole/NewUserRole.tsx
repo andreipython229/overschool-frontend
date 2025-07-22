@@ -132,7 +132,7 @@ export const NewUserRole: FC<NewUserRoleProps> = memo(({ school_id, userId, addi
           </div>
         </div>
         <p>Дополнительные роли пользователя: </p>
-        {additional_roles && additional_roles.length > 0 ? <div>{additional_roles.join(', ')}</div> : <p>Пока нет ролей</p>}
+        {additional_roles && Array.isArray(additional_roles) && additional_roles.length > 0 ? <div>{additional_roles.join(', ')}</div> : <p>Пока нет ролей</p>}
         <br />
         <form onSubmit={handleSubmit}>
           <div className={styles.labelContainer}>
