@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react'
-import { generatePath, Outlet, useNavigate } from 'react-router-dom'
+import { generatePath, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { Header } from 'components/Header/Header'
 import { Navbar } from 'components/Navbar/Navbar'
 import { Previous } from '../Previous/Previous'
@@ -29,6 +29,7 @@ export const MainLayOut: FC = memo(() => {
   const [logout] = useLazyLogoutQuery()
 
   const navigate = useNavigate()
+  const location = useLocation()
   const { schoolName, headerId } = useAppSelector(schoolSelector)
   const { data: progress } = useAppSelector(schoolProgressSelector)
 
@@ -47,13 +48,13 @@ export const MainLayOut: FC = memo(() => {
   }
 
   useEffect(() => {
-    if (userRole === 1) {
+    if (userRole === 1 && schoolName) {
       getGroups(schoolName)
     }
-  }, [])
+  }, [userRole, schoolName, getGroups])
 
   useEffect(() => {
-    if (userRole === 1 && allGroups && allGroups.results) {
+    if (userRole === 1 && allGroups && allGroups.results && Array.isArray(allGroups.results)) {
       const hasOveraiLock = allGroups.results.some(group => group.group_settings && group.group_settings.overai_lock)
       setOveraiLockExists(hasOveraiLock)
     }
@@ -62,10 +63,10 @@ export const MainLayOut: FC = memo(() => {
   useEffect(() => {
     setShowChat(!!(userRole === 2 || userRole === 3 || userRole === 4 || userRole === 5 || userRole === 6 || (userRole === 1 && overaiLockExists)))
 
-    if (isSuccess) {
-      document.title = `${data?.name}`
+    if (isSuccess && data) {
+      document.title = `${data.name}`
     }
-  }, [isSuccess, overaiLockExists])
+  }, [isSuccess, overaiLockExists, data, userRole])
 
   useEffect(() => {
     if (!isLogin) {
@@ -74,7 +75,7 @@ export const MainLayOut: FC = memo(() => {
   }, [isLogin, navigate])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       let link: HTMLLinkElement | null = document.querySelector("link[rel~='icon']")
 
       if (!link) {
@@ -82,12 +83,12 @@ export const MainLayOut: FC = memo(() => {
         link.rel = 'icon'
         document.getElementsByTagName('head')[0].appendChild(link)
       }
-      data?.logo_school ? (link.href = data?.logo_school) : (link.href = '')
+      data.logo_school ? (link.href = data.logo_school) : (link.href = '')
     }
-  }, [data])
+  }, [data, isSuccess])
 
   useEffect(() => {
-    if (groupsError) {
+    if (groupsError && schoolName) {
       getGroups(schoolName)
       if (groupsError && 'originalStatus' in groupsError && groupsError.originalStatus === 404) {
         localStorage.clear()
@@ -101,13 +102,13 @@ export const MainLayOut: FC = memo(() => {
           })
       }
     }
-  }, [groupsError, navigate])
+  }, [groupsError, navigate, schoolName, getGroups, logout, dispatch, navigate])
 
   return (
     <>
       <div className={styles.wrapper}>
         <BackgroundAnimation />
-        {userRole === RoleE.Admin && progress.completion_percentage < 100 && <NewSchoolProgress />}
+        {userRole === RoleE.Admin && progress && progress.completion_percentage < 100 && <NewSchoolProgress />}
         <Header />
         <motion.main
           className={styles.container}
