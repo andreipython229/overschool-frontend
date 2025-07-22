@@ -206,13 +206,22 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
         <>
           <div className={formStyles.form_avatarWrapperMobile}>
             <div className={formStyles.form_avatarWrapper_avatarBlock}>
-              {avatar_url ? (
-                <div className={styles.profile_block}>
-                  <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={profileData.avatar} alt="" />
-                </div>
-              ) : (
-                <div className={styles.profile_block_avatarBlock_avatar} />
-              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={onChangeAvatar}
+                style={{ display: 'none' }}
+                id="avatar-input-mobile"
+              />
+              <label htmlFor="avatar-input-mobile" style={{ cursor: 'pointer' }}>
+                {avatarUrl || avatar_url ? (
+                  <div className={styles.profile_block}>
+                    <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatarUrl || profileData.avatar} alt="" />
+                  </div>
+                ) : (
+                  <div className={styles.profile_block_avatarBlock_avatar} />
+                )}
+              </label>
             </div>
             {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
           </div>
@@ -227,13 +236,22 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
             <td>
               <div className={formStyles.form_avatarWrapper} style={{marginLeft: '-20px', marginBottom: '30px'}}>
                 <div className={formStyles.form_avatarWrapper_avatarBlock}>
-                  {avatar_url ? (
-                    <div className={styles.profile_block}>
-                      <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={profileData.avatar} alt="" />
-                    </div>
-                  ) : (
-                    <div className={styles.profile_block_avatarBlock_avatar} />
-                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={onChangeAvatar}
+                    style={{ display: 'none' }}
+                    id="avatar-input-desktop"
+                  />
+                  <label htmlFor="avatar-input-desktop" style={{ cursor: 'pointer' }}>
+                    {avatarUrl || avatar_url ? (
+                      <div className={styles.profile_block}>
+                        <img className={formStyles.form_avatarWrapper_avatarBlock_img} src={avatarUrl || profileData.avatar} alt="" />
+                      </div>
+                    ) : (
+                      <div className={styles.profile_block_avatarBlock_avatar} />
+                    )}
+                  </label>
                 </div>
                 {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
               </div>

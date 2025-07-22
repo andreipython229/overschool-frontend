@@ -26,7 +26,7 @@ import Timer from '../../Timer/Timer'
 const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
   const iconStyle = {
     display: 'inline-block', // Сохраняем инлайн поведение
-    color: '#212121',
+    color: '#e0e0e0',
   };
 
   return (
@@ -36,8 +36,8 @@ const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
           return React.cloneElement(child as React.ReactElement<{ style?: React.CSSProperties }>, {
             style: {
               ...((child as React.ReactElement<{ style?: React.CSSProperties }>).props?.style ?? {}),
-              color: '#212121',
-              fill: '#212121',
+              color: '#e0e0e0',
+              fill: '#e0e0e0',
             }
           });
         }
@@ -78,9 +78,9 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
       .${styles.navbar_setting_account} svg path,
       .${styles.navbar_setting_account} svg rect,
       .${styles.navbar_setting_account} svg circle {
-        fill: #212121 !important;
-        stroke: #212121 !important;
-        color: #212121 !important;
+        fill: #e0e0e0 !important;
+        stroke: #e0e0e0 !important;
+        color: #e0e0e0 !important;
       }
     `;
     document.head.appendChild(style);
