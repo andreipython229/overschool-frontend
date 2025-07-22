@@ -22,6 +22,9 @@ import { logoHeaderLogin } from '../../assets/img/common/index'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 import { Input } from 'components/common/Input/Input/Input'
 import { SchoolSelect } from './components/schoolSelect'
 import { SearchIconPath } from 'assets/Icons/svgIconPath'
@@ -249,18 +252,14 @@ export const ChooseSchool = () => {
                   <Swiper
                     className={`${styles.swiper} ${isMobile ? 'swiper-vertical' : ''}`}
                     modules={[Navigation, Pagination]}
+                    navigation={!isMobile}
                     pagination={{
                       dynamicBullets: true,
                     }}
                     spaceBetween={isMobile ? 20 : 10}
                     slidesPerView={isMobile ? 1 : 3}
                     direction={isMobile ? "vertical" : "horizontal"}
-                    style={{
-                      height: isMobile ? '400px' : 'auto',
-                      overflow: 'hidden',
-                      width: '100%'
-                    }}
-                    onInit={(swiper) => {
+                    onInit={(swiper: any) => {
                       console.log('Swiper initialized:', {
                         isMobile: isMobile,
                         slidesPerView: swiper.params.slidesPerView,
