@@ -1,4 +1,4 @@
-const CACHE_NAME = 'coursehub-v1';
+const CACHE_NAME = 'coursehub-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -23,8 +23,22 @@ self.addEventListener('install', (event) => {
 
 // Перехват запросов
 self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+  
+  // Исключаем API запросы из кеширования
+  if (url.pathname.startsWith('/api/') || 
+      url.pathname.includes('/auth/') ||
+      request.headers.has('Authorization') ||
+      request.method !== 'GET') {
+    // Для API запросов всегда делаем сетевой запрос
+    event.respondWith(fetch(request));
+    return;
+  }
+  
+  // Для статических ресурсов используем кеш
   event.respondWith(
-    caches.match(event.request)
+    caches.match(request)
       .then((response) => {
         // Возвращаем кэшированный ответ, если он есть
         if (response) {
@@ -32,7 +46,7 @@ self.addEventListener('fetch', (event) => {
         }
         
         // Иначе делаем сетевой запрос
-        return fetch(event.request).then(
+        return fetch(request).then(
           (response) => {
             // Проверяем, что получили валидный ответ
             if(!response || response.status !== 200 || response.type !== 'basic') {
@@ -44,7 +58,7 @@ self.addEventListener('fetch', (event) => {
 
             caches.open(CACHE_NAME)
               .then((cache) => {
-                cache.put(event.request, responseToCache);
+                cache.put(request, responseToCache);
               });
 
             return response;
@@ -63,10 +77,14 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
+    }).then(() => {
+      // Принудительно обновляем страницу после очистки кеша
+      return self.clients.claim();
     })
   );
 }); 

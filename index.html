@@ -23,6 +23,17 @@
         window.addEventListener('load', function() {
           navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
             console.log('Service Worker registration done:', registration);
+            
+            // Проверяем обновления Service Worker
+            registration.addEventListener('updatefound', function() {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', function() {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // Новый Service Worker установлен, обновляем страницу
+                  window.location.reload();
+                }
+              });
+            });
           }, function(err) {
             console.log('Registration error Service Worker:', err);
           });

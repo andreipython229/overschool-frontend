@@ -95,8 +95,7 @@
   }
 
   @media screen and (max-width: 768px) {
-    width: 100% !important;
-    overflow: hidden !important;
+    width: 100%;
   }
 }
 
@@ -215,107 +214,87 @@
 }
 
 .schoolBox {
-  @media only screen and (min-width: 320px) and (max-width: 1300px) {
-    width: 100%;
-    // height: 500px;
-    flex-direction: row;
-    overflow-x: visible;
-    overflow-y: visible;
-    padding: 0;
-  }
-
   display: flex;
   flex-direction: row;
   width: 100%;
   max-width: 1295px;
-  // height: 350px;
-  // overflow-y: hidden;
-  // overflow-x: auto;
   padding: 2rem 0;
-  scrollbar-color: #357eeb #fff;
   margin: 0 auto;
+  
+  @media only screen and (min-width: 320px) and (max-width: 1300px) {
+    width: 100%;
+    padding: 1rem 0;
+  }
 }
 
 .swiper {
-  height: 100%;
   width: 100%;
+  height: auto;
+  overflow: visible;
   
-  @media screen and (max-width: 550px) {
-    min-height: 400px;
+  @media screen and (max-width: 768px) {
+    height: 400px;
+    overflow: visible;
   }
 }
 
-// Стили для мобильного свайпера
-@media screen and (max-width: 768px) {
-  .swiper {
-    height: 400px !important;
-    width: 100% !important;
-    overflow: visible !important;
-  }
-  
-  :global(.swiper-slide) {
-    height: auto !important;
-    max-height: 180px !important;
-    width: 100% !important;
-  }
-}
-
-// Глобальные стили для Swiper (не в модулях)
+// Глобальные стили для Swiper
 :global(.swiper) {
-  overflow: visible !important;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 :global(.swiper-wrapper) {
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: row !important;
-  transform: translate3d(0px, 0px, 0px) !important;
+  display: flex;
+  align-items: stretch;
+  overflow: visible;
 }
 
 :global(.swiper-slide) {
-  flex-shrink: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  overflow: visible;
 }
 
-// Стили для вертикального свайпера
-:global(.swiper-vertical) {
-  .swiper-wrapper {
-    flex-direction: column !important;
-  }
-  
-  .swiper-slide {
-    width: 100% !important;
-    height: auto !important;
-  }
-}
-
-// Дополнительные глобальные стили для мобильных устройств
+// Стили для вертикального свайпера на мобильных
 @media screen and (max-width: 768px) {
-  :global(.swiper) {
-    overflow: hidden !important;
-    width: 100% !important;
-    height: 400px !important;
-    display: block !important;
+  :global(.swiper-vertical) {
+    .swiper-wrapper {
+      flex-direction: column;
+    }
+    
+    .swiper-slide {
+      width: 100%;
+      height: auto;
+    }
   }
+}
+
+// Стили для навигации и пагинации
+:global(.swiper-pagination) {
+  position: relative;
+  margin-top: 20px;
+}
+
+:global(.swiper-pagination-bullet) {
+  background: #357eeb;
+  opacity: 0.3;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+  background: #357eeb;
+}
+
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  color: #357eeb;
   
-  :global(.swiper-wrapper) {
-    flex-direction: column !important;
-    transform: translate3d(0px, 0px, 0px) !important;
-    width: 100% !important;
-    display: flex !important;
-  }
-  
-  :global(.swiper-slide) {
-    height: auto !important;
-    max-height: 180px !important;
-    width: 100% !important;
-    min-width: 100% !important;
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 }
 
@@ -324,30 +303,16 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100%;
-  max-height: 525px;
+  height: auto;
   max-width: 450px;
   flex-shrink: 0;
+  overflow: visible;
   
-  @media screen and (max-width: 550px) {
-    max-height: 130px;
-    max-width: calc(92vw - 2rem);
-  }
-}
-
-// Стили для слайдов в мобильном свайпере
-@media screen and (max-width: 768px) {
-  .slide {
-    max-height: 180px !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    min-width: 100% !important;
-    margin-bottom: 10px !important;
-    margin-right: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: visible;
   }
 }
 
@@ -812,8 +777,7 @@
   }
 
   @media screen and (max-width: 768px) {
-    width: 100% !important;
-    padding: 0 1rem !important;
-    overflow: visible !important;
+    width: 100%;
+    padding: 0 1rem;
   }
 }
