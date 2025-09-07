@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { studentGroupInfoT, studentsTableHeader } from 'types/studentsGroup'
 import { baseQuery } from './baseApi'
-import { baseQueryWithReauth } from './baseQueryReauth';
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const studentsTableService = createApi({
   reducerPath: 'studentsTableService',
@@ -32,4 +32,9 @@ export const studentsTableService = createApi({
   }),
 })
 
-export const { useLazyFetchStudentsTableHeaderQuery, useFetchStudentsTableHeaderQuery, usePatchStudentsTableHeaderMutation, useFetchStudentsTablesHeaderQuery } = studentsTableService
+export const {
+  useLazyFetchStudentsTableHeaderQuery,
+  useFetchStudentsTableHeaderQuery,
+  usePatchStudentsTableHeaderMutation,
+  useFetchStudentsTablesHeaderQuery,
+} = studentsTableService

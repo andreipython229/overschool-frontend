@@ -8,7 +8,6 @@ import { useFetchSchoolAppealsMutation } from 'api/catalogServices'
 import { usePagination } from 'customHooks/index'
 
 export const SchoolAppeals: FC = () => {
-  
   const [fetchData, { data: appealsData, isLoading }] = useFetchSchoolAppealsMutation()
   const { page, onPageChange, paginationRange } = usePagination({ totalCount: appealsData?.count as number })
   const schoolName = window.location.href.split('/')[4]

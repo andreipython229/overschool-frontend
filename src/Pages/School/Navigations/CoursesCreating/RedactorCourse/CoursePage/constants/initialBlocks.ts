@@ -1,5 +1,5 @@
-import { blocksNamesE } from "../enum/blocksNamesE"
-import {BlockKeys} from "../types/blocksControllerT"
+import { blocksNamesE } from '../enum/blocksNamesE'
+import { BlockKeys } from '../types/blocksControllerT'
 
 // состояние блоков по умолчанию
 export const initialBlocks: BlockKeys = {
@@ -10,10 +10,10 @@ export const initialBlocks: BlockKeys = {
     onlyShow: true,
     canUp: false,
     canDown: false,
-    photoBackground: "",
-    name: "",
-    description: "",
-    contact_link: "",
+    photoBackground: '',
+    name: '',
+    description: '',
+    contact_link: '',
   },
   stats: {
     id: 1,
@@ -26,28 +26,28 @@ export const initialBlocks: BlockKeys = {
   audience: {
     id: 2,
     content: blocksNamesE.audience,
-    description: "",
+    description: '',
     chips: [
-        { id: -1, position: 0, photo: "", title: 'Начинающим изучение темы', description: '' },
-        { id: -1, position: 1, photo: "", title: 'Профессионалам в данной теме', description: '' },
-        { id: -1, position: 2, photo: "", title: 'Специалистам в данной теме', description: '' },
+      { id: -1, position: 0, photo: '', title: 'Начинающим изучение темы', description: '' },
+      { id: -1, position: 1, photo: '', title: 'Профессионалам в данной теме', description: '' },
+      { id: -1, position: 2, photo: '', title: 'Специалистам в данной теме', description: '' },
     ],
     visible: true,
     canUp: false,
-    canDown: true
+    canDown: true,
   },
   advantage: {
     id: 3,
     content: blocksNamesE.advantage,
-    description: "",
+    description: '',
     chips: [
-        { id: -1, position: 0, photo: "", title: 'Удаленная работа', description: '' },
-        { id: -1, position: 1, photo: "", title: 'Постоянное развитие', description: '' },
-        { id: -1, position: 2, photo: "", title: 'Высокие зарплаты', description: '' },
+      { id: -1, position: 0, photo: '', title: 'Удаленная работа', description: '' },
+      { id: -1, position: 1, photo: '', title: 'Постоянное развитие', description: '' },
+      { id: -1, position: 2, photo: '', title: 'Высокие зарплаты', description: '' },
     ],
     visible: true,
     canUp: true,
-    canDown: true
+    canDown: true,
   },
   trainingProgram: {
     id: 4,
@@ -55,15 +55,15 @@ export const initialBlocks: BlockKeys = {
     visible: true,
     canUp: true,
     canDown: true,
-    sections: []
+    sections: [],
   },
   trainingPurpose: {
     id: 5,
     content: blocksNamesE.trainingPurpose,
-    description: "",
+    description: '',
     chips: [
-        { id: -1, position: 0, photo: "", title: 'Изучите навык 1', description: '' },
-        { id: -1, position: 1, photo: "", title: 'Изучите навык 2', description: '' },
+      { id: -1, position: 0, photo: '', title: 'Изучите навык 1', description: '' },
+      { id: -1, position: 1, photo: '', title: 'Изучите навык 2', description: '' },
     ],
     visible: true,
     canUp: true,
@@ -83,10 +83,10 @@ export const initialBlocks: BlockKeys = {
   income: {
     id: 7,
     content: blocksNamesE.income,
-    description: "",
+    description: '',
     chips: [
-        { id: -1, position: 0, photo: "", title: 'Карточка 1', description: '' },
-        { id: -1, position: 1, photo: "", title: 'Карточка 2', description: '' },
+      { id: -1, position: 0, photo: '', title: 'Карточка 1', description: '' },
+      { id: -1, position: 1, photo: '', title: 'Карточка 2', description: '' },
     ],
     visible: true,
     canUp: true,

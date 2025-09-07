@@ -191,37 +191,39 @@ export const PromotionSettings: FC = () => {
       )}
       <div className={styles.bonuses_header}>
         <div className={styles.bonuses_header_title}>Бонусы и подарки</div>
-        <button onClick={handleCreateForm} aria-hidden='true' tabIndex={-1} className={styles.bonuses_header_btn}>Добавить бонус</button>
+        <button onClick={handleCreateForm} aria-hidden="true" tabIndex={-1} className={styles.bonuses_header_btn}>
+          Добавить бонус
+        </button>
       </div>
       <div className={styles.bonuses}>
         <table className={styles.table}>
-        <thead className={styles.table_header}>
-          <tr>
-            <th className={styles.table_header_item}></th>
-            <th className={styles.table_header_item}>Ссылка</th>
-            <th className={styles.table_header_item}>Описание</th>
-            <th className={styles.table_header_item}>Срок истекает</th>
-            <th className={styles.table_header_item}>Статус</th>
-            <th className={styles.table_header_item}></th>
-            <th className={styles.table_header_item}></th>
-          </tr>
-        </thead>
-        <tbody className={styles.table_body}>
-          {bonuses && bonuses?.length ? (
-            bonuses?.map((bonus: BonusT) => (
-              <Bonus
-                key={bonus.id}
-                bonus={bonus}
-                bonuses={bonuses}
-                setBonuses={setBonuses}
-                setFormBonus={setFormBonus}
-                setIsEdit={setIsEdit}
-                setIsActivate={setIsActivate}
-                setShowBonusForm={setShowBonusForm}
-                groupIds={groupIds}
-                setIsAllGroupsSelected={setIsAllGroupsSelected}
-              />
-            ))
+          <thead className={styles.table_header}>
+            <tr>
+              <th className={styles.table_header_item}></th>
+              <th className={styles.table_header_item}>Ссылка</th>
+              <th className={styles.table_header_item}>Описание</th>
+              <th className={styles.table_header_item}>Срок истекает</th>
+              <th className={styles.table_header_item}>Статус</th>
+              <th className={styles.table_header_item}></th>
+              <th className={styles.table_header_item}></th>
+            </tr>
+          </thead>
+          <tbody className={styles.table_body}>
+            {bonuses && bonuses?.length ? (
+              bonuses?.map((bonus: BonusT) => (
+                <Bonus
+                  key={bonus.id}
+                  bonus={bonus}
+                  bonuses={bonuses}
+                  setBonuses={setBonuses}
+                  setFormBonus={setFormBonus}
+                  setIsEdit={setIsEdit}
+                  setIsActivate={setIsActivate}
+                  setShowBonusForm={setShowBonusForm}
+                  groupIds={groupIds}
+                  setIsAllGroupsSelected={setIsAllGroupsSelected}
+                />
+              ))
             ) : (
               <tr style={{ width: '100%' }}>
                 <td colSpan={7} className={styles.table_body_row} style={{ height: '84px', textAlign: 'center', color: '#332f36' }}>
@@ -229,8 +231,8 @@ export const PromotionSettings: FC = () => {
                 </td>
               </tr>
             )}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
         <Dialog
           open={showBonusForm}
           onClose={() => setShowBonusForm(false)}
@@ -242,28 +244,31 @@ export const PromotionSettings: FC = () => {
               borderRadius: '16px',
               border: '1px solid',
               borderImageSource: 'linear-gradient(0deg, #FFFAFA 0%, #808080 100%)',
-              padding: '43px 30px 58.5px 34px'
-            }
+              padding: '43px 30px 58.5px 34px',
+            },
           }}
         >
           <div onClick={() => setShowBonusForm(false)} className={styles.bonuses_closed}>
             <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
           </div>
-          <DialogTitle sx={{
-            fontFamily: 'SFPRORegular',
-            fontWeight: 700,
-            fontSize: {
-              sm: '26px',
-              md: '30px',
-              lg: '36px'
-            },
-            color: 'rgba(0, 0, 0, 1)',
-            lineHeight: '42.96px',
-            margin: '0 auto',
-            padding: '32px 0'
-          }}>
-            {isEdit ? 'Изменить акцию' : 'Добавить акцию'}</DialogTitle>
-          <DialogContent sx={{padding: 0}}>
+          <DialogTitle
+            sx={{
+              fontFamily: 'SFPRORegular',
+              fontWeight: 700,
+              fontSize: {
+                sm: '26px',
+                md: '30px',
+                lg: '36px',
+              },
+              color: 'rgba(0, 0, 0, 1)',
+              lineHeight: '42.96px',
+              margin: '0 auto',
+              padding: '32px 0',
+            }}
+          >
+            {isEdit ? 'Изменить акцию' : 'Добавить акцию'}
+          </DialogTitle>
+          <DialogContent sx={{ padding: 0 }}>
             <div className={styles.form_logoWrapper_logoBlock}>
               <div className={styles.form_logoWrapper}>
                 <span className={styles.form_logoWrapper_logoBlock_title}>Логотип</span>
@@ -287,7 +292,7 @@ export const PromotionSettings: FC = () => {
                 value={formBonus.link}
                 style={{ marginBottom: '2rem', marginTop: '2rem' }}
               >
-              <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
               </Input>
             </div>
             <div className={styles.form_logoWrapper_logoBlock_input}>
@@ -300,7 +305,7 @@ export const PromotionSettings: FC = () => {
                 value={formBonus.text}
                 style={{ marginBottom: '2rem' }}
               >
-              <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+                <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
               </Input>
             </div>
             <div className={styles.form_logoWrapper_logoBlock_input}>
@@ -317,8 +322,7 @@ export const PromotionSettings: FC = () => {
                     expire_date: new Date(e.target.value),
                   })
                 }}
-              >
-              </Input>
+              ></Input>
             </div>
             {/*<div style={{marginBottom: '1.5rem'}}>*/}
             {/*    <TextField*/}
@@ -344,7 +348,7 @@ export const PromotionSettings: FC = () => {
             <div className={styles.form_logoWrapper_logoBlock_groups}>
               <div className={styles.form_groups} onClick={() => setShowGroupForm(true)}>
                 Выберите одну или несколько групп
-                <IconSvg styles={{ cursor: 'pointer'}} width={14} height={14} viewBoxSize={'0 0 14 14'} path={ArrowDownGreyIconPath}/>
+                <IconSvg styles={{ cursor: 'pointer' }} width={14} height={14} viewBoxSize={'0 0 14 14'} path={ArrowDownGreyIconPath} />
               </div>
             </div>
             <Dialog
@@ -358,12 +362,12 @@ export const PromotionSettings: FC = () => {
                   borderRadius: '16px',
                   border: '1px solid',
                   borderImageSource: 'linear-gradient(0deg, #FFFAFA 0%, #808080 100%)',
-                }
+                },
               }}
             >
-              <DialogTitle sx={{fontFamily: 'SFPRORegular'}}>Доступные для выбора группы</DialogTitle>
+              <DialogTitle sx={{ fontFamily: 'SFPRORegular' }}>Доступные для выбора группы</DialogTitle>
               <DialogContent>
-                <span style={{fontFamily: 'SFPRORegular'}}>Выбор всех групп</span>
+                <span style={{ fontFamily: 'SFPRORegular' }}>Выбор всех групп</span>
                 {studentsGroups && (
                   <Checkbox
                     style={{ color: '#357eeb' }}
@@ -414,7 +418,7 @@ export const PromotionSettings: FC = () => {
                   ))}
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setShowGroupForm(false)} text="Подтвердить" variant='newPrimary'/>
+                <Button onClick={() => setShowGroupForm(false)} text="Подтвердить" variant="newPrimary" />
               </DialogActions>
             </Dialog>
 
@@ -446,18 +450,18 @@ export const PromotionSettings: FC = () => {
               </div>
             )}
           </DialogContent>
-          <DialogActions sx={{padding: 0, justifyContent: 'space-between'}}>
+          <DialogActions sx={{ padding: 0, justifyContent: 'space-between' }}>
             {isEdit ? (
               <div className={styles.form_button}>
-                <Button onClick={handleUpdateBonus} text="Сохранить" variant='newPrimary' />
+                <Button onClick={handleUpdateBonus} text="Сохранить" variant="newPrimary" />
               </div>
             ) : (
               <div className={styles.form_button}>
-                <Button onClick={handleAddBonus} text="Добавить" variant='newPrimary' />
+                <Button onClick={handleAddBonus} text="Добавить" variant="newPrimary" />
               </div>
             )}
             <div className={styles.form_button}>
-              <Button onClick={() => setShowBonusForm(false)} text="Отмена" variant='cancel' />
+              <Button onClick={() => setShowBonusForm(false)} text="Отмена" variant="cancel" />
             </div>
           </DialogActions>
         </Dialog>

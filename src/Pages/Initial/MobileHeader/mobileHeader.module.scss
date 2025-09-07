@@ -1,9 +1,9 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 .mobile_header {
   background: #cfe2ff;
-  box-shadow: 0px 0px 25px 0px #357EEB;
+  box-shadow: 0px 0px 25px 0px #357eeb;
   position: fixed;
   top: 10px;
   right: 0;
@@ -15,9 +15,7 @@
   z-index: 10;
 
   @media (max-width: 360px) {
-
     width: 100%;
-
   }
 }
 
@@ -36,7 +34,9 @@
 .nav_links {
   display: flex;
   gap: 16px;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
   flex-shrink: 1;
   align-items: center;
 
@@ -52,9 +52,8 @@
   color: #324195;
 
   &.active {
-    color: #357EEB;
+    color: #357eeb;
   }
-
 }
 
 .nav_item span {
@@ -104,25 +103,25 @@
   transition: opacity 0.3s ease-in-out;
 
   @media (max-width: 360px) {
-
     right: 2px;
-
   }
 
   &.login {
     width: 206px;
 
-    a, button {
+    a,
+    button {
       justify-content: center;
     }
   }
 
   .Line {
     height: 1px;
-    background: linear-gradient(90deg, #0D28BB 0%, #357EEB 100%);
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
   }
 
-  a, button {
+  a,
+  button {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -135,23 +134,29 @@
 
     h5 {
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: -0.65px;
       color: #324195;
       margin: 0;
     }
 
-    &:hover, &:focus, &:active {
-      background-color: #357EEB;
-      color: #FFFFFF;
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: #357eeb;
+      color: #ffffff;
     }
 
-    &:hover h5, &:focus h5, &:active h5 {
-      color: #FFFFFF;
+    &:hover h5,
+    &:focus h5,
+    &:active h5 {
+      color: #ffffff;
     }
 
-    &:hover .icon *, &:focus .icon *, &:active .icon * {
-      fill: #FFFFFF;
+    &:hover .icon *,
+    &:focus .icon *,
+    &:active .icon * {
+      fill: #ffffff;
     }
 
     .icon {
@@ -162,13 +167,13 @@
 
     &.personal {
       background: rgba(53, 126, 235, 1);
-      color: #FFFFFF;
+      color: #ffffff;
       box-shadow: none;
       justify-content: space-between;
       padding: 0 38px 0 31px;
 
       h5 {
-        color: #FFFFFF;
+        color: #ffffff;
       }
 
       .icon {

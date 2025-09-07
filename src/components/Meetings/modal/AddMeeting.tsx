@@ -112,10 +112,10 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
       groupsByCourse?.map(group => {
         setNewMeetingData(
           (prevData: SchoolMeeting) =>
-          ({
-            ...prevData,
-            students_groups: [...prevData.students_groups, group.group_id],
-          } as SchoolMeeting),
+            ({
+              ...prevData,
+              students_groups: [...prevData.students_groups, group.group_id],
+            }) as SchoolMeeting,
         )
       })
       setShowReminderOptions(true)
@@ -182,13 +182,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
   }
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Добавить встречу"
-      variant="gradient"
-      width="600px"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title="Добавить встречу" variant="gradient" width="600px">
       <form onSubmit={handleAddMeeting} className={styles.form}>
         <div className={styles.formGroup}>
           <label htmlFor="title">Название встречи</label>
@@ -196,7 +190,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
             type="text"
             id="title"
             value={newMeetingData.title}
-            onChange={(e) => setNewMeetingData({ ...newMeetingData, title: e.target.value })}
+            onChange={e => setNewMeetingData({ ...newMeetingData, title: e.target.value })}
             required
           />
         </div>
@@ -207,7 +201,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
             type="date"
             id="date"
             value={newMeetingData.start_date ? new Date(newMeetingData.start_date).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)}
-            onChange={(e) =>
+            onChange={e =>
               setNewMeetingData({
                 ...newMeetingData,
                 start_date: new Date(e.target.value),
@@ -222,8 +216,10 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
           <input
             type="time"
             id="time"
-            value={newMeetingData.start_date ? new Date(newMeetingData.start_date).toISOString().slice(11, 16) : new Date().toISOString().slice(11, 16)}
-            onChange={(e) =>
+            value={
+              newMeetingData.start_date ? new Date(newMeetingData.start_date).toISOString().slice(11, 16) : new Date().toISOString().slice(11, 16)
+            }
+            onChange={e =>
               setNewMeetingData({
                 ...newMeetingData,
                 start_date: new Date(e.target.value),
@@ -238,19 +234,14 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
           <textarea
             id="description"
             value={newMeetingData.description}
-            onChange={(e) => setNewMeetingData({ ...newMeetingData, description: e.target.value })}
+            onChange={e => setNewMeetingData({ ...newMeetingData, description: e.target.value })}
             rows={4}
           />
         </div>
 
         <div className={styles.formGroup}>
           <label htmlFor="link">Ссылка на видеоконференцию</label>
-          <input
-            type="text"
-            id="link"
-            value={newMeetingData.link}
-            onChange={(e) => setNewMeetingData({ ...newMeetingData, link: e.target.value })}
-          />
+          <input type="text" id="link" value={newMeetingData.link} onChange={e => setNewMeetingData({ ...newMeetingData, link: e.target.value })} />
         </div>
 
         <div className={styles.formGroup}>
@@ -258,14 +249,18 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
           <select
             id="course"
             value={selectedCourse?.course_id || '-1'}
-            onChange={(e) => {
+            onChange={e => {
               const courseId = parseInt(e.target.value)
               handleCourseChange(courseId)
             }}
           >
-            <option value="-1" disabled>Выберите курс</option>
+            <option value="-1" disabled>
+              Выберите курс
+            </option>
             {Courses?.results.map(course => (
-              <option key={course.course_id} value={course.course_id}>{course.name}</option>
+              <option key={course.course_id} value={course.course_id}>
+                {course.name}
+              </option>
             ))}
           </select>
         </div>
@@ -277,7 +272,7 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
               type="checkbox"
               id="allGroups"
               checked={allGroups}
-              onChange={(e) => {
+              onChange={e => {
                 handleAllGroups(e)
               }}
             />
@@ -297,15 +292,15 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
                       type="checkbox"
                       id={`group-${group.group_id}`}
                       checked={new Set(newMeetingData.students_groups).has(Number(group.group_id))}
-                      onChange={(e) => {
+                      onChange={e => {
                         const isChecked = e.target.checked
                         if (isChecked) {
                           setNewMeetingData(
                             (prevData: SchoolMeeting) =>
-                            ({
-                              ...prevData,
-                              students_groups: [...prevData.students_groups, group.group_id],
-                            } as SchoolMeeting),
+                              ({
+                                ...prevData,
+                                students_groups: [...prevData.students_groups, group.group_id],
+                              }) as SchoolMeeting,
                           )
                           setShowReminderOptions(true)
                         } else {
@@ -317,7 +312,9 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
                         }
                       }}
                     />
-                    <span>{group.name} (Количество участников: {group.students.length})</span>
+                    <span>
+                      {group.name} (Количество участников: {group.students.length})
+                    </span>
                   </div>
                 )
               }
@@ -327,26 +324,11 @@ export const AddMeeting: FC<AddMeetingProps> = ({ isOpen, onClose, onAdd, setSho
         {showReminderOptions && (
           <div className={styles.formGroup}>
             <label htmlFor="reminders">Установить телеграм напоминание за:</label>
-            <input
-              type="checkbox"
-              id="daily"
-              checked={newMeetingReminder.daily}
-              onChange={handleReminderChange}
-            />
+            <input type="checkbox" id="daily" checked={newMeetingReminder.daily} onChange={handleReminderChange} />
             <span>За день</span>
-            <input
-              type="checkbox"
-              id="in_three_hours"
-              checked={newMeetingReminder.in_three_hours}
-              onChange={handleReminderChange}
-            />
+            <input type="checkbox" id="in_three_hours" checked={newMeetingReminder.in_three_hours} onChange={handleReminderChange} />
             <span>За три часа</span>
-            <input
-              type="checkbox"
-              id="ten_minute"
-              checked={newMeetingReminder.ten_minute}
-              onChange={handleReminderChange}
-            />
+            <input type="checkbox" id="ten_minute" checked={newMeetingReminder.ten_minute} onChange={handleReminderChange} />
             <span>За десять минут</span>
           </div>
         )}

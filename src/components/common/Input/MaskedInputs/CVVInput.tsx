@@ -8,14 +8,5 @@ interface CVVInputProps extends FieldProps<any, any> {
 }
 
 export const CVVInput: React.FC<CVVInputProps> = ({ field, form: { touched, errors }, ...props }) => {
-  return (
-    <MaskedInput
-      {...field}
-      {...props}
-      mask={[/\d/, /\d/, /\d/]}
-      guide={false}
-      placeholder="***"
-      type="text"
-    />
-  )
+  return <MaskedInput {...field} {...props} mask={[/\d/, /\d/, /\d/]} guide={false} placeholder="***" type="text" />
 }

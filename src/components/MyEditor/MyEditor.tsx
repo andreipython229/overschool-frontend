@@ -9,7 +9,7 @@ import { Button } from 'components/common/Button/Button'
 import { Select, MenuItem } from '@mui/material'
 import { decorator, mapWithButton } from './Link/Link'
 import { Input } from 'components/common/Input/Input/Input'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 type MyEditorT = {
   setDescriptionLesson?: (arg: string) => void
@@ -26,15 +26,9 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
   const [urlValue, setUrlValue] = useState<string>('')
   const blocksFromHTML = convertFromHTML(html || '')
 
-  const state = ContentState.createFromBlockArray(
-    blocksFromHTML.contentBlocks,
-    blocksFromHTML.entityMap,
-  );
+  const state = ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap)
 
-  const [editorState, setEditorState] = useState(() =>
-    html
-      ? EditorState.createWithContent(state, decorator)
-      : EditorState.createEmpty(decorator))
+  const [editorState, setEditorState] = useState(() => (html ? EditorState.createWithContent(state, decorator) : EditorState.createEmpty(decorator)))
 
   const [editorContent, setEditorContent] = useState<string>('')
   const [selectedStyle, setSelectedStyle] = React.useState('left')
@@ -93,7 +87,10 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
     }
 
     return (
-      <button className={active ? `${styles.editor_panel_button} ${styles.editor_panel_button_active}` : styles.editor_panel_button} onMouseDown={onClickButton}>
+      <button
+        className={active ? `${styles.editor_panel_button} ${styles.editor_panel_button_active}` : styles.editor_panel_button}
+        onMouseDown={onClickButton}
+      >
         {label}
       </button>
     )
@@ -123,14 +120,14 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
         editable: false,
       }
     }
-    if (block.getType() === 'blockquote') { 
-      return 'RichEditor-blockquote';
+    if (block.getType() === 'blockquote') {
+      return 'RichEditor-blockquote'
     }
-    if (block.getType() === "hr") {
+    if (block.getType() === 'hr') {
       return {
         component: () => <hr />,
-        editable: false
-      };
+        editable: false,
+      }
     }
     return null
   }
@@ -153,100 +150,95 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
   const getTextAlignStyle = (block: ContentBlock) => {
     switch (block.getType()) {
       case 'left':
-        return styles.align_left;
+        return styles.align_left
       case 'center':
-        return styles.align_center;
+        return styles.align_center
       case 'right':
-        return styles.align_right;
+        return styles.align_right
       default:
-        return '';
+        return ''
     }
   }
-    
+
   const onAddLink = () => {
-    const selection = editorState.getSelection();
+    const selection = editorState.getSelection()
     if (!selection.isCollapsed()) {
-      const contentState = editorState.getCurrentContent();
-      const startKey = editorState.getSelection().getStartKey();
-      const startOffset = editorState.getSelection().getStartOffset();
-      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey);
-      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset);
-      let url = '';
+      const contentState = editorState.getCurrentContent()
+      const startKey = editorState.getSelection().getStartKey()
+      const startOffset = editorState.getSelection().getStartOffset()
+      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey)
+      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset)
+      let url = ''
       if (linkKey) {
-        const linkInstance = contentState.getEntity(linkKey);
-        url = linkInstance.getData().url;
+        const linkInstance = contentState.getEntity(linkKey)
+        url = linkInstance.getData().url
       }
 
-      setShowUrlInput(true);
-      setUrlValue(url);
+      setShowUrlInput(true)
+      setUrlValue(url)
     }
-  };
+  }
 
   const confirmLink = () => {
-    const currentContent = editorState.getCurrentContent();
-    const createEntity = currentContent.createEntity("LINK", "MUTABLE", {
+    const currentContent = editorState.getCurrentContent()
+    const createEntity = currentContent.createEntity('LINK', 'MUTABLE', {
       url: urlValue,
-    });
-    const entityKey = currentContent.getLastCreatedEntityKey();
-    const selection = editorState.getSelection();
-    const textWithEntity = Modifier.applyEntity(
-      currentContent,
-      selection,
-      entityKey
-    );
-    const newState = EditorState.createWithContent(textWithEntity, decorator);
+    })
+    const entityKey = currentContent.getLastCreatedEntityKey()
+    const selection = editorState.getSelection()
+    const textWithEntity = Modifier.applyEntity(currentContent, selection, entityKey)
+    const newState = EditorState.createWithContent(textWithEntity, decorator)
 
-    setEditorState(newState);
-    setShowUrlInput(false);
-    setUrlValue('');
+    setEditorState(newState)
+    setShowUrlInput(false)
+    setUrlValue('')
   }
 
   const onUrlChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUrlValue(e.target.value);
+    setUrlValue(e.target.value)
   }
 
   const addHr = () => {
-    let contentState;
-    const html = '<p>.</p><hr /><p>.</p>';
-    const blocksFromHTML = convertFromHTML(html, undefined, mapWithButton);
-    const { contentBlocks, entityMap } = blocksFromHTML;
-    contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+    let contentState
+    const html = '<p>.</p><hr /><p>.</p>'
+    const blocksFromHTML = convertFromHTML(html, undefined, mapWithButton)
+    const { contentBlocks, entityMap } = blocksFromHTML
+    contentState = ContentState.createFromBlockArray(contentBlocks, entityMap)
 
-    contentState = Modifier.replaceWithFragment(
-      editorState.getCurrentContent(),
-      editorState.getSelection(),
-      contentState.getBlockMap()
-    );
+    contentState = Modifier.replaceWithFragment(editorState.getCurrentContent(), editorState.getSelection(), contentState.getBlockMap())
 
-    setEditorState(EditorState.push(editorState, contentState, "insert-fragment"));
-  };
+    setEditorState(EditorState.push(editorState, contentState, 'insert-fragment'))
+  }
 
   return (
     <div className={styles.editor}>
       <div className={styles.editor_panel}>
         <div className={styles.editor_select}>
-        <Select 
-          value={selectedStyle}
-          onChange={e => {
-            handleEditorChange(RichUtils.toggleBlockType(editorState, String(e.target.value)))
-            setSelectedStyle(String(e.target.value))
-            setTimeout(() => {
-              focus()
-            }, 50)
-          }}
+          <Select
+            value={selectedStyle}
+            onChange={e => {
+              handleEditorChange(RichUtils.toggleBlockType(editorState, String(e.target.value)))
+              setSelectedStyle(String(e.target.value))
+              setTimeout(() => {
+                focus()
+              }, 50)
+            }}
             sx={{
               '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select': {
-                height: '24px'
+                height: '24px',
               },
-              '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input': {
-                paddingRight: '26px'
-              },
-          }}
-        >
-        {DROPDOWN_STYLES.map(({ label, style }, index: number) => (
-          <MenuItem key={label + style + index} value={style}>{label}</MenuItem>
-        ))}
-        </Select>
+              '.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input':
+                {
+                  paddingRight: '26px',
+                },
+            }}
+          >
+            {DROPDOWN_STYLES.map(({ label, style }, index: number) => (
+              <MenuItem key={label + style + index} value={style}>
+                {label}
+              </MenuItem>
+            ))}
+          </Select>
         </div>
         {INLINE_STYLES.map(({ label, style }, index: number) => (
           <StyleButton key={label + style + index} style={style} label={label} isActive={() => isActive(style)} onToggle={onInlineClick} />
@@ -256,11 +248,11 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
         ))}
         {LINK.map(({ label, style }) => (
           <StyleButton key={label + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onAddLink} />
-         ))}
+        ))}
         {BLOCK_TYPES.map(({ label, style }, index: number) => (
           <StyleButton key={index + style} style={style} label={label} isActive={() => isActive(style)} onToggle={onBlockClick} />
         ))}
-         {DIVIDER.map(({ label, style }, index: number) => (
+        {DIVIDER.map(({ label, style }, index: number) => (
           <StyleButton key={index + style} style={style} label={label} isActive={() => isActive(style)} onToggle={addHr} />
         ))}
       </div>
@@ -276,38 +268,20 @@ export const MyEditor: FC<MyEditorT> = memo(({ setDescriptionLesson, editedText,
       </div>
       {stateToHTML(editorState.getCurrentContent()) !== editedText && (
         <div style={{ display: 'flex', gap: '10px' }}>
-          <Button
-            variant={'cancel'}
-            type='button'
-            onClick={handleCancelClick}
-            text={'Отменить'}
-            className={styles.textField_btn}
-          />
-          <Button
-            variant={'newPrimary'}
-            type='button'
-            text={'Сохранить'}
-            onClick={handleSaveClick}
-            className={styles.textField_btn}
-          />
+          <Button variant={'cancel'} type="button" onClick={handleCancelClick} text={'Отменить'} className={styles.textField_btn} />
+          <Button variant={'newPrimary'} type="button" text={'Сохранить'} onClick={handleSaveClick} className={styles.textField_btn} />
         </div>
       )}
-      {showUrlInput && ( 
+      {showUrlInput && (
         <div className={styles.url_container}>
           <div className={styles.url_container_input}>
-            <Input
-              onChange={onUrlChange}
-              type="text"
-              value={urlValue}
-              name={'LINK'}
-            />
+            <Input onChange={onUrlChange} type="text" value={urlValue} name={'LINK'} />
           </div>
-          <Button onMouseDown={confirmLink} text={''} variant='newPrimary' style={{padding: '4px'}}>
+          <Button onMouseDown={confirmLink} text={''} variant="newPrimary" style={{ padding: '4px' }}>
             <ArrowForwardIosIcon />
-          </Button> 
+          </Button>
         </div>
-  )
-  }
+      )}
     </div>
   )
 })

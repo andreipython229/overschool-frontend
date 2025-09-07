@@ -12,7 +12,14 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader'
 import styles from '../../Modal.module.scss'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
-export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAndType, modulesList, setType, setModulesList, insertAfterOrder, setInsertAfterOrder }) => {
+export const SettingClassesUsually: FC<SettingClassesPropsT> = ({
+  setLessonIdAndType,
+  modulesList,
+  setType,
+  setModulesList,
+  insertAfterOrder,
+  setInsertAfterOrder,
+}) => {
   const { nameLesson, isLoading, setNameLesson, handleCreateLesson } = useCreateLesson({
     setType,
     modulesList,
@@ -40,7 +47,7 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
         <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
       <div className={styles.usually_header}>
-        <UsuallyClassesIcon width={140} height={140}/>
+        <UsuallyClassesIcon width={140} height={140} />
         <span className={styles.classesContainer_title}>Настройте занятие</span>
       </div>
 
@@ -53,16 +60,12 @@ export const SettingClassesUsually: FC<SettingClassesPropsT> = ({ setLessonIdAnd
           value={nameLesson}
           style={{ marginBottom: '24px' }}
         >
-        <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
         </Input>
       </div>
 
       <div className={styles.classesContainer_type_btnBlock}>
-        <Button
-          variant={'cancel'}
-          onClick={goToBack}
-          text={'Назад'}
-        />
+        <Button variant={'cancel'} onClick={goToBack} text={'Назад'} />
         <Button
           type={'submit'}
           text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить занятие'}

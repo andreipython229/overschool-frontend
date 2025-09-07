@@ -1,16 +1,16 @@
 export type LandingBlockT = {
-  openModal: () => void;
+  openModal: () => void
 }
 
 export type AudienceCardViewPropT = {
-  position: number,
+  position: number
 }
 
 export type AdvantageCardViewPropT = {
-  position: number,
+  position: number
 }
 
 export type SalaryCardViewPropT = {
-  position: number,
-  isFirst?:boolean,
+  position: number
+  isFirst?: boolean
 }

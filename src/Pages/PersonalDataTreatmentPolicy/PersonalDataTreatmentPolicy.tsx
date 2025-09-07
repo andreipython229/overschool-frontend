@@ -15,7 +15,7 @@ export const PersonalDataTreatmentPolicy = () => {
       </p>
       <h1 className={styles.PersonalDataTreatmentPolicy_Header}>политика обработки персональных данных</h1>
       <ol className={styles.PersonalDataTreatmentPolicy_Content}>
-      <li>
+        <li>
           Настоящая политика обработки персональных данных (далее – Политика) определяет основные принципы, цели, условия и способы обработки
           персональных данных COURSEHUB, адрес: 220013, Республика Беларусь, г. Минск, ул.Некрасова, д. 5, оф. 511. (далее – Общество).
         </li>

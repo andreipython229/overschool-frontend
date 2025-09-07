@@ -48,8 +48,8 @@ export const SettingItem: FC<ISettingItem> = ({ item, handleChecked }) => {
             />
             <div className={`${styles.wrapper_item} ${item.checked ? styles.wrapper_item_checked : ' '} `}>
               <Checkbox id={item.order.toString()} name={item?.name} onChange={handleChecked} checked={item.checked}>
-                <p style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-                  {item.name} <ErrorOutlineIcon sx={{color: 'orange'}}/>
+                <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                  {item.name} <ErrorOutlineIcon sx={{ color: 'orange' }} />
                 </p>
                 <div className={`${styles.wrapper_item_icon} ${item.checked ? styles.wrapper_item_icon_checked : ''}`}></div>
               </Checkbox>

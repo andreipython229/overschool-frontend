@@ -122,8 +122,8 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
     timeRange === '24h'
       ? ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00']
       : timeRange === 'week'
-      ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-      : ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
+        ? ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
+        : ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек']
 
   const chartData = {
     labels,
@@ -158,7 +158,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     scales: {
       x: {
         grid: {
@@ -282,7 +282,7 @@ export const BannerStatistics: React.FC<BannerStatisticsProps> = ({ banner, scho
         <p className={styles.clicks_counter}>{bannerStats?.unique_clicks}</p>
       </div>
       <div className={styles.chartContainer}>
-      <Bar data={chartData} options={options} plugins={[legendMargin]} />
+        <Bar data={chartData} options={options} plugins={[legendMargin]} />
       </div>
     </div>
   )

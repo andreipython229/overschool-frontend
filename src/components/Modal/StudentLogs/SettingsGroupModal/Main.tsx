@@ -206,7 +206,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
             Группа не предполагает наличие ментора. Домашние задания принимаются автоматически без проверки
           </p>
         )}
-        <div className={styles.groupSetting_checkboxBlock} >
+        <div className={styles.groupSetting_checkboxBlock}>
           <div className={styles.groupSetting_checkboxBlock_checkbox}>
             <Checkbox id={'homework'} name={'homework'} checked={blockHomework} onChange={handlerHomeworkCheck} />
             <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
@@ -249,9 +249,7 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
             <Checkbox id={'download'} name={'download'} checked={download} onChange={handlerDownload} />
             <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
               <span>Возможность скачивания видео</span>
-              <span>
-                Ученик сможет скачивать видео-уроки
-              </span>
+              <span>Ученик сможет скачивать видео-уроки</span>
             </div>
           </div>
           <div className={styles.groupSetting_checkboxBlock_checkbox}>
@@ -269,15 +267,14 @@ export const MainSettingsGroup: FC<MainSettingsGroupPropsT> = ({
             </div>
           </div>
           <div className={styles.groupSetting_checkboxBlock_checkbox}>
-          <Checkbox id={'isLimited'} name={'isLimited'} checked={!isLimited} onChange={handlerIsLimited} />
+            <Checkbox id={'isLimited'} name={'isLimited'} checked={!isLimited} onChange={handlerIsLimited} />
             <div className={styles.groupSetting_checkboxBlock_checkbox_desc}>
-            <span>Продолжительность обучения в днях:</span>
-            {!isLimited && <span>не ограничена</span>}
-            {isLimited && <input value={duration} onChange={changeDuration} type="number" />}
+              <span>Продолжительность обучения в днях:</span>
+              {!isLimited && <span>не ограничена</span>}
+              {isLimited && <input value={duration} onChange={changeDuration} type="number" />}
+            </div>
           </div>
         </div>
-        </div>
-
 
         {/*<ToggleButtonDropDown isOpen={isAccardionOpen} nameOfItems={'уроки'} handleToggleHiddenBlocks={() => groupInfoAccardion(prev => !prev)} />*/}
         {/*{isAccardionOpen && groupLessons && (*/}

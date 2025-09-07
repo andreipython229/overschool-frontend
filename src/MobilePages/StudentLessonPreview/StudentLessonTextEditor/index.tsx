@@ -20,7 +20,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId }) => {
   const [text, setText] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
-  
+
   const [postHomewrok] = usePostUserHomeworkMutation()
   const [postFiles] = usePostTextFilesMutation()
 

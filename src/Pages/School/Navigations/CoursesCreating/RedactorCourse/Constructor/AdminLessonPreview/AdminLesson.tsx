@@ -33,7 +33,7 @@ export const renderStudentBlocks = (lesson: commonLessonT, download?: boolean) =
           }
         case BLOCK_TYPE.CODE:
           if ('code' in block && block.code) {
-            return <PreviewCodeBlock block={block} key={block.id}/>
+            return <PreviewCodeBlock block={block} key={block.id} />
           } else {
             return <></>
           }

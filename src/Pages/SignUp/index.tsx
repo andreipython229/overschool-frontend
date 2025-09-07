@@ -13,7 +13,6 @@ import styles from './registration.module.scss'
 export const SignUp: FC = () => {
   const [security, setSecurity] = useState<boolean>(true)
 
-
   const changeSecurityStatus = () => {
     setSecurity(!security)
   }

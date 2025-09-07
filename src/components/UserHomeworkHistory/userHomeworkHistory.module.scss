@@ -4,8 +4,8 @@
 .history {
   width: 100%;
   display: flex;
-  // flex-direction: row;
-  // justify-content: flex-start;
+  // flex-direction: row;flex-direction
+  // justify-content: flex-start;justify-content
   gap: 1rem;
 
   &_avatar {
@@ -41,47 +41,47 @@
   }
 
   // &_header {
-  //   display: flex;
-  //   align-items: center;
-  //   flex-direction: wrap;
+  //   display: flex;display
+  //   align-items: center;align-items
+  //   flex-direction: wrap;flex-direction
 
   //   &_username {
   //     @include font(500, 14px, 17px);
-  //     color: #fff;
+  //     color: #fff;color
   //   }
 
   //   &_time {
   //     @include font(400, 14px, 17px);
-  //     color: $color-white;
+  //     color: $color-white;color
   //   }
 
   //   &_info {
-  //     margin-right: 1.25rem;
-  //     display: flex;
-  //     align-items: center;
+  //     margin-right: 1.25rem;margin-right
+  //     display: flex;display
+  //     align-items: center;align-items
   //   }
 
   //   &_text {
-  //     margin-left: 1rem;
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: space-between;
+  //     margin-left: 1rem;margin-left
+  //     display: flex;display
+  //     flex-direction: column;flex-direction
+  //     justify-content: space-between;justify-content
   //   }
 
   //   &_status {
-  //     display: flex;
-  //     align-items: center;
-  //     flex-shrink: 0;
+  //     display: flex;display
+  //     align-items: center;align-items
+  //     flex-shrink: 0;flex-shrink
 
   //     & span {
   //       @include font(400, 14px, 17px);
-  //       color: $color-white;
+  //       color: $color-white;color
   //     }
 
   //     & div {
-  //       display: flex;
-  //       align-items: center;
-  //       margin-right: 0.5rem;
+  //       display: flex;display
+  //       align-items: center;align-items
+  //       margin-right: 0.5rem;margin-right
   //     }
   //   }
   // }

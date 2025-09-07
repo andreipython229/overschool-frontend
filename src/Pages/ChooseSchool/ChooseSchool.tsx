@@ -142,8 +142,8 @@ export const ChooseSchool = () => {
           userRole === RoleE.SuperAdmin
             ? Path.School + '/' + Path.Settings
             : userRole === RoleE.Teacher
-            ? Path.School + '/' + Path.CourseStats
-            : Path.School + '/' + Path.Courses,
+              ? Path.School + '/' + Path.CourseStats
+              : Path.School + '/' + Path.Courses,
           { school_name: schoolName },
         ),
       )
@@ -258,12 +258,12 @@ export const ChooseSchool = () => {
                     }}
                     spaceBetween={isMobile ? 20 : 10}
                     slidesPerView={isMobile ? 1 : 3}
-                    direction={isMobile ? "vertical" : "horizontal"}
+                    direction={isMobile ? 'vertical' : 'horizontal'}
                     onInit={(swiper: any) => {
                       console.log('Swiper initialized:', {
                         isMobile: isMobile,
                         slidesPerView: swiper.params.slidesPerView,
-                        direction: swiper.params.direction
+                        direction: swiper.params.direction,
                       })
                     }}
                   >

@@ -34,31 +34,31 @@ export const Certificates: FC = () => {
     signature: '',
     sections: [],
     stampType: 'stamp1',
-    signatory: ''
+    signatory: '',
   })
 
   const handleSignatureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSignature(value);
+    const value = e.target.value
+    setSignature(value)
     setPreviewData(prev => ({
       ...prev,
-      signatory: value
-    }));
+      signatory: value,
+    }))
   }
 
   const handleSignatureImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file = e.target.files?.[0]
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onloadend = () => {
-        const result = reader.result as string;
-        setSignatureImage(result);
+        const result = reader.result as string
+        setSignatureImage(result)
         setPreviewData(prev => ({
           ...prev,
-          signature: result
-        }));
-      };
-      reader.readAsDataURL(file);
+          signature: result,
+        }))
+      }
+      reader.readAsDataURL(file)
     }
   }
 
@@ -70,7 +70,7 @@ export const Certificates: FC = () => {
     setStampType(type)
     setPreviewData(prev => ({
       ...prev,
-      stampType: type
+      stampType: type,
     }))
   }
 
@@ -81,7 +81,7 @@ export const Certificates: FC = () => {
   return (
     <div className={styles.certificates}>
       <h2>Настройки сертификатов курса</h2>
-      
+
       <div className={styles.certificates_content}>
         <div className={styles.settings}>
           <div className={styles.settings_section}>
@@ -94,22 +94,16 @@ export const Certificates: FC = () => {
                 onChange={handleSignatureChange}
                 placeholder="Введите имя директора"
                 label="Имя директора"
-                style={{ 
+                style={{
                   width: '300px',
                   fontSize: '12px',
-                  padding: '4px'
+                  padding: '4px',
                 }}
               />
             </div>
             <div style={{ marginTop: '1rem' }}>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleSignatureImageChange}
-                style={{ display: 'none' }}
-                id="signature-upload"
-              />
-              <label 
+              <input type="file" accept="image/*" onChange={handleSignatureImageChange} style={{ display: 'none' }} id="signature-upload" />
+              <label
                 htmlFor="signature-upload"
                 style={{
                   display: 'inline-block',
@@ -118,21 +112,21 @@ export const Certificates: FC = () => {
                   color: 'white',
                   borderRadius: '4px',
                   cursor: 'pointer',
-                  fontSize: '14px'
+                  fontSize: '14px',
                 }}
               >
                 Загрузить подпись
               </label>
               {signatureImage && (
                 <div style={{ marginTop: '1rem' }}>
-                  <img 
-                    src={signatureImage} 
-                    alt="Подпись" 
-                    style={{ 
+                  <img
+                    src={signatureImage}
+                    alt="Подпись"
+                    style={{
                       maxWidth: '200px',
                       maxHeight: '100px',
-                      objectFit: 'contain'
-                    }} 
+                      objectFit: 'contain',
+                    }}
                   />
                 </div>
               )}
@@ -142,34 +136,50 @@ export const Certificates: FC = () => {
           <div className={styles.settings_section}>
             <h3 className={styles.stamp_title}>Печать школы</h3>
             <div className={styles.stamp_selection}>
-              <div 
+              <div
                 className={`${styles.stamp_option} ${stampType === 'stamp1' ? styles.active : ''}`}
                 onClick={() => handleStampTypeChange('stamp1')}
               >
                 <div className={styles.stamp_preview}>
                   <svg width="60" height="60" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="60" cy="60" r="55" stroke="#FF0000" strokeWidth="2" fill="none"/>
-                    <circle cx="60" cy="60" r="45" stroke="#FF0000" strokeWidth="1" fill="none"/>
-                    <text x="60" y="40" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">OFFICIAL</text>
-                    <text x="60" y="55" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">STAMP</text>
-                    <text x="60" y="70" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">OF</text>
-                    <text x="60" y="85" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">SCHOOL</text>
+                    <circle cx="60" cy="60" r="55" stroke="#FF0000" strokeWidth="2" fill="none" />
+                    <circle cx="60" cy="60" r="45" stroke="#FF0000" strokeWidth="1" fill="none" />
+                    <text x="60" y="40" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">
+                      OFFICIAL
+                    </text>
+                    <text x="60" y="55" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">
+                      STAMP
+                    </text>
+                    <text x="60" y="70" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">
+                      OF
+                    </text>
+                    <text x="60" y="85" textAnchor="middle" fill="#FF0000" fontSize="12" fontWeight="bold">
+                      SCHOOL
+                    </text>
                   </svg>
                 </div>
                 <span>Печать 1</span>
               </div>
-              <div 
+              <div
                 className={`${styles.stamp_option} ${stampType === 'stamp2' ? styles.active : ''}`}
                 onClick={() => handleStampTypeChange('stamp2')}
               >
                 <div className={styles.stamp_preview}>
                   <svg width="60" height="60" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="60" cy="60" r="55" stroke="#0000FF" strokeWidth="2" fill="none"/>
-                    <circle cx="60" cy="60" r="45" stroke="#0000FF" strokeWidth="1" fill="none"/>
-                    <text x="60" y="35" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">SCHOOL</text>
-                    <text x="60" y="50" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">CERTIFICATION</text>
-                    <text x="60" y="65" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">AND</text>
-                    <text x="60" y="80" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">VERIFICATION</text>
+                    <circle cx="60" cy="60" r="55" stroke="#0000FF" strokeWidth="2" fill="none" />
+                    <circle cx="60" cy="60" r="45" stroke="#0000FF" strokeWidth="1" fill="none" />
+                    <text x="60" y="35" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">
+                      SCHOOL
+                    </text>
+                    <text x="60" y="50" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">
+                      CERTIFICATION
+                    </text>
+                    <text x="60" y="65" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">
+                      AND
+                    </text>
+                    <text x="60" y="80" textAnchor="middle" fill="#0000FF" fontSize="12" fontWeight="bold">
+                      VERIFICATION
+                    </text>
                   </svg>
                 </div>
                 <span>Печать 2</span>
@@ -187,4 +197,4 @@ export const Certificates: FC = () => {
       </div>
     </div>
   )
-} 
+}

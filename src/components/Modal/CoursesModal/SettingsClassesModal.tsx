@@ -1,48 +1,48 @@
-import {ChangeEvent, FC, useEffect, useState} from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 
-import {Input} from 'components/common/Input/Input/Input'
-import {Button} from 'components/common/Button/Button'
-import {IconSvg} from '../../common/IconSvg/IconSvg'
-import {settingsClassesIconPath} from './config/svgIconsPath'
-import {crossIconPath} from '../../../config/commonSvgIconsPath'
-import {SettingsClassesModalPropT} from '../ModalTypes'
-import {useFetchLessonQuery, usePatchLessonsMutation} from '../../../api/modulesServices'
+import { Input } from 'components/common/Input/Input/Input'
+import { Button } from 'components/common/Button/Button'
+import { IconSvg } from '../../common/IconSvg/IconSvg'
+import { settingsClassesIconPath } from './config/svgIconsPath'
+import { crossIconPath } from '../../../config/commonSvgIconsPath'
+import { SettingsClassesModalPropT } from '../ModalTypes'
+import { useFetchLessonQuery, usePatchLessonsMutation } from '../../../api/modulesServices'
 // import {patchData} from '../../../utils/patchData'
 
 import styles from '../Modal.module.scss'
 // import {classesType} from '../../../constants/other'
-import {CheckboxBall} from "../../common/CheckboxBall";
+import { CheckboxBall } from '../../common/CheckboxBall'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 // import {PublishedMark} from "../../common/PublishedMark";
 
-export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, modulesList, lessonIdAndType}) => {
-  const [isPublished, setIsPublished] = useState(false);
+export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({ setType, modulesList, lessonIdAndType }) => {
+  const [isPublished, setIsPublished] = useState(false)
   const schoolName = window.location.href.split('/')[4]
-  const [saveData, {isSuccess}] = usePatchLessonsMutation()
+  const [saveData, { isSuccess }] = usePatchLessonsMutation()
 
-  const {data} = useFetchLessonQuery({id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName})
+  const { data } = useFetchLessonQuery({ id: lessonIdAndType.id, type: lessonIdAndType.type, schoolName })
 
   const [nameLesson, setNameLesson] = useState<string>(data?.name || '')
   const [show_right_answers, setShowRightAnswers] = useState(false)
 
   useEffect(() => {
     if (data) {
-      setIsPublished(data.active);
+      setIsPublished(data.active)
       if (lessonIdAndType.type === 'test') {
-        setShowRightAnswers(data.show_right_answers);
+        setShowRightAnswers(data.show_right_answers)
       }
     }
-  }, [data]);
+  }, [data])
 
   useEffect(() => {
     console.log(lessonIdAndType)
-  }, [lessonIdAndType]);
+  }, [lessonIdAndType])
 
   useEffect(() => {
     if (data?.name !== undefined) {
       setNameLesson(data?.name)
     }
-  }, [data?.name]);
+  }, [data?.name])
 
   const handleClose = () => {
     setType(null as keyof object)
@@ -54,7 +54,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
 
   const saveChangeNameLesson = (event: any) => {
     event.preventDefault()
-    const formData = new FormData();
+    const formData = new FormData()
     formData.append('name', nameLesson)
     formData.append('order', String(data?.order))
     formData.append('section', String(data?.section))
@@ -62,7 +62,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
     if (lessonIdAndType.type === 'test') {
       formData.append('show_right_answers', String(show_right_answers))
     }
-    saveData({arg: {id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData}, schoolName})
+    saveData({ arg: { id: +lessonIdAndType.id, type: lessonIdAndType.type, formdata: formData }, schoolName })
   }
 
   useEffect(() => {
@@ -87,13 +87,8 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
             <div className={styles.settings_block_input}>
               <span className={styles.settings_block_input_title}>Изменить название</span>
               <div className={styles.module_input}>
-                <Input
-                  name={'name'}
-                  value={nameLesson}
-                  type={'text'}
-                  onChange={handleChangeNameLesson}
-                >
-                  <IconSvg className={styles.module_input_penIcon} width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath} />
+                <Input name={'name'} value={nameLesson} type={'text'} onChange={handleChangeNameLesson}>
+                  <IconSvg className={styles.module_input_penIcon} width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
                 </Input>
               </div>
             </div>
@@ -104,7 +99,7 @@ export const SettingsClassesModal: FC<SettingsClassesModalPropT> = ({setType, mo
             {lessonIdAndType.type === 'test' && (
               <span className={styles.settings_block_input_isPublished}>
                 <div className={styles.settings_block_input_switch}>
-                  <CheckboxBall isChecked={show_right_answers} toggleChecked={() => setShowRightAnswers(!show_right_answers)}/>
+                  <CheckboxBall isChecked={show_right_answers} toggleChecked={() => setShowRightAnswers(!show_right_answers)} />
                 </div>
                 <span>Показать правильные ответы при завершению теста.</span>
               </span>

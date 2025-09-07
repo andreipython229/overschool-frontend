@@ -110,12 +110,10 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
 
   const handleUploadFiles = (chosenFiles: File[]) => {
     setFiles(prevFiles => {
-      const filtered = chosenFiles.filter(
-        newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name)
-      )
+      const filtered = chosenFiles.filter(newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name))
       return [...prevFiles, ...filtered]
     })
-  
+
     setUrlFiles(prevUrlFiles => {
       const newUrlFiles = chosenFiles
         .filter(file => !files.some(existingFile => existingFile.name === file.name)) // фильтрация для urlFiles
@@ -125,7 +123,7 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
         }))
       return [...prevUrlFiles, ...newUrlFiles]
     })
-  }  
+  }
 
   const handleChangeFiles = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -142,7 +140,7 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
     const handlePaste = (event: ClipboardEvent) => {
       const clipboardItems = event.clipboardData?.items
       if (!clipboardItems) return
-      
+
       const filesToUpload: File[] = []
 
       for (const item of clipboardItems) {
@@ -155,14 +153,14 @@ export const TeacherHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
         }
       }
 
-      if(filesToUpload.length > 0) {
+      if (filesToUpload.length > 0) {
         handleUploadFiles(filesToUpload)
       }
     }
-  
+
     const textarea = textAreaRef.current
     textarea?.addEventListener('paste', handlePaste)
-  
+
     return () => {
       textarea?.removeEventListener('paste', handlePaste)
     }

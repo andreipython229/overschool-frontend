@@ -1,11 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const PassingBlock = () => {
-  return (
-      <div>
+  return <div></div>
+}
 
-      </div>
-  );
-};
-
-export default PassingBlock;
+export default PassingBlock

@@ -4,13 +4,9 @@ import { Button } from '../common/Button/Button'
 import { StatisticHeaderT } from '../../types/componentsTypes'
 import styles from 'Pages/School/StudentsStats/studentsStats.module.scss'
 
-
 export const StatisticHeader: FC<StatisticHeaderT> = memo(({ hideStats, handleHideStats }) => {
-
-
   return (
     <div className={styles.statistics_header}>
-
       {/*<Chart data={data} width={600} height={300} />*/}
       {/*<IconSvg className={styles.statistics_header_icon} width={21} height={21} viewBoxSize="0 0 21 21" path={statisticIconPath} />*/}
       <div className={styles.statistics_header_info_wrapper}>
@@ -24,7 +20,6 @@ export const StatisticHeader: FC<StatisticHeaderT> = memo(({ hideStats, handleHi
         text={hideStats ? 'Свернуть' : 'Развернуть'}
         className={styles.statistics_header_btn_collapse}
       />
-
     </div>
   )
 })

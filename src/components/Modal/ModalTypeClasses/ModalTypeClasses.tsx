@@ -34,7 +34,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
             onClick={() => setActiveClasses('lesson' as keyof object)}
             className={activeClasses === 'lesson' ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
           >
-            <UsuallyClassesIcon width={121} height={106}/>
+            <UsuallyClassesIcon width={121} height={106} />
             <span>Обычное</span>
           </div>
           <div
@@ -50,7 +50,7 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
             onClick={() => setActiveClasses('test' as keyof object)}
             className={activeClasses === 'test' ? styles.classesContainer_type_classes + ' ' + styles.active : styles.classesContainer_type_classes}
           >
-            <TestModalIcon width={109} height={106}/>
+            <TestModalIcon width={109} height={106} />
             <span>Тест</span>
           </div>
           {/*<div*/}
@@ -65,17 +65,9 @@ export const ModalTypeClasses: FC<ModalClassesPropsT> = memo(({ setType }) => {
           {/*</div>*/}
         </div>
         <div className={styles.classesContainer_type_subs}>{typeClasses.map(el => (el.type === activeClasses ? el.text : null))}</div>
-        <div className={styles.classesContainer_type_btnBlock} style={{marginTop: '20px'}}>
-          <Button
-            variant={'cancel'}
-            onClick={handleClose}
-            text={'Отмена'}
-          />
-          <Button
-            variant={'newPrimary'}
-            onClick={setClassesType}
-            text={'Далее'}
-          />
+        <div className={styles.classesContainer_type_btnBlock} style={{ marginTop: '20px' }}>
+          <Button variant={'cancel'} onClick={handleClose} text={'Отмена'} />
+          <Button variant={'newPrimary'} onClick={setClassesType} text={'Далее'} />
         </div>
       </div>
     </div>

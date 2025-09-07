@@ -6,7 +6,7 @@
   padding: 30px 33px 40px;
   margin: auto;
   background: #fff;
-  // width: 75vw;
+  // width: 75vw;width
   max-width: 100%;
   overflow: visible;
   transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
@@ -303,16 +303,16 @@
   margin: auto;
 
   @media only screen and (min-width : 320px) and (max-width : 375px) {
-    // margin-top: 3%;
+    // margin-top: 3%;margin-top
   }
 
   @media only screen and (min-width : 375px) and (max-width : 480px) {
-  //  margin-top: 3%;
+  //  margin-top: 3%;margin-top
   }
 
   @media only screen and (min-width : 480px) and (max-width : 1024px) {
-    // margin-top: 3%;
-    // margin-right: 50px;
+    // margin-top: 3%;margin-top
+    // margin-right: 50px;margin-right
    }
 }
 
@@ -346,7 +346,7 @@
 .task_status {
   @include display(flex);
   @include font(500, 18px, 22px);
-  // margin-right: 40px;
+  // margin-right: 40px;margin-right
   color: #9ca3af;
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     margin: 3% 0 3% 0;

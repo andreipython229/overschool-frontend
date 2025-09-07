@@ -4,9 +4,9 @@ import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { tableFilterByNamePath, tableFilterByEmailUpPath, tableFilterByEmailDownPath } from '../../../config/commonSvgIconsPath'
 
 type homeworksStatsTableHeaderT = {
-  handleChangeProp: () => void;
-  handleSortByDate: () => void;
-  handleSortByStatus: () => void;
+  handleChangeProp: () => void
+  handleSortByDate: () => void
+  handleSortByStatus: () => void
 }
 
 export const HomeworksStatsTableHeader: FC<homeworksStatsTableHeaderT> = ({ handleChangeProp, handleSortByDate, handleSortByStatus }) => {
@@ -34,7 +34,7 @@ export const HomeworksStatsTableHeader: FC<homeworksStatsTableHeaderT> = ({ hand
       </th>
       <th style={{ height: '55px', display: 'flex', alignItems: 'center' }}>
         <span style={{ margin: '0 3px 0 0' }}>Статус</span>
-          <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={handleSortByStatus}>
+        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={handleSortByStatus}>
           <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailUpPath} />
           <IconSvg width={8} height={5} viewBoxSize={'0 0 8 5'} path={tableFilterByEmailDownPath} />
         </div>

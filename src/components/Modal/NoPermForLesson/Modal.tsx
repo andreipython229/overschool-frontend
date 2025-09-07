@@ -11,13 +11,7 @@ type NoPermForLessonProps = {
 
 export const NoPermForLesson: FC<NoPermForLessonProps> = ({ isOpen, onClose, children }) => {
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Нет доступа к уроку"
-      variant="warning"
-      width="500px"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title="Нет доступа к уроку" variant="warning" width="500px">
       <div className={styles.content}>
         {children}
         <div className={styles.actions}>
@@ -27,4 +21,3 @@ export const NoPermForLesson: FC<NoPermForLessonProps> = ({ isOpen, onClose, chi
     </Modal>
   )
 }
-

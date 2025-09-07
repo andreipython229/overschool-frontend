@@ -61,16 +61,12 @@ export const TasksModal: FC<TasksModalPropsT> = memo(({ setLessonIdAndType, modu
           value={nameLesson}
           style={{ marginBottom: '24px' }}
         >
-        <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
         </Input>
       </div>
 
       <div className={styles.classesContainer_type_btnBlock}>
-        <Button
-          variant={'cancel'}
-          onClick={goToBack}
-          text={'Назад'}
-        />
+        <Button variant={'cancel'} onClick={goToBack} text={'Назад'} />
         <Button
           type={'submit'}
           text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить задание'}

@@ -1,5 +1,5 @@
-import { IconSvg } from "components/common/IconSvg/IconSvg"
-import { peopleIconPath } from "config/commonSvgIconsPath"
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { peopleIconPath } from 'config/commonSvgIconsPath'
 
 export const PeopleIconSvg = () => {
   return (

@@ -10,6 +10,19 @@ export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
   endpoints: builder => ({
+    authSocial: builder.query<IResponse, void>({
+      query: () => '/auth/social-complete/',
+    }),
+  }),
+})
+
+export const { useAuthSocialQuery } = authApi
+
+export const userLoginService = createApi({
+  reducerPath: 'userLoginService',
+  baseQuery: baseQueryWithReauth, // ИСПРАВЛЕНО: используем baseQueryWithReauth
+  tagTypes: ['login', 'logout', 'useInfo'],
+  endpoints: builder => ({
     login: builder.mutation<IResponse, ICredentials>({
       query: credentials => {
         const formdata = formDataConverter(credentials)
@@ -18,35 +31,11 @@ export const authApi = createApi({
           method: 'POST',
           redirect: 'follow',
           body: formdata,
+          responseHandler: response => response.text(),
         }
       },
+      invalidatesTags: ['login'],
     }),
-    authSocial: builder.query<IResponse, void>({
-      query: () => '/auth/social-complete/',
-    }),
-  }),
-})
-
-export const { useLoginMutation, useAuthSocialQuery } = authApi
-
-export const userLoginService = createApi({
-  reducerPath: 'userLoginService',
-  baseQuery: baseQueryWithReauth,
-  tagTypes: ['login', 'logout', 'useInfo'],
-  endpoints: builder => ({
-    // login: builder.mutation<IResponse, ICredentials>({
-    //   query: credentials => {
-    //     const formdata = formDataConverter(credentials)
-    //     return {
-    //       url: '/login/',
-    //       method: 'POST',
-    //       redirect: 'follow',
-    //       body: formdata,
-    //       responseHandler: response => response.text(),
-    //     }
-    //   },
-    //   invalidatesTags: ['login'],
-    // }),
     getUserInfo: builder.query<ILoginUserInfo[], void>({
       query: () => ({
         url: `/user/`,
@@ -72,4 +61,5 @@ export const userLoginService = createApi({
     }),
   }),
 })
-export const { useLazyLogoutQuery, useLazyGetUserInfoQuery } = userLoginService
+
+export const { useLoginMutation, useLazyLogoutQuery, useLazyGetUserInfoQuery } = userLoginService

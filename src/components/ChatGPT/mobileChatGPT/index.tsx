@@ -20,8 +20,8 @@ import { useAppSelector } from '@/store/hooks'
 import { selectUser } from '@/selectors'
 
 interface ChatGPTProps {
-  isDialogOpen: boolean;
-  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isDialogOpen: boolean
+  setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const MobileChatGPT: React.FC<ChatGPTProps> = ({ isDialogOpen, setIsDialogOpen }) => {

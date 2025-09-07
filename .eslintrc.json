@@ -1,63 +1,107 @@
 {
+  "root": true,
   "env": {
     "browser": true,
-    "es2021": true
+    "node": true,
+    "es2021": true,
+    "es6": true
   },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 2020,
+    "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "ignorePatterns": [
-    "**/*.scss",
-    "dist",
-    "build",
-    "node_modules"
-  ],
-  "plugins": [
-    "react",
-    "react-hooks",
-    "@typescript-eslint",
-    "prettier"
-  ],
-
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "no-shadow": "off",
-    "no-alert": "error",
-    "no-debugger": "warn",
-    "no-plusplus": "error",
     "no-unused-vars": "off",
-    "no-magic-numbers": "off",
-    "default-param-last": "off",
-    "no-use-before-define": "off",
-    "no-param-reassign": "off",
-    "semi": "off",
-    "semi-style": "off",
-    "no-extra-semi": "off",
-    "react/display-name": "off",
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off",
-    "no-duplicate-imports": "error",
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "no-undef": "off",
+    "no-restricted-globals": "off",
+    "no-console": "warn"
   },
-
   "settings": {
-    "import/resolver": {
-      "typescript": {},
-      "scss": {}
-    },
     "react": {
       "version": "detect"
     }
+  },
+  "globals": {
+    "module": "readonly",
+    "process": "readonly",
+    "HTMLAnchorElement": "readonly",
+    "console": "readonly",
+    "setTimeout": "readonly",
+    "clearTimeout": "readonly",
+    "setInterval": "readonly",
+    "clearInterval": "readonly",
+    "window": "readonly",
+    "document": "readonly",
+    "localStorage": "readonly",
+    "sessionStorage": "readonly",
+    "fetch": "readonly",
+    "FormData": "readonly",
+    "URLSearchParams": "readonly",
+    "Headers": "readonly",
+    "Request": "readonly",
+    "Response": "readonly",
+    "Event": "readonly",
+    "CustomEvent": "readonly",
+    "MouseEvent": "readonly",
+    "KeyboardEvent": "readonly",
+    "TouchEvent": "readonly",
+    "DragEvent": "readonly",
+    "ClipboardEvent": "readonly",
+    "FocusEvent": "readonly",
+    "InputEvent": "readonly",
+    "ChangeEvent": "readonly",
+    "SubmitEvent": "readonly",
+    "FormEvent": "readonly",
+    "AnimationEvent": "readonly",
+    "TransitionEvent": "readonly",
+    "WheelEvent": "readonly",
+    "PointerEvent": "readonly",
+    "ErrorEvent": "readonly",
+    "MessageEvent": "readonly",
+    "ProgressEvent": "readonly",
+    "StorageEvent": "readonly",
+    "BeforeUnloadEvent": "readonly",
+    "PageTransitionEvent": "readonly",
+    "PopStateEvent": "readonly",
+    "HashChangeEvent": "readonly",
+    "OnlineEvent": "readonly",
+    "OfflineEvent": "readonly",
+    "DeviceMotionEvent": "readonly",
+    "DeviceOrientationEvent": "readonly",
+    "MediaQueryListEvent": "readonly",
+    "NotificationEvent": "readonly",
+    "PushEvent": "readonly",
+    "SyncEvent": "readonly",
+    "ExtendableEvent": "readonly",
+    "ExtendableMessageEvent": "readonly",
+    "FetchEvent": "readonly",
+    "InstallEvent": "readonly",
+    "ActivateEvent": "readonly",
+    "BackgroundFetchEvent": "readonly",
+    "BackgroundFetchUpdateEvent": "readonly",
+    "ContentIndexEvent": "readonly",
+    "PeriodicSyncEvent": "readonly",
+    "PushMessageEvent": "readonly",
+    "WebGLContextEvent": "readonly",
+    "WebGLFramebufferStatusEvent": "readonly",
+    "WebGLProgramEvent": "readonly",
+    "WebGLShaderEvent": "readonly",
+    "WebGLTextureEvent": "readonly",
+    "WebGLUniformLocationEvent": "readonly",
+    "WebGLVertexArrayObjectEvent": "readonly",
+    "WebGLVertexArrayObjectOESEvent": "readonly",
+    "WebGLVertexArrayObjectWebGL2Event": "readonly",
+    "WebGLVertexArrayObjectWebGLEvent": "readonly"
   }
 }

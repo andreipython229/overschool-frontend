@@ -31,7 +31,7 @@ export const StudentsSchoolExport: FC = () => {
 
   return (
     <div style={{ marginBottom: '1rem' }}>
-      <Button onClick={handleExport} variant='newPrimary' className={styles.students_group_header_export_button} text={''}>
+      <Button onClick={handleExport} variant="newPrimary" className={styles.students_group_header_export_button} text={''}>
         Скачать таблицу с учениками
         {isFetching && <SimpleLoader style={{ height: '12px', width: '12px' }} loaderColor="white" />}
       </Button>

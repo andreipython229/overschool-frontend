@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 import styles from './checkButton.module.scss'
 
 const spring = {
-  type: "spring" as const,
+  type: 'spring' as const,
   stiffness: 700,
-  damping: 30
-};
+  damping: 30,
+}
 
 type CheckButtonT = {
   toggleChecked?: () => void
@@ -20,7 +20,7 @@ export const CheckButton: FC<CheckButtonT> = memo(({ isChecked, toggleChecked })
 
   return (
     <div className={styles.switch} data-ison={isChecked} onClick={toggleSwitch}>
-      <motion.div className={styles.handle} layout transition={spring}/>
+      <motion.div className={styles.handle} layout transition={spring} />
     </div>
   )
 })

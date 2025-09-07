@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { generatePath, Link } from 'react-router-dom'
-import bgImage from './assets/image.png'
+import bgImage from './assets/image-searchblock.png'
 import { PeopleIconSvg } from './assets/iconsComponents'
 import { groupsIconPath } from 'config/commonSvgIconsPath'
 import { IconSvg } from '@/components/common/IconSvg/IconSvg'

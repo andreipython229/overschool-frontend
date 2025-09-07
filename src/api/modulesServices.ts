@@ -27,7 +27,7 @@ export const modulesServices = createApi({
       }),
       providesTags: ['modules', 'lessons'],
     }),
-    fetchModuleLessons: build.query<sectionT, { sectionId: string; schoolName: string, courseId?: string }>({
+    fetchModuleLessons: build.query<sectionT, { sectionId: string; schoolName: string; courseId?: string }>({
       query: ({ sectionId, schoolName, courseId }) => ({
         url: `/${schoolName}/sections/${sectionId}/lessons/${courseId}/`,
       }),
@@ -120,7 +120,7 @@ export const modulesServices = createApi({
       },
       invalidatesTags: ['modules', 'lessons'],
     }),
-    createComment: build.mutation<void, { lesson_id: number, content: string, schoolName: string, course_id?: number }>({
+    createComment: build.mutation<void, { lesson_id: number; content: string; schoolName: string; course_id?: number }>({
       query: ({ lesson_id, content, schoolName, course_id }) => ({
         url: `/${schoolName}/lesson_comments/`,
         method: 'POST',
@@ -131,12 +131,12 @@ export const modulesServices = createApi({
         },
       }),
     }),
-    fetchCommentsByLesson: build.query<CommentList, { lesson_id: number, schoolName: string, course_id?: number }>({
+    fetchCommentsByLesson: build.query<CommentList, { lesson_id: number; schoolName: string; course_id?: number }>({
       query: ({ lesson_id, schoolName, course_id }) => ({
         url: `/${schoolName}/lesson_comments/?lesson_id=${lesson_id}${course_id ? `&course_id=${course_id}` : ''}`,
       }),
     }),
-    updateComments: build.mutation<void, { schoolName: string, lesson_id: number, comments: Record<number, boolean>, course_id?: number }>({
+    updateComments: build.mutation<void, { schoolName: string; lesson_id: number; comments: Record<number, boolean>; course_id?: number }>({
       query: ({ schoolName, lesson_id, comments, course_id }) => ({
         url: `/${schoolName}/lesson_comments/${lesson_id}/`,
         method: 'PATCH',

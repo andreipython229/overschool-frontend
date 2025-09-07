@@ -137,8 +137,8 @@ export const StudentsPerSchool: FC = () => {
       ? data.results[0].unique_students_count
       : 0
     : data && data.count
-    ? data.count
-    : 0
+      ? data.count
+      : 0
 
   return (
     <>

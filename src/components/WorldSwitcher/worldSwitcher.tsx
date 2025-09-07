@@ -10,36 +10,37 @@ const WordSwitcher = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex(prevIndex => (prevIndex + 1) % words.length)
-    }, 2000) // смена слова каждые 2 секунды
+    }, 3000) // смена слова каждые 3 секунды
 
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <div className={styles.text_container}>
-      <AnimatePresence>
-        <motion.div
+    <span className={styles.text_container}>
+      <AnimatePresence mode="wait">
+        <motion.span
           key={words[index]}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20, transition: { duration: 0.7, ease: 'easeInOut' } }}
           transition={{ duration: 0.84, ease: 'easeInOut' }}
+          style={{ display: 'inline-block' }}
         >
           {words[index]}
-        </motion.div>
+        </motion.span>
       </AnimatePresence>
-    </div>
+    </span>
   )
 }
 
 const App = () => {
   return (
-    <div className={styles.container}>
-      <p>для</p>
-      <div className={styles.container_worlds}>
+    <span className={styles.container}>
+      <span>для</span>
+      <span className={styles.container_worlds}>
         <WordSwitcher />
-      </div>
-    </div>
+      </span>
+    </span>
   )
 }
 

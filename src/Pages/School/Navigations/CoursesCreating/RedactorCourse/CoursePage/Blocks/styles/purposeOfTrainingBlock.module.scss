@@ -44,7 +44,7 @@
   &_cardContainer {
     position: relative;
     display: grid;
-    // flex-direction: column;
+    // flex-direction: column;flex-direction
     grid-template-columns: repeat(2, 1fr);
     gap: 20px 260px;
 
@@ -71,8 +71,8 @@
     &_chip {
       position: relative;
       width: 100%;
-      // min-height: 150px;
-      // margin-bottom: 40px;
+      // min-height: 150px;min-height
+      // margin-bottom: 40px;margin-bottom
 
       &_leftChip,
       &_rightChip {
@@ -82,7 +82,7 @@
       &_addButtonBefor,
       &_addButtonAfter {
         position: absolute;
-        // left: 520px;
+        // left: 520px;left
         top: 50%;
         transform: translateY(-50%);
         width: 40px;

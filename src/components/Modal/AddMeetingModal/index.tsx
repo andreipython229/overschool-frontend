@@ -1,14 +1,14 @@
 import { FC, ReactNode, useState } from 'react'
-import styles from "./addMeeting.module.scss";
-import cam from "../../../assets/img/common/cam.png";
-import close from "../../../assets/img/common/close.svg";
+import styles from './addMeeting.module.scss'
+import cam from '../../../assets/img/common/cam.png'
+import close from '../../../assets/img/common/close.svg'
 import { Backdrop } from '../Backdrop'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useCreateMeetingMutation } from '../../../api/meetingsService';
-import { useFetchCoursesQuery } from '../../../api/coursesServices';
-import { SchoolMeeting } from '../../../types/schoolMeetingsT';
-import { CoursesDataT } from '../../../types/CoursesT';
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { useCreateMeetingMutation } from '../../../api/meetingsService'
+import { useFetchCoursesQuery } from '../../../api/coursesServices'
+import { SchoolMeeting } from '../../../types/schoolMeetingsT'
+import { CoursesDataT } from '../../../types/CoursesT'
 
 interface IAddMeetingModal {
   handleClose: () => void
@@ -18,11 +18,11 @@ interface IAddMeetingModal {
 }
 
 interface IMeetingForm {
-  title: string;
-  description: string;
-  link: string;
-  date: Date | null;
-  courseId: number | null;
+  title: string
+  description: string
+  link: string
+  date: Date | null
+  courseId: number | null
 }
 
 export const AddMeetingModal: FC<IAddMeetingModal> = ({ handleClose, show, handleDateChange, schoolName }) => {
@@ -35,24 +35,24 @@ export const AddMeetingModal: FC<IAddMeetingModal> = ({ handleClose, show, handl
     description: '',
     link: '',
     date: null,
-    courseId: null
-  });
-  const [error, setError] = useState<string>('');
+    courseId: null,
+  })
+  const [error, setError] = useState<string>('')
 
-  const { data: coursesData } = useFetchCoursesQuery({ schoolName, page: 1 });
-  const [createMeeting] = useCreateMeetingMutation();
+  const { data: coursesData } = useFetchCoursesQuery({ schoolName, page: 1 })
+  const [createMeeting] = useCreateMeetingMutation()
 
   const handleDateSelect = (date: Date | null) => {
-    setFormData(prev => ({ ...prev, date }));
-    handleDateChange(date);
-    setError('');
-  };
+    setFormData(prev => ({ ...prev, date }))
+    handleDateChange(date)
+    setError('')
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: name === 'courseId' ? Number(value) : value }));
-    setError('');
-  };
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: name === 'courseId' ? Number(value) : value }))
+    setError('')
+  }
 
   const onClose = () => {
     setFormData({
@@ -60,41 +60,41 @@ export const AddMeetingModal: FC<IAddMeetingModal> = ({ handleClose, show, handl
       description: '',
       link: '',
       date: null,
-      courseId: null
-    });
-    setError('');
-    handleClose();
-  };
+      courseId: null,
+    })
+    setError('')
+    handleClose()
+  }
 
   const validateForm = () => {
     if (!formData.title.trim()) {
-      setError('Пожалуйста, введите тему видеоконференции');
-      return false;
+      setError('Пожалуйста, введите тему видеоконференции')
+      return false
     }
     if (!formData.description.trim()) {
-      setError('Пожалуйста, введите описание видеоконференции');
-      return false;
+      setError('Пожалуйста, введите описание видеоконференции')
+      return false
     }
     if (!formData.link.trim()) {
-      setError('Пожалуйста, введите ссылку на видеоконференцию');
-      return false;
+      setError('Пожалуйста, введите ссылку на видеоконференцию')
+      return false
     }
     if (!formData.date) {
-      setError('Пожалуйста, выберите дату и время');
-      return false;
+      setError('Пожалуйста, выберите дату и время')
+      return false
     }
     if (!formData.courseId) {
-      setError('Пожалуйста, выберите курс');
-      return false;
+      setError('Пожалуйста, выберите курс')
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
   const addMeeting = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+    e.preventDefault()
+
     if (!validateForm()) {
-      return;
+      return
     }
 
     try {
@@ -103,31 +103,26 @@ export const AddMeetingModal: FC<IAddMeetingModal> = ({ handleClose, show, handl
         description: formData.description,
         link: formData.link,
         start_date: formData.date || new Date(),
-        students_groups: []
-      };
+        students_groups: [],
+      }
 
       await createMeeting({
         data: meetingData as SchoolMeeting,
-        schoolName: schoolName
-      }).unwrap();
-      onClose();
+        schoolName: schoolName,
+      }).unwrap()
+      onClose()
     } catch (err) {
-      setError('Произошла ошибка при создании видеоконференции. Пожалуйста, попробуйте снова.');
+      setError('Произошла ошибка при создании видеоконференции. Пожалуйста, попробуйте снова.')
     }
-  };
+  }
 
   return (
     <Backdrop onClose={onClose}>
-      <div className={styles.modal_content} onClick={(e) => e.stopPropagation()}>
-        <button 
-          className={styles.close_button}
-          onClick={onClose}
-          aria-label="Close modal"
-        >
-        </button>
+      <div className={styles.modal_content} onClick={e => e.stopPropagation()}>
+        <button className={styles.close_button} onClick={onClose} aria-label="Close modal"></button>
         <h2 className={styles.modal_content_title}>
           <div className={styles.title_container}>
-            <img src={cam} alt='camera'/>
+            <img src={cam} alt="camera" />
             <span>Добавить видеоконференцию</span>
           </div>
         </h2>
@@ -183,7 +178,7 @@ export const AddMeetingModal: FC<IAddMeetingModal> = ({ handleClose, show, handl
           </div>
           <div className={styles.input_container}>
             <select
-              style={{background:'rgba(207, 226, 255, 1)'}}
+              style={{ background: 'rgba(207, 226, 255, 1)' }}
               name="courseId"
               value={formData.courseId || ''}
               onChange={handleInputChange}

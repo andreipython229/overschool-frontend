@@ -122,7 +122,9 @@ export const MobileHeader: FC = () => {
             {isLogin ? 'Выйти' : 'Войти'}
             {isLoginOpen && (
               <div className={`${styles.submenu} ${styles.login}`}>
-                <button onClick={isLogin ? handleChoosePlatform : handleRegistrationUser}>{isLogin ? 'Выбрать платформу' : 'Создать платформу'}</button>
+                <button onClick={isLogin ? handleChoosePlatform : handleRegistrationUser}>
+                  {isLogin ? 'Выбрать платформу' : 'Создать платформу'}
+                </button>
                 <button onClick={isLogin ? handleLogout : handleLoginPage}>{isLogin ? 'Выйти из профиля' : 'Войти в профиль'}</button>
               </div>
             )}

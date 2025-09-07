@@ -101,9 +101,11 @@ export const MobileInitPage = () => {
         <div className={styles.init_main_info}>
           <div className={styles.init_main_info_quality}>
             <div className={styles.init_main_info_quality_text}>
-              <p style={{ color: '#324195', marginBottom: '1rem'}}>КОГДА КАЧЕСТВО ОБУЧЕНИЯ <br/> В ПРИОРИТЕТЕ</p>
+              <p style={{ color: '#324195', marginBottom: '1rem' }}>
+                КОГДА КАЧЕСТВО ОБУЧЕНИЯ <br /> В ПРИОРИТЕТЕ
+              </p>
               <p>
-                Удобная платформа <br />  <WordSwitcher />
+                Удобная платформа <br /> <WordSwitcher />
               </p>
             </div>
           </div>
@@ -196,22 +198,24 @@ export const MobileInitPage = () => {
           </motion.div>
         </div>
         <div className={styles.main_p}>
-            <p>Первая белорусская платформа Overschool для онлайн-обучения с пожизненным бесплатным тарифом. <br></br>Попробуй прямо сейчас!</p>
+          <p>
+            Первая белорусская платформа Overschool для онлайн-обучения с пожизненным бесплатным тарифом. <br></br>Попробуй прямо сейчас!
+          </p>
         </div>
         <Button
           onClick={handleRegistrationUser}
           variant={'newLeaveRequest'}
           text={'Попробовать бесплатно'}
           style={{
-              width: '90%',
-              borderRadius: '8px',
-              marginTop: '0rem',
-              fontSize: '15px',
-              color: '#FFFFFF',
-              backgroundColor: '#357EEB',
-              paddingTop: '22px',
-              paddingBottom: '22px',
-              marginBottom: '50px'
+            width: '90%',
+            borderRadius: '8px',
+            marginTop: '0rem',
+            fontSize: '15px',
+            color: '#FFFFFF',
+            backgroundColor: '#357EEB',
+            paddingTop: '22px',
+            paddingBottom: '22px',
+            marginBottom: '50px',
           }}
         />
         <div className={styles.init_main_create}>
@@ -235,7 +239,7 @@ export const MobileInitPage = () => {
           >
             <SwiperSlide style={{ width: '300px' }}>
               <div className={styles.init_main_pros}>
-                <MiniBlock title={'Безлимит учеников'} text={'База обучающихся без ограничений'} image={unlimitedImage}/>
+                <MiniBlock title={'Безлимит учеников'} text={'База обучающихся без ограничений'} image={unlimitedImage} />
               </div>
             </SwiperSlide>
             <SwiperSlide style={{ width: '300px' }}>
@@ -257,11 +261,11 @@ export const MobileInitPage = () => {
               src={rocket_new}
               alt="rocket"
               className={styles.init_main_intern_img_img}
-              style = {{ width: '100%', marginTop: '-15%', marginLeft: '25%' }}
+              style={{ width: '100%', marginTop: '-15%', marginLeft: '25%' }}
             />
           </motion.div>
           <div className={styles.init_main_free_block}>
-            <h2 style= {{ width: '100%'}}>Бесплатный тариф «Intern»</h2>
+            <h2 style={{ width: '100%' }}>Бесплатный тариф «Intern»</h2>
             <p>
               Создайте свой курс и сразу запустите продажи. <br /> Без сложных настроек, интеграций и вложений
             </p>
@@ -276,13 +280,13 @@ export const MobileInitPage = () => {
               variant={'newTryForFree'}
               text={'Попробовать бесплатно'}
               style={{
-                  width: 'min(100%, 350px)',
-                  borderRadius: '5px',
-                  marginTop: '1rem',
-                  fontSize: '15px',
-                  color: '#357EEB',
-                  paddingTop: '22px',
-                  paddingBottom: '22px'
+                width: 'min(100%, 350px)',
+                borderRadius: '5px',
+                marginTop: '1rem',
+                fontSize: '15px',
+                color: '#357EEB',
+                paddingTop: '22px',
+                paddingBottom: '22px',
               }}
             />
           </div>
@@ -307,15 +311,10 @@ export const MobileInitPage = () => {
           >
             <SwiperSlide>
               <div className={styles.init_main_create_swiper_block}>
-                <button
-                  className={
-                      styles.init_main_create_swiper_navigationButtons_activeButton
-                  }
-                  onClick={() => goToSlide(0)}
-                >
-                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }}/>
+                <button className={styles.init_main_create_swiper_navigationButtons_activeButton} onClick={() => goToSlide(0)}>
+                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }} />
                   <h5 style={{ margin: '0' }}>Простой конструктор обучения</h5>
-                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }}/>
+                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }} />
                 </button>
                 <img className={styles.init_main_create_swiper_block_img} src={constructor} alt="constructor" />
                 <div className={styles.init_main_create_swiper_block_text}>
@@ -341,15 +340,10 @@ export const MobileInitPage = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className={styles.init_main_create_swiper_block}>
-                <button
-                  className={
-                      styles.init_main_create_swiper_navigationButtons_activeButton
-                  }
-                  onClick={() => goToSlide(1)}
-                >
-                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }}/>
+                <button className={styles.init_main_create_swiper_navigationButtons_activeButton} onClick={() => goToSlide(1)}>
+                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }} />
                   <h5>Встроенный чат с учениками</h5>
-                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }}/>
+                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }} />
                 </button>
                 <img className={styles.init_main_create_swiper_block_img} src={chat} style={{ width: 'min(230px, 60vw)' }} alt="chat" />
                 <div className={styles.init_main_create_swiper_block_text}>
@@ -375,15 +369,10 @@ export const MobileInitPage = () => {
             </SwiperSlide>
             <SwiperSlide>
               <div className={styles.init_main_create_swiper_block}>
-                <button
-                  className={
-                      styles.init_main_create_swiper_navigationButtons_activeButton
-                  }
-                  onClick={() => goToSlide(2)}
-                >
-                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }}/>
+                <button className={styles.init_main_create_swiper_navigationButtons_activeButton} onClick={() => goToSlide(2)}>
+                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }} />
                   <h5>Аналитика обучения</h5>
-                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }}/>
+                  <img src={constructor_new} alt="constructor" style={{ height: '16px' }} />
                 </button>
                 <img className={styles.init_main_create_swiper_block_img} src={result} alt="result" />
                 <div className={styles.init_main_create_swiper_block_text}>
@@ -418,40 +407,28 @@ export const MobileInitPage = () => {
             </div>
             <div className={styles.init_main_mobile_text_button}>
               <button
-                  className={
-                      styles.init_main_create_swiper_navigationButtons_activeButton
-                  }
-                  style={{ width: '40vw', height: '44px', background: '#357EEB' }}
-                  /* onClick={handleRegistrationUser} */
-                >
-                  <img src={appstore} alt="appstore" style={{ width: '18px', position: 'static' }}/>
-                  <h5 style={{ margin: '0', color: '#fffafa' }}>App Store</h5>
+                className={styles.init_main_create_swiper_navigationButtons_activeButton}
+                style={{ width: '40vw', height: '44px', background: '#357EEB' }}
+                /* onClick={handleRegistrationUser} */
+              >
+                <img src={appstore} alt="appstore" style={{ width: '18px', position: 'static' }} />
+                <h5 style={{ margin: '0', color: '#fffafa' }}>App Store</h5>
               </button>
               <button
-                  className={
-                      styles.init_main_create_swiper_navigationButtons_activeButton
-                  }
-                  style={{ width: '40vw', height: '44px', background: '#357EEB' }}
-                  /* onClick={handleRegistrationUser} */
-                >
-                  <img src={android} alt="android" style={{ width: '16px', position: 'static' }}/>
-                  <h5 style={{ margin: '0', color: '#fffafa' }}>PlayMarket</h5>
+                className={styles.init_main_create_swiper_navigationButtons_activeButton}
+                style={{ width: '40vw', height: '44px', background: '#357EEB' }}
+                /* onClick={handleRegistrationUser} */
+              >
+                <img src={android} alt="android" style={{ width: '16px', position: 'static' }} />
+                <h5 style={{ margin: '0', color: '#fffafa' }}>PlayMarket</h5>
               </button>
             </div>
           </div>
         </div>
 
-
-
-
-        <div className={styles.init_main_free} style={{ marginTop: '5rem'}}>
+        <div className={styles.init_main_free} style={{ marginTop: '5rem' }}>
           <motion.div className={styles.init_main_intern_img} whileHover={{ scale: 1.1 }}>
-            <img
-              src={comp_new}
-              alt="comp"
-              className={styles.init_main_intern_img_img}
-              style = {{ width: '70%', marginTop: '-19%' }}
-            />
+            <img src={comp_new} alt="comp" className={styles.init_main_intern_img_img} style={{ width: '70%', marginTop: '-19%' }} />
           </motion.div>
           <div className={styles.init_main_free_block}>
             <h2>Запишитесь на бесплатную демонстрацию сервиса</h2>
@@ -461,13 +438,13 @@ export const MobileInitPage = () => {
               variant={'newTryForFree'}
               text={'Записаться на демонстрацию'}
               style={{
-                  width: 'min(100%, 350px)',
-                  borderRadius: '5px',
-                  marginTop: '1rem',
-                  fontSize: '15px',
-                  color: '#357EEB',
-                  paddingTop: '22px',
-                  paddingBottom: '22px'
+                width: 'min(100%, 350px)',
+                borderRadius: '5px',
+                marginTop: '1rem',
+                fontSize: '15px',
+                color: '#357EEB',
+                paddingTop: '22px',
+                paddingBottom: '22px',
               }}
             />
             <Button
@@ -475,14 +452,14 @@ export const MobileInitPage = () => {
               variant={'newTryForFree'}
               text={'Смотреть видеообзор'}
               style={{
-                  width: 'min(100%, 350px)',
-                  borderRadius: '5px',
-                  marginTop: '0rem',
-                  fontSize: '15px',
-                  color: '#000000',
-                  backgroundColor: '#CFE2FF',
-                  paddingTop: '22px',
-                  paddingBottom: '22px'
+                width: 'min(100%, 350px)',
+                borderRadius: '5px',
+                marginTop: '0rem',
+                fontSize: '15px',
+                color: '#000000',
+                backgroundColor: '#CFE2FF',
+                paddingTop: '22px',
+                paddingBottom: '22px',
               }}
             />
           </div>
@@ -490,22 +467,19 @@ export const MobileInitPage = () => {
 
         <div className={styles.init_main_feedback}>
           <div className={styles.init_main_feedback_header}>
-            <p className={styles.init_main_header}>Что говорят пользователи<br/> Course Hub</p>
+            <p className={styles.init_main_header}>
+              Что говорят пользователи
+              <br /> Course Hub
+            </p>
           </div>
           <div className={styles.init_main_slider}>
             <Slider />
           </div>
         </div>
 
-
         <div className={styles.init_main_free}>
           <motion.div className={styles.init_main_intern_img} whileHover={{ scale: 1.1 }}>
-            <img
-              src={record_new}
-              alt="record"
-              className={styles.init_main_intern_img_img}
-              style = {{ width: '70%', marginTop: '-35%' }}
-            />
+            <img src={record_new} alt="record" className={styles.init_main_intern_img_img} style={{ width: '70%', marginTop: '-35%' }} />
           </motion.div>
           <div className={styles.init_main_free_block}>
             <h2>Перенесем ваши курсы с другой платформы бесплатно за 3 дня</h2>
@@ -515,13 +489,13 @@ export const MobileInitPage = () => {
               variant={'newTryForFree'}
               text={'Узнать подробнее'}
               style={{
-                  width: 'min(100%, 350px)',
-                  borderRadius: '5px',
-                  marginTop: '1rem',
-                  fontSize: '15px',
-                  color: '#357EEB',
-                  paddingTop: '22px',
-                  paddingBottom: '22px'
+                width: 'min(100%, 350px)',
+                borderRadius: '5px',
+                marginTop: '1rem',
+                fontSize: '15px',
+                color: '#357EEB',
+                paddingTop: '22px',
+                paddingBottom: '22px',
               }}
             />
           </div>
@@ -572,4 +546,3 @@ export const MobileInitPage = () => {
     </div>
   )
 }
-

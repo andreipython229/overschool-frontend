@@ -1,5 +1,5 @@
-import {CheckHw} from "../Pages/StudentCourse/StudentLessonPreview/StudentHomeworkCheck";
-import { BlockT } from "./sectionT";
+import { CheckHw } from '../Pages/StudentCourse/StudentLessonPreview/StudentHomeworkCheck'
+import { BlockT } from './sectionT'
 
 export type homeworksStatsT = {
   count: number

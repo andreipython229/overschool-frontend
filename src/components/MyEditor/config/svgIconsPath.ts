@@ -11,7 +11,7 @@ export const labelBlockQuotePath = [{ d: editorSvgLabel.labelBlockquote, fill: '
 export const labelUnorderedListItemPath = [
   { d: editorSvgLabel.labelUnorderedListItem.d1, fill: '#332F36' },
   { d: editorSvgLabel.labelUnorderedListItem.d2, fill: '#332F36' },
-  { d: editorSvgLabel.labelUnorderedListItem.d3, fill: '#332F36' }
+  { d: editorSvgLabel.labelUnorderedListItem.d3, fill: '#332F36' },
 ]
 
 export const labelOrderedListItemPath = [{ d: editorSvgLabel.labelOrderedListItem, fill: '#332F36' }]

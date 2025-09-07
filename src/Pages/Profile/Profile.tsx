@@ -30,19 +30,17 @@ import { clearUserProfile } from 'store/redux/users/profileSlice'
 
 // Хук для определения мобильной версии (<=600px)
 function useIsMobile(breakpoint = 600) {
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== 'undefined' ? window.innerWidth <= breakpoint : false
-  );
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth <= breakpoint : false)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= breakpoint);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [breakpoint]);
+      setIsMobile(window.innerWidth <= breakpoint)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [breakpoint])
 
-  return isMobile;
+  return isMobile
 }
 
 type notifForStudentAndTeacher = {
@@ -53,7 +51,7 @@ type notifForStudentAndTeacher = {
 }
 
 export const Profile = () => {
-  const isMobile = useIsMobile(600);
+  const isMobile = useIsMobile(600)
   const [changePasswordFunc, { isError, isSuccess }] = useChangePasswordMutation()
   const [changeEmailFunc] = useUpdateProfileMutation()
   const [confirmEmail] = useConfirmEmailMutation()
@@ -314,32 +312,34 @@ export const Profile = () => {
             </form>
           )}
 
-         {!isRestrictedUser && (
+          {!isRestrictedUser && (
             <>
               <form className={styles.container} onSubmit={handlePasswordsSubmit}>
                 <h5 className={styles.profile_block_title}>Смена пароля:</h5>
                 <div>
-                <Input
-                  name=""
-                  type="text"
-                  variant='teacherInput'
-                  onChange={event => setOldPassword(event.target.value)}
-                  value={oldPassword}
-                  placeholder="Старый пароль" />
+                  <Input
+                    name=""
+                    type="text"
+                    variant="teacherInput"
+                    onChange={event => setOldPassword(event.target.value)}
+                    value={oldPassword}
+                    placeholder="Старый пароль"
+                  />
                 </div>
                 <div className={styles.container_wrapper}>
                   <Input
                     name="new_password"
                     type="text"
-                    variant='teacherInput'
+                    variant="teacherInput"
                     onChange={handlePasswordChange}
                     value={new_password}
-                    placeholder="Введите новый пароль" />
+                    placeholder="Введите новый пароль"
+                  />
                 </div>
                 <div className={styles.container_wrapper}>
                   <Input
                     name="new_password_again"
-                    variant='teacherInput'
+                    variant="teacherInput"
                     placeholder="Повторить новый пароль"
                     type="text"
                     onChange={handlePasswordChange}
@@ -366,7 +366,7 @@ export const Profile = () => {
                 <h5 className={styles.profile_block_title}>Email:</h5>
                 <Input
                   name="email"
-                  variant='teacherInput'
+                  variant="teacherInput"
                   type="text"
                   id={'email-change'}
                   onChange={changeEmail.handleChange}
@@ -390,13 +390,8 @@ export const Profile = () => {
                 </div>
               </form>
               <div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
-                  <Button
-                    variant='delete'
-                    onClick={logOut}
-                    className={styles.profile_block_delete}
-                    text={'Выйти из аккаунта'}
-                  />
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button variant="delete" onClick={logOut} className={styles.profile_block_delete} text={'Выйти из аккаунта'} />
                   <Button
                     onClick={() => setHandleSubmitAboutUser(true)}
                     // type="submit"

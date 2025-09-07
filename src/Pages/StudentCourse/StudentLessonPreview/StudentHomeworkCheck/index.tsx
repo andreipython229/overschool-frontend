@@ -93,12 +93,10 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
 
   const handleUploadFiles = (chosenFiles: File[]) => {
     setFiles(prevFiles => {
-      const filtered = chosenFiles.filter(
-        newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name)
-      )
+      const filtered = chosenFiles.filter(newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name))
       return [...prevFiles, ...filtered]
     })
-  
+
     setUrlFiles(prevUrlFiles => {
       const newUrlFiles = chosenFiles.map(file => ({
         url: URL.createObjectURL(file),
@@ -118,10 +116,10 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
   useEffect(() => {
     const handlePaste = (event: ClipboardEvent) => {
       if (!event.clipboardData) return
-    
+
       const items = event.clipboardData.items
       const filesToUpload: File[] = []
-        
+
       for (const item of items) {
         if (item.type.indexOf('image') === 0) {
           const blob = item.getAsFile()
@@ -131,13 +129,13 @@ export const StudentHomeworkCheck: FC<studentHomeworkCheckI> = ({ homework, repl
           }
         }
       }
-      if(filesToUpload.length > 0) {
+      if (filesToUpload.length > 0) {
         handleUploadFiles(filesToUpload)
       }
     }
-    
+
     window.addEventListener('paste', handlePaste as any)
-    
+
     return () => {
       window.removeEventListener('paste', handlePaste as any)
     }

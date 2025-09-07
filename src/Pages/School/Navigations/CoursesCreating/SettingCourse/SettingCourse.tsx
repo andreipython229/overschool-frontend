@@ -6,7 +6,7 @@ import { useBoolean } from 'customHooks/useBoolean'
 import { useParams } from 'react-router-dom'
 import { useFetchCourseQuery } from 'api/coursesServices'
 import styles from './setting_course.module.scss'
-import {RoleE} from "../../../../../enum/roleE";
+import { RoleE } from '../../../../../enum/roleE'
 
 export const SettingCourse: FC = () => {
   const { course_id: courseId } = useParams()
@@ -19,7 +19,7 @@ export const SettingCourse: FC = () => {
 
   useEffect(() => {
     if (course) {
-      setIsPublished(course.public === "О")
+      setIsPublished(course.public === 'О')
       setIsCatalog(course.is_catalog)
       setIsDirect(course.is_direct)
     }
@@ -38,7 +38,18 @@ export const SettingCourse: FC = () => {
         <div className={styles.header_basic_settings}>
           <p>Основные настройки</p>
         </div>
-        {course && <BasicSettings refetch={refetch} courseFind={course} toggleCheckbox={isPublished} toggleCheckboxPublished={handlePublished} isCatalog={isCatalog} toggleCatalog={() =>setIsCatalog(!isCatalog)} isDirect={isDirect} toggleDirect={() =>setIsDirect(!isDirect)}/>}
+        {course && (
+          <BasicSettings
+            refetch={refetch}
+            courseFind={course}
+            toggleCheckbox={isPublished}
+            toggleCheckboxPublished={handlePublished}
+            isCatalog={isCatalog}
+            toggleCatalog={() => setIsCatalog(!isCatalog)}
+            isDirect={isDirect}
+            toggleDirect={() => setIsDirect(!isDirect)}
+          />
+        )}
       </div>
     </div>
   )

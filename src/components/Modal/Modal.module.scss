@@ -1,5 +1,5 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 @font-face {
   font-family: 'SFPRORegular';
@@ -22,7 +22,7 @@
     height: 40px !important;
 
     & label {
-      color: #332F36;
+      color: #332f36;
       user-select: none;
       font-weight: 700;
       font-size: 20px;
@@ -181,7 +181,7 @@
   margin: 0 auto;
   border-radius: 24px;
   box-shadow: 0px 0px 8px 0px #3241954d;
-  // overflow: hidden;
+  // overflow: hidden;overflow
   transform: translate(-50%, -50%);
   font-family: $font-family-inter;
   max-width: 667px;
@@ -194,7 +194,7 @@
     width: 0;
   }
 
-  // position: relative;
+  // position: relative;position
 
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     width: 100%;
@@ -471,8 +471,8 @@
     }
 
     &_input {
-      // display: flex;
-      // height: 60px;
+      // display: flex;display
+      // height: 60px;height
       line-height: normal;
       padding: 11px 0 12px 20px;
       border: 1px solid #e5e7eb;
@@ -496,9 +496,9 @@
     justify-content: flex-start;
     align-items: center;
     gap: 2rem;
-    // margin-top: 10px;
+    // margin-top: 10px;margin-top
     padding: 1rem;
-    // margin-right: 400px;
+    // margin-right: 400px;margin-right
   }
 
   &_role {
@@ -943,7 +943,9 @@
         height: 56px;
         flex-direction: row-reverse;
         border: 1px solid transparent;
-        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
+        background:
+          linear-gradient(#ffffff, #ffffff) padding-box,
+          linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
 
         @media only screen and (min-width: 320px) and (max-width: 375px) {
           border: 2px solid #357eeb;
@@ -1123,7 +1125,9 @@
         margin-bottom: 24px;
         flex-direction: row-reverse;
         border: 1px solid transparent;
-        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
+        background:
+          linear-gradient(#ffffff, #ffffff) padding-box,
+          linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
 
         @media only screen and (max-width: 600px) {
           border: 2px solid #357eeb;
@@ -1592,20 +1596,20 @@
 
   //&_course {
   //  @include display(flex, column);
-  //  font-weight: 400;
-  //  margin-top: 25px;
+  //  font-weight: 400;font-weight
+  //  margin-top: 25px;margin-top
   //
   //  &_title {
   //    @include font(400, 14px);
-  //    margin-bottom: 8px;
-  //    color: $font-title;
+  //    margin-bottom: 8px;margin-bottom
+  //    color: $font-title;color
   //  }
   //
   //  &_checkbox {
   //    @include display(flex, row, flex-start, center);
-  //    margin-bottom: 8px;
-  //    color: $font-title;
-  //    font-size: 14px;
+  //    margin-bottom: 8px;margin-bottom
+  //    color: $font-title;color
+  //    font-size: 14px;font-size
   //  }
   //}
 }
@@ -1684,7 +1688,9 @@
         width: 100%;
         border-radius: 10px;
         border: 1px solid transparent;
-        background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
+        background:
+          linear-gradient(#ffffff, #ffffff) padding-box,
+          linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
 
         textarea {
           overflow: auto;
@@ -1722,7 +1728,9 @@
         div {
           div {
             border: 1px solid transparent;
-            background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
+            background:
+              linear-gradient(#ffffff, #ffffff) padding-box,
+              linear-gradient(90deg, #0d28bb 0%, #357eeb 100%) border-box;
           }
         }
 
@@ -1861,9 +1869,9 @@
   }
 
   @media only screen and (min-width: 481px) and (max-width: 700px) {
-    // position: absolute;
-    // left: 30%;
-    // height: 95%;
+    // position: absolute;position
+    // left: 30%;left
+    // height: 95%;height
     width: 90vw;
   }
 }

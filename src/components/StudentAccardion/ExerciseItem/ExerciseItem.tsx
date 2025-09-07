@@ -6,8 +6,8 @@ import { lessonT } from '../../../types/sectionT'
 import { lessonSvgMapper } from 'config/index'
 
 import styles from './exerciseItem.module.scss'
-import {IconSvg} from "../../common/IconSvg/IconSvg";
-import {middleStatus, successStatus, failStatus} from "../../../Pages/StudentCourse/config/svgIconPath";
+import { IconSvg } from '../../common/IconSvg/IconSvg'
+import { middleStatus, successStatus, failStatus } from '../../../Pages/StudentCourse/config/svgIconPath'
 
 type exerciseItemT = {
   lesson: lessonT
@@ -25,21 +25,22 @@ export const ExerciseItem: FC<exerciseItemT> = memo(({ lesson, sectionId, disabl
   }
 
   return (
-    <div onClick={handleClick}
-         className={`${styles.accardionWrapper_component_exerciseWrapper_exercise} ${disabled ? styles.disabled : ''} ${disabled ? styles.inactive : ''}`}>
+    <div
+      onClick={handleClick}
+      className={`${styles.accardionWrapper_component_exerciseWrapper_exercise} ${disabled ? styles.disabled : ''} ${disabled ? styles.inactive : ''}`}
+    >
       {lessonSvgMapper[lesson.type]}
       <div className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper}>
         <h5 className={styles.accardionWrapper_component_exerciseWrapper_exercise_nameWrapper_title}>{lesson.name}</h5>
         <span className={styles.accardionWrapper_component_exerciseWrapper_status}>
-          {lesson.viewed &&
+          {lesson.viewed && (
             <IconSvg
               width={30}
               height={30}
               viewBoxSize="0 0 30 30"
-              path={lesson.type === "lesson" || lesson.completed
-                  ? successStatus
-                  : (lesson.sended ? middleStatus : failStatus)}
-            />}
+              path={lesson.type === 'lesson' || lesson.completed ? successStatus : lesson.sended ? middleStatus : failStatus}
+            />
+          )}
         </span>
       </div>
     </div>

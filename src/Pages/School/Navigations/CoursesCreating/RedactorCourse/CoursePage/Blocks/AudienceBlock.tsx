@@ -1,11 +1,11 @@
-import React, {useEffect, useState } from 'react';
-import styles from "./styles/audienceBlock.module.scss";
-import { CardDataT } from "./types/audienceBlockT";
-import { AudienceBlockCard } from "./components/AudienceBlockCard";
-import { Add } from "@mui/icons-material";
-import { TextareaAutosize } from '@mui/material';
-import {useAppDispatch, useAppSelector,} from "store/hooks";
-import {changeBlocks, changeKeys, changeKeysAfterDel, removeFile} from 'store/redux/landing/constructorSlice';
+import React, { useEffect, useState } from 'react'
+import styles from './styles/audienceBlock.module.scss'
+import { CardDataT } from './types/audienceBlockT'
+import { AudienceBlockCard } from './components/AudienceBlockCard'
+import { Add } from '@mui/icons-material'
+import { TextareaAutosize } from '@mui/material'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { changeBlocks, changeKeys, changeKeysAfterDel, removeFile } from 'store/redux/landing/constructorSlice'
 
 export const AudienceBlock = () => {
   const dispatch = useAppDispatch()
@@ -19,17 +19,17 @@ export const AudienceBlock = () => {
       ...landing,
       audience: {
         ...landing.audience,
-        description: val
-      }
+        description: val,
+      },
     }
 
-    dispatch(changeBlocks(lndng));
+    dispatch(changeBlocks(lndng))
   }
 
   // принудительно перерендерить всё, где ключ привязан к состоянию key
   useEffect(() => {
     setKey(Date.now())
-  }, [landing.audience.chips.length,])
+  }, [landing.audience.chips.length])
 
   // добавить карточку по указанному index
   const addCardAtIndex = (index: number) => {
@@ -40,75 +40,73 @@ export const AudienceBlock = () => {
       position: chips.length, // Обеспечиваем уникальный id для новой карточки
       photo: '',
       title: 'Заголовок карточки',
-      description: ''
-    };
+      description: '',
+    }
 
     // Копируем текущие карточки и добавляем новую на нужный индекс
-    const newCards = [...chips];
-    newCards.splice(index, 0, newCard);
+    const newCards = [...chips]
+    newCards.splice(index, 0, newCard)
 
     // меняем индексы в именах файлов из редакса
-    dispatch(changeKeys({index: index}))
+    dispatch(changeKeys({ index: index }))
 
     // Перенумеровываем все карточки
     const updatedCards = newCards.map((card, i) => ({
       ...card,
       position: i,
-    }));
+    }))
 
     const lndng = {
       ...landing,
       audience: {
         ...landing.audience,
-        chips: updatedCards
-      }
+        chips: updatedCards,
+      },
     }
 
-    dispatch(changeBlocks(lndng));
-  };
+    dispatch(changeBlocks(lndng))
+  }
 
   // удалить карточку с указанным id
   const deleteCard = (position: number) => {
     // меняем индексы в именах файлов из редакса
-    dispatch(changeKeysAfterDel({index: position}))
+    dispatch(changeKeysAfterDel({ index: position }))
     // удаляем файл из редакса
-    dispatch(removeFile({key: `photo_audience_${position}`}))
+    dispatch(removeFile({ key: `photo_audience_${position}` }))
 
     const newChips = landing.audience.chips
       .filter(card => card.position !== position)
       .map((card, i) => {
         return {
-        ...card,
+          ...card,
           position: i,
         }
-      });
+      })
 
     const lndng = {
       ...landing,
       audience: {
         ...landing.audience,
-        chips: newChips
-      }
+        chips: newChips,
+      },
     }
 
-    dispatch(changeBlocks(lndng));
-  };
+    dispatch(changeBlocks(lndng))
+  }
 
   // отображать ли кнопку добавления после карточки
   const canAddButtonAfterCard = (position: number) => {
     // после каждого 3-го элемента или последнего
-    return ((position + 1) === landing.audience.chips.length) || ((position + 1) % 3 === 0);
-  };
+    return position + 1 === landing.audience.chips.length || (position + 1) % 3 === 0
+  }
 
   const getChips = () => {
-    return landing.audience.chips;
+    return landing.audience.chips
   }
 
   return (
     <div className={styles.wrapper}>
-      <h2>
-        Кому подойдет этот курс ?
-      </h2>
+      <h2>Кому подойдет этот курс ?</h2>
       {/* <div className={styles.wrapper_description}>
         <TextareaAutosize
           placeholder="Добавьте описание, если необходимо..."
@@ -121,36 +119,24 @@ export const AudienceBlock = () => {
         {getChips().map((card, index) => (
           <React.Fragment key={key - card.position}>
             <div className={styles.wrapper_cardContainer_chip}>
-              <button
-                className={styles.wrapper_cardContainer_chip_addButtonBefor}
-                onClick={() => addCardAtIndex(card.position)}
-              >
-                <Add fontSize="large"/>
+              <button className={styles.wrapper_cardContainer_chip_addButtonBefor} onClick={() => addCardAtIndex(card.position)}>
+                <Add fontSize="large" />
               </button>
-              <AudienceBlockCard
-                position={card.position}
-                onDelete={() => deleteCard(card.position)}
-              />
+              <AudienceBlockCard position={card.position} onDelete={() => deleteCard(card.position)} />
               {canAddButtonAfterCard(card.position) && (
-                <button
-                  className={styles.wrapper_cardContainer_chip_addButtonAfter}
-                  onClick={() => addCardAtIndex(card.position + 1)}
-                >
-                  <Add fontSize="large"/>
+                <button className={styles.wrapper_cardContainer_chip_addButtonAfter} onClick={() => addCardAtIndex(card.position + 1)}>
+                  <Add fontSize="large" />
                 </button>
               )}
             </div>
           </React.Fragment>
         ))}
         {getChips().length === 0 && (
-          <button
-            className={styles.wrapper_cardContainer_addButton}
-            onClick={() => addCardAtIndex(0)}
-          >
-            <Add fontSize="large"/>
+          <button className={styles.wrapper_cardContainer_addButton} onClick={() => addCardAtIndex(0)}>
+            <Add fontSize="large" />
           </button>
         )}
       </div>
     </div>
-  );
-};
+  )
+}

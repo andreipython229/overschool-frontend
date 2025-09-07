@@ -36,14 +36,7 @@ export const TeacherFilter: FC<SearchFilterT<any>> = ({ name, header, data, filt
   return (
     <div className={style.container}>
       <p className={style.title}>{header}</p>
-      <Input
-        name={name}
-        type="search"
-        value={term}
-        className={style.inputWrapper}
-        onChange={handleChangeTerm}
-        placeholder="Начните вводить название"
-      >
+      <Input name={name} type="search" value={term} className={style.inputWrapper} onChange={handleChangeTerm} placeholder="Начните вводить название">
         <IconSvg width={30} height={30} viewBoxSize="0 0 20 20" path={searchIconPath} />
       </Input>
       <div className={style.wrapper}>

@@ -1,9 +1,9 @@
-import {FC} from 'react'
-import {FilterItemT} from '../../../types/componentsTypes'
+import { FC } from 'react'
+import { FilterItemT } from '../../../types/componentsTypes'
 
 import styles from '../FilterItem/filter_item.module.scss'
-import {IconSvg} from "../../common/IconSvg/IconSvg";
-import {arrIconPath} from "../config/svgIconsPath";
+import { IconSvg } from '../../common/IconSvg/IconSvg'
+import { arrIconPath } from '../config/svgIconsPath'
 
 export const FilterItem: FC<FilterItemT> = ({ id, title, setSelectedFilter }) => {
   const handleClick = () => {

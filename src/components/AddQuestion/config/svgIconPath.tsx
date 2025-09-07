@@ -1,4 +1,4 @@
-import { picturesOptionsIcon, textOptionsIcon } from "../constants/svgIcons"
+import { picturesOptionsIcon, textOptionsIcon } from '../constants/svgIcons'
 
 export const picturesOptionsIconPath = [
   {

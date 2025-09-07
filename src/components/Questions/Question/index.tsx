@@ -33,27 +33,27 @@ export const Question: FC<QuestionT> = ({ children, id, title, testId, multiple_
 
   useEffect(() => {
     if (titleQuestion !== title || multipleAnswer !== multiple_answer) {
-      debounced({ titleQuestion, id: String(id), testId: String(testId), schoolName, multiple_answer: multipleAnswer})
+      debounced({ titleQuestion, id: String(id), testId: String(testId), schoolName, multiple_answer: multipleAnswer })
     }
   }, [titleQuestion, multipleAnswer])
 
   useEffect(() => {
     if (data) {
       setTitleQuestion(data.body)
-      setMultipleAnswer(data.multiple_answer);
-      setCurrentRadioValue(String(data.multiple_answer));
+      setMultipleAnswer(data.multiple_answer)
+      setCurrentRadioValue(String(data.multiple_answer))
     }
   }, [data])
 
   const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const currentRadioValue: string = e.target.value;
-    setCurrentRadioValue(currentRadioValue);
+    const currentRadioValue: string = e.target.value
+    setCurrentRadioValue(currentRadioValue)
     if (currentRadioValue === 'true') {
       setMultipleAnswer(true)
     } else {
       setMultipleAnswer(false)
     }
-  };
+  }
 
   return (
     <div className={styles.questionBlock}>
@@ -64,7 +64,7 @@ export const Question: FC<QuestionT> = ({ children, id, title, testId, multiple_
           name={''}
           type={'text'}
           value={titleQuestion}
-          placeholder='Введите вопрос'
+          placeholder="Введите вопрос"
         />
         {/* <div className={styles.questionBlock_inputWrapper_comment}>
                     <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={addCommentsIconPath}>
@@ -79,11 +79,25 @@ export const Question: FC<QuestionT> = ({ children, id, title, testId, multiple_
       </div>
       <div className={styles.radiobuttons}>
         <div className={styles.radiobuttons_radiobutton} style={{ maxWidth: '185px', width: '100%' }}>
-          <Radio title={'один правильный ответ'} id={String(id) + 'false'} value='false' name={String(id)} onChange={handleRadioChange} checked={multiple_answer === false}/>
+          <Radio
+            title={'один правильный ответ'}
+            id={String(id) + 'false'}
+            value="false"
+            name={String(id)}
+            onChange={handleRadioChange}
+            checked={multiple_answer === false}
+          />
           {!multipleAnswer && <h3 className={styles.radiobuttons_radiobutton_subtitle}>Выберите ответ, который будет верным</h3>}
         </div>
         <div className={styles.radiobuttons_radiobutton}>
-          <Radio title={'несколько правильных ответов'} id={String(id) + 'true'} value='true' name={String(id)} onChange={handleRadioChange} checked={multiple_answer === true}/>
+          <Radio
+            title={'несколько правильных ответов'}
+            id={String(id) + 'true'}
+            value="true"
+            name={String(id)}
+            onChange={handleRadioChange}
+            checked={multiple_answer === true}
+          />
           {multipleAnswer && <h3 className={styles.radiobuttons_radiobutton_subtitle}>Выберите неcколько ответов, которые будут верными</h3>}
         </div>
       </div>

@@ -50,14 +50,17 @@ export const SearchFilterGroup: FC<SearchFilterT<any>> = ({ name, header, data, 
 
   // расброска групп по крусам
   const groupByCourseName = (data: any[]) => {
-    return data.reduce((acc, item) => {
-      const courseName = item.course_name
-      if (!acc[courseName]) {
-        acc[courseName] = []
-      }
-      acc[courseName].push(item)
-      return acc
-    }, {} as { [key: string]: any[] })
+    return data.reduce(
+      (acc, item) => {
+        const courseName = item.course_name
+        if (!acc[courseName]) {
+          acc[courseName] = []
+        }
+        acc[courseName].push(item)
+        return acc
+      },
+      {} as { [key: string]: any[] },
+    )
   }
 
   // отфильтрованные группы разбросанные по курсам

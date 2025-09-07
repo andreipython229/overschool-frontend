@@ -12,7 +12,10 @@ export const Quality = () => {
         </div>
         <div>
           <h2 className={styles.quality__title}>Качество обучения всегда в приоритете</h2>
-          <p className={styles.quality__suptitle}>Одна из самых удобных платформа для онлайн-курсов и вебинаров, на которой удобно учиться и обучать. Зарегистрируйтесь и получите бесплатный тариф!</p>
+          <p className={styles.quality__suptitle}>
+            Одна из самых удобных платформа для онлайн-курсов и вебинаров, на которой удобно учиться и обучать. Зарегистрируйтесь и получите
+            бесплатный тариф!
+          </p>
         </div>
         <div className={styles.quality__btns}>
           <a className={`${styles.quality__btn} ${styles.btn__free}`}>Получить бесплатный тариф</a>
@@ -23,4 +26,3 @@ export const Quality = () => {
     </>
   )
 }
-

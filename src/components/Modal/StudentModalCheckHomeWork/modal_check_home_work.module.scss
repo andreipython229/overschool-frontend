@@ -1,5 +1,5 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 .modal_content {
   border-radius: 1.75rem;
@@ -8,10 +8,12 @@
   width: 100%;
   max-height: 30rem;
   overflow: scroll;
-  transition: transform 0.2s ease 0s, opacity 0.2s ease 0s;
+  transition:
+    transform 0.2s ease 0s,
+    opacity 0.2s ease 0s;
   opacity: 1;
   background-position: fixed;
-  background-image: url('./config/image.png');
+  background-image: url('./config/image-homework.png');
   background-size: cover;
   background-repeat: no-repeat;
 
@@ -59,7 +61,7 @@
       align-items: center;
       margin-bottom: 5px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -70,7 +72,7 @@
       justify-content: center;
       align-items: center;
       margin-bottom: 5px;
-     }
+    }
   }
 
   &_close {
@@ -92,7 +94,7 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       top: 15px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       top: 15px;
     }
 
@@ -215,7 +217,7 @@
 }
 
 .wrapper_form {
-  margin-top: 17px; 
+  margin-top: 17px;
 }
 
 .wrapper_form_addFiles {
@@ -264,14 +266,13 @@
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       left: 90%;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       left: 90%;
     }
     @media only screen and (min-width: 481px) and (max-width: 1024px) {
       left: 70%;
-     }
+    }
   }
-  
 }
 
 .arrow_rotate {
@@ -288,7 +289,7 @@
     align-items: center;
     flex-direction: column;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -300,7 +301,7 @@
     width: 100%;
     align-items: center;
     flex-direction: column;
-   }
+  }
 }
 
 .header_info > * {
@@ -342,12 +343,12 @@
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-bottom: 5px;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin-bottom: 5px;
   }
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
     margin: 0;
-   }
+  }
 }
 
 .task_info {
@@ -358,9 +359,8 @@
     width: 100%;
     flex-direction: column;
     margin-bottom: 10px;
-
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -373,9 +373,8 @@
     align-items: center;
     @media only screen and (min-width: 320px) and (max-width: 375px) {
       margin: 0 30px 0 0;
-  
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       margin: 10px 30px 15px 10px;
     }
 
@@ -393,12 +392,10 @@
   @include display(flex, row, space-between, center);
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 0 10px 0 10px;
-
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin: 10px 0px 10px 0;
   }
-
 
   .btns__container {
     @include display(flex, row, flex-start, center);
@@ -464,7 +461,7 @@
       font-size: 12px;
       margin-top: 17px;
     }
-    @media only screen and (min-width : 375px) and (max-width : 480px) {
+    @media only screen and (min-width: 375px) and (max-width: 480px) {
       font-size: 12px;
       margin-top: 17px;
     }
@@ -513,12 +510,12 @@
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin: 0;
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin: 0;
   }
   @media only screen and (min-width: 481px) and (max-width: 1024px) {
     margin: 0;
-   }
+  }
 }
 
 .answer_hw_header {
@@ -540,9 +537,8 @@
   margin-bottom: 40px;
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     margin-bottom: 15px;
-
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     margin-bottom: 15px;
   }
 }
@@ -569,9 +565,8 @@
     justify-content: center;
     align-items: center;
     padding-bottom: 15px;
-
   }
-  @media only screen and (min-width : 375px) and (max-width : 480px) {
+  @media only screen and (min-width: 375px) and (max-width: 480px) {
     display: flex;
     justify-content: center;
     align-items: center;

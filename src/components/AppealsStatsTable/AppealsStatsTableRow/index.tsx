@@ -22,7 +22,7 @@ export const AppealsStatsTableRow: FC<appealsStatsTableRowT> = memo(({ appealDat
 
   const readStatus = appealData.is_read ? 'Обработана' : 'Ждет обработки'
   const { circleColor, textColor } = iconsByStatus[readStatus]
-  const backgroundColor = appealData.is_read ? '#357EEB' : undefined  
+  const backgroundColor = appealData.is_read ? '#357EEB' : undefined
 
   return (
     <>
@@ -35,17 +35,19 @@ export const AppealsStatsTableRow: FC<appealsStatsTableRowT> = memo(({ appealDat
         <td>{phone}</td>
         <td>{course_name}</td>
         <td>
-          <span style={{color: '#357EEB'}}>{mmddyyyy} в {hoursAndMinutes}</span>
+          <span style={{ color: '#357EEB' }}>
+            {mmddyyyy} в {hoursAndMinutes}
+          </span>
           {/* {mmddyyyy} в {hoursAndMinutes} */}
         </td>
         <td>
           <div style={{ backgroundColor }} className={styles.table_body_status}>
             <div
               style={{
-              width: '10px',
-              height: '10px',
-              borderRadius: '50%',
-              backgroundColor: circleColor,
+                width: '10px',
+                height: '10px',
+                borderRadius: '50%',
+                backgroundColor: circleColor,
               }}
             ></div>
             <span style={{ marginLeft: '5px', color: textColor }}>{readStatus}</span>
@@ -54,17 +56,17 @@ export const AppealsStatsTableRow: FC<appealsStatsTableRowT> = memo(({ appealDat
       </tr>
       {isModalOpen && (
         <Portal closeModal={close}>
-          <ModalCheckAppeal 
-            isOpen={isModalOpen} 
-            onClose={close} 
-            appeal={{ id, description: '' }} 
+          <ModalCheckAppeal
+            isOpen={isModalOpen}
+            onClose={close}
+            appeal={{ id, description: '' }}
             onApprove={() => {
-              refetchTable();
-              close();
+              refetchTable()
+              close()
             }}
             onReject={() => {
-              refetchTable();
-              close();
+              refetchTable()
+              close()
             }}
           />
         </Portal>

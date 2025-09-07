@@ -251,12 +251,12 @@ export const ComponentFilter: FC<ComponentFilterT> = ({
     '40': <ShowDeletedFilter filterKey={'studentsPerSchool'} />,
     '41': <ShowDeletedFilter filterKey={'studentsPerCourse'} />,
     '42': <ShowDeletedFilter filterKey={'studentsPerGroup'} />,
-    '43': (<AccessFirstFilter filterKey={'studentsPerSchool'}/>),
-    '44': (<AccessFilter filterKey={'studentsPerSchool'}/>),
-    '45': (<AccessFilter filterKey={'studentsPerCourse'}/>),
-    '46': (<AccessFilter filterKey={'studentsPerGroup'}/>),
-    '47': (<AccessFirstFilter filterKey={'studentsPerCourse'}/>),
-    '48': (<AccessFirstFilter filterKey={'studentsPerGroup'}/>),
+    '43': <AccessFirstFilter filterKey={'studentsPerSchool'} />,
+    '44': <AccessFilter filterKey={'studentsPerSchool'} />,
+    '45': <AccessFilter filterKey={'studentsPerCourse'} />,
+    '46': <AccessFilter filterKey={'studentsPerGroup'} />,
+    '47': <AccessFirstFilter filterKey={'studentsPerCourse'} />,
+    '48': <AccessFirstFilter filterKey={'studentsPerGroup'} />,
   }
 
   const filterComponent = filtersMaper[String(id)]

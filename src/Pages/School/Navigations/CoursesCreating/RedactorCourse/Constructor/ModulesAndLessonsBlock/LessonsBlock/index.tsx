@@ -89,9 +89,7 @@ export const LessonsBlock: FC<LessonsBlockT> = memo(
           className={
             !isOpenEye
               ? `${styles.redactorCourse_leftSide_desc_lessonWrapper} ${selected ? styles.selectedLesson : ''}`
-              : `${styles.redactorCourse_leftSide_desc_lessonWrapper} ${selected ? styles.selectedLesson : ''} ${
-                  styles.openEye
-                }`
+              : `${styles.redactorCourse_leftSide_desc_lessonWrapper} ${selected ? styles.selectedLesson : ''} ${styles.openEye}`
           }
         >
           {showModal && (

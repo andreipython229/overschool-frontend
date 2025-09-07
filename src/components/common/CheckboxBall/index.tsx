@@ -4,10 +4,10 @@ import { motion } from 'framer-motion'
 import styles from './checkbox_ball.module.scss'
 
 const spring = {
-  type: "spring" as const,
+  type: 'spring' as const,
   stiffness: 700,
-  damping: 30
-};
+  damping: 30,
+}
 
 type CheckboxBallT = {
   toggleChecked?: () => void
@@ -25,4 +25,3 @@ export const CheckboxBall: FC<CheckboxBallT> = memo(({ isChecked, toggleChecked 
     </div>
   )
 })
-

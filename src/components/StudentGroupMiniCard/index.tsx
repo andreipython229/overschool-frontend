@@ -19,7 +19,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
   const { schoolName } = useAppSelector(schoolSelector)
 
   const pathLink = generatePath(
-        generatePath(Path.School + (role === RoleE.Teacher ? '' : `/${Path.Courses}`) + '/group/' + id, {
+    generatePath(Path.School + (role === RoleE.Teacher ? '' : `/${Path.Courses}`) + '/group/' + id, {
       school_name: schoolName,
     }),
   )
@@ -30,9 +30,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
           <SettingsGroupModal closeModal={close} name={title} groupId={id} courseId={courseId} />
         </Portal>
       )}
-      <div
-        className={styles.wrapper}
-      >
+      <div className={styles.wrapper}>
         <Link to={pathLink} style={{ zIndex: 20, display: 'flex', height: '100%' }}>
           <div className={styles.wrapper_text}>
             <p className={styles.wrapper_text_title}>{title}</p>
@@ -44,7 +42,7 @@ export const StudentGroupMiniCard: FC<StudentsGroupPropsT> = ({ title, type, cou
         </Link>
         {RoleE.Admin && (
           <div className={styles.wrapper_settings} onClick={open}>
-            <IconSvg path={settingsIconPath} viewBoxSize="0 0 24 24" height={24} width={24}/>
+            <IconSvg path={settingsIconPath} viewBoxSize="0 0 24 24" height={24} width={24} />
           </div>
         )}
         <div className={`${styles.wrapper_shadow}`} onClick={() => click && click(id)} />

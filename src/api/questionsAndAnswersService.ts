@@ -24,13 +24,11 @@ export const questionsAndAnswersService = createApi({
     fetchQuestionsList: build.query<any, { id: string | number; schoolName: string; course_id?: string }>({
       query: ({ id, schoolName, course_id }) => {
         // Формируем URL с учетом наличия course_id
-        const url = course_id
-          ? `/${schoolName}/tests/${id}/get_questions/?courseId=${course_id}`
-          : `/${schoolName}/tests/${id}/get_questions/`;
-    
+        const url = course_id ? `/${schoolName}/tests/${id}/get_questions/?courseId=${course_id}` : `/${schoolName}/tests/${id}/get_questions/`
+
         return {
           url,
-        };
+        }
       },
       providesTags: ['questions', 'answers'],
     }),
@@ -51,7 +49,10 @@ export const questionsAndAnswersService = createApi({
       },
       invalidatesTags: ['questions'],
     }),
-    patchQuestion: build.mutation<any, { titleQuestion: string; id: string | number; testId: string | number; schoolName: string, multiple_answer?: boolean }>({
+    patchQuestion: build.mutation<
+      any,
+      { titleQuestion: string; id: string | number; testId: string | number; schoolName: string; multiple_answer?: boolean }
+    >({
       query: ({ titleQuestion, id, testId, schoolName, multiple_answer }) => {
         const formdata = formDataConverter({ body: titleQuestion, test: testId, multiple_answer: multiple_answer })
         return {
@@ -81,7 +82,7 @@ export const questionsAndAnswersService = createApi({
       },
       invalidatesTags: ['answers'],
     }),
-    patchAnswer: build.mutation<any, {answer: any, answerId: string | number, schoolName: string}>({
+    patchAnswer: build.mutation<any, { answer: any; answerId: string | number; schoolName: string }>({
       query: ({ answer, answerId, schoolName }) => {
         return {
           url: `/${schoolName}/answers/${answerId}/`,
@@ -91,7 +92,7 @@ export const questionsAndAnswersService = createApi({
       },
       // invalidatesTags: [''],
     }),
-    deleteAnswer: build.mutation<any, {answerId: string | number, schoolName: string}>({
+    deleteAnswer: build.mutation<any, { answerId: string | number; schoolName: string }>({
       query: ({ answerId, schoolName }) => {
         return {
           url: `/${schoolName}/answers/${answerId}/`,
@@ -100,7 +101,7 @@ export const questionsAndAnswersService = createApi({
       },
       invalidatesTags: ['answers'],
     }),
-    getUserTestsByTest: build.mutation<any, {id: string | number, schoolName: string}>({
+    getUserTestsByTest: build.mutation<any, { id: string | number; schoolName: string }>({
       query: ({ id, schoolName }) => {
         return {
           url: `/${schoolName}/tests/${id}/usertests/`,

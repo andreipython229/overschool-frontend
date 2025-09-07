@@ -34,9 +34,7 @@ export const WarningModal: FC<WarningT> = ({ setShowModal, task, textModal }) =>
         <span className={styles.classesContainer_closed} onClick={() => setShowModal(false)}>
           <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
         </span>
-        <div className={styles.warning_title}>
-          {textModal}
-        </div>
+        <div className={styles.warning_title}>{textModal}</div>
 
         <div className={styles.warning_wrapper}>
           <Button onClick={() => setShowModal(false)} variant={'cancel'} text={'Нет'} />

@@ -7,9 +7,9 @@ import { schoolSelector, selectUser } from 'selectors'
 import { useAppSelector } from 'store/hooks'
 import styles from './courseMiniCard.module.scss'
 import { PeopleIconSvg } from 'components/StudentGroupMiniCard/assets/iconsComponents'
-import { groupsIconPath } from "config/commonSvgIconsPath"
+import { groupsIconPath } from 'config/commonSvgIconsPath'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
-import bgImage from '../StudentGroupMiniCard/assets/image.png'
+import bgImage from '../StudentGroupMiniCard/assets/image-groupcard.png'
 import { studentsGroupsT } from 'types/studentsGroup'
 import { getNounDeclension } from 'utils/getNounDeclension'
 

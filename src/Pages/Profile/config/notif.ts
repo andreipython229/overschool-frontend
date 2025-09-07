@@ -3,22 +3,22 @@ export const notifications = [
     id: 1,
     info: 'Уведомлять о присланных домашних заданиях',
     desc: ' После каждой присланной домашней работы вам будет приходить уведомление в телеграм',
-    toggleType: 'homework_notifications'
+    toggleType: 'homework_notifications',
   },
   {
     id: 2,
     info: 'Уведомлять о непрочитанных сообщениях',
     desc: 'Раз в сутки вам в телеграм будет приходить уведомление, если у вас есть непрочитанные сообщения',
-    toggleType: 'messages_notifications'
+    toggleType: 'messages_notifications',
   },
 
   {
     id: 3,
     info: 'Уведомлять о пройденных учениками курсах',
     desc: 'Администратору в телеграм придет уведомление, когда один из учеников пройдет все занятия курса',
-    toggleType: 'completed_courses_notifications'
+    toggleType: 'completed_courses_notifications',
   },
-    // {
+  // {
   //   id: 3,
   //   info: 'Уведомлять о предстоящем вебинаре',
   //   desc: 'Вы будете уведомлены перед началом вебинара, в котором вы указаны ответственным сотрудником',

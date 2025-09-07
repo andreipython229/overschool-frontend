@@ -16,15 +16,25 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
       try {
+        // Исправляем вызов refreshToken
         const refreshResult = await api
           .dispatch(refreshApi.endpoints.refreshToken.initiate((api.getState() as RootState).user.authState.refresh))
           .unwrap()
+
         if (refreshResult.access && refreshResult.refresh) {
+          // Обновляем токены в Redux
           api.dispatch(authState(refreshResult))
+
+          // Повторяем все запросы из очереди
           await Promise.all(requestQueue.map(fn => fn()))
+
+          // Повторяем текущий запрос
           result = await baseQuery(args, api, extraOptions)
-          requestQueue.length = 0 // чистка очереди
+
+          // Очищаем очередь
+          requestQueue.length = 0
         } else {
+          // Если не удалось обновить токен - выходим
           api.dispatch(logoutState())
           requestQueue.length = 0
         }
@@ -32,7 +42,8 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
         release()
       }
     } else {
-      return new Promise((resolve) => {
+      // Если mutex заблокирован, добавляем запрос в очередь
+      return new Promise(resolve => {
         requestQueue.push(async () => {
           const retryResult = await baseQuery(args, api, extraOptions)
           resolve(retryResult)

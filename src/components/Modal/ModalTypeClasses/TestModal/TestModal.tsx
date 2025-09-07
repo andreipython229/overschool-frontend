@@ -68,13 +68,13 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
         <IconSvg width={64} height={64} viewBoxSize="0 0 64 64" path={crossIconPath} />
       </div>
       <div className={styles.test}>
-        <TestModalIcon width={140} height={140}/>
+        <TestModalIcon width={140} height={140} />
         <span className={styles.classesContainer_title}>Настройте тест</span>
       </div>
 
       <div className={styles.test_input}>
         <Input placeholder={'Введите название теста'} name="classesName" onChange={handleCreateTestName} type={'text'} value={nameLesson}>
-          <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
         </Input>
       </div>
 
@@ -82,7 +82,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
 
       <div className={styles.test_input}>
         <Input placeholder={'0'} name="percent" min={0} onChange={handleChange} type={'number'} value={`${percent}`}>
-          <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
         </Input>
       </div>
 
@@ -104,7 +104,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
             <div className={styles.test_checkbox}>
               <div>
                 <label className={styles.toggle_switch} htmlFor={id}>
-                  <input type="checkbox" onChange={handleChange} name={name} id={id} checked={formik.values[name as keyof object]}/>
+                  <input type="checkbox" onChange={handleChange} name={name} id={id} checked={formik.values[name as keyof object]} />
                   <span className={styles.switch} />
                 </label>
               </div>
@@ -115,11 +115,7 @@ export const TestModal: FC<TestModalPropsT> = ({ modulesList, setType, setLesson
       </div>
 
       <div className={styles.classesContainer_type_btnBlock}>
-        <Button
-          variant={'cancel'}
-          onClick={goToBack}
-          text={'Назад'}
-        />
+        <Button variant={'cancel'} onClick={goToBack} text={'Назад'} />
         <Button
           type={'submit'}
           text={isLoading ? <SimpleLoader style={{ width: '25px', height: '25px' }} loaderColor="#ffff" /> : 'Добавить задание'}

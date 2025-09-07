@@ -10,16 +10,16 @@
     display: flex;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-    // color: rgb(255, 251, 251);
+    // color: rgb(255, 251, 251);color
     //max-width: 3400px;
-    // max-height: 2400px;
+    // max-height: 2400px;max-height
     width: 842px;
     height: 595px;
     margin: 0 auto;
-    // overflow: auto;
+    // overflow: auto;overflow
     padding: 10px 10px 10px 10px;
     border: 1px solid black;
-    // background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);
+    // background: linear-gradient(224deg, #EC40FF -5.54%, #9B219E 11.79%, #4D0FAF 75.62%);background
     background: linear-gradient(to bottom left, #F57AF5 -250%, white);
     border: 2px solid black;
     margin-bottom: 10px;
@@ -54,12 +54,12 @@
     font-family: 'Montserrat', sans-serif;
     color: black;
     //max-width: 3400px;
-    // max-height: 2400px;
+    // max-height: 2400px;max-height
     min-height: 595px;
     width: 842px;
     height: auto;
     margin: 0 auto;
-    // overflow: auto;
+    // overflow: auto;overflow
     padding: 60px 10px 10px 10px;
     border: 1px solid black;
     background-color: white;
@@ -109,9 +109,9 @@
 .logo {
     display: flex;
     position: relative;
-    // max-width: 1041px;
-    // max-height: 1648px;
-    // width: 60%;
+    // max-width: 1041px;max-width
+    // max-height: 1648px;max-height
+    // width: 60%;width
     height: 90px;
     //margin-right: 10px;    
     top: 200px;
@@ -231,14 +231,14 @@
             position: relative;
             width: max-content;
             margin-bottom: 20px;
-            // padding: 0.9375rem 0; 
+            // padding: 0.9375rem 0;padding 
 
             font-weight: 600;
             font-size: 2rem;
             text-align: center;
             text-transform: uppercase;
 
-            // margin: 0 auto;
+            // margin: 0 auto;margin
             padding-bottom: 20px;
 		}
 

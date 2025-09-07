@@ -18,17 +18,15 @@ export const Comments: FC = () => {
   const [lessonIdAndType, setLessonIdAndType] = useState<lessonIdAndTypeT>({} as lessonIdAndTypeT)
   const [modulesList, setModulesList] = useState<sectionT[]>([])
   const [check, setCheck] = useState(false)
-  const { data: modulesAndLessons, isSuccess } = useFetchModulesQuery({ id: courseId as string, schoolName })
+  const { data: modulesAndLessons } = useFetchModulesQuery({ id: courseId as string, schoolName })
   const [error, setError] = useState<string>('')
   const [showContent, setShowContent] = useState<boolean>(false)
   const [clickedSectionId, setClickedSectionId] = useState<number>()
   const [clickedSectionIdArr, setClickedSectionIdArr] = useState<number[]>([])
 
-  const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => {
-    return () => {
-      const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType, baseLessonId: baselesson }
-      setLessonIdAndType(idAndType)
-    }
+  const handleChangeLesson = (lessonId: number, baselesson: number, lessonType: string) => () => {
+    const idAndType: lessonIdAndTypeT = { id: lessonId, type: lessonType, baseLessonId: baselesson }
+    setLessonIdAndType(idAndType)
   }
 
   useEffect(() => {
@@ -64,16 +62,49 @@ export const Comments: FC = () => {
     if (clickedSectionIdArr.includes(index)) {
       setShowContent(false)
       const startIndex = clickedSectionIdArr.indexOf(index)
-      const deleteCount = 1
       if (startIndex !== -1) {
-        clickedSectionIdArr.splice(startIndex, deleteCount)
+        clickedSectionIdArr.splice(startIndex, 1)
       }
     } else {
       setShowContent(true)
       clickedSectionIdArr.push(index)
     }
   }
+
+  const renderLessonContent = (lesson: any, sectionIndex: number) => {
+    const baseClassName =
+      lessonIdAndType.id === lesson.id
+        ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line
+        : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line
+
+    const contentClassName =
+      lessonIdAndType.id === lesson.id
+        ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line_content
+        : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content
+
+    const count = parseInt(String(lesson.name?.length ?? 0)) // пример преобразования, можешь заменить логику
+
     return (
+      <li key={`lesson-${lesson.id}-${sectionIndex}`}>
+        <button onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)} className={contentClassName}>
+          <div className={styles.floatLeft}>
+            <IconSvg
+              className={lessonIdAndType.id === lesson.id ? styles.fillColorWhite : styles.fillColorBlue}
+              width={24}
+              height={24}
+              viewBoxSize="0 0 24 24"
+              path={lessonIcon}
+            />
+          </div>
+          <div className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_text}>
+            {lesson.name} ({count})
+          </div>
+        </button>
+      </li>
+    )
+  }
+
+  return (
     <div className={styles.wrapper}>
       <div className={styles.redactorCourse_leftSide}>
         <div className={styles.redactorCourse_leftSide_title}>
@@ -82,135 +113,39 @@ export const Comments: FC = () => {
         </div>
         <div className={styles.redactorCourse_leftSide_desc}>
           {modulesList &&
-            modulesList.map(({ section_name, lessons }, index: number) => {
-              if (!section_name) return
+            modulesList.map(({ section_name, lessons }, sectionIndex: number) => {
+              if (!section_name) return null
               return (
-                <>
-                  <ul>
-                    <li key={section_name}>
-                      <button onClick={() => handleClickSection(index)} className={`${styles.redactorCourse_leftSide_desc_lessonWrapper}`}>
-                        <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
-                          <span>
-                            <img />
-                          </span>
-                          <span style={{ textAlign: 'left' }}>{section_name}</span>
+                <ul key={`section-${sectionIndex}`}>
+                  <li>
+                    <button onClick={() => handleClickSection(sectionIndex)} className={styles.redactorCourse_leftSide_desc_lessonWrapper}>
+                      <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_lesson}>
+                        <span>
+                          <img alt="section icon" />
                         </span>
-                        {/* <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_counter}>+2</span> */}
-                      </button>
-                      {lessons.map(lesson =>
-                        clickedSectionId === index && showContent === true ? (
-                          <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable}>
-                            <li
-                              key={lesson.baselesson_ptr_id}
-                              className={
-                                lessonIdAndType.id === lesson.id
-                                  ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line
-                                  : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line
-                              }
-                            >
-                              <button
-                                onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
-                                className={
-                                  lessonIdAndType.id === lesson.id
-                                    ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line_content
-                                    : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content
-                                }
-                              >
-                                <div
-                                  className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside}
-                                  style={{ float: 'left' }}
-                                >
-                                  <IconSvg
-                                    className={lessonIdAndType.id === lesson.id ? styles.fillColorWhite : styles.fillColorBlue}
-                                    width={24}
-                                    height={24}
-                                    viewBoxSize="0 0 24 24"
-                                    path={lessonIdAndType.id === lesson.id ? lessonIcon : lessonIcon}
-                                  />
-                                </div>
-                                <div className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_text}>{lesson.name}</div>
-                                {/* <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span> */}
-                              </button>
-                            </li>
-                          </ul>
-                        ) : clickedSectionId === index && !clickedSectionIdArr.includes(index) && showContent === false ? (
-                          <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_noWrapTable}>
-                            <li
-                              key={lesson.baselesson_ptr_id}
-                              className={
-                                lessonIdAndType.id === lesson.id
-                                  ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line
-                                  : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line
-                              }
-                            >
-                              <button
-                                onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
-                                className={
-                                  lessonIdAndType.id === lesson.id
-                                    ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line_content
-                                    : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content
-                                }
-                              >
-                                  <div
-                                    className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside}
-                                    style={{ float: 'left' }}
-                                  >
-                                    <IconSvg
-                                      className={lessonIdAndType.id === lesson.id ? styles.fillColorWhite : styles.fillColorBlue}
-                                      width={24}
-                                      height={24}
-                                      viewBoxSize="0 0 24 24"
-                                      path={lessonIdAndType.id === lesson.id ? lessonIcon : lessonIcon}
-                                    />
-                                 </div>
-                                  <div className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_text}>{lesson.name}</div>
+                        <span className={styles.textLeft}>{section_name}</span>
+                      </span>
+                    </button>
 
-                                {/* <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span> */}
-                              </button>
-                            </li>
-                          </ul>
-                        ) : clickedSectionId !== index && clickedSectionIdArr.includes(index) ? (
-                          <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_stateWrapTable}>
-                            <li
-                              key={lesson.baselesson_ptr_id}
-                              className={
-                                lessonIdAndType.id === lesson.id
-                                  ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line
-                                  : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line
-                              }
-                            >
-                              <button
-                                onClick={handleChangeLesson(lesson.id, lesson.baselesson_ptr_id, lesson.type)}
-                                className={
-                                  lessonIdAndType.id === lesson.id
-                                    ? styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTableActive_line_content
-                                    : styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content
-                                }
-                              >
+                    {clickedSectionId === sectionIndex && showContent && (
+                      <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable}>
+                        {lessons.map(lesson => renderLessonContent(lesson, sectionIndex))}
+                      </ul>
+                    )}
 
-                                  <div
-                                    className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_inside}
-                                    style={{ float: 'left' }}
-                                  >
-                                    <IconSvg
-                                      className={lessonIdAndType.id === lesson.id ? styles.fillColorWhite : styles.fillColorBlue}
-                                      width={24}
-                                      height={24}
-                                      viewBoxSize="0 0 24 24"
-                                      path={lessonIdAndType.id === lesson.id ? lessonIcon : lessonIcon}
-                                    />
-                                  </div>
-                                  <div className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_text}>{lesson.name}</div>
+                    {clickedSectionId === sectionIndex && !clickedSectionIdArr.includes(sectionIndex) && !showContent && (
+                      <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_noWrapTable}>
+                        {lessons.map(lesson => renderLessonContent(lesson, sectionIndex))}
+                      </ul>
+                    )}
 
-                                {/* <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_wrapTable_line_content_counter}>+2</span> */}
-                              </button>
-                            </li>
-                          </ul>
-                        ) : null,
-                      )}
-                    </li>
-                  </ul>
-                </>
+                    {clickedSectionId !== sectionIndex && clickedSectionIdArr.includes(sectionIndex) && (
+                      <ul className={styles.redactorCourse_leftSide_desc_lessonWrapper_stateWrapTable}>
+                        {lessons.map(lesson => renderLessonContent(lesson, sectionIndex))}
+                      </ul>
+                    )}
+                  </li>
+                </ul>
               )
             })}
         </div>

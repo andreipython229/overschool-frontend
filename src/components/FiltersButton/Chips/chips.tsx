@@ -37,7 +37,7 @@ export const ChipsComponent: FC<chipsComponentT> = ({ filters, filterKey, chipsV
                   <span className={styles.chips_filter}>
                     {filterTerm.includes('course_name') ? 'Курс' : filterTerm.includes('group_name') ? 'Группа' : chipsVal[filterTerm]}:
                   </span>
-                  <span>{chipText == 'true' ? <>Да</> : chipText == 'false' ? <>Нет</>: <>{chipText}</>}</span>
+                  <span>{chipText == 'true' ? <>Да</> : chipText == 'false' ? <>Нет</> : <>{chipText}</>}</span>
                   <button className={styles.removeButton} onClick={() => handleRemoveChip(filterTerm)}>
                     <IconSvg width={8} height={8} styles={{ color: '#fff' }} viewBoxSize="0 0 18 16" path={CrossIconPath} />
                   </button>

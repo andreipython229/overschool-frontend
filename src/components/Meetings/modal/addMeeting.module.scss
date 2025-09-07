@@ -10,21 +10,21 @@
 
     &_ellipse {
         position: absolute;
-        // width: 231px;
-        // height: 231px;
+        // width: 231px;width
+        // height: 231px;height
         left: 1px;
         right: 1px;
         top: 1px;
         bottom: 1px;
-        // border-radius: 100%;
+        // border-radius: 100%;border-radius
         background: radial-gradient(circle, #57B8FF40 1%, rgba(255, 255, 255, 0) 100%);
-        // background-color: transparent;
-        // backdrop-filter: blur(400px);
-        // background: #57B8FF;
-        // backdrop-filter: blur(400px);
+        // background-color: transparent;background-color
+        // backdrop-filter: blur(400px);backdrop-filter
+        // background: #57B8FF;background
+        // backdrop-filter: blur(400px);backdrop-filter
 
-        // transform: matrix(1 0 0 -1 400 631);
-        // display: flex;
+        // transform: matrix(1 0 0 -1 400 631);transform
+        // display: flex;display
         circle {
             width: 100%;
             height: 100%;

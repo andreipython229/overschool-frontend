@@ -47,12 +47,10 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
 
   const handleUploadFiles = (chosenFiles: File[]) => {
     setFiles(prevFiles => {
-      const filtered = chosenFiles.filter(
-        newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name)
-      )
+      const filtered = chosenFiles.filter(newFile => !prevFiles.some(existingFile => existingFile.name === newFile.name))
       return [...prevFiles, ...filtered]
     })
-  
+
     setUrlFiles(prevUrlFiles => {
       const newUrlFiles = chosenFiles.map(file => ({
         url: URL.createObjectURL(file),
@@ -61,7 +59,7 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
       return [...prevUrlFiles, ...newUrlFiles]
     })
   }
-  
+
   const handleDeleteFile = (index: number) => {
     setFiles(files => files.filter((_, id) => id !== index))
     setUrlFiles(files => files.filter((_, id) => id !== index))
@@ -135,10 +133,10 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
   useEffect(() => {
     const handlePaste = (event: ClipboardEvent) => {
       if (!event.clipboardData) return
-  
+
       const items = event.clipboardData.items
       const filesToUpload: File[] = []
-      
+
       for (const item of items) {
         if (item.type.indexOf('image') === 0) {
           const blob = item.getAsFile()
@@ -148,17 +146,17 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
           }
         }
       }
-      if(filesToUpload.length > 0) {
+      if (filesToUpload.length > 0) {
         handleUploadFiles(filesToUpload)
       }
     }
-  
+
     window.addEventListener('paste', handlePaste as any)
-  
+
     return () => {
       window.removeEventListener('paste', handlePaste as any)
     }
-  }, [])  
+  }, [])
 
   const handleModalButton = () => {
     if (showSuccess) {
@@ -170,7 +168,6 @@ export const StudentLessonTextEditor: FC<textEditorT> = ({ homeworkId, homework,
     return <LoaderLayout />
   }
 
-  
   return !hwStatus ? (
     <>
       <h5 className={styles.hwTitle}>Проверка практической работы</h5>

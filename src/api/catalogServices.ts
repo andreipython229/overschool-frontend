@@ -3,7 +3,7 @@ import { baseQuery } from './baseApi'
 import { CatalogCourseT, CatalogResponseT } from './apiTypes'
 import { CoursesDataT } from 'types/CoursesT'
 import { appealStatT, appealsStatT } from 'types/schoolsT'
-import {BlockKeys} from "../Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/types/blocksControllerT";
+import { BlockKeys } from '../Pages/School/Navigations/CoursesCreating/RedactorCourse/CoursePage/types/blocksControllerT'
 import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const catalogService = createApi({

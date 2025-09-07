@@ -1,8 +1,8 @@
-import {FC, memo} from 'react'
-import {useLocation} from 'react-router-dom'
+import { FC, memo } from 'react'
+import { useLocation } from 'react-router-dom'
 
-import {pathT, PreviousPropsT} from '@/types/componentsTypes'
-import {previousToShow} from './config/previousToShow'
+import { pathT, PreviousPropsT } from '@/types/componentsTypes'
+import { previousToShow } from './config/previousToShow'
 
 export const Previous: FC<PreviousPropsT> = memo(() => {
   const { pathname } = useLocation()

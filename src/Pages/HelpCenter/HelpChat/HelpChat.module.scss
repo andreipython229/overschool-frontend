@@ -19,7 +19,7 @@
         max-width: 900px;
         margin: 0 auto;
         h1 {
-//             text-align: center;
+//             text-align: center;text-align
             margin: 42px 0 32px 0;
         }
         h2 {
@@ -32,8 +32,8 @@
             margin-bottom: 45px;
             font-size: 20px;
             line-height: 1.5;
-//             font-size: var(--text-md);
-//             line-height: 24px;
+//             font-size: var(--text-md);font-size
+//             line-height: 24px;line-height
             text-align: justify;
             font-family: 'Manrope', sans-serif;
             font-weight: 400;
@@ -43,7 +43,7 @@
             max-width: 100%;
             width: 100%;
             display: inline-block;
-//             display: grid;
+//             display: grid;display
             grid-template-columns: 1fr 1fr;
            &_Chat {
                display: block;
@@ -68,9 +68,9 @@
     &_banner {
         margin-top: 35px;
         width: 100%;
-//         background:  #934AFF;
+//         background:  #934AFF;background
         background: #934aff57;
-//         background: #BA75FF;
+//         background: #BA75FF;background
         height: 349px;
         display: inline-flex;
 
@@ -79,7 +79,7 @@
             margin-left: 170px;
             h1 {
                 margin: 0;
-//                 color: #eef2ff;
+//                 color: #eef2ff;color
                 font-size: 32px;
             }
             p {
@@ -223,7 +223,7 @@
 
       p {
         padding-left: 20px;
-//         color: #5873e2;
+//         color: #5873e2;color
         font-size: 35px;
         font-weight: 700;
         display: flex;

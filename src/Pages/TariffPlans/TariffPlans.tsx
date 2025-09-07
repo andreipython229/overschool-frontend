@@ -1,7 +1,7 @@
 import styles from './TariffPlans.module.scss'
 import { TariffPlanT, useFetchTariffPlanTableQuery } from 'api/tariffPlanService'
 import { SimpleLoader } from 'components/Loaders/SimpleLoader'
-import { FC, useEffect, useState} from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useBoolean } from '@/customHooks'
 import { TariffDetailModal } from 'components/Modal/TariffDetailModal/TariffDetailModal'
 import { Portal } from 'components/Modal/Portal'
@@ -9,14 +9,14 @@ import { useAppSelector } from 'store/hooks'
 import { motion } from 'framer-motion'
 import useDeviceDetect from './useDeviceDetect'
 import { CheckButton } from './CheckButton'
-import {MobilePlanCards} from './TariffsComponents/MobilePlanCards'
-import {DesktopPlanCards} from './TariffsComponents/DesktopPlanCards'
-import {MobileBenefit} from './TariffsComponents/MobileBenefit'
-import {DesktopBenefit} from './TariffsComponents/DesktopBenefit'
-import {TariffsMobile} from './TariffsComponents/TariffsMobile'
-import {TariffsDesktop} from './TariffsComponents/TariffsDesktop'
-import {BannerMobile} from './TariffsComponents/BannerMobile'
-import {BannerDesktop} from './TariffsComponents/BannerDesktop'
+import { MobilePlanCards } from './TariffsComponents/MobilePlanCards'
+import { DesktopPlanCards } from './TariffsComponents/DesktopPlanCards'
+import { MobileBenefit } from './TariffsComponents/MobileBenefit'
+import { DesktopBenefit } from './TariffsComponents/DesktopBenefit'
+import { TariffsMobile } from './TariffsComponents/TariffsMobile'
+import { TariffsDesktop } from './TariffsComponents/TariffsDesktop'
+import { BannerMobile } from './TariffsComponents/BannerMobile'
+import { BannerDesktop } from './TariffsComponents/BannerDesktop'
 
 export const TariffPlans: FC = () => {
   const { data, isFetching, isSuccess } = useFetchTariffPlanTableQuery()
@@ -69,25 +69,22 @@ export const TariffPlans: FC = () => {
       <div className={styles.bg}>
         <div className={styles.bg_wrap4}></div>
       </div>
-      <section className={styles.TariffPlansPage} style={{height: "100%"}}>
+      <section className={styles.TariffPlansPage} style={{ height: '100%' }}>
         <div className={styles.TariffPlansPage_plansBlock}>
           <p className={styles.TariffPlansPage_changePlane}>Смена тарифного плана</p>
-          <div className={styles.TariffPlansPage_header}>
-            Тарифные планы для обучения CourseHub
-          </div>
-            <CheckButton toggleChecked={toggleActive} isChecked={isActive}/>
-            {isMobile? <MobilePlanCards/> : <DesktopPlanCards/>}
-          </div>
-          {isModalOpen && selected && (
-            <Portal closeModal={close}>
-              <TariffDetailModal tariff={selected} setShowModal={close} />
-            </Portal>
-          )}
-            {isMobile? <MobileBenefit/> : <DesktopBenefit/>}
-            {isMobile? <TariffsMobile/> : <TariffsDesktop/>}
-            {isMobile? <BannerMobile/> : <BannerDesktop/>}
+          <div className={styles.TariffPlansPage_header}>Тарифные планы для обучения CourseHub</div>
+          <CheckButton toggleChecked={toggleActive} isChecked={isActive} />
+          {isMobile ? <MobilePlanCards /> : <DesktopPlanCards />}
+        </div>
+        {isModalOpen && selected && (
+          <Portal closeModal={close}>
+            <TariffDetailModal tariff={selected} setShowModal={close} />
+          </Portal>
+        )}
+        {isMobile ? <MobileBenefit /> : <DesktopBenefit />}
+        {isMobile ? <TariffsMobile /> : <TariffsDesktop />}
+        {isMobile ? <BannerMobile /> : <BannerDesktop />}
       </section>
     </motion.div>
   )
 }
-

@@ -2,12 +2,12 @@
 @use "@/scss/variable.scss" as *;
 
 .lesson {
-  // margin-left: 50%;
-  // transform: translateX(-50%);
-  // -webkit-transform: translateX(-50%);
-  // -moz-transform: translateX(-50%);
-  // -ms-transform: translateX(-50%);
-  // -o-transform: translateX(-50%);
+  // margin-left: 50%;margin-left
+  // transform: translateX(-50%);transform
+  // -webkit-transform: translateX(-50%);-webkit-transform
+  // -moz-transform: translateX(-50%);-moz-transform
+  // -ms-transform: translateX(-50%);-ms-transform
+  // -o-transform: translateX(-50%);-o-transform
   @media only screen and (min-width: 320px) and (max-width: 375px) {
     min-width: 100%;
     max-width: 100%;
@@ -163,12 +163,12 @@
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
-        // width: 100vw;
+        // width: 100vw;width
       }
 
       pre,
       code {
-        // width: 100vw;
+        // width: 100vw;width
         display: block;
         white-space: initial;
       }

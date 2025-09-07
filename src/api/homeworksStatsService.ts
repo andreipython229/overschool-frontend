@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react'
 
 import { homeworksStatsT } from '../types/homeworkT'
 import { createUrlWithParams } from 'utils/createUrlWithParams'
-import { baseQueryWithReauth } from './baseQueryReauth';
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const homeworksStatsService = createApi({
   reducerPath: 'homeworksStatsService',
@@ -15,7 +15,7 @@ export const homeworksStatsService = createApi({
         // Условно добавляем courseId в параметры запроса, если он передан
         const url = createUrlWithParams(
           `/${schoolName}/homeworks_stats/?p=${pageToFetch}${course_data ? `&course_data=${course_data}` : ''}`,
-          filters
+          filters,
         )
         return {
           url,
@@ -34,11 +34,17 @@ export const homeworksStatsService = createApi({
     }),
     fetchAllStudentsHomework: build.query<any, any>({
       query: ({ filters, schoolName }) => ({
-        url: createUrlWithParams(`/${schoolName}/homeworks_stats/`, filters)
+        url: createUrlWithParams(`/${schoolName}/homeworks_stats/`, filters),
       }),
       providesTags: ['homeworskStats'],
     }),
   }),
 })
 
-export const { useFetchHomeworkStatsQuery, useLazyFetchHomeworkStatsQuery, useFetchAllHomeworkStatsQuery, useLazyFetchAllHomeworkStatsQuery, useLazyFetchAllStudentsHomeworkQuery } = homeworksStatsService
+export const {
+  useFetchHomeworkStatsQuery,
+  useLazyFetchHomeworkStatsQuery,
+  useFetchAllHomeworkStatsQuery,
+  useLazyFetchAllHomeworkStatsQuery,
+  useLazyFetchAllStudentsHomeworkQuery,
+} = homeworksStatsService

@@ -31,12 +31,12 @@
   }
 
   &_progressSlice {
-    // display: flex;
+    // display: flex;display
     display: grid;
     grid-template-columns: repeat(2, minmax(140px, 1fr));
     width: min(100%, 25.625rem);
-    // align-items: center;
-    // align-content: center;
+    // align-items: center;align-items
+    // align-content: center;align-content
     gap: 0.625rem;
     flex-wrap: wrap;
 
@@ -110,7 +110,7 @@
         font-style: normal;
         font-weight: 500;
         letter-spacing: -1px;
-        // line-height: 5.07981rem; /* 134.783% */
+        // line-height: 5.07981rem;line-height /* 134.783% */
 
         @media screen and (min-width: 701px) and (max-width: 900px) {
           top: 9px;

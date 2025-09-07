@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from 'react'
+import React, { useState, useEffect, useRef, memo, useCallback } from 'react'
 import { Link, generatePath, useNavigate } from 'react-router-dom'
 import { useLazyFetchProfileDataQuery } from '../../api/profileService'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
@@ -16,7 +16,7 @@ import { headerUserRoleName } from 'config/index'
 import { additionalRoleT } from 'types/profileT'
 import styles from './header.module.scss'
 import { SimpleLoader } from '../Loaders/SimpleLoader'
-import tariffImg from './config/image.png'
+import tariffImg from './config/image-header.png'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
@@ -51,7 +51,7 @@ import { SocialMediaButton } from 'components/SocialMediaButton'
 import { useFetchSchoolQuery } from '../../api/schoolService'
 import { ITariff } from 'types/userT'
 import { isEqual } from 'lodash'
-import { setChats } from 'store/redux/chats/chatsSlice'
+import { setChats } from '../../store/redux/chats/chatsSlice'
 
 interface ApiError {
   data?: unknown
@@ -131,9 +131,9 @@ export const Header = memo(() => {
   const { data, isSuccess } = useFetchSchoolHeaderQuery(Number(headerId))
   const [logout, { isLoading }] = useLazyLogoutQuery()
   const [getBanner, { data: banner }] = useLazyGetStudentBannerQuery()
-  const [refetchUser, { isSuccess: profileIsSuccess, isError, error }] = useLazyFetchProfileDataQuery()
+  const [refetchUser, { isSuccess: profileIsSuccess, isError, error, isLoading: isProfileLoading }] = useLazyFetchProfileDataQuery()
   const [fetchCurrentTarrif] = useLazyFetchCurrentTariffPlanQuery()
-  const { data: schoolData } = useFetchSchoolQuery(Number(schoolId))
+  const { data: schoolData } = useFetchSchoolQuery(schoolId || 0, { skip: !schoolId })
   const [loginUser] = useLoginMutation()
   const [getProgress, { data: schoolProgressData, isLoading: isLoadingProgress, isError: notFound }] = useGetSchoolProgressionDataMutation()
   const [fetchGroups, { data: studentsGroups, isFetching: fetchingGroups }] = useLazyFetchStudentsGroupWithParamsQuery()
@@ -148,7 +148,7 @@ export const Header = memo(() => {
   const restrictedEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
   const canChangePlatform = userProfile?.email ? !restrictedEmails.includes(userProfile.email) : false
 
-  const logOut = async () => {
+  const logOut = useCallback(async () => {
     await logout().then(() => {
       dispatch(clearUserProfile())
       dispatch(logoutState())
@@ -162,10 +162,10 @@ export const Header = memo(() => {
         informSocketRef.current = null
       }
     })
-  }
+  }, [logout, dispatch, navigate])
 
   useEffect(() => {
-    if (userRole === RoleE.Admin && showTgMessageForm) {
+    if (userRole === RoleE.Admin && showTgMessageForm && schoolName) {
       console.log('Debug info:', {
         schoolName,
         userRole,
@@ -195,7 +195,7 @@ export const Header = memo(() => {
           }
         })
     }
-  }, [showTgMessageForm, schoolName, userRole])
+  }, [showTgMessageForm, userRole, schoolName, fetchGroups])
 
   useEffect(() => {
     if (userRole === RoleE.Admin && schoolRoles) {
@@ -206,44 +206,52 @@ export const Header = memo(() => {
     }
   }, [userRole, schoolRoles])
 
-  const handleLogin = async (login: string, password: string) => {
-    try {
-      const formData = { login, password }
-      const result = await loginUser(formData).unwrap()
-      if (result) {
-        const { access, refresh, user } = result
-        dispatch(setAuthState({ access, refresh }))
-        dispatch(id(user.id))
+  const handleLogin = useCallback(
+    async (login: string, password: string) => {
+      try {
+        const formData = { login, password }
+        const result = await loginUser(formData).unwrap()
+        if (result) {
+          const { access, refresh, user } = result
+          dispatch(setAuthState({ access, refresh }))
+          dispatch(id(user.id))
 
-        if (user.email === 'admin@coursehub.ru') {
-          dispatch(role(RoleE.Admin))
-        } else if (user.email === 'teacher@coursehub.ru') {
-          dispatch(role(RoleE.Teacher))
-        } else if (user.email === 'student@coursehub.ru') {
-          dispatch(role(RoleE.Student))
-        } else {
-          dispatch(role(RoleE.Unknown))
+          if (user.email === 'admin@coursehub.ru') {
+            dispatch(role(RoleE.Admin))
+          } else if (user.email === 'teacher@coursehub.ru') {
+            dispatch(role(RoleE.Teacher))
+          } else if (user.email === 'student@coursehub.ru') {
+            dispatch(role(RoleE.Student))
+          } else {
+            dispatch(role(RoleE.Unknown))
+          }
+
+          navigate(generatePath(Path.ChooseSchool))
         }
-
-        navigate(generatePath(Path.ChooseSchool))
+      } catch (err) {
+        console.error('Login failed:', err)
       }
-    } catch (err) {
-      console.error('Login failed:', err)
-    }
-  }
+    },
+    [loginUser, dispatch, navigate],
+  )
 
-  const handleCloseBanner = () => {
-    if (userRole === RoleE.Student && banner) {
+  const handleCloseBanner = useCallback(() => {
+    if (userRole === RoleE.Student && banner && schoolName) {
       acceptBanner({ id: banner.id, schoolName: schoolName })
         .unwrap()
         .then(() => closeBanner())
     }
-  }
+  }, [userRole, banner, schoolName, acceptBanner, closeBanner])
 
   useEffect(() => {
-    if (userProfile && userProfile.additional_roles && Array.isArray(userProfile.additional_roles) && userProfile.additional_roles.length > 0) {
+    if (
+      userProfile &&
+      userProfile.additional_roles &&
+      Array.isArray(userProfile.additional_roles) &&
+      userProfile.additional_roles.length > 0 &&
+      schoolId
+    ) {
       const rolesForSchool = userProfile.additional_roles.find((role: additionalRoleT) => role.school_id === schoolId)
-
       setSchoolRoles(rolesForSchool)
     }
   }, [userProfile, schoolId])
@@ -252,13 +260,13 @@ export const Header = memo(() => {
     if (isError && error && 'originalStatus' in error && error.originalStatus === 401) {
       logOut()
     }
-  }, [isError])
+  }, [isError, error, logOut])
 
   useEffect(() => {
-    if (showTgMessageForm) {
+    if (showTgMessageForm && schoolName) {
       fetchCourses({ schoolName, page: 1 })
     }
-  }, [showTgMessageForm])
+  }, [showTgMessageForm, schoolName, fetchCourses])
 
   useEffect(() => {
     if (coursesSuccess && Courses) {
@@ -273,26 +281,26 @@ export const Header = memo(() => {
   }, [coursesSuccess, Courses])
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       setLogo(data?.logo_school)
     }
-  }, [data])
+  }, [isSuccess, data])
 
   useEffect(() => {
-    if (userRole === RoleE.Admin && !tariffPlan) {
+    if (userRole === RoleE.Admin && !tariffPlan && schoolName) {
       fetchCurrentTarrif(schoolName)
         .unwrap()
         .then(data => dispatch(setTariff(data)))
-    } else if (userRole === RoleE.Student) {
+    } else if (userRole === RoleE.Student && schoolName) {
       getBanner(schoolName)
     }
-  }, [schoolName])
+  }, [userRole, tariffPlan, schoolName, fetchCurrentTarrif, getBanner, dispatch])
 
   useEffect(() => {
     if (banner && 'is_accepted_by_user' in banner && !banner.is_accepted_by_user) {
       openBanner()
     }
-  }, [banner, getBanner])
+  }, [banner, openBanner])
 
   useEffect(() => {
     if (
@@ -301,13 +309,14 @@ export const Header = memo(() => {
       schoolProgress.completion_percentage < 100 &&
       !notFound &&
       !schoolProgressData &&
-      !isLoadingProgress
+      !isLoadingProgress &&
+      schoolName
     ) {
       getProgress(schoolName)
         .unwrap()
         .then(data => dispatch(updateSchoolTask(data)))
     }
-  }, [schoolProgress, schoolProgressData, isLoadingProgress])
+  }, [userRole, schoolProgress, schoolProgressData, isLoadingProgress, notFound, schoolName, getProgress, dispatch])
 
   useEffect(() => {
     if (tariffPlan && Object.keys(tariffPlan).length > 1) {
@@ -327,14 +336,13 @@ export const Header = memo(() => {
     }
   }, [profileIsSuccess])
 
-  const connectWebSocket = () => {
-    if ((informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) && userId) {
+  const connectWebSocket = useCallback(() => {
+    if ((informSocketRef.current === null || informSocketRef.current?.readyState !== w3cwebsocket.OPEN) && userId && schoolName) {
       const socketPath =
-        import.meta.env.VITE_RUN_MODE === 'PRODUCTION'
-          ? `wss://apidev.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
-          : `ws://sandbox.coursehb.ru/ws/info/${schoolName || ''}?user_id=${userId}`
+        import.meta.env.VITE_RUN_MODE === 'PRODUCTION' || import.meta.env.VITE_RUN_MODE === 'DEV'
+          ? `wss://apidev.coursehb.ru/ws/info/${schoolName}?user_id=${userId}`
+          : `ws://sandbox.coursehb.ru/ws/info/${schoolName}?user_id=${userId}`
       informSocketRef.current = new w3cwebsocket(socketPath)
-      // informSocketRef.current = new w3cwebsocket(`ws://localhost:8000/ws/info/${schoolName || ''}?user_id=${userId}`)
 
       informSocketRef.current.onmessage = event => {
         if (typeof event.data === 'string') {
@@ -361,7 +369,7 @@ export const Header = memo(() => {
         console.log('INFO WebSocket disconnected')
       }
     }
-  }
+  }, [userId, schoolName, chats])
 
   useEffect(() => {
     return () => {
@@ -372,75 +380,56 @@ export const Header = memo(() => {
   }, [])
 
   useEffect(() => {
-    if (!userProfile) {
+    if (!userProfile && !isProfileLoading && !profileIsSuccess) {
       refetchUser()
         .unwrap()
-        .then(data =>
-          dispatch(
-            setUserProfile({
-              id: data[0].profile_id,
-              first_name: data[0].user.first_name,
-              last_name: data[0].user.last_name,
-              email: String(data[0].user.email),
-              username: String(data[0].user.username),
-              phone_number: String(data[0].user.phone_number),
-              avatar: data[0].avatar,
-              additional_roles: data[0].additional_roles,
-            }),
-          ),
-        )
+        .then(data => {
+          if (data && data.length > 0 && data[0]) {
+            dispatch(
+              setUserProfile({
+                id: data[0].profile_id,
+                first_name: data[0].user.first_name,
+                last_name: data[0].user.last_name,
+                email: String(data[0].user.email),
+                username: String(data[0].user.username),
+                phone_number: String(data[0].user.phone_number),
+                avatar: data[0].avatar,
+                additional_roles: data[0].additional_roles,
+              }),
+            )
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching user profile:', error)
+        })
     }
-  }, [userProfile])
+  }, [userProfile, isProfileLoading, profileIsSuccess, refetchUser, dispatch])
 
   // Chat Info Update *******************************************************
   useEffect(() => {
     const totalUnread = totalUnreadMessages || 0
     dispatch(setTotalUnread(totalUnread.toString()))
-  }, [totalUnreadMessages])
+  }, [totalUnreadMessages, dispatch])
 
   // Appeals Unread Update
   useEffect(() => {
     dispatch(setTotalUnreadAppeals(unreadAppeals || 0))
-  }, [unreadAppeals])
+  }, [unreadAppeals, dispatch])
 
-  // // Удаляем AVATAR
-  // const omitAvatar = (sender: SenderI): SenderI => {
-  //   const { avatar, ...rest } = sender
-  //   return rest
-  // }
-  // // Проходимся по всем чатас и у каждого сендера удаляем аватарку
-  // const processChats = (chats: ChatI[]): ChatI[] => {
-  //   return chats.map(chat => ({
-  //     ...chat,
-  //     senders: chat.senders.map(omitAvatar),
-  //   }))
-  // }
-
-  // useEffect(() => {
-  //   if (chats && fetchedChats) {
-  //     const chatsWithoutAvatar = processChats(chats)
-  //     const fetchedChatsWithoutAvatar = processChats(fetchedChats)
-  //     const checkChatsDifferent = isEqual(chatsWithoutAvatar, fetchedChatsWithoutAvatar)
-  //     if (!checkChatsDifferent) {
-  //       dispatch(setChats(fetchedChats))
-  //     }
-  //   }
-  // }, [chats, fetchedChats])
-  // // **************************************************************
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
-  }
-  const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl2(event.currentTarget)
-  }
+  }, [])
 
-  const goToProfile = () => {
+  const handleClick2 = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl2(event.currentTarget)
+  }, [])
+
+  const goToProfile = useCallback(() => {
     navigate(Path.Profile)
     setAnchorEl(null)
-  }
+  }, [navigate])
 
-  const goToChooseSchool = () => {
+  const goToChooseSchool = useCallback(() => {
     if (informSocketRef.current !== null) {
       informSocketRef.current.close()
       informSocketRef.current = null
@@ -450,41 +439,44 @@ export const Header = memo(() => {
     setSocketConnect(false)
     navigate(Path.ChooseSchool)
     setAnchorEl(null)
-  }
+  }, [dispatchRole, dispatch, navigate])
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null)
-  }
+  }, [])
 
-  const goToChooseTariff = () => {
+  const goToChooseTariff = useCallback(() => {
     navigate(Path.TariffPlans)
     setAnchorEl2(null)
-  }
+  }, [navigate])
 
-  const handleClose2 = () => {
+  const handleClose2 = useCallback(() => {
     setAnchorEl2(null)
-  }
+  }, [])
 
-  const handleAllGroups = (isAll: boolean) => {
-    setAllGroups(isAll)
-    const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
-    if (isAll) {
-      setTgMessage(
-        (prevData: TgMessage) =>
-          ({
-            ...prevData,
-            students_groups: groupsIds,
-          } as TgMessage),
-      )
-    } else {
-      setTgMessage((prevData: TgMessage) => ({
-        ...prevData,
-        students_groups: [],
-      }))
-    }
-  }
+  const handleAllGroups = useCallback(
+    (isAll: boolean) => {
+      setAllGroups(isAll)
+      const groupsIds = studentsGroups?.results.map(group => Number(group.group_id))
+      if (isAll) {
+        setTgMessage(
+          (prevData: TgMessage) =>
+            ({
+              ...prevData,
+              students_groups: groupsIds,
+            } as TgMessage),
+        )
+      } else {
+        setTgMessage((prevData: TgMessage) => ({
+          ...prevData,
+          students_groups: [],
+        }))
+      }
+    },
+    [studentsGroups],
+  )
 
-  const handleSendTgMessage = async () => {
+  const handleSendTgMessage = useCallback(async () => {
     if (userRole !== RoleE.Admin) {
       setSendingLogs(prev => [...prev, 'Ошибка: Отправка сообщений доступна только администраторам'])
       setShowLogsModal(true)
@@ -562,15 +554,15 @@ export const Header = memo(() => {
         setShowLogsModal(true)
       }, 2000)
     }
-  }
+  }, [userRole, schoolRoles, tgMessage, createTgMessage])
 
-  const handleAddTgMessageForm = () => {
+  const handleAddTgMessageForm = useCallback(() => {
     setTgMessage({
       ...tgMessage,
       students_groups: [],
     })
     setShowTgMessageForm(true)
-  }
+  }, [tgMessage])
 
   useEffect(() => {
     if ((anchorEl || anchorEl2) && !isMenuHover) {
@@ -578,7 +570,7 @@ export const Header = memo(() => {
     } else if (!anchorEl && !anchorEl2 && isMenuHover) {
       toggleHover()
     }
-  }, [anchorEl, anchorEl2, isMenuHover])
+  }, [anchorEl, anchorEl2, isMenuHover, toggleHover])
 
   return (
     <motion.header

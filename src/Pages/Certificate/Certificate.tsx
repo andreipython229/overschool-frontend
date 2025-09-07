@@ -29,14 +29,22 @@ const StampSVG1 = () => (
         <stop offset="100%" style={{ stopColor: '#9B219E', stopOpacity: 0.8 }} />
       </linearGradient>
     </defs>
-    <circle cx="60" cy="60" r="55" stroke="url(#stamp1Gradient)" strokeWidth="2" fill="none"/>
-    <circle cx="60" cy="60" r="45" stroke="url(#stamp1Gradient)" strokeWidth="1" fill="none"/>
-    <text x="60" y="40" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">OFFICIAL</text>
-    <text x="60" y="55" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">STAMP</text>
-    <text x="60" y="70" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">OF</text>
-    <text x="60" y="85" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">SCHOOL</text>
+    <circle cx="60" cy="60" r="55" stroke="url(#stamp1Gradient)" strokeWidth="2" fill="none" />
+    <circle cx="60" cy="60" r="45" stroke="url(#stamp1Gradient)" strokeWidth="1" fill="none" />
+    <text x="60" y="40" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      OFFICIAL
+    </text>
+    <text x="60" y="55" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      STAMP
+    </text>
+    <text x="60" y="70" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      OF
+    </text>
+    <text x="60" y="85" textAnchor="middle" fill="#F57AF5" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      SCHOOL
+    </text>
   </svg>
-);
+)
 
 const StampSVG2 = () => (
   <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,14 +54,22 @@ const StampSVG2 = () => (
         <stop offset="100%" style={{ stopColor: '#4D0FAF', stopOpacity: 0.8 }} />
       </linearGradient>
     </defs>
-    <circle cx="60" cy="60" r="55" stroke="url(#stamp2Gradient)" strokeWidth="2" fill="none"/>
-    <circle cx="60" cy="60" r="45" stroke="url(#stamp2Gradient)" strokeWidth="1" fill="none"/>
-    <text x="60" y="35" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">SCHOOL</text>
-    <text x="60" y="50" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">CERTIFICATION</text>
-    <text x="60" y="65" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">AND</text>
-    <text x="60" y="80" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">VERIFICATION</text>
+    <circle cx="60" cy="60" r="55" stroke="url(#stamp2Gradient)" strokeWidth="2" fill="none" />
+    <circle cx="60" cy="60" r="45" stroke="url(#stamp2Gradient)" strokeWidth="1" fill="none" />
+    <text x="60" y="35" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      SCHOOL
+    </text>
+    <text x="60" y="50" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      CERTIFICATION
+    </text>
+    <text x="60" y="65" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      AND
+    </text>
+    <text x="60" y="80" textAnchor="middle" fill="#9B219E" fontSize="10" fontWeight="bold" fontFamily="Montserrat">
+      VERIFICATION
+    </text>
   </svg>
-);
+)
 
 type PreviewDataT = {
   user_full_name: string
@@ -180,22 +196,20 @@ export const Certificate: FC<CertificatePropsT> = ({ previewData }) => {
               <div className={styles.sign}>
                 <div className={styles.sign__img}>
                   {displayData.signature ? (
-                    <img 
-                      className={styles.sign__signature} 
-                      src={displayData.signature} 
-                      alt="signature" 
+                    <img
+                      className={styles.sign__signature}
+                      src={displayData.signature}
+                      alt="signature"
                       style={{
                         maxWidth: '200px',
                         maxHeight: '100px',
-                        objectFit: 'contain'
+                        objectFit: 'contain',
                       }}
                     />
                   ) : (
                     <img className={styles.sign__signature} src={signature} alt="signature" />
                   )}
-                  <div className={styles.sign__stamp}>
-                    {displayData.stampType === 'stamp2' ? <StampSVG2 /> : <StampSVG1 />}
-                  </div>
+                  <div className={styles.sign__stamp}>{displayData.stampType === 'stamp2' ? <StampSVG2 /> : <StampSVG1 />}</div>
                 </div>
                 <div className={styles.sign__signatory}>
                   Director

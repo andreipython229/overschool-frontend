@@ -15,11 +15,7 @@ export const Logs = memo(() => {
             <div>Роль</div>
             <div>Время</div>
           </div>
-          <UserLogs
-            contacts={'Email/Номер телефона юзера'}
-            whatDoing={'Что сделал'}
-            time={'12:34'}
-          />
+          <UserLogs contacts={'Email/Номер телефона юзера'} whatDoing={'Что сделал'} time={'12:34'} />
         </div>
       </div>
     </div>

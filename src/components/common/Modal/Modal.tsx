@@ -1,20 +1,20 @@
-import { FC, ReactNode, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { createPortal } from 'react-dom';
-import styles from './Modal.module.scss';
+import { FC, ReactNode, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { createPortal } from 'react-dom'
+import styles from './Modal.module.scss'
 
-export type ModalVariant = 'default' | 'gradient' | 'warning';
+export type ModalVariant = 'default' | 'gradient' | 'warning'
 
 export interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-  title?: string;
-  variant?: ModalVariant;
-  width?: string;
-  showCloseButton?: boolean;
-  closeOnOverlayClick?: boolean;
-  className?: string;
+  isOpen: boolean
+  onClose: () => void
+  children: ReactNode
+  title?: string
+  variant?: ModalVariant
+  width?: string
+  showCloseButton?: boolean
+  closeOnOverlayClick?: boolean
+  className?: string
 }
 
 const modalVariants = {
@@ -38,13 +38,13 @@ const modalVariants = {
       ease: 'easeIn' as const,
     },
   },
-};
+}
 
 const backdropVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
   exit: { opacity: 0 },
-};
+}
 
 export const Modal: FC<ModalProps> = ({
   isOpen,
@@ -60,26 +60,26 @@ export const Modal: FC<ModalProps> = ({
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onClose();
+        onClose()
       }
-    };
+    }
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'hidden'
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen, onClose]);
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen, onClose])
 
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (closeOnOverlayClick && event.target === event.currentTarget) {
-      onClose();
+      onClose()
     }
-  };
+  }
 
   const modalContent = (
     <AnimatePresence>
@@ -102,7 +102,7 @@ export const Modal: FC<ModalProps> = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             {title && (
               <div className={styles.header}>
@@ -112,25 +112,9 @@ export const Modal: FC<ModalProps> = ({
               </div>
             )}
             {showCloseButton && (
-              <button
-                className={styles.closeButton}
-                onClick={onClose}
-                aria-label="Закрыть"
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M18 6L6 18M6 6L18 18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+              <button className={styles.closeButton} onClick={onClose} aria-label="Закрыть">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             )}
@@ -139,7 +123,7 @@ export const Modal: FC<ModalProps> = ({
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 
-  return createPortal(modalContent, document.body);
-}; 
+  return createPortal(modalContent, document.body)
+}

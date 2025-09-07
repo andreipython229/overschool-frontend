@@ -1,21 +1,31 @@
 import { Route, Routes, generatePath, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState, Suspense, lazy } from 'react'
 import { Path, FooterPath } from '@/enum/pathE'
-import { useAppSelector } from '@/store/hooks'
+import { useAppSelector, useAppDispatch } from '@/store/hooks'
 import { authSelector, schoolSelector, selectUser } from '@/selectors'
+import { auth, authState, id } from '@/store/redux/users/slice'
 import { navByRolesConfig } from '@/config'
-import { scrollToTop } from 'utils/scrollToTop'
+import { useScrollToTop } from 'utils/scrollToTop'
 import styles from './App.module.scss'
 import { Toaster } from 'react-hot-toast'
 import { SimpleLoader } from './components/Loaders/SimpleLoader'
 
 // Lazy components
 const PageNotFound = lazy(() => import('@/Pages/PageNotFound/PageNotFound').then(module => ({ default: module.PageNotFound })))
-const PersonalDataTreatmentPolicy = lazy(() => import('@/Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy').then(module => ({ default: module.PersonalDataTreatmentPolicy })))
+const PersonalDataTreatmentPolicy = lazy(() =>
+  import('@/Pages/PersonalDataTreatmentPolicy/PersonalDataTreatmentPolicy').then(module => ({ default: module.PersonalDataTreatmentPolicy })),
+)
+const RoleLoader = lazy(() => import('@/components/Loaders/RoleLoader').then(module => ({ default: module.RoleLoader })))
 const CookiePolicy = lazy(() => import('@/Pages/CookiePolicy/CookiePolicy').then(module => ({ default: module.CookiePolicy })))
-const CookiePolicyDisclaimer = lazy(() => import('@/Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer').then(module => ({ default: module.CookiePolicyDisclaimer })))
-const PersonalDataProcessing = lazy(() => import('@/Pages/PersonalDataProcessing/PersonalDataProcessing').then(module => ({ default: module.PersonalDataProcessing })))
-const PublicOfferAgreement = lazy(() => import('@/Pages/PublicOfferAgreement/PublicOfferAgreement').then(module => ({ default: module.PublicOfferAgreement })))
+const CookiePolicyDisclaimer = lazy(() =>
+  import('@/Pages/CookiePolicyDisclaimer/CookiePolicyDisclaimer').then(module => ({ default: module.CookiePolicyDisclaimer })),
+)
+const PersonalDataProcessing = lazy(() =>
+  import('@/Pages/PersonalDataProcessing/PersonalDataProcessing').then(module => ({ default: module.PersonalDataProcessing })),
+)
+const PublicOfferAgreement = lazy(() =>
+  import('@/Pages/PublicOfferAgreement/PublicOfferAgreement').then(module => ({ default: module.PublicOfferAgreement })),
+)
 const Agreement = lazy(() => import('@/components/Agreement/Agreement').then(module => ({ default: module.Agreement })))
 const PWA = lazy(() => import('Pages/PWA/PWA').then(module => ({ default: module.PWA })))
 const Initial = lazy(() => import('Pages/Initial/newInitial').then(module => ({ default: module.Initial })))
@@ -27,6 +37,7 @@ const ChooseSchool = lazy(() => import('./Pages/ChooseSchool/ChooseSchool').then
 const CreateNewSchool = lazy(() => import('./Pages/CreateNewSchool/CreateNewSchool').then(module => ({ default: module.CreateNewSchool })))
 const Certificate = lazy(() => import('@/Pages/Certificate/Certificate').then(module => ({ default: module.Certificate })))
 const CourseCatalogPage = lazy(() => import('@/Pages/CourseCatalog').then(module => ({ default: module.CourseCatalogPage })))
+
 const ResetPassword = lazy(() => import('@/Pages/ResetPassword').then(module => ({ default: module.ResetPassword })))
 const LoginPage = lazy(() => import('./Pages/Login/LoginPage').then(module => ({ default: module.LoginPage })))
 const HelpPage = lazy(() => import('./Pages/HelpCenter/HelpPage').then(module => ({ default: module.HelpPage })))
@@ -49,28 +60,113 @@ const SocialAuthPage = lazy(() => import('@/ServicePages/SocialAuthPage').then(m
 const WebinarPage = lazy(() => import('@/Pages/Webinar/webinarPage').then(module => ({ default: module.default })))
 
 // Loading component
-export const LoadingSpinner = () => <SimpleLoader loaderColor="#357EEB" style={{ width: '100px', height: '100px', margin: 'auto', position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }} />
-
+export const LoadingSpinner = () => (
+  <SimpleLoader
+    loaderColor="#357EEB"
+    style={{
+      width: '100px',
+      height: '100px',
+      margin: 'auto',
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: 1000,
+    }}
+  />
+)
 
 export const App = () => {
   const { role } = useAppSelector(selectUser)
   const isLogin = useAppSelector(authSelector)
   const { schoolName } = useAppSelector(schoolSelector)
-  const { pathname } = useLocation()
+  const location = useLocation()
+  const { pathname } = location
   const [utmParams, setUtmParams] = useState<{ [key: string]: string }>({})
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  // Инициализация Redux из localStorage при загрузке
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access_token')
+    const refreshToken = localStorage.getItem('refresh_token')
+    const userId = localStorage.getItem('id')
+
+    if (accessToken && refreshToken && userId) {
+      dispatch(authState({ access: accessToken, refresh: refreshToken }))
+      dispatch(id(parseInt(userId)))
+      dispatch(auth(true))
+      // eslint-disable-next-line no-console
+      console.log('🔄 App: Redux initialized from localStorage')
+    }
+  }, [dispatch])
+
+  // Проверяем восстановление Redux состояния
+  useEffect(() => {
+    const checkReduxState = () => {
+      // eslint-disable-next-line no-console
+      console.log('🔄 App: Checking Redux state recovery...')
+      // eslint-disable-next-line no-console
+      console.log('🔄 App: Current Redux state:', { role, isLogin, schoolName })
+
+      // Если Redux состояние пустое, но есть токены в localStorage
+      if (!isLogin && !role) {
+        const accessToken = localStorage.getItem('access_token')
+        const refreshToken = localStorage.getItem('refresh_token')
+        const userId = localStorage.getItem('id')
+
+        if (accessToken && refreshToken && userId) {
+          // eslint-disable-next-line no-console
+          console.log('🔄 App: Redux state empty, but tokens found in localStorage')
+          // eslint-disable-next-line no-console
+          console.log('🔄 App: Waiting for Redux-persist to restore state...')
+        }
+      }
+    }
+
+    // Проверяем сразу
+    checkReduxState()
+
+    // Проверяем через небольшую задержку
+    // eslint-disable-next-line no-undef
+    const timer = setTimeout(checkReduxState, 1000)
+
+    return () => {
+      // eslint-disable-next-line no-undef
+      clearTimeout(timer)
+    }
+  }, [isLogin, role, schoolName])
+
+  // Отладочная информация
+  // eslint-disable-next-line no-console
+  console.log('App render - role:', role, 'isLogin:', isLogin, 'schoolName:', schoolName)
+  // eslint-disable-next-line no-console
+  console.log('navByRolesConfig[role]:', role ? navByRolesConfig[role] : 'undefined')
 
   useEffect(() => {
     const email = localStorage.getItem('email')
     const validEmails = ['admin@coursehub.ru', 'teacher@coursehub.ru', 'student@coursehub.ru']
-    if (email && validEmails.includes(email) && schoolName) {
+    if (email && validEmails.includes(email) && schoolName && role && role > 0) {
       navigate(generatePath(`${Path.School}/${Path.Courses}`, { school_name: schoolName as string }))
     }
-  }, [isLogin])
+  }, [isLogin, schoolName, role, navigate])
 
   useEffect(() => {
+    if (isLogin && role && role > 0) {
+      // eslint-disable-next-line no-undef
+      setTimeout(() => {
+        navigate('/dashboard')
+      }, 1000)
+    }
+  }, [isLogin, role, navigate])
+
+  useEffect(() => {
+    // Добавляем проверку на наличие токена в localStorage
+    const hasToken = localStorage.getItem('access_token')
+
     if (
       !isLogin &&
+      !hasToken &&
       pathname !== Path.SocialAuth &&
       pathname !== Path.CreateSchool &&
       pathname.split('/').at(-1) !== 'personalDataTreatmentPolicy' &&
@@ -97,7 +193,7 @@ export const App = () => {
         navigate(Path.InitialPage)
       }
     }
-  }, [isLogin, navigate])
+  }, [isLogin, navigate, pathname, utmParams])
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search)
@@ -110,7 +206,7 @@ export const App = () => {
 
     setUtmParams(params)
     localStorage.setItem('utmParams', JSON.stringify(params))
-  }, [])
+  }, [location.search])
 
   useEffect(() => {
     if (
@@ -142,15 +238,15 @@ export const App = () => {
       pathname !== Path.TariffPlansInfoYear &&
       pathname.split('/')[1] !== 'certificate' &&
       pathname.split('/')[1] !== 'course-catalog' &&
-      pathname.split('/')[1] !== 'help' &&
+      pathname !== 'help' &&
       pathname.split('/')[1] !== 'token-validate' &&
       pathname !== '/access-denied'
     ) {
       navigate(Path.ChooseSchool)
     }
-  }, [isLogin, schoolName, navigate])
+  }, [role, isLogin, schoolName, pathname, navigate])
 
-  scrollToTop()
+  useScrollToTop()
 
   return (
     <div className={styles.container}>
@@ -162,18 +258,19 @@ export const App = () => {
             <Route index element={<CourseCatalogPage />} />
             <Route path={Path.CatalogCourse} element={<CoureCatalogPreview />} />
           </Route>
+
           <Route
             path="/certificate/preview"
             element={
               <Certificate
                 previewData={{
-                  user_full_name: "Иван Иванов",
-                  course_name: "React для начинающих",
-                  school_name: "CourseHUB",
+                  user_full_name: 'Иван Иванов',
+                  course_name: 'React для начинающих',
+                  school_name: 'CourseHUB',
                   date: new Date().toISOString(),
-                  signature: "",
+                  signature: '',
                   sections: [],
-                  stampType: "stamp1"
+                  stampType: 'stamp1',
                 }}
               />
             }
@@ -202,8 +299,8 @@ export const App = () => {
           </Route>
           <Route path={Path.ChooseSchool} element={<ChooseSchool />} />
           <Route path={FooterPath.TariffPlans} element={<TariffPlans />} />
+          <Route path="/dashboard" element={<MainLayOut />} />
           <Route path={Path.School} element={<MainLayOut />}>
-            {navByRolesConfig[role]}
             <Route path={FooterPath.PersonalDataTreatmentPolicy} element={<PersonalDataTreatmentPolicy />} />
             <Route path={FooterPath.CookiePolicy} element={<CookiePolicy />} />
             <Route path={FooterPath.CookiePolicyDisclaimer} element={<CookiePolicyDisclaimer />} />
@@ -226,8 +323,3 @@ export const App = () => {
     </div>
   )
 }
-
-
-
-
-

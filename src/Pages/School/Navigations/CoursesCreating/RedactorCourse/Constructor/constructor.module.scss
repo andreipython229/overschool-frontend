@@ -525,7 +525,7 @@
 
             @include display(flex, row, flex-start, center);
             margin-left: 15px;
-            // width: 200px;
+            // width: 200px;width
             height: 36px;
             border: none;
             text-align: center;
@@ -536,7 +536,7 @@
             padding: 5px 5px 5px 5px;
 
             // & svg {
-            //   margin-right: 5px;
+            //   margin-right: 5px;margin-right
             // }
 
             input {
@@ -614,14 +614,14 @@
         }
 
         // @media only screen and (min-width: 320px) and (max-width: 375px) {
-        //   margin-bottom: 10%;
-        //   padding-left: 15px;
-        //   padding-right: 15px;
+        //   margin-bottom: 10%;margin-bottom
+        //   padding-left: 15px;padding-left
+        //   padding-right: 15px;padding-right
         // }
         // @media only screen and (min-width: 375px) and (max-width: 480px) {
-        //   margin-bottom: 10%;
-        //   padding-left: 15px;
-        //   padding-right: 15px;
+        //   margin-bottom: 10%;margin-bottom
+        //   padding-left: 15px;padding-left
+        //   padding-right: 15px;padding-right
         // }
 
         &_nameSettings {
@@ -648,7 +648,7 @@
           display: flex;
           flex-direction: column;
           gap: 40px;
-          // padding-inline: 3em;
+          // padding-inline: 3em;padding-inline
 
           @media only screen and (min-width: 320px) and (max-width: 375px) {
             padding-inline: 0;
@@ -1357,11 +1357,11 @@ hr {
   }
 
   // @media only screen and (max-width: 1400px) {
-  //   background: url(../../../../../../assets/img/common/questions-mobile.png);
-  //   background-repeat: no-repeat;
-  //   background-position: right;
-  //   background-size: contain;
-  //   background-color: #ffffff;
+  //   background: url(../../../../../../assets/img/common/questions-mobile.png);background
+  //   background-repeat: no-repeat;background-repeat
+  //   background-position: right;background-position
+  //   background-size: contain;background-size
+  //   background-color: #ffffff;background-color
   // }
 
   &_container {

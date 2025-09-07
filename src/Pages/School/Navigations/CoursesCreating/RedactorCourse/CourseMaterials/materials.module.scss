@@ -119,7 +119,7 @@
       @include display(flex, column);
       margin-top: 23px;
       margin-left: 16px; // 16
-      //border: 1px deeppink solid;
+      //border: 1px deeppink solid;16//border
 
       @media only screen and (min-width : 320px) and (max-width : 375px) {
         height: 300px;
@@ -243,7 +243,7 @@
           }
           //
           //& img {
-          //  margin-right: 7.5px;
+          //  margin-right: 7.5px;margin-right
           //}
         }
 
@@ -471,7 +471,7 @@
 
             @include display(flex, row, flex-start, center);
             margin-left: 15px;
-            // width: 200px;
+            // width: 200px;width
             height: 36px;
             border: none;
             text-align: center;
@@ -482,7 +482,7 @@
             padding: 5px 5px 5px 5px;
 
             // & svg {
-            //   margin-right: 5px;
+            //   margin-right: 5px;margin-right
             // }
 
             input {

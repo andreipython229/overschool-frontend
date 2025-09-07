@@ -90,42 +90,33 @@ export const NewTextEditor: FC<textEditorT> = ({ text, setLessonDescription, blo
     >
       <div className={styles.wrapper}>
         <div className={styles.textField}>
-          <Paper elevation={3} className={styles.textField_paper} sx={{borderRadius: '20px', boxShadow: '0px 0px 8px 0px #3241954D'}}>
+          <Paper elevation={3} className={styles.textField_paper} sx={{ borderRadius: '20px', boxShadow: '0px 0px 8px 0px #3241954D' }}>
             {isEditing ? (
               <>
-                 <div className={styles.wrapper_navBlock}>
+                <div className={styles.wrapper_navBlock}>
                   <span className={styles.wrapper_navBlock_grabBtn} onPointerDown={onPointerDown}>
-                  <IconSvg
-                    width={24}
-                    height={24}
-                    viewBoxSize={'0 0 24 24'}
-                    path={DoBlockIconPath}
-                  />
-          </span>
-                    {isBlockDeleting ? <SimpleLoader /> : (
-                      <Button
-                        variant={'cancel'}
-                        type='button'
-                        onClick={handleDelete}
-                        text={'Удалить'}
-                        className={styles.wrapper_navBlock_delete}
-                      />
-                    )}
-        </div>
+                    <IconSvg width={24} height={24} viewBoxSize={'0 0 24 24'} path={DoBlockIconPath} />
+                  </span>
+                  {isBlockDeleting ? (
+                    <SimpleLoader />
+                  ) : (
+                    <Button variant={'cancel'} type="button" onClick={handleDelete} text={'Удалить'} className={styles.wrapper_navBlock_delete} />
+                  )}
+                </div>
                 <span className={styles.textField_description_text}>Текст урока:</span>
                 <MyEditor save={handleSaveChanges} setDescriptionLesson={setEditedText} editedText={editedText} setIsEditing={setIsEditing} />
               </>
             ) : (
-              <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <span className={styles.textField_description_text}>Текст урока:</span>
-                  <div dangerouslySetInnerHTML={{ __html: editedText }}></div>
-                  <Button
-                    variant={'newPrimary'}
-                    type='button'
-                    text={'Изменить'}
-                    onClick={handleEditClick}
-                    className={styles.textField_btnEditText_setting}
-                  />
+                <div dangerouslySetInnerHTML={{ __html: editedText }}></div>
+                <Button
+                  variant={'newPrimary'}
+                  type="button"
+                  text={'Изменить'}
+                  onClick={handleEditClick}
+                  className={styles.textField_btnEditText_setting}
+                />
               </div>
             )}
           </Paper>

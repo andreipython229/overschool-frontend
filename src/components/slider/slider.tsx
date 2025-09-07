@@ -50,17 +50,13 @@ export const Slider = () => {
           <div
             className={styles.init_container_box}
             style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}
-            onClick={ () => console.log('Click ignored') }
+            onClick={() => console.log('Click ignored')}
           >
             <div className={styles.init_container_box_leave} style={{ background: '#cfe2ff', color: '#357eeb' }}>
               <p>Читать все отзывы</p>
             </div>
           </div>
-          <div
-            className={styles.init_container_box}
-            style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }}
-            onClick={open}
-          >
+          <div className={styles.init_container_box} style={{ justifyContent: 'center', alignItems: 'center', gap: '0' }} onClick={open}>
             <div className={styles.init_container_box_leave}>
               <IconSvg width={16} height={16} viewBoxSize="0 0 17 16" path={addIconPath} />
               <p>Написать отзыв</p>
@@ -77,7 +73,8 @@ export const Slider = () => {
           disableOnInteraction: false,
         }}
         pagination={{
-          clickable: true, el: `.${styles.swiperPagination}`,
+          clickable: true,
+          el: `.${styles.swiperPagination}`,
         }}
         modules={[Autoplay, Pagination]}
         className={styles.swiper}
@@ -128,13 +125,13 @@ export const Slider = () => {
         </AnimatePresence>
       </Swiper>
       <div className={styles.pagination}>
-          <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_prevBtn}`} onClick={() => swiperRef.current?.slidePrev()}>
-            <IconSvg path={arrowLeftNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
-          </div>
-          <div className={styles.swiperPagination}></div>
-          <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_nextBtn}`} onClick={() => swiperRef.current?.slideNext()}>
-            <IconSvg path={arrowRightNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
-          </div>
+        <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_prevBtn}`} onClick={() => swiperRef.current?.slidePrev()}>
+          <IconSvg path={arrowLeftNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
+        </div>
+        <div className={styles.swiperPagination}></div>
+        <div className={`${styles.pagination_navBtn} ${styles.pagination_navBtn_nextBtn}`} onClick={() => swiperRef.current?.slideNext()}>
+          <IconSvg path={arrowRightNewIconPath} viewBoxSize="0 0 64 64" width={30} height={30} />
+        </div>
       </div>
     </>
   )

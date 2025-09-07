@@ -77,13 +77,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
               alt={'Add file for lesson'}
               src={File}
             />
-            <ContentBtn
-              disabled={disabledBtn}
-              func={() => blockCreateFunc(BLOCK_TYPE.CODE)}
-              text={'Код'}
-              alt={'Add code for lesson'}
-              src={Code}
-            />
+            <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc(BLOCK_TYPE.CODE)} text={'Код'} alt={'Add code for lesson'} src={Code} />
             <ContentBtn
               disabled={disabledBtn}
               // func={() => blockCreateFunc('picture')}
@@ -98,13 +92,7 @@ export const AddPost: FC<AddPostT> = memo(({ lessonIdAndType, lesson, isPreview,
               alt={'Add audio for lesson'}
               src={Audio}
             />
-            <ContentBtn
-              disabled={disabledBtn}
-              func={() => blockCreateFunc(BLOCK_TYPE.TEXT)}
-              text={'Текст'}
-              alt={'Add text for lesson'}
-              src={Text}
-            />
+            <ContentBtn disabled={disabledBtn} func={() => blockCreateFunc(BLOCK_TYPE.TEXT)} text={'Текст'} alt={'Add text for lesson'} src={Text} />
             <ContentBtn
               disabled={disabledBtn}
               func={() => blockCreateFunc(BLOCK_TYPE.PICTURE)}

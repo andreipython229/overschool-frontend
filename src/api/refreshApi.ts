@@ -4,7 +4,7 @@ import { RootState } from 'store/redux/store'
 export const refreshApi = createApi({
   reducerPath: 'refreshApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api',
+    baseUrl: 'http://localhost:8000/api',
     prepareHeaders: (headers, { getState }) => {
       const { refresh: refreshToken } = (getState() as RootState).user.authState
       if (refreshToken) {
@@ -22,4 +22,4 @@ export const refreshApi = createApi({
       }),
     }),
   }),
-}) 
+})

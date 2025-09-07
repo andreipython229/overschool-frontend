@@ -63,38 +63,38 @@ export const Employees: FC = () => {
       </div>
       <div className={styles.wrapper_contentemployees}>
         <div className={styles.employees}>
-            {employees && employees?.length ? (
-              <table className={styles.employees_table}>
-                <thead className={styles.employees_table_title}>
-                  <th>Имя</th>
-                  <th>Роль</th>
-                </thead>
-                <tbody style={{maxWidth: '100%', minWidth: '100%'}}>
+          {employees && employees?.length ? (
+            <table className={styles.employees_table}>
+              <thead className={styles.employees_table_title}>
+                <th>Имя</th>
+                <th>Роль</th>
+              </thead>
+              <tbody style={{ maxWidth: '100%', minWidth: '100%' }}>
                 {employees?.map((employee: EmployeeT) => (
-                    <Employee
-                      key={employee.id}
-                      avatar={employee.avatar || avatar}
-                      name={
-                        employee.pseudonym && employee.id !== userId
-                          ? employee.pseudonym
-                          : employee.last_name || employee.first_name
+                  <Employee
+                    key={employee.id}
+                    avatar={employee.avatar || avatar}
+                    name={
+                      employee.pseudonym && employee.id !== userId
+                        ? employee.pseudonym
+                        : employee.last_name || employee.first_name
                           ? `${employee.last_name || ''} ${employee.first_name || ''}`.trim()
                           : 'Нет имени'
-                      }
-                      contact={employee.email}
-                      role={employee.role}
-                      additional_roles={employee.additional_roles}
-                      id={employee.id}
-                      employees={employees}
-                      setEmployees={setEmployees}
-                      isModalRenameOpen={handleOpenRenameModal}
-                    />
+                    }
+                    contact={employee.email}
+                    role={employee.role}
+                    additional_roles={employee.additional_roles}
+                    id={employee.id}
+                    employees={employees}
+                    setEmployees={setEmployees}
+                    isModalRenameOpen={handleOpenRenameModal}
+                  />
                 ))}
               </tbody>
-              </table>
-            ) : (
-              <p style={{ color: 'lightslategrey', marginLeft: '50px' }}>Пока что сотрудников на платформе нет</p>
-            )}
+            </table>
+          ) : (
+            <p style={{ color: 'lightslategrey', marginLeft: '50px' }}>Пока что сотрудников на платформе нет</p>
+          )}
         </div>
         <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
       </div>

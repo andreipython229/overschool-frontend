@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom'
 import { getNounDeclension } from 'utils/getNounDeclension'
 import { CheckboxBall } from 'components/common/CheckboxBall'
 
-
 type CardImageDownloadsT = {
   toggleCheckbox: boolean
   courseFind: CoursesDataT
@@ -39,13 +38,13 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
           formData.append('photo', files[0])
           formData.append('order', courseFind.order.toString())
           formData.append('school', courseFind.school.toString())
-          updateImg({arg: {formdata: formData, id: courseFind.course_id}, schoolName})
-              .unwrap()
-              .then(data => {
-                if ('photo' in data && data.photo) {
-                  setCourseImage(String(data.photo))
-                }
-              })
+          updateImg({ arg: { formdata: formData, id: courseFind.course_id }, schoolName })
+            .unwrap()
+            .then(data => {
+              if ('photo' in data && data.photo) {
+                setCourseImage(String(data.photo))
+              }
+            })
         } else {
           setImgError('Размер файла не должен превышать 7 МБ')
         }
@@ -88,9 +87,11 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
 
       {!isLoading ? (
         <label className={stylesCard.CourseCardsTS__admin_main}>
-          <span className={stylesCard.CourseCardsTS__admin_title} style={{display: 'inline-block', width: 'auto'}}>{courseFind.name}</span>
+          <span className={stylesCard.CourseCardsTS__admin_title} style={{ display: 'inline-block', width: 'auto' }}>
+            {courseFind.name}
+          </span>
           {courseImage ? (
-            <img src={courseImage} alt={courseFind.name} className={stylesCard.CourseCardsTS__admin_main_img} onClick={handleImageChange}/>
+            <img src={courseImage} alt={courseFind.name} className={stylesCard.CourseCardsTS__admin_main_img} onClick={handleImageChange} />
           ) : (
             <div className={styles.no_image}>
               <span onClick={handleImageChange}>Нет изображения курса :(</span>
@@ -110,48 +111,41 @@ export const CardImageUpload: FC<CardImageDownloadsT> = ({ toggleCheckbox, cours
           <p className={stylesCard.CourseCardsTS__admin_property_name}>{courseFind.video_count || 0} Видео</p>
         </div>
         <div className={stylesCard.CourseCardsTS__admin_property}>
-          <img
-        src={courseFind?.public === 'О' ? homeTask_admin : homeTask_dark}
-            className={stylesCard.CourseCardsTS__admin_property_img}
-            alt=""
-        />
+          <img src={courseFind?.public === 'О' ? homeTask_admin : homeTask_dark} className={stylesCard.CourseCardsTS__admin_property_img} alt="" />
           <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${courseFind.homework_count || 0} ${getNounDeclension(
-        courseFind.homework_count || 0,
+            courseFind.homework_count || 0,
             ['Практическая работа', 'Практические работы', 'Практических работ'],
-        )}`}</p>
+          )}`}</p>
         </div>
         <div className={stylesCard.CourseCardsTS__admin_property}>
           <img src={courseFind?.public === 'О' ? tests_admin : tests_dark} className={stylesCard.CourseCardsTS__admin_property_img} alt="" />
           <p className={stylesCard.CourseCardsTS__admin_property_name}>{`${courseFind.test_count || 0} ${getNounDeclension(
-        courseFind.test_count || 0,
+            courseFind.test_count || 0,
             ['Тест', 'Теста', 'Тестов'],
-        )}`}</p>
+          )}`}</p>
         </div>
       </div>
 
       <div className={stylesCard.CourseCardsTS__bottom}>
         <Link
           style={{
-          maxWidth: courseFind?.public === 'О' ? '100%' : '0',
-          padding:
-          courseFind?.public === 'О' && window.innerWidth > 500
-            ? '16px 40px'
-            : courseFind?.public === 'О' && window.innerWidth <= 500
-            ? '10px'
-            : '0',
+            maxWidth: courseFind?.public === 'О' ? '100%' : '0',
+            padding:
+              courseFind?.public === 'О' && window.innerWidth > 500
+                ? '16px 40px'
+                : courseFind?.public === 'О' && window.innerWidth <= 500
+                  ? '10px'
+                  : '0',
           }}
           className={stylesCard.CourseCardsTS__admin_button_students}
           to={window.location.pathname.replace('settings', 'student')}
         >
           {courseFind?.public === 'О' && 'Ученики курса'}
         </Link>
-        <Link
-          className={stylesCard.CourseCardsTS__admin_button_edit}
-          to={window.location.pathname.replace('settings', '')}
-        >
+        <Link className={stylesCard.CourseCardsTS__admin_button_edit} to={window.location.pathname.replace('settings', '')}>
           Редактировать
         </Link>
       </div>
-  </div>
+    </div>
   )
 }

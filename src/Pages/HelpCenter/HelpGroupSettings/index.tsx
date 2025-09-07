@@ -31,7 +31,7 @@ export const HelpGroupSettings = () => {
         <div className={mainHelpStyles.bg_wrap4}></div>
       </div>
 
-      <InitPageHeader/>
+      <InitPageHeader />
 
       <div className={styles.sections}>
         <div className={styles.section}>
@@ -95,9 +95,7 @@ export const HelpGroupSettings = () => {
         <div className={mainHelpStyles.ctaTextRow}>
           <div className={mainHelpStyles.ctaText}>
             <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
-            <p>
-            Попробуйте весь функционал в процессе использования и познай, насколько он удобен
-            </p>
+            <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
             <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
             <div className={mainHelpStyles.ctaImage}>
               <img src={ctaImage} alt="CTA-изображение" />

@@ -437,7 +437,7 @@ export const TariffPlansInfo: FC = () => {
             >
               {/* Иконка */}
               <img
-                src="/images/prizePersonal.png"
+                src="/images/prizePersonal-tariff.png"
                 alt="SprizePersonal"
                 style={{
                   position: 'absolute',
@@ -607,7 +607,7 @@ export const TariffPlansInfo: FC = () => {
                 textAlign: 'center',
               }}
             >
-              <img src="/images/cta-image.png" alt="cta-image.png" style={{ width: '478px', height: '330px', marginBottom: '16px' }} />
+              <img src="/images/cta-image-header.png" alt="cta-image-header.png" style={{ width: '478px', height: '330px', marginBottom: '16px' }} />
             </div>
           </div>
 

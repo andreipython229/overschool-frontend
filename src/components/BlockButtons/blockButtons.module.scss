@@ -80,7 +80,7 @@
     min-width: 36px;
     width: 100%;
     min-height: 36px;
-    // justify-content: center;
+    // justify-content: center;justify-content
 
     &_div {
       @include display(flex, row, center, center);

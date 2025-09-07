@@ -1,40 +1,40 @@
-import React, { FC, useState } from 'react';
-import styles from './chatgpt.module.scss';
-import { IconSvg } from 'components/common/IconSvg/IconSvg';
-import { crossIconPath } from 'config/commonSvgIconsPath';
+import React, { FC, useState } from 'react'
+import styles from './chatgpt.module.scss'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
+import { crossIconPath } from 'config/commonSvgIconsPath'
 
 interface ChatGPTProps {
-  isDialogOpen: boolean;
-  onClose: () => void;
+  isDialogOpen: boolean
+  onClose: () => void
 }
 
 export const ChatGPT: FC<ChatGPTProps> = ({ isDialogOpen, onClose }) => {
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([]);
+  const [message, setMessage] = useState('')
+  const [messages, setMessages] = useState<Array<{ text: string; isUser: boolean }>>([])
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      setMessages([...messages, { text: message, isUser: true }]);
-      setMessage('');
+      setMessages([...messages, { text: message, isUser: true }])
+      setMessage('')
       // Здесь будет логика отправки сообщения в API
     }
-  };
+  }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
+      e.preventDefault()
+      handleSendMessage()
     }
-  };
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     // Handle message submission
-    console.log('Message submitted:', message);
-    setMessage('');
-  };
+    console.log('Message submitted:', message)
+    setMessage('')
+  }
 
-  if (!isDialogOpen) return null;
+  if (!isDialogOpen) return null
 
   return (
     <div className={styles.overlay}>
@@ -58,7 +58,7 @@ export const ChatGPT: FC<ChatGPTProps> = ({ isDialogOpen, onClose }) => {
           <input
             type="text"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={e => setMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Type your message..."
             className={styles.input}
@@ -69,5 +69,5 @@ export const ChatGPT: FC<ChatGPTProps> = ({ isDialogOpen, onClose }) => {
         </form>
       </div>
     </div>
-  );
-}; 
+  )
+}

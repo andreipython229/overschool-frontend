@@ -70,17 +70,17 @@
         }
 
         // & input {
-        //   padding: 0 20px;
-        //   width: 40%;
-        //   height: 40px;
-        //   margin-bottom: 20px;
+        //   padding: 0 20px;padding
+        //   width: 40%;width
+        //   height: 40px;height
+        //   margin-bottom: 20px;margin-bottom
         //   @include font(500, 14px, 21px);
-        //   color: #494d55;
-        //   border-radius: 7px;
-        //   border: 1px solid #e0dced;
-        //   outline: none;
-        //   cursor: pointer;
-        //   text-overflow: ellipsis;
+        //   color: #494d55;color
+        //   border-radius: 7px;border-radius
+        //   border: 1px solid #e0dced;border
+        //   outline: none;outline
+        //   cursor: pointer;cursor
+        //   text-overflow: ellipsis;text-overflow
         // }
 
         &_navBlock {
@@ -88,7 +88,7 @@
           min-width: 36px;
           width: 100%;
           min-height: 36px;
-          // justify-content: center;
+          // justify-content: center;justify-content
 
           &_div {
             @include display(flex, row, center, center);

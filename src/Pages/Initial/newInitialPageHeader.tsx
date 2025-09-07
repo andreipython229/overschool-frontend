@@ -97,119 +97,123 @@ export const InitPageHeader: FC = memo(() => {
         </div>
 
         {isLogin ? (
-          <div className={styles.header_block}>
-            <div className={styles.header_block_menu}>
-              <div className={styles.header_block_menu_platforma}>
-                <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
-                <div className={styles.header_block_menu_platforma_content}>
-                  <Link to={generatePath(Path.Catalog)} className={styles.catalogLink}>
-                    <img src={hat} alt="hat" />
-                    <h5>Каталог</h5>
-                  </Link>
-                  <a href="https://coursehb.ru/dlya-nachinayushchih">
-                    <img src={hat} alt="hat" />
-                    <h5>Для начинающих экспертов</h5>
-                  </a>
-                  <a href="https://coursehb.ru/dlya-online-shkol">
-                    <img src={hat} alt="hat" />
-                    <h5>Для онлайн школ</h5>
-                  </a>
-                  <a href="https://coursehb.ru/dlya-obucheniya-personala">
-                    <img src={hat} alt="hat" />
-                    <h5>Для обучения персонала</h5>
-                  </a>
-                  <a href="https://coursehb.ru/vozmozhnosti">
-                    <img src={hat} alt="hat" />
-                    <h5>Возможности</h5>
-                  </a>
-                  <a href="https://coursehb.ru/otzyvy-platforma">
-                    <img src={hat} alt="hat" />
-                    <h5>Отзывы пользователей</h5>
-                  </a>
-                  <a href="https://coursehb.ru/partners-program">
-                    <img src={hat} alt="hat" />
-                    <h5>Партнёрская программа</h5>
-                  </a>
+          <div className={styles.newInitial_header_hiddenBlock}>
+            <div className={styles.header_block}>
+              <div className={styles.header_block_menu}>
+                <div className={styles.header_block_menu_platforma}>
+                  <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
+                  <div className={styles.header_block_menu_platforma_content}>
+                    <Link to={generatePath(Path.Catalog)} className={styles.catalogLink}>
+                      <img src={hat} alt="hat" />
+                      <h5>Каталог</h5>
+                    </Link>
+                    <a href="https://coursehb.ru/dlya-nachinayushchih">
+                      <img src={hat} alt="hat" />
+                      <h5>Для начинающих экспертов</h5>
+                    </a>
+                    <a href="https://coursehb.ru/dlya-online-shkol">
+                      <img src={hat} alt="hat" />
+                      <h5>Для онлайн школ</h5>
+                    </a>
+                    <a href="https://coursehb.ru/dlya-obucheniya-personala">
+                      <img src={hat} alt="hat" />
+                      <h5>Для обучения персонала</h5>
+                    </a>
+                    <a href="https://coursehb.ru/vozmozhnosti">
+                      <img src={hat} alt="hat" />
+                      <h5>Возможности</h5>
+                    </a>
+                    <a href="https://coursehb.ru/otzyvy-platforma">
+                      <img src={hat} alt="hat" />
+                      <h5>Отзывы пользователей</h5>
+                    </a>
+                    <a href="https://coursehb.ru/partners-program">
+                      <img src={hat} alt="hat" />
+                      <h5>Партнёрская программа</h5>
+                    </a>
+                  </div>
                 </div>
+                <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
+                <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
+                <Tooltip title={'Связаться с нами'}>
+                  <a target="_blank" href="https://t.me/course_hb" rel="noreferrer noopener" style={{ textDecoration: 'none' }}>
+                    <TelegramIcon className={styles.animatedIcon} sx={{ height: '30px', width: '32.56px', color: '#357EEB' }} />
+                  </a>
+                </Tooltip>
               </div>
-              <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
-              <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
-              <Tooltip title={'Связаться с нами'}>
-                <a target="_blank" href="https://t.me/course_hb" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                  <TelegramIcon className={styles.animatedIcon} sx={{ height: '30px', width: '32.56px', color: '#357EEB' }} />
-                </a>
+              <Button onClick={handlePlatformEntry} variant={'newLogInHeader'} text={'Ко входу на платформу'} />
+              <Tooltip title={'Выход из профиля'}>
+                <div className={styles.header_block_logOut}>
+                  <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
+                </div>
               </Tooltip>
             </div>
-            <Button onClick={handlePlatformEntry} variant={'newLogInHeader'} text={'Ко входу на платформу'} />
-            <Tooltip title={'Выход из профиля'}>
-              <div className={styles.header_block_logOut}>
-                <IconSvg width={26} height={26} viewBoxSize="0 0 26 25" path={logOutIconPath} functionOnClick={logOut} />
-              </div>
-            </Tooltip>
           </div>
         ) : (
-          <div className={styles.header_block}>
-            <div className={styles.header_block_menu}>
-              <div className={styles.header_block_menu_platforma}>
-                <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
-                <div className={styles.header_block_menu_platforma_content}>
-                  <Link to={generatePath(Path.Catalog)} className={styles.catalogLink}>
-                    <img src={hat} alt="hat" />
-                    <h5>Каталог</h5>
-                  </Link>
-                  <a href="https://coursehb.ru/dlya-nachinayushchih">
-                    <img src={hat} alt="hat" />
-                    <h5>Для начинающих экспертов</h5>
-                  </a>
-                  <a href="https://coursehb.ru/dlya-online-shkol">
-                    <img src={hat} alt="hat" />
-                    <h5>Для онлайн школ</h5>
-                  </a>
-                  <a href="https://coursehb.ru/dlya-obucheniya-personala">
-                    <img src={hat} alt="hat" />
-                    <h5>Для обучения персонала</h5>
-                  </a>
-                  <a href="https://coursehb.ru/vozmozhnosti">
-                    <img src={hat} alt="hat" />
-                    <h5>Возможности</h5>
-                  </a>
-                  <a href="https://coursehb.ru/otzyvy-platforma">
-                    <img src={hat} alt="hat" />
-                    <h5>Отзывы пользователей</h5>
-                  </a>
-                  <a href="https://coursehb.ru/partners-program">
-                    <img src={hat} alt="hat" />
-                    <h5>Партнёрская программа</h5>
-                  </a>
+          <div className={styles.newInitial_header_hiddenBlock}>
+            <div className={styles.header_block}>
+              <div className={styles.header_block_menu}>
+                <div className={styles.header_block_menu_platforma}>
+                  <Button onClick={handleCatalog} variant={'newSecondaryHeader'} text={'Платформа'} />
+                  <div className={styles.header_block_menu_platforma_content}>
+                    <Link to={generatePath(Path.Catalog)} className={styles.catalogLink}>
+                      <img src={hat} alt="hat" />
+                      <h5>Каталог</h5>
+                    </Link>
+                    <a href="https://coursehb.ru/dlya-nachinayushchih">
+                      <img src={hat} alt="hat" />
+                      <h5>Для начинающих экспертов</h5>
+                    </a>
+                    <a href="https://coursehb.ru/dlya-online-shkol">
+                      <img src={hat} alt="hat" />
+                      <h5>Для онлайн школ</h5>
+                    </a>
+                    <a href="https://coursehb.ru/dlya-obucheniya-personala">
+                      <img src={hat} alt="hat" />
+                      <h5>Для обучения персонала</h5>
+                    </a>
+                    <a href="https://coursehb.ru/vozmozhnosti">
+                      <img src={hat} alt="hat" />
+                      <h5>Возможности</h5>
+                    </a>
+                    <a href="https://coursehb.ru/otzyvy-platforma">
+                      <img src={hat} alt="hat" />
+                      <h5>Отзывы пользователей</h5>
+                    </a>
+                    <a href="https://coursehb.ru/partners-program">
+                      <img src={hat} alt="hat" />
+                      <h5>Партнёрская программа</h5>
+                    </a>
+                  </div>
                 </div>
+                <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
+                <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
+                <Tooltip title={'Связаться с нами'}>
+                  <a target="_blank" href="https://t.me/coursehub_admin" rel="noreferrer noopener" style={{ textDecoration: 'none' }}>
+                    <TelegramIcon
+                      className={styles.animatedIcon}
+                      sx={{
+                        height: '24',
+                        width: '24',
+                        color: '#357EEB',
+                        marginRight: '0.5rem',
+                        '@media screen and (min-width: 800px) and (max-width: 1150px)': {
+                          marginRight: '-0.5rem',
+                        },
+                        '@media only screen and (min-width: 390px) and (max-width: 435px)': {
+                          marginRight: '-0.4rem',
+                          width: '14px',
+                        },
+                      }}
+                    />
+                  </a>
+                </Tooltip>
               </div>
-              <Button onClick={handleTariffPage} variant={'newSecondaryHeader'} text={'Тарифы'} />
-              <Button onClick={handleHelpPage} variant={'newSecondaryHeader'} text={'Помощь'} />
-              <Tooltip title={'Связаться с нами'}>
-                <a target="_blank" href="https://t.me/coursehub_admin" rel="noreferrer" style={{ textDecoration: 'none' }}>
-                  <TelegramIcon
-                    className={styles.animatedIcon}
-                    sx={{
-                      height: '24',
-                      width: '24',
-                      color: '#357EEB',
-                      marginRight: '0.5rem',
-                      '@media screen and (min-width: 800px) and (max-width: 1150px)': {
-                        marginRight: '-0.5rem',
-                      },
-                      '@media only screen and (min-width: 390px) and (max-width: 435px)': {
-                        marginRight: '-0.4rem',
-                        width: '14px',
-                      },
-                    }}
-                  />
-                </a>
-              </Tooltip>
+              <Button onClick={handleLoginPage} variant={'newLogInHeader'} text={'Войти'} />
+              <Button onClick={handleRegistrationUser} variant={'newCreateHeader'} text={'Создать платформу'}>
+                <img className={styles.header_block_plus} src={plus} alt="Plus" />
+              </Button>
             </div>
-            <Button onClick={handleLoginPage} variant={'newLogInHeader'} text={'Войти'} />
-            <Button onClick={handleRegistrationUser} variant={'newCreateHeader'} text={'Создать платформу'}>
-              <img className={styles.header_block_plus} src={plus} alt="Plus" />
-            </Button>
           </div>
         )}
       </div>

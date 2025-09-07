@@ -8,6 +8,7 @@ type registrationCredentials = {
   phone_number: string
   password: string
   password_confirmation: string
+  tariff: string
   utm_source: string
   utm_medium: string
   utm_campaign: string

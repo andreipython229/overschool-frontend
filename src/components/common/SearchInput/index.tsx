@@ -59,7 +59,7 @@ export const SearchInput: FC<ISearchInput> = ({ value, setValue }) => {
             </defs>
           </IconSvg>
         </Input>
-        <Button type="submit" variant='newPrimary' text="Применить" onClick={handleSearch} style={{ cursor: 'pointer' }} />
+        <Button type="submit" variant="newPrimary" text="Применить" onClick={handleSearch} style={{ cursor: 'pointer' }} />
       </form>
     </div>
   )

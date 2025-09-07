@@ -53,8 +53,8 @@ export const SchoolMeetings: FC = () => {
   }
 
   const handleGoToMain = () => {
-    navigate(`/school/${schoolName}/courses-stats/`);
-  };
+    navigate(`/school/${schoolName}/courses-stats/`)
+  }
 
   const renderMeetingLinks = () => {
     if (meetingsSuccess) {
@@ -112,27 +112,21 @@ export const SchoolMeetings: FC = () => {
   }
 
   const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+    setCurrentPage(pageNumber)
     window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-};
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
 
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.wrapper_actions_header}>
-        <Button
-          variant="newSecondary"
-          text="Автовебинары"
-          onClick={handleNavigateWebinars}
-        />
+        <Button variant="newSecondary" text="Автовебинары" onClick={handleNavigateWebinars} />
       </div>
       <div className={styles.meeting_header_text}>Видеоконференции</div>
       <div className={styles.wrapper_goBack}>
-        <button onClick={handleGoToMain}>
-          На главную
-        </button>
+        <button onClick={handleGoToMain}>На главную</button>
       </div>
       {isLogin && (
         <>
@@ -148,9 +142,9 @@ export const SchoolMeetings: FC = () => {
           <AddMeeting
             isOpen={showAddMeetingForm}
             onClose={() => setShowAddMeetingForm(false)}
-            onAdd={(meetingData) => {
+            onAdd={meetingData => {
               // Здесь будет логика добавления встречи
-              setShowAddMeetingForm(false);
+              setShowAddMeetingForm(false)
             }}
             setShowAddMeetingForm={setShowAddMeetingForm}
             showAddMeetingForm={showAddMeetingForm}

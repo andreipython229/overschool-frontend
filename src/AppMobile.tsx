@@ -3,7 +3,7 @@ import { useEffect, Suspense, lazy } from 'react'
 import { Path, FooterPath } from '@/enum/pathE'
 import { useAppSelector } from '@/store/hooks'
 import { selectUser, authSelector, schoolNameSelector } from '@/selectors'
-import { scrollToTop } from '@/utils/scrollToTop'
+import { useScrollToTop } from '@/utils/scrollToTop'
 import { navByRolesConfig } from '@/config'
 import { RoleE } from '@/enum/roleE'
 import { useSelector } from 'react-redux'
@@ -50,7 +50,6 @@ const CourseCatalogPage = lazy(() => import('@/Pages/CourseCatalog').then(module
 const CoureCatalogPreview = lazy(() => import('@/Pages/CourseCatalog/CoursePreview').then(module => ({ default: module.CoureCatalogPreview })))
 const LoginPage = lazy(() => import('@/Pages/Login/LoginPage').then(module => ({ default: module.LoginPage })))
 const SocialAuthPage = lazy(() => import('@/ServicePages/SocialAuthPage').then(module => ({ default: module.SocialAuthPage })))
-
 
 export const AppMobile = () => {
   const { role } = useAppSelector(selectUser)
@@ -127,7 +126,7 @@ export const AppMobile = () => {
     }
   }, [isLogin, schoolName, navigate])
 
-  scrollToTop()
+  useScrollToTop()
 
   return (
     <div className={styles.container}>

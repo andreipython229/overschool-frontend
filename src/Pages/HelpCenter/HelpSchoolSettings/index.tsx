@@ -1,10 +1,10 @@
 import { Button } from '@/components/common/Button/Button'
 import { Path } from '@/enum/pathE'
 import { generatePath, useNavigate } from 'react-router-dom'
-import { Footer } from "@/components/Footer/index";
-import { InitPageHeader } from "@/Pages/Initial/newInitialPageHeader";
-import styles from "../HelpPagesCommon.module.scss";
-import mainHelpStyles from "../HelpPage.module.scss";
+import { Footer } from '@/components/Footer/index'
+import { InitPageHeader } from '@/Pages/Initial/newInitialPageHeader'
+import styles from '../HelpPagesCommon.module.scss'
+import mainHelpStyles from '../HelpPage.module.scss'
 import { IconSvg } from '@/components/common/IconSvg/IconSvg'
 import { ArrowLeftIconPath } from '@/assets/Icons/svgIconPath'
 import platformSettings from "@/assets/img/help/Изображение для 'помощь_.png"
@@ -51,31 +51,33 @@ export const HelpSchoolSettings = () => {
               <h3 className={styles.section_title_text}>Шаги по созданию курса</h3>
             </div>
             <p className={styles.section_text}>{`В личном кабинете вашей школы выберите опцию "Создать курс".`}</p>
-            <p className={styles.section_text}>{`После  ввода названия курса он станет доступен для редактирования. Теперь вы  можете создать структуру курса, добавляя тематические модули и наполняя их занятиями. Следующим этапом станет добавление пользователей.`}</p>
+            <p
+              className={styles.section_text}
+            >{`После  ввода названия курса он станет доступен для редактирования. Теперь вы  можете создать структуру курса, добавляя тематические модули и наполняя их занятиями. Следующим этапом станет добавление пользователей.`}</p>
           </div>
           <div className={styles.img_part}>
-            <img
-              src={platformSettings}
-              alt="Окно входа"
-            />
+            <img src={platformSettings} alt="Окно входа" />
           </div>
         </div>
 
         <div className={styles.section}>
           <div className={styles.img_part}>
-            <img
-              src={platformSettings2}
-              alt="Кнопка входа"
-            />
+            <img src={platformSettings2} alt="Кнопка входа" />
           </div>
           <div className={styles.text_part}>
             <div className={styles.section_title}>
               <div className={styles.section_number}>2</div>
               <h3 className={styles.section_title_text}>Как создать занятие</h3>
             </div>
-            <p className={styles.section_text}>{`После создания модулей, добавьте в них занятия. Занятия могут быть трех типов: обычные, домашние задания и тесты.`}</p>
-            <p className={styles.section_text}>{`При создании занятия можно использовать текст, видео, изображения и код, а также прикреплять необходимые файлы.`}</p>
-            <p className={styles.section_text}>{`Для создания занятия-теста укажите название теста и требуемый процент  правильных ответов. Затем укажите вопросы и варианты ответов на них, которые могут быть представлены как текстом, так и картинками`}</p>
+            <p
+              className={styles.section_text}
+            >{`После создания модулей, добавьте в них занятия. Занятия могут быть трех типов: обычные, домашние задания и тесты.`}</p>
+            <p
+              className={styles.section_text}
+            >{`При создании занятия можно использовать текст, видео, изображения и код, а также прикреплять необходимые файлы.`}</p>
+            <p
+              className={styles.section_text}
+            >{`Для создания занятия-теста укажите название теста и требуемый процент  правильных ответов. Затем укажите вопросы и варианты ответов на них, которые могут быть представлены как текстом, так и картинками`}</p>
           </div>
         </div>
 
@@ -85,26 +87,24 @@ export const HelpSchoolSettings = () => {
               <div className={styles.section_number}>3</div>
               <h3 className={styles.section_title_text}>Как добавить пользователей</h3>
             </div>
-            <p className={styles.section_text}>{`Для добавления пользователей создайте требуемое количество групп, выберете  нужную вам группу и нажмите добавить пользователей. Заполните форму  данными пользователей и отправьте приглашение.`}</p>
-            <p className={styles.section_text}>{`Также для групп есть возможность добавления менторов. Для этого необходимо  выбрать менторов, доступных в вашей школе. Добавить менторов в школу  можно в настройках, в разделе "Сотрудники"`}</p>
+            <p
+              className={styles.section_text}
+            >{`Для добавления пользователей создайте требуемое количество групп, выберете  нужную вам группу и нажмите добавить пользователей. Заполните форму  данными пользователей и отправьте приглашение.`}</p>
+            <p
+              className={styles.section_text}
+            >{`Также для групп есть возможность добавления менторов. Для этого необходимо  выбрать менторов, доступных в вашей школе. Добавить менторов в школу  можно в настройках, в разделе "Сотрудники"`}</p>
           </div>
           <div className={styles.img_part}>
-            <img
-              src={platformSettings3}
-              alt="Окно входа"
-            />
+            <img src={platformSettings3} alt="Окно входа" />
           </div>
         </div>
-
       </div>
 
       <div className={mainHelpStyles.ctaBlock}>
         <div className={mainHelpStyles.ctaTextRow}>
           <div className={mainHelpStyles.ctaText}>
             <h2>Создайте свой проект на Course Hub прямо сейчас!</h2>
-            <p>
-            Попробуйте весь функционал в процессе использования и познай, насколько он удобен
-            </p>
+            <p>Попробуйте весь функционал в процессе использования и познай, насколько он удобен</p>
             <Button text="Попробовать бесплатно" variant="newLeaveRequest" onClick={handleRegistrationUser} />
             <div className={mainHelpStyles.ctaImage}>
               <img src={ctaImage} alt="CTA-изображение" />
@@ -115,6 +115,5 @@ export const HelpSchoolSettings = () => {
 
       <Footer />
     </div>
-
   )
 }

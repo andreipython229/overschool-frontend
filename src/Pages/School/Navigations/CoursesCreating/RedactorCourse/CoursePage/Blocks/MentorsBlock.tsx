@@ -1,11 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const MentorsBlock = () => {
-  return (
-      <div>
+  return <div></div>
+}
 
-      </div>
-  );
-};
-
-export default MentorsBlock;
+export default MentorsBlock

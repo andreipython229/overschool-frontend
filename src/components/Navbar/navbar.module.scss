@@ -1,5 +1,5 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 .navbar {
   position: fixed;
@@ -18,7 +18,6 @@
   box-shadow: 0px 0px 25px 0px #357eeb;
   backdrop-filter: blur(35px);
   transition: $trans-dur05 ease-in-out;
-
 
   &_show_btn {
     @include display(flex, column, space-between, center);
@@ -65,14 +64,14 @@
 
     // & div {
     //   @include display(flex, column, center, center);
-    //   width: 100%;
-    //   text-decoration: none;
-    //   height: $icon-size;
-    //   margin-bottom: 3px;
+    //   width: 100%;width
+    //   text-decoration: none;text-decoration
+    //   height: $icon-size;height
+    //   margin-bottom: 3px;margin-bottom
 
     //   svg {
-    //     height: 100%;
-    //     width: auto;
+    //     height: 100%;height
+    //     width: auto;width
     //   }
     // }
 
@@ -80,7 +79,6 @@
       color: #332f36;
     }
 
-    
     & span {
       text-decoration: none;
       cursor: pointer;
@@ -111,7 +109,7 @@
   &_setting_account {
     @include display(flex, column, space-between, center);
     width: 100%;
-    // cursor: pointer;
+    // cursor: pointer;cursor
     gap: 0.8vh;
     transition-duration: $trans-dur02;
     position: relative;
@@ -133,7 +131,6 @@
       display: none;
       height: 100px;
     }
-
 
     &_icon_container,
     &_setting_account {
@@ -160,8 +157,7 @@
         background-color: $color-blue;
         cursor: pointer;
         fill: $color-white;
-        image.png
-        svg path {
+        image.png svg path {
           fill: $color-white;
           stroke: $color-white;
         }
@@ -292,7 +288,6 @@
     margin: 0;
   }
 
-
   &_container {
     @include display(flex, column, center, center);
     transition-duration: $trans-dur02;
@@ -345,11 +340,7 @@
   }
 }
 
-
-
-@media screen and (max-width: 1023px),
-screen and (max-aspect-ratio: 1/1) {
-
+@media screen and (max-width: 1023px), screen and (max-aspect-ratio: 1/1) {
   .navbar {
     @include display(flex, row, space-between, center);
     @include position_b_l(fixed, 0, 0, 100);
@@ -360,7 +351,7 @@ screen and (max-aspect-ratio: 1/1) {
     border-radius: 0;
     padding: 9px;
     background: linear-gradient(90deg, #ffffff 0%, #f3f6fb 100%) !important;
-    
+
     &_show_btn {
       display: none;
     }
@@ -391,8 +382,6 @@ screen and (max-aspect-ratio: 1/1) {
       &:hover {
         background-color: $color-white;
 
-
-        
         div {
           svg {
             path {
@@ -668,24 +657,25 @@ screen and (max-aspect-ratio: 1/1) {
     left: 50% !important;
     transform: translateX(-50%) !important;
     transition: bottom 0.3s ease !important;
-    
+
     // Когда навбар не свернут, кнопка находится над ним
-    bottom: 70px !important; // Высота навбара
+    bottom: 70px !important;
+    bottom // Высота навбара
     
     &::before {
-      content: "" !important;
+      content: '' !important;
     }
-    
+
     svg {
       color: #ffffff !important;
       font-size: 24px !important;
     }
-    
+
     &:hover {
       background-color: #e64a19 !important;
     }
   }
-  
+
   // Когда навбар свернут, кнопка находится внизу экрана
   .collapsed {
     .toggleNavbarButton {
@@ -748,12 +738,12 @@ screen and (max-aspect-ratio: 1/1) {
   opacity: 0.8;
   font-size: 3.5em;
   padding: 0.15em;
-  
+
   // Вариант для иконки тех. поддержки
   &.techSupportIcon {
     margin-bottom: -0.5rem;
   }
-  
+
   // Вариант для иконки "Домой"
   &.homeIcon {
     padding: 0.1em;
@@ -764,7 +754,7 @@ screen and (max-aspect-ratio: 1/1) {
 .svgIcon {
   width: 50px;
   height: 50px;
-  
+
   // Стили для иконки выхода
   &.logoutIcon {
     width: 38px;

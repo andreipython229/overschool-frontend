@@ -47,7 +47,7 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
   )
 
   const handleDeleteAnswer = useCallback(() => {
-    deleteAnswer({answerId: String(answer?.answer_id), schoolName})
+    deleteAnswer({ answerId: String(answer?.answer_id), schoolName })
   }, [answer?.answer_id, deleteAnswer])
 
   const handleCheckboxChange = useCallback(
@@ -67,7 +67,7 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
   return (
     <div className={styles.wrapper} key={answer?.answer_id}>
       <div className={styles.answerOptionsBlock}>
-        <div className={children ? `${styles.answerOptionsBlock_inputWrapper} ${styles.children}`: styles.answerOptionsBlock_inputWrapper}>
+        <div className={children ? `${styles.answerOptionsBlock_inputWrapper} ${styles.children}` : styles.answerOptionsBlock_inputWrapper}>
           {children}
           <div>
             <Checkbox id={`${id}`} checked={isChecked} onChange={handleCheckboxChange} />
@@ -80,8 +80,8 @@ export const AnswerOption: FC<AnswerOptionT> = memo(({ children, id, answer }) =
                 placeholder={'Введите ответ'}
                 onChange={handleChangeAnswer}
               />
-           </div>
-          {/* <div className={styles.answerOptionsBlock_inputWrapper_comment}>
+            </div>
+            {/* <div className={styles.answerOptionsBlock_inputWrapper_comment}>
                         <IconSvg width={19} height={19} viewBoxSize="0 0 19 19" path={addCommentsIconPath}>
                             <line x1="7.97656" y1="6.00781" x2="11.9531" y2="6.00781" stroke="#D4D7DD"
                                   strokeLinecap="round"/>

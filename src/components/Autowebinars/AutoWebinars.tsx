@@ -12,7 +12,6 @@ import { AddIconPath } from '../../assets/Icons/svgIconPath'
 import { usePagination } from './hooks/usePagination'
 import { WebinarListWithPagination } from './components/WebinarListWithPagination'
 
-
 export const Webinars: FC = () => {
   const isLogin = useAppSelector(authSelector)
   const { schoolName } = useAppSelector(schoolSelector)
@@ -22,12 +21,7 @@ export const Webinars: FC = () => {
 
   const dispatch = useDispatch()
   const [itemsPerPage] = useState(3)
-  const {
-    currentPage,
-    totalPages,
-    currentItems,
-    paginate,
-  } = usePagination(webinarsData || [], itemsPerPage)
+  const { currentPage, totalPages, currentItems, paginate } = usePagination(webinarsData || [], itemsPerPage)
 
   const handleAddWebinarFormOpen = useCallback(() => {
     setShowAddWebinarForm(true)
@@ -40,11 +34,7 @@ export const Webinars: FC = () => {
   return (
     <div className={styles.wrapper_actions}>
       <div className={styles.wrapper_actions_header}>
-        <Button
-          variant="newSecondary"
-          text="Назад к видеоконференциям"
-          onClick={handleBackClick}
-        />
+        <Button variant="newSecondary" text="Назад к видеоконференциям" onClick={handleBackClick} />
       </div>
       <div className={styles.meeting_header_text}>Автовебинары</div>
       {isLogin && (
@@ -57,18 +47,12 @@ export const Webinars: FC = () => {
                 className={styles.generateMeetingButton}
                 onClick={handleAddWebinarFormOpen}
                 text="Добавить автовебинар"
-              >
-              </Button>
+              ></Button>
             </div>
           </div>
           <AddWebinar setShowAddWebinarForm={setShowAddWebinarForm} showAddWebinarForm={showAddWebinarForm}></AddWebinar>
           {webinarsSuccess && webinarsData && (
-            <WebinarListWithPagination
-              currentItems={currentItems}
-              totalPages={totalPages}
-              paginate={paginate}
-              currentPage={currentPage}
-            />
+            <WebinarListWithPagination currentItems={currentItems} totalPages={totalPages} paginate={paginate} currentPage={currentPage} />
           )}
           {webinarsSuccess && webinarsData?.length === 0 && (
             <div className={styles.meetings_empty_text_wrapper}>

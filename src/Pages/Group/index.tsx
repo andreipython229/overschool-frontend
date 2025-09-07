@@ -16,7 +16,7 @@ export const Group: FC = () => {
 
   return (
     <div>
-        {/* убрал, потому что заглушка, нужно переделать */}
+      {/* убрал, потому что заглушка, нужно переделать */}
       {/*<StatisticHeader handleHideStats={handleHideStats} hideStats={hideStats} />*/}
       {/*{hideStats && (*/}
       {/*  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>*/}

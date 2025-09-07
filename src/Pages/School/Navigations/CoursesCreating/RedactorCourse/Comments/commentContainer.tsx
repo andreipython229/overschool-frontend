@@ -22,10 +22,7 @@ const ITEMS_ON_PAGE_COUNT = 8
 export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, courseId, error, setError }) => {
   const { schoolName } = useAppSelector(schoolSelector)
   const { data, isFetching } = useFetchLessonQuery(
-    { id: +lessonIdAndType.id,
-      type: lessonIdAndType.type,
-      schoolName,
-      courseId },
+    { id: +lessonIdAndType.id, type: lessonIdAndType.type, schoolName, courseId },
     { refetchOnMountOrArgChange: true },
   )
   const [updateComments] = useUpdateCommentsMutation()
@@ -39,23 +36,22 @@ export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, co
   const [checkedCommentsArr, setCommentsArr] = useState<number[]>([])
 
   const handleCancelChanges = () => {
-      checkedCommentsArr.forEach((value: number) => {
+    checkedCommentsArr.forEach((value: number) => {
       setCommentsList((prevComments: CommentList | undefined) => {
         if (prevComments) {
-          const updatedComments = prevComments.comments.map((comment) => {
+          const updatedComments = prevComments.comments.map(comment => {
             if (comment.id === value) {
-              return { ...comment, public: !comment.public };
+              return { ...comment, public: !comment.public }
             }
-            return comment;
-          });
-          return { comments: updatedComments };
+            return comment
+          })
+          return { comments: updatedComments }
         }
-        return prevComments;
-      });
-     })
-      checkedCommentsArr.splice(0);
-}
-
+        return prevComments
+      })
+    })
+    checkedCommentsArr.splice(0)
+  }
 
   const toggleCommentPublic = (commentId: number) => {
     checkedCommentsArr.push(commentId)
@@ -80,7 +76,7 @@ export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, co
   }
 
   const handleSaveChanges = async () => {
-    checkedCommentsArr.splice(0);
+    checkedCommentsArr.splice(0)
     try {
       if (commentsList?.comments && Object.keys(commentsList.comments).length > 0) {
         const commentsToUpdate: Record<number, boolean> = {}
@@ -88,18 +84,22 @@ export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, co
           commentsToUpdate[comment.id] = comment.public
         })
         if (lessonIdAndType) {
-          await updateComments({ schoolName: schoolName, lesson_id: Number(lessonIdAndType.baseLessonId), comments: commentsToUpdate, course_id: Number(courseId) });
+          await updateComments({
+            schoolName: schoolName,
+            lesson_id: Number(lessonIdAndType.baseLessonId),
+            comments: commentsToUpdate,
+            course_id: Number(courseId),
+          })
         } else {
-          showErrorForSevenSeconds(`Не удалось получить идентификатор курса`);
+          showErrorForSevenSeconds(`Не удалось получить идентификатор курса`)
         }
       } else {
-        showErrorForSevenSeconds(`Нет комментариев для обновления`);
+        showErrorForSevenSeconds(`Нет комментариев для обновления`)
       }
     } catch (error) {
-      showErrorForSevenSeconds(`Ошибка при обновлении комментариев: ${error}`);
+      showErrorForSevenSeconds(`Ошибка при обновлении комментариев: ${error}`)
     }
   }
-
 
   const showErrorForSevenSeconds = (errorMessage: string) => {
     setError(errorMessage)
@@ -192,9 +192,7 @@ export const CommentContainer: FC<ICommentRightContent> = ({ lessonIdAndType, co
                         <td>
                           <div className={styles.centeredContent}>
                             <label className={`${styles.publicLabel} ${styles.centeredCheckbox}`}>
-                              <NewCheckbox name={'isComment'}
-                                           checked={comment.public}
-                                           onChange={() => toggleCommentPublic(comment.id)} />
+                              <NewCheckbox name={'isComment'} checked={comment.public} onChange={() => toggleCommentPublic(comment.id)} />
                             </label>
                           </div>
                         </td>

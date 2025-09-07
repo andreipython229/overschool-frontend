@@ -11,21 +11,9 @@ type ModalCheckAppealProps = {
   onReject: () => void
 }
 
-export const ModalCheckAppeal: FC<ModalCheckAppealProps> = ({
-  isOpen,
-  onClose,
-  appeal,
-  onApprove,
-  onReject
-}) => {
+export const ModalCheckAppeal: FC<ModalCheckAppealProps> = ({ isOpen, onClose, appeal, onApprove, onReject }) => {
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title="Проверка апелляции"
-      variant="gradient"
-      width="600px"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title="Проверка апелляции" variant="gradient" width="600px">
       <div className={styles.content}>
         <div className={styles.section}>
           <h3>Информация об апелляции</h3>

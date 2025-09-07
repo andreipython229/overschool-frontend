@@ -5,4 +5,3 @@ export const headerUserRoleName: { [key: string]: string } = {
   [RoleE.Student]: 'Пользователь',
   [RoleE.Teacher]: 'Помощник',
 }
-

@@ -23,7 +23,8 @@ export const StudentTestPreview: FC<StudentTestPreviewT> = ({ passStatus, setTes
                 Количество вопросов: <span style={{ color: '#357EEB' }}>{lesson.questions.length}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '353px' }}>
-                Время выполнения: <span style={{ color: '#357EEB' }}>{lesson.has_timer ? convertSecondsToTime(lesson.time_limit) : 'не ограничено'}</span>
+                Время выполнения:{' '}
+                <span style={{ color: '#357EEB' }}>{lesson.has_timer ? convertSecondsToTime(lesson.time_limit) : 'не ограничено'}</span>
               </div>
               <Button text={nameButton} variant="newPrimary" className={styles.button} style={{ width: '259px' }} onClick={setShow} />
             </div>

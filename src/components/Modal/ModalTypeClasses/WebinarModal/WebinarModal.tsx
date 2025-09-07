@@ -78,16 +78,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
             <div className={styles.tasks_credit}>
               <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
               <div className={styles.tasks_credit_select}>
-                <SelectInput 
-                  optionsList={arrNumber}
-                  defaultOption="Выберите число"
-                  setSelectedValue={(value) => console.log(value)}
-                />
-                <SelectInput 
-                  optionsList={arrTime}
-                  defaultOption="Выберите единицу"
-                  setSelectedValue={(value) => console.log(value)}
-                />
+                <SelectInput optionsList={arrNumber} defaultOption="Выберите число" setSelectedValue={value => console.log(value)} />
+                <SelectInput optionsList={arrTime} defaultOption="Выберите единицу" setSelectedValue={value => console.log(value)} />
               </div>
               <span className={styles.tasks_credit_desc}>до начала</span>
             </div>
@@ -104,16 +96,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
               <div className={styles.tasks_credit}>
                 <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
                 <div className={styles.tasks_credit_select}>
-                  <SelectInput 
-                    optionsList={arrNumber}
-                    defaultOption="Выберите число"
-                    setSelectedValue={(value) => console.log(value)}
-                  />
-                  <SelectInput 
-                    optionsList={arrTime}
-                    defaultOption="Выберите единицу"
-                    setSelectedValue={(value) => console.log(value)}
-                  />
+                  <SelectInput optionsList={arrNumber} defaultOption="Выберите число" setSelectedValue={value => console.log(value)} />
+                  <SelectInput optionsList={arrTime} defaultOption="Выберите единицу" setSelectedValue={value => console.log(value)} />
                 </div>
                 <span className={styles.tasks_credit_desc}>до начала</span>
               </div>
@@ -134,16 +118,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
             <div className={styles.tasks_credit}>
               <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
               <div className={styles.tasks_credit_select}>
-                <SelectInput 
-                  optionsList={arrNumber}
-                  defaultOption="Выберите число"
-                  setSelectedValue={(value) => console.log(value)}
-                />
-                <SelectInput 
-                  optionsList={arrTime}
-                  defaultOption="Выберите единицу"
-                  setSelectedValue={(value) => console.log(value)}
-                />
+                <SelectInput optionsList={arrNumber} defaultOption="Выберите число" setSelectedValue={value => console.log(value)} />
+                <SelectInput optionsList={arrTime} defaultOption="Выберите единицу" setSelectedValue={value => console.log(value)} />
               </div>
               <span className={styles.tasks_credit_desc}>до начала</span>
             </div>
@@ -160,16 +136,8 @@ export const WebinarModal: FC<WebinarModalPropsT> = ({ setType }) => {
               <div className={styles.tasks_credit}>
                 <span className={styles.tasks_credit_desc}>Напомнить о вебинаре за</span>
                 <div className={styles.tasks_credit_select}>
-                  <SelectInput 
-                    optionsList={arrNumber}
-                    defaultOption="Выберите число"
-                    setSelectedValue={(value) => console.log(value)}
-                  />
-                  <SelectInput 
-                    optionsList={arrTime}
-                    defaultOption="Выберите единицу"
-                    setSelectedValue={(value) => console.log(value)}
-                  />
+                  <SelectInput optionsList={arrNumber} defaultOption="Выберите число" setSelectedValue={value => console.log(value)} />
+                  <SelectInput optionsList={arrTime} defaultOption="Выберите единицу" setSelectedValue={value => console.log(value)} />
                 </div>
                 <span className={styles.tasks_credit_desc}>до начала</span>
               </div>

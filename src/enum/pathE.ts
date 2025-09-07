@@ -5,9 +5,9 @@ declare global {
 }
 
 export type PathParams = {
-  school_name: string;
-  course_id?: string;
-  school_namecourses?: string;
+  school_name: string
+  course_id?: string
+  school_namecourses?: string
 }
 
 export enum Path {

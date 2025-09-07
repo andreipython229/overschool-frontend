@@ -177,36 +177,37 @@ export const Navbar: FC<NavbarProps> = memo(({ onToggleChat }) => {
         )}
         <div className={styles.navbar_setting_account}>
           <div className={styles.navbar_setting_account_mob_empty}></div>
-          {navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
-            path !== 'doNotPath' ? (
-              <NavLink
-                key={index}
-                to={path}
-                className={({ isActive }) =>
-                  `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`
-                }
-              >
-                <div>{icon}</div>
-                <p>{getPathLabel(path as Path)}</p>
-                <div className={styles.mobile_active_indicator}></div>
-              </NavLink>
-            ) : (
-              <a className={styles.chatIcon_container} key={index + '_' + path} onClick={off}>
-                <div className={styles.chatIcon}>
-                  {/* className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`}  */}
-                  {Number(unRead) > 0 ? (
-                    <Badge badgeContent={unRead} color="error">
+          {navlinkByRoles[UserRole] &&
+            navlinkByRoles[UserRole].map(({ path, icon }, index: number) =>
+              path !== 'doNotPath' ? (
+                <NavLink
+                  key={index}
+                  to={path}
+                  className={({ isActive }) =>
+                    `${styles.navbar_setting_account_icon_container} ${isActive ? styles.navbar_setting_account_icon_container_active : ''}`
+                  }
+                >
+                  <div>{icon}</div>
+                  <p>{getPathLabel(path as Path)}</p>
+                  <div className={styles.mobile_active_indicator}></div>
+                </NavLink>
+              ) : (
+                <a className={styles.chatIcon_container} key={index + '_' + path} onClick={off}>
+                  <div className={styles.chatIcon}>
+                    {/* className={`${styles.chatIcon} ${isChatOpen ? styles.chatIcon_active : ''}`}  */}
+                    {Number(unRead) > 0 ? (
+                      <Badge badgeContent={unRead} color="error">
+                        <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
+                      </Badge>
+                    ) : (
                       <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
-                    </Badge>
-                  ) : (
-                    <IconSvg width={50} height={50} viewBoxSize="0 0 50 50" path={chatIconPath} />
-                  )}
-                </div>
-                <p>Чат</p>
-                <div className={styles.mobile_active_indicator}></div>
-              </a>
-            ),
-          )}
+                    )}
+                  </div>
+                  <p>Чат</p>
+                  <div className={styles.mobile_active_indicator}></div>
+                </a>
+              ),
+            )}
 
           <a
             className={styles.tg_container}

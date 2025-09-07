@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './certificate.module.scss';
+import React from 'react'
+import styles from './certificate.module.scss'
 
 const Certificate: React.FC = () => {
   return (
@@ -21,7 +21,8 @@ const Certificate: React.FC = () => {
           <div className={styles.certificateName}>NAME AND SURNAME</div>
           <div className={styles.certificateLine} />
           <div className={styles.certificateDesc}>
-            Has successfully complemented <b>UX/UI design</b> course. During the training, studied design theory, went from project idea to implementation, learned how to design a landing page, an online, a mobile application.
+            Has successfully complemented <b>UX/UI design</b> course. During the training, studied design theory, went from project idea to
+            implementation, learned how to design a landing page, an online, a mobile application.
           </div>
           <div className={styles.certificateFooterRow}>
             <div className={styles.certificateFooterLeft}>
@@ -49,7 +50,7 @@ const Certificate: React.FC = () => {
         <img src="/images/certificate/pencils.png" alt="Pencils" className={styles.pencilsImg} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Certificate; 
+export default Certificate

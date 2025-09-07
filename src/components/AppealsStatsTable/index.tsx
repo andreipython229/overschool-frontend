@@ -13,28 +13,28 @@ type appealStatsTableT = {
   isLoading: boolean
   refetchTable: () => void
 }
-type appealStatKeys = keyof appealStatT;
+type appealStatKeys = keyof appealStatT
 
 export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading, refetchTable }) => {
-  const [isSorted, setIsSorted] = useState(false);
-  const [sortProp, setSortProp] = useState<appealStatKeys>('email');
+  const [isSorted, setIsSorted] = useState(false)
+  const [sortProp, setSortProp] = useState<appealStatKeys>('email')
 
   const sortedData = useSortDataByProp(appeals?.results as appealStatT[], sortProp, isSorted)
 
   const handleChangeProp = useCallback(() => {
-    setSortProp('email');
-    setIsSorted(prop => !prop);
+    setSortProp('email')
+    setIsSorted(prop => !prop)
   }, [])
 
   const handleSortByDate = useCallback(() => {
-    setSortProp('created_at');
-    setIsSorted(prop => !prop);
-  }, []);
+    setSortProp('created_at')
+    setIsSorted(prop => !prop)
+  }, [])
 
   const handleSortByStatus = useCallback(() => {
-    setSortProp('is_read');
-    setIsSorted(prop => !prop);
-  }, []);
+    setSortProp('is_read')
+    setIsSorted(prop => !prop)
+  }, [])
 
   return (
     <div className={styles.wrapper}>
@@ -51,10 +51,10 @@ export const AppealsStatsTable: FC<appealStatsTableT> = ({ appeals, isLoading, r
         {sortedData?.length ? (
           <>
             <thead className={styles.table_head}>
-              <HomeworksStatsTableHeader 
+              <HomeworksStatsTableHeader
                 handleChangeProp={handleChangeProp}
                 handleSortByDate={handleSortByDate}
-                handleSortByStatus={handleSortByStatus} 
+                handleSortByStatus={handleSortByStatus}
               />
             </thead>
             <tbody className={styles.table_body}>

@@ -8,7 +8,7 @@ export const userTestService = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['testResults', 'userTest'],
   endpoints: build => ({
-    sendTestResults: build.mutation<any, {body: any, schoolName: string}>({
+    sendTestResults: build.mutation<any, { body: any; schoolName: string }>({
       query: ({ body, schoolName }) => {
         return {
           url: `${schoolName}/usertest/`,

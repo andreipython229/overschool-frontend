@@ -168,20 +168,14 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                 isOpenEye
                   ? `${styles.redactorCourse_leftSide_desc_headerText_title} ${styles.openEye}`
                   : !showLessons
-                  ? styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test
-                  : `${styles.redactorCourse_leftSide_desc_headerText_title} ${styles.showLessons}`
+                    ? styles.redactorCourse_leftSide_desc_headerText_title + ' ' + stylesModules.test
+                    : `${styles.redactorCourse_leftSide_desc_headerText_title} ${styles.showLessons}`
               }
             >
               <div className={styles.redactorCourse_leftSide_desc_wrapper}>
                 <span className={styles.redactorCourse_leftSide_desc_lessonWrapper_btn_drag_and_drop_module + ' ' + stylesModules.btn}>
                   <IconSvg
-                    className={
-                      isOpenEye
-                        ? styles.doBlockIcon
-                        : !showLessons
-                        ? styles.doBlockIcon
-                        : `${styles.doBlockIcon} ${stylesModules.btn}`
-                    }
+                    className={isOpenEye ? styles.doBlockIcon : !showLessons ? styles.doBlockIcon : `${styles.doBlockIcon} ${stylesModules.btn}`}
                     width={24}
                     height={24}
                     viewBoxSize={'0 0 24 24'}
@@ -206,8 +200,8 @@ export const ModulesBlock: FC<ModulesBlockT> = memo(
                     isOpenEye
                       ? `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input} ${styles.openEye}`
                       : !showLessons
-                      ? `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input}`
-                      : `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input} ${styles.showLessonsInput}`
+                        ? `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input}`
+                        : `${styles.redactorCourse_leftSide_desc_headerText_inputWrapper_input} ${styles.showLessonsInput}`
                   }
                 />
               </div>

@@ -7,11 +7,10 @@ import { StudentAccardion } from '../../components/StudentAccardion/StudentAccar
 
 import styles from './CourseModules.module.scss'
 
-
 export const CourseModules: FC = () => {
   const schoolName = window.location.href.split('/')[4]
   const { course_id: courseId } = useParams()
-  const { data: modules } = useFetchModulesQuery({id: courseId as string, schoolName})
+  const { data: modules } = useFetchModulesQuery({ id: courseId as string, schoolName })
 
   return (
     <div className={styles.container}>

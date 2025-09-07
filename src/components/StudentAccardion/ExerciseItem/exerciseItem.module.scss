@@ -66,8 +66,8 @@
     padding: 0;
     gap: 4px;
     //&:hover {
-    //  background-color: #b4cffc;
-    //  transform: scale(1.05);
+    //  background-color: #b4cffc;background-color
+    //  transform: scale(1.05);transform
     //}
     &_imageDiv {
       //@include display(flex, row, space-between, center);
@@ -106,8 +106,8 @@
         @media only screen and (min-width: 375px) and (max-width: 480px) {
           margin: 0;
         }
-        // text-align: left;
-        // vertical-align: middle;
+        // text-align: left;text-align
+        // vertical-align: middle;vertical-align
         overflow: hidden;
         white-space: nowrap;
         display: inline-block;

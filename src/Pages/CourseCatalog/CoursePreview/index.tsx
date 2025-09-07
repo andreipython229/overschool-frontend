@@ -39,13 +39,7 @@ type CoursePreviewProps = {
 
 export const CoursePreview: FC<CoursePreviewProps> = ({ isOpen, onClose, course }) => {
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={course?.name || 'Предпросмотр курса'}
-      variant="gradient"
-      width="800px"
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title={course?.name || 'Предпросмотр курса'} variant="gradient" width="800px">
       <div className={styles.content}>
         {course?.description && (
           <div className={styles.section}>
@@ -90,20 +84,18 @@ export const CoureCatalogPreview: FC = () => {
   useEffect(() => {
     if (params && params.courseId) {
       fetchLanding(Number(params.courseId))
-          .then(response => {
-            console.log('API response:', response)
-          })
-          .catch(err => {
-            console.error('API error:', err)
-          })
+        .then(response => {
+          console.log('API response:', response)
+          if (response.data) {
+            console.log('f_landing before dispatch:', response.data)
+            dispatch(changeBlocks(response.data))
+          }
+        })
+        .catch(err => {
+          console.error('API error:', err)
+        })
     }
   }, [params])
-
-  useEffect(() => {
-    if (f_landing) {
-      dispatch(changeBlocks(f_landing))
-    }
-  }, [f_landing])
 
   const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -216,11 +208,13 @@ export const CoureCatalogPreview: FC = () => {
             ) : (
               <>
                 <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold', color: '#357EEB' }}>
-                  {`Заявка о поступлении на курс ${f_landing.header.name} успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной платформы`}
+                  {`Заявка о поступлении на курс ${
+                    f_landing.name || 'Java'
+                  } успешно отправлена, для получения дополнительной информации, Вы можете перейти по контактной ссылке данной платформы`}
                 </DialogTitle>
                 <DialogContent>
-                  <a href={f_landing.header.contact_link} target="_blank" rel="noreferrer">
-                    {f_landing.header.contact_link}
+                  <a href="#" target="_blank" rel="noreferrer">
+                    Связаться с менеджером
                   </a>
                 </DialogContent>
               </>

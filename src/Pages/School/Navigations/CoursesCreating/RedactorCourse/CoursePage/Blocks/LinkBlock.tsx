@@ -1,13 +1,12 @@
-import {useAppDispatch, useAppSelector} from "store/hooks"
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { Paper } from '@mui/material'
 import { Reorder, useDragControls } from 'framer-motion'
-import {LinkBlockRedactor} from "./LinkBlockRedactor";
+import { LinkBlockRedactor } from './LinkBlockRedactor'
 import { AddBox } from '@mui/icons-material'
 import { IconSvg } from 'components/common/IconSvg/IconSvg'
 import { doBlockIconPath } from 'components/Modal/SettingStudentTable/config/svgIconsPath'
 import styles from './styles/LinkBlock.module.scss'
-import {useState} from "react";
-
+import { useState } from 'react'
 
 export const LinkBlock: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -24,7 +23,7 @@ export const LinkBlock: React.FC = () => {
         <Paper elevation={3} className={styles.wrapper_redactorField_paper} sx={{ borderRadius: '8px', boxShadow: '0px 0px 8px 0px #3241954D' }}>
           <span className={styles.wrapper_redactorField_paper_title}>Блок ссылок:</span>
           {isEditorVisible ? (
-            <LinkBlockRedactor/>
+            <LinkBlockRedactor />
           ) : (
             <div className={styles.createButton} onClick={handleToggleEditor}>
               <AddBox sx={{ color: '#357EEB' }} />
@@ -33,6 +32,6 @@ export const LinkBlock: React.FC = () => {
           )}
         </Paper>
       </div>
-          </div>
+    </div>
   )
 }

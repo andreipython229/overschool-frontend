@@ -67,7 +67,7 @@ const questionsMaper = {
 
 export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
   const schoolName = window.location.href.split('/')[4]
-  const { data: questionsList } = useFetchQuestionsListQuery({id: testId, schoolName})
+  const { data: questionsList } = useFetchQuestionsListQuery({ id: testId, schoolName })
 
   const [typeQuestions, setTypeQuestions] = useState<keyof QuestionT>(null as keyof object)
 
@@ -135,7 +135,7 @@ export const AddQuestion: FC<AddQuestionT> = memo(({ testId }) => {
         <AddOptionsWithPictures setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
         <AddPicturesAndOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
         <AddTextOptions setTypeQuestions={setTypeQuestions} setQuestions={setQuestions} questions={questions} testId={testId} />
-          {/* <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
+        {/* <AddFreeForm setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
                       questions={questions} testId={testId}/>
           <AddNumericalTask setTypeQuestions={setTypeQuestions} setQuestions={setQuestions}
                            questions={questions} testId={testId}/> */}

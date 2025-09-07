@@ -7,7 +7,7 @@ type PortalT = {
   closeModal: () => void
 }
 
-export const Portal: FC<PortalT> = ({ closeModal, children}) => {
+export const Portal: FC<PortalT> = ({ closeModal, children }) => {
   const createOverlay = () => {
     const div = document.createElement('div')
     div.setAttribute('class', styles.wrapper)
@@ -17,9 +17,9 @@ export const Portal: FC<PortalT> = ({ closeModal, children}) => {
   const [container] = useState(() => createOverlay())
 
   const clickMouseHandler = (event: MouseEvent) => {
-    const target = event?.target as HTMLElement;
+    const target = event?.target as HTMLElement
     if (target.classList.contains(styles.wrapper)) {
-      closeModal();
+      closeModal()
     }
   }
 
@@ -30,27 +30,27 @@ export const Portal: FC<PortalT> = ({ closeModal, children}) => {
   }
 
   const handleClick = (event: MouseEvent) => {
-    const target = event.target as HTMLElement;
-    const isCloseButton = target.closest(`.${styles.main_closed}`);
+    const target = event.target as HTMLElement
+    const isCloseButton = target.closest(`.${styles.main_closed}`)
     if (!isCloseButton) {
-      event.stopPropagation();
+      event.stopPropagation()
     }
-  };
+  }
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'
     document.body.appendChild(container)
     document.addEventListener('keydown', keydownHandler)
     document.addEventListener('dblclick', clickMouseHandler)
     document.body.setAttribute('class', styles.open_modal)
-    document.addEventListener("click", handleClick);
+    document.addEventListener('click', handleClick)
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'auto'
       document.body.removeChild(container)
       document.removeEventListener('dblclick', clickMouseHandler)
       document.removeEventListener('keydown', keydownHandler)
       document.body.removeAttribute('class')
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener('click', handleClick)
     }
   }, [])
 

@@ -82,7 +82,7 @@ export const useCreateLesson = ({
     const createLessonData: createLessonDataT = {
       name: nameLesson,
       section: section_id,
-      order: insertAfterOrder !== undefined ? insertAfterOrder + 1 : 1
+      order: insertAfterOrder !== undefined ? insertAfterOrder + 1 : 1,
     }
     if (description) {
       createLessonData['description'] = description
@@ -115,7 +115,7 @@ export const useCreateLesson = ({
       createLessonData['balls_per_answer'] = balls_per_answer
     }
 
-    await createLesson({arg: { createLessonData, type: typeLesson }, schoolName})
+    await createLesson({ arg: { createLessonData, type: typeLesson }, schoolName })
       .unwrap()
       .then(data => {
         const newLessonData = {
@@ -133,15 +133,15 @@ export const useCreateLesson = ({
         const moduleToUpdate = { ...newModulesList[moduleIndexToUpdate] }
         let updatedLessons = [...moduleToUpdate.lessons] // место куда добавить урок по order
         //находим order после которого вставлять
-        let insertIndex = updatedLessons.findIndex(lesson => lesson.order > (insertAfterOrder ?? - 1))
-        if(insertAfterOrder === undefined || insertIndex === -1) insertIndex = 0 //если order не найден, то урок вставляем в начало
-        updatedLessons.splice(insertIndex,0, newLessonData) //вставляем урок в нужное место
+        let insertIndex = updatedLessons.findIndex(lesson => lesson.order > (insertAfterOrder ?? -1))
+        if (insertAfterOrder === undefined || insertIndex === -1) insertIndex = 0 //если order не найден, то урок вставляем в начало
+        updatedLessons.splice(insertIndex, 0, newLessonData) //вставляем урок в нужное место
         updatedLessons = updatedLessons.map((lesson, index) => ({
           ...lesson,
           order: index + 1,
         }))
 
-        newModulesList[moduleIndexToUpdate] = {...moduleToUpdate, lessons: updatedLessons} //обновили модуль со списком урока
+        newModulesList[moduleIndexToUpdate] = { ...moduleToUpdate, lessons: updatedLessons } //обновили модуль со списком урока
         if (setModulesList) {
           setModulesList(newModulesList)
         }
@@ -152,7 +152,7 @@ export const useCreateLesson = ({
     if (isSuccess) {
       const type = typeLesson.slice(0, -1)
       console.log(data)
-      setLessonIdAndType({ id: data[`${type}_id`], type: type, baseLessonId: data?.baselesson_ptr_id})
+      setLessonIdAndType({ id: data[`${type}_id`], type: type, baseLessonId: data?.baselesson_ptr_id })
       setType(null as keyof object)
     }
   }, [isSuccess])

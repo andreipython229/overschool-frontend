@@ -64,6 +64,6 @@ export const tariffService = createApi({
   }),
 })
 
-export const { useFetchTariffPlanTableQuery } = tariffPlanService
+export const { useFetchTariffPlanTableQuery, useFetchPublicTariffPlanTableQuery } = tariffPlanService
 export const { useFetchCurrentTariffPlanQuery, useLazyFetchCurrentTariffPlanQuery } = tariffService
 export const { useFetchTariffPlanInfoQuery, useLazyFetchTariffPlanInfoQuery } = tariffPlan

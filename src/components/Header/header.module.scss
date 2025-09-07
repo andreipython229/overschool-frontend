@@ -1,15 +1,15 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 @font-face {
   font-family: 'SF Pro Display';
-  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 .header {
   width: 424px;
   max-width: min(70.84vw, 1360px);
   height: 80px;
-  // border: 3px solid #357eeb;
+  // border: 3px solid #357eeb;border
   border-radius: 30px;
   background: rgba(207, 226, 255, 0.2);
   backdrop-filter: blur(25px);
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  // padding: 0 64px;
+  // padding: 0 64px;padding
   position: fixed;
   left: 50%;
   top: 2rem;
@@ -103,7 +103,7 @@
 
 .header:hover {
   transition: all ease-in-out $trans-dur05;
-  // width: 85%;
+  // width: 85%;width
   width: 100%;
   background: rgba(207, 226, 255, 1);
   justify-content: space-between;
@@ -158,7 +158,7 @@
     gap: 1rem;
     opacity: 1;
     visibility: visible;
-    // margin-left: 1rem;
+    // margin-left: 1rem;margin-left
   }
 }
 
@@ -178,7 +178,7 @@
   @include font(500, 14px);
 }
 
-.textAreaBack{
+.textAreaBack {
   width: min(547px, 76.5vw);
   height: min(27.2vh, 42.66vw);
   max-height: 305px;
@@ -332,16 +332,16 @@
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: min(5.87px, 0.98vw);
-    background-color: #CFE2FF;
+    background-color: #cfe2ff;
     border-radius: min(4.2px, 0.7vw);
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #3170E7;
+    background-color: #3170e7;
     border-radius: min(4.2px, 0.7vw);
   }
   &::-webkit-scrollbar-thumb:hover {
-    background-color: #255BB2;
+    background-color: #255bb2;
   }
 }
 
@@ -351,7 +351,7 @@
   height: min(42px, 5.9vw);
 }
 
-.customButton{
+.customButton {
   font-size: clamp(14px, 2.24vw, 16px);
   font-family: 'SF Pro Display', sans-serif;
   font-weight: 500;
@@ -397,20 +397,20 @@
   max-height: 400px;
   overflow-y: auto;
   padding: 10px;
-  
+
   &::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 4px;
   }
-  
+
   &::-webkit-scrollbar-thumb {
-    background: #357EEB;
+    background: #357eeb;
     border-radius: 4px;
-    
+
     &:hover {
       background: #2d6cd9;
     }
@@ -462,7 +462,7 @@
   align-items: center;
   padding: 8px 16px;
   transition: background-color 0.2s;
-  
+
   &:hover {
     background-color: #f8f9fa;
   }
@@ -484,10 +484,11 @@
   color: #6c757d;
 }
 
-.folderCheckbox, .groupCheckbox {
-  color: #357EEB !important;
-  
+.folderCheckbox,
+.groupCheckbox {
+  color: #357eeb !important;
+
   &.Mui-checked {
-    color: #357EEB !important;
+    color: #357eeb !important;
   }
 }

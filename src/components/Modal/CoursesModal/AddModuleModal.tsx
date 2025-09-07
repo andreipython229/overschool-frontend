@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, FormEvent, useState} from 'react'
+import { ChangeEvent, FC, FormEvent, useState } from 'react'
 import { useCreateModulesMutation } from 'api/modulesServices'
 
 import { Input } from 'components/common/Input/Input/Input'
@@ -12,8 +12,14 @@ import { SimpleLoader } from 'components/Loaders/SimpleLoader/index'
 import styles from '../Modal.module.scss'
 import { penIconPath } from 'Pages/Settings/Main/iconComponents'
 
-export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, modulesList, insertAfterModuleOrder, setInsertAfterModuleOrder, setModulesList }) => {
-
+export const AddModuleModal: FC<AddModuleModalPropsT> = ({
+  setType,
+  courseId,
+  modulesList,
+  insertAfterModuleOrder,
+  setInsertAfterModuleOrder,
+  setModulesList,
+}) => {
   const [modulesName, setModulesMane] = useState<string>('')
   const schoolName = window.location.href.split('/')[4]
 
@@ -26,36 +32,33 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
 
   const handleCreateModules = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const lastSection = modulesList.length > 0 ? Math.max(...modulesList.map(module => module.section)) : 0;
-    const newSection = lastSection + 1;
-    const order = insertAfterModuleOrder !== undefined ? insertAfterModuleOrder + 1 : 1;
+    const lastSection = modulesList.length > 0 ? Math.max(...modulesList.map(module => module.section)) : 0
+    const newSection = lastSection + 1
+    const order = insertAfterModuleOrder !== undefined ? insertAfterModuleOrder + 1 : 1
     const newModules = {
       name: modulesName,
       section_name: modulesName,
       section: newSection,
       course: Number(courseId),
       order,
-      lessons: []
+      lessons: [],
     }
 
-    const formdata = formDataConverter(newModules) 
-    await createModules({arg: formdata, schoolName}).unwrap()
+    const formdata = formDataConverter(newModules)
+    await createModules({ arg: formdata, schoolName }).unwrap()
 
-    let updateModulesList = [...modulesList];
+    let updateModulesList = [...modulesList]
 
-    if(insertAfterModuleOrder !== undefined) {
-      updateModulesList = updateModulesList.map(module => 
-        module.order > insertAfterModuleOrder ? {...module, order: module.order + 1} : module
-      );
+    if (insertAfterModuleOrder !== undefined) {
+      updateModulesList = updateModulesList.map(module => (module.order > insertAfterModuleOrder ? { ...module, order: module.order + 1 } : module))
 
-      const insertIndex = updateModulesList.findIndex(module => module.order === insertAfterModuleOrder) + 1;
-      updateModulesList.splice(insertIndex, 0, newModules);
-    }
-    else {
-      updateModulesList = [newModules, ...updateModulesList.map(module => ({...module, order: module.order + 1}))];
+      const insertIndex = updateModulesList.findIndex(module => module.order === insertAfterModuleOrder) + 1
+      updateModulesList.splice(insertIndex, 0, newModules)
+    } else {
+      updateModulesList = [newModules, ...updateModulesList.map(module => ({ ...module, order: module.order + 1 }))]
     }
 
-    setModulesList(updateModulesList);
+    setModulesList(updateModulesList)
 
     setType(null as keyof object)
     setInsertAfterModuleOrder(null)
@@ -73,15 +76,15 @@ export const AddModuleModal: FC<AddModuleModalPropsT> = ({ setType, courseId, mo
       <div className={styles.module_title}>Создание модуля</div>
       <div className={styles.usually_input}>
         <Input
-          style={{ marginTop: '45px', marginBottom: '24px'}}
-          placeholder='Введите название модуля'
+          style={{ marginTop: '45px', marginBottom: '24px' }}
+          placeholder="Введите название модуля"
           name={'module'}
           value={modulesName}
           type={'text'}
           focus={true}
           onChange={handleInputNameModules}
         >
-        <IconSvg width={24} height={24} viewBoxSize='0 0 24 24' path={penIconPath}/>
+          <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
         </Input>
       </div>
       <div className={styles.module_button}>

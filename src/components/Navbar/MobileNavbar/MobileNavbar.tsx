@@ -27,7 +27,7 @@ const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
   const iconStyle = {
     display: 'inline-block', // Сохраняем инлайн поведение
     color: '#e0e0e0',
-  };
+  }
 
   return (
     <div style={iconStyle}>
@@ -38,22 +38,22 @@ const DarkIconWrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
               ...((child as React.ReactElement<{ style?: React.CSSProperties }>).props?.style ?? {}),
               color: '#e0e0e0',
               fill: '#e0e0e0',
-            }
-          });
+            },
+          })
         }
-        return child;
+        return child
       })}
     </div>
-  );
-};
+  )
+}
 
 interface IIsActive {
   isActive?: boolean
 }
 
 interface MobileNavbarProps {
-  isCollapsed?: boolean;
-  toggleCollapse?: () => void;
+  isCollapsed?: boolean
+  toggleCollapse?: () => void
 }
 
 export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, toggleCollapse }) => {
@@ -67,12 +67,12 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
 
   // Синхронизируем локальное состояние с пропсами
   useEffect(() => {
-    setLocalIsCollapsed(isCollapsed);
-  }, [isCollapsed]);
+    setLocalIsCollapsed(isCollapsed)
+  }, [isCollapsed])
 
   // Добавляем CSS для переопределения цветов всех SVG элементов в навбаре
   useEffect(() => {
-    const style = document.createElement('style');
+    const style = document.createElement('style')
     style.textContent = `
       .${styles.navbar_setting_account} svg,
       .${styles.navbar_setting_account} svg path,
@@ -82,17 +82,16 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
         stroke: #e0e0e0 !important;
         color: #e0e0e0 !important;
       }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+    `
+    document.head.appendChild(style)
 
+    return () => {
+      document.head.removeChild(style)
+    }
+  }, [])
 
   // Используем либо проп isCollapsed, либо локальное состояние
-  const effectiveIsCollapsed = toggleCollapse ? isCollapsed : localIsCollapsed;
+  const effectiveIsCollapsed = toggleCollapse ? isCollapsed : localIsCollapsed
 
   return (
     <>
@@ -104,12 +103,7 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
             {inviteLink && inviteLink.is_active && inviteLink.link && (
               <div className={styles.navIconContainer}>
                 <Tooltip title="Ссылка на программу заработка" arrow placement={'right'}>
-                  <a
-                    key={'invite-link'}
-                    href={inviteLink.link}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <a key={'invite-link'} href={inviteLink.link} target="_blank" rel="noreferrer">
                     <SvgIcon className={styles.navIcon} style={{ opacity: '0.8' }}>
                       <MonetizationOnIcon />
                     </SvgIcon>
@@ -128,9 +122,9 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                       </div>
                     ) : (
                       <div className={styles.navIconContainer}>
-                         <SvgIcon className={styles.navIcon} >
-                            <RedeemIcon />
-                         </SvgIcon>
+                        <SvgIcon className={styles.navIcon}>
+                          <RedeemIcon />
+                        </SvgIcon>
                       </div>
                     )}
                     <div style={{ fontSize: '0.7em', textAlign: 'center' }}>
@@ -150,10 +144,10 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
                       path === Path.Courses
                         ? 'Курсы'
                         : path === Path.CourseStats
-                        ? 'Ученики школы'
-                        : path === Path.HomeWork
-                        ? 'Домашние задания'
-                        : 'Настройки школы'
+                          ? 'Ученики школы'
+                          : path === Path.HomeWork
+                            ? 'Домашние задания'
+                            : 'Настройки школы'
                     }
                     key={index}
                     arrow
@@ -202,16 +196,11 @@ export const MobileNavbar: FC<MobileNavbarProps> = memo(({ isCollapsed = false, 
               </Tooltip>
             )} */}
 
-            {userRole === RoleE.Student && (
-              <React.Fragment>
-              </React.Fragment>
-            )}
-
-            
+            {userRole === RoleE.Student && <React.Fragment></React.Fragment>}
           </>
         )}
       </div>
-      
+
       {isChatOpen && (
         <Portal closeModal={on}>
           <Chat closeModal={on} />

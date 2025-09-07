@@ -26,7 +26,7 @@
         font-family: 'SF Pro Display', sans-serif;
         @include display(flex, row, space-between, center);
         width: 100%;
-        // height: 100px;
+        // height: 100px;height
         margin-top: 92px;
 
         @media (max-width: 744px) {
@@ -38,7 +38,7 @@
 
         // @media (max-width: 490px) {
 
-        //     margin-top: 50px;
+        //     margin-top: 50px;margin-top
         // }
 
         p {
@@ -112,7 +112,7 @@
         font-family: 'SF Pro Display', sans-serif;
         width: 100%;
         @include display(flex, row, space-between, flex-start);
-        // gap: 64px;
+        // gap: 64px;gap
         padding: 0 38px 0px 55px;
         margin-bottom: 92px;
 
@@ -248,7 +248,7 @@
 
         .text_part {
             @include display(flex, column, flex-start, flex-start);
-            // gap: 16px;
+            // gap: 16px;gap
             width: 51.5%;
             padding-right: 4.5%;
             font-family: 'SF Pro Text', sans-serif;

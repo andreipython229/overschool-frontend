@@ -52,7 +52,7 @@
       }
 
       &_showBtnWrapper_active > svg {
-        // fill: '#C6C6C6';
+        // fill: '#C6C6C6';fill
         transform: rotate(180deg);
         -webkit-transform: rotate(180deg);
         -moz-transform: rotate(180deg);
@@ -71,7 +71,7 @@
       }
 
       &_showBtnWrapper > svg {
-        // fill: '#4D5766';
+        // fill: '#4D5766';fill
         transform: rotate(0);
         -webkit-transform: rotate(0);
         -moz-transform: rotate(0);
@@ -213,11 +213,11 @@
           }
 
           //span {
-          //  display: block;
-          //  width: 20px;
-          //  height: 2px;
-          //  margin: 0 10px;
-          //  background-color: #9ca3af;
+          //  display: block;display
+          //  width: 20px;width
+          //  height: 2px;height
+          //  margin: 0 10px;margin
+          //  background-color: #9ca3af;background-color
           //}
         }
         &_exerciseSum {

@@ -11,7 +11,7 @@ import { Path } from '../enum/pathE'
 
 import styles from '../components/MainLayout/mainLayOut.module.scss'
 // import MobileChatGPT from '../components/ChatGPT'
-import  ChatGPT from '../components/ChatGPT'
+import ChatGPT from '../components/ChatGPT'
 import { useBoolean as useBooleanHook } from '../customHooks'
 import { useLazyFetchStudentsGroupQuery } from '../api/studentsGroupService'
 import { FooterMobile } from 'components/Footer/index_mobile'
@@ -23,8 +23,6 @@ import { motion } from 'framer-motion'
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-
-
 
 export const MobileLayOut: FC = memo(() => {
   const isLogin = useAppSelector(authSelector)
@@ -45,17 +43,17 @@ export const MobileLayOut: FC = memo(() => {
 
   // Функция для переключения состояния навбара
   const toggleNavbar = () => {
-    setIsNavbarCollapsed(prev => !prev);
+    setIsNavbarCollapsed(prev => !prev)
   }
 
   // Обработчики нажатия для эффекта кнопки
   const handleMouseDown = () => {
-    setIsButtonPressed(true);
-  };
+    setIsButtonPressed(true)
+  }
 
   const handleMouseUp = () => {
-    setIsButtonPressed(false);
-  };
+    setIsButtonPressed(false)
+  }
 
   useEffect(() => {
     if (userRole === 1) {
@@ -67,11 +65,11 @@ export const MobileLayOut: FC = memo(() => {
   useEffect(() => {
     if (userRole === 1 && allGroups && allGroups.results) {
       const hasOveraiLock = allGroups.results.some(group => group.group_settings && group.group_settings.overai_lock)
-      console.log('Checking overaiLock:', { 
-        userRole, 
-        hasGroups: !!allGroups, 
+      console.log('Checking overaiLock:', {
+        userRole,
+        hasGroups: !!allGroups,
         hasResults: !!allGroups?.results,
-        hasOveraiLock 
+        hasOveraiLock,
       })
       setOveraiLockExists(hasOveraiLock)
     }
@@ -90,7 +88,7 @@ export const MobileLayOut: FC = memo(() => {
       '/personal-data-processing',
       '/public-offer-agreement',
       '/pwa',
-      '/agreement'
+      '/agreement',
     ].some(path => currentPath.includes(path))
 
     if (!isLogin && !isInitialPage && !isLoggingOut && !isPublicRoute) {
@@ -99,7 +97,14 @@ export const MobileLayOut: FC = memo(() => {
   }, [isLogin, navigate])
 
   useEffect(() => {
-    const shouldShowChat = !!(userRole === 2 || userRole === 3 || userRole === 4 || userRole === 5 || userRole === 6 || (userRole === 1 && overaiLockExists))
+    const shouldShowChat = !!(
+      userRole === 2 ||
+      userRole === 3 ||
+      userRole === 4 ||
+      userRole === 5 ||
+      userRole === 6 ||
+      (userRole === 1 && overaiLockExists)
+    )
     console.log('Chat visibility check:', {
       userRole,
       overaiLockExists,
@@ -112,8 +117,8 @@ export const MobileLayOut: FC = memo(() => {
         isRole4: userRole === 4,
         isRole5: userRole === 5,
         isRole6: userRole === 6,
-        isRole1WithLock: userRole === 1 && overaiLockExists
-      }
+        isRole1WithLock: userRole === 1 && overaiLockExists,
+      },
     })
     setShowChat(shouldShowChat)
 
@@ -135,8 +140,8 @@ export const MobileLayOut: FC = memo(() => {
 
   // Адаптируем стиль для контента
   const mainStyle = {
-    paddingBottom: '40px'
-  };
+    paddingBottom: '40px',
+  }
 
   return (
     <motion.div
@@ -171,20 +176,16 @@ export const MobileLayOut: FC = memo(() => {
       <nav className={`${styles.mobileFooter} ${isNavbarCollapsed ? styles.collapsed : ''}`}>
         <MobileNavbar isCollapsed={isNavbarCollapsed} toggleCollapse={toggleNavbar} />
       </nav>
-      
+
       {/* Независимая кнопка-ярлык для переключения навбара, скрывается при открытом чате AI */}
-      <div 
+      <div
         onClick={toggleNavbar}
         className={`${styles.navbarToggleButton} ${isNavbarCollapsed ? styles.collapsed : styles.expanded} ${isButtonPressed ? styles.pressed : ''} ${showOverAI ? styles.hiddenButton : ''}`}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
       >
-        {isNavbarCollapsed ? (
-          <KeyboardArrowUpIcon />
-        ) : (
-          <KeyboardArrowDownIcon />
-        )}
+        {isNavbarCollapsed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
       </div>
     </motion.div>
   )

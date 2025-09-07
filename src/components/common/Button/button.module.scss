@@ -1,5 +1,5 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 @font-face {
   font-family: SFPROBold;
@@ -39,7 +39,7 @@
   transition: 0.3s ease-in;
   &:hover:not(:disabled) {
     color: #ffff;
-    background: #357EEB;
+    background: #357eeb;
   }
 }
 
@@ -54,15 +54,15 @@
     background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
   }
   @media only screen and (min-width: 320px) and (max-width: 375px) {
-    // margin: 0 auto;
+    // margin: 0 auto;margin
   }
   @media only screen and (min-width: 375px) and (max-width: 480px) {
-    // margin: 0 auto;
+    // margin: 0 auto;margin
   }
 }
 .secondary {
-  color: #357EEB;
-  background: #FFFFFF;
+  color: #357eeb;
+  background: #ffffff;
   padding: 13px;
   @include font(600, 18px);
   font-family: 'Inter', sans-serif;
@@ -77,7 +77,7 @@
     color: #fff;
     background: #ba75ff;
   }
- }
+}
 
 .disabled {
   color: #808080;
@@ -167,7 +167,7 @@
     flex-direction: row;
     width: 252px;
     height: 46px;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
@@ -189,7 +189,7 @@
     flex-direction: row;
     width: 18vw;
     height: 5vw;
-    background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+    background: linear-gradient(90deg, #0d28bb 0%, #357eeb 100%);
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
@@ -278,27 +278,27 @@
   }
 
   //   @media only screen and (min-width: 320px) and (max-width: 400px){
-  //     height: 32px;
-  //     width: 13px;
-  //     display: flex;
-  //     flex-direction: row;
-  //     flex-wrap: nowrap;
-  //     background: #cfe2ff;
-  //     align-items: center;
-  //     justify-content: space-evenly;
-  //     font-family: 'SFPRORegular';
+  //     height: 32px;height
+  //     width: 13px;width
+  //     display: flex;display
+  //     flex-direction: row;flex-direction
+  //     flex-wrap: nowrap;flex-wrap
+  //     background: #cfe2ff;background
+  //     align-items: center;align-items
+  //     justify-content: space-evenly;justify-content
+  //     font-family: 'SFPRORegular';font-family
   //     @include font(700, 11px, 5.09px);
-  //     border-radius: 10px;
-  //     letter-spacing: 0.02em;
-  //     color: #324195;
-  //     padding: 0px 0px 0px 0px;
-  //     margin-right: 0.5rem;
+  //     border-radius: 10px;border-radius
+  //     letter-spacing: 0.02em;letter-spacing
+  //     color: #324195;color
+  //     padding: 0px 0px 0px 0px;padding
+  //     margin-right: 0.5rem;margin-right
   //
   //
   //     &:hover {
   //     &:hover:not(:disabled) {
-  //       color: #ffffff;
-  //       background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);
+  //       color: #ffffff;color
+  //       background: linear-gradient(to right, #0d28bb 100%, #357eeb 100%);background
   //       }
   //     }
   //   }
@@ -329,18 +329,18 @@
 
 .newLeaveRequest {
   @media only screen and (min-width: 1150px) {
-    width: 444px;
-    height: 80px;
+    width: 300px;
+    height: 60px;
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
-    font-weight: 700;
-    font-size: 24px;
+    font-weight: 400;
+    font-size: 18px;
     padding: 11px 25px;
     background: transparent;
     background: #357eeb;
     border-radius: 20px;
-    line-height: 28.64px;
+    line-height: 22px;
     color: #ffffff;
 
     &:hover {
@@ -352,18 +352,18 @@
   }
 
   @media only screen and (min-width: 320px) and (max-width: 1150px) {
-    width: 30vw;
-    height: 5vw;
+    width: 25vw;
+    height: 4vw;
     align-items: center;
     justify-content: space-evenly;
     font-family: 'SFPRORegular';
-    font-weight: 700;
-    font-size: 1.6vw;
+    font-weight: 400;
+    font-size: 1.2vw;
     padding: 2vw 2vw;
     background: transparent;
     background: #357eeb;
     border-radius: 20px;
-    line-height: 1.5vw;
+    line-height: 1.2vw;
     color: #ffffff;
 
     &:hover {
@@ -417,7 +417,7 @@
     &:hover {
       &:hover:not(:disabled) {
         color: #ffffff;
-        background: #355eeb;
+        background: #357eeb;
       }
     }
   }
@@ -431,23 +431,23 @@
     &:hover {
       &:hover:not(:disabled) {
         color: #ffffff;
-        background: #355eeb;
+        background: #357eeb;
       }
     }
   }
 
   //   @media only screen and (min-width: 320px) and (max-width: 400px){
-  //     font-family: 'SFPRORegular';
+  //     font-family: 'SFPRORegular';font-family
   //     @include font(700, 10px, 19.09px);
-  //     padding: 0px 0px 0px 0px;
-  //     background: transparent;
-  //     color: #332f36;
+  //     padding: 0px 0px 0px 0px;padding
+  //     background: transparent;background
+  //     color: #332f36;color
   //
   //
   //     &:hover {
   //     &:hover:not(:disabled) {
-  //       color: #ffffff;
-  //       background: #355eeb;
+  //       color: #ffffff;color
+  //       background: #355eeb;background
   //       }
   //     }
   //   }
@@ -564,7 +564,7 @@
 
   @media only screen and (min-width: 1150px) {
     font-family: 'SFPRORegular';
-    width: 388px;
+    width: 302px;
     height: 54px;
     align-items: center;
     justify-content: space-evenly;
@@ -574,7 +574,8 @@
     color: #0d28bb;
     background: transparent;
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 10px;
+    padding: 16px 40px;
     margin-bottom: 1rem;
   }
 
@@ -664,7 +665,7 @@
     font-family: 'SFPRORegular';
     font-weight: 600;
     font-size: 1vw;
-    line-height: 0.3vw;
+    line-height: 1.2vw;
     color: #ffffff;
     background: transparent;
     background: #808080;

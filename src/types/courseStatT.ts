@@ -80,7 +80,7 @@ export type bannerStatInfoT = {
   unique_clicks: number
   startDate: string
   endDate: string
- click_details: ClickDetail[]
+  click_details: ClickDetail[]
 }
 
 export type ClickDetail = {

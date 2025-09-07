@@ -295,19 +295,9 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
         </div>
         {student?.group_name && headerUserRoleName[role] === 'Администратор' && (
           <div className={styles.button_container}>
-            <Button 
-              className={styles.student_button} 
-              text={`Переместить ученика в другую группу`} 
-              onClick={handleOpenMoveStudent} 
-            />
-            
-            <Modal
-              isOpen={openMoveStudent}
-              onClose={handleCloseMoveStudent}
-              title="Переместить студента"
-              variant="gradient"
-              width="500px"
-            >
+            <Button className={styles.student_button} text={`Переместить ученика в другую группу`} onClick={handleOpenMoveStudent} />
+
+            <Modal isOpen={openMoveStudent} onClose={handleCloseMoveStudent} title="Переместить студента" variant="gradient" width="500px">
               <div className={styles.modalContent}>
                 <p>Выберите группу, в которую хотите переместить студента:</p>
                 <Select
@@ -337,11 +327,7 @@ export const StudentInfoModal: FC<studentInfoModalT> = ({ student, closeModal, i
               </div>
             </Modal>
 
-            <Button 
-              className={styles.delete_button} 
-              text={`Удалить ученика из группы "${student?.group_name}"`} 
-              onClick={handleOpenAlert} 
-            />
+            <Button className={styles.delete_button} text={`Удалить ученика из группы "${student?.group_name}"`} onClick={handleOpenAlert} />
 
             <Modal
               isOpen={openAlert}

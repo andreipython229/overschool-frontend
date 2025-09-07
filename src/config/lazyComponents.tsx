@@ -71,4 +71,3 @@ export const Logs = lazy(() => import('../Pages/Settings/Logs/Logs').then(module
 export const AccessLogs = lazy(() => import('../Pages/AccessLogs/AccessLogs').then(module => ({ default: module.AccessLogs })))
 export const DecorPlatform = lazy(() => import('../Pages/Settings/DecorPlatform/DecorPlatform').then(module => ({ default: module.DecorPlatform })))
 export const PWA = lazy(() => import('../Pages/PWA/PWA').then(module => ({ default: module.PWA })))
-

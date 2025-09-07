@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import { useFormik } from 'formik'
 import { LoginParamsT, validateLogin } from '@/utils/validationLogin'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
@@ -25,6 +25,7 @@ import { BackgroundAnimation } from '@/components/BackgroundAnimation'
 import { clearUserProfile } from '@/store/redux/users/profileSlice'
 import { LogoHeader } from './LogoHeader'
 import { Back } from './Back'
+import { store } from '@/store/redux/store'
 
 export const LoginPage = () => {
   const DefaultDomains = ['localhost', 'overschool.by', 'sandbox.overschool.by']
@@ -53,27 +54,30 @@ export const LoginPage = () => {
   const [isHidden, setIsHidden] = useState(true)
   const currentDomain = window.location.hostname
 
-  const forgotPass = (event: any) => {
+  const authBaseUrl = useMemo(() => (process.env.PUBLIC_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'), [])
+
+  const forgotPass = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     setIsShown(!isShown)
     setIsHidden(!isHidden)
   }
 
-  const handleEmail = (event: any) => {
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value)
   }
 
-  const handleCode = (event: any) => {
+  const handleCode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCode(event.target.value)
   }
 
-  const handleNewPassword = (event: any) => {
+  const handleNewPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
   }
 
-  const handleNewPasswordC = (event: any) => {
+  const handleNewPasswordC = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordConfirmation(event.target.value)
   }
+
   const changeSecurityStatus = () => {
     setSecurity(!security)
   }
@@ -82,7 +86,7 @@ export const LoginPage = () => {
     if (authetificationState) {
       navigate(generatePath(Path.ChooseSchool))
     }
-  }, [authetificationState])
+  }, [authetificationState, navigate])
 
   const formik = useFormik({
     validate: values => validateLogin(values, authVariant),
@@ -91,24 +95,110 @@ export const LoginPage = () => {
       phone: '',
       password: '',
     },
-
     onSubmit: async () => {
       const { email, password, phone } = formik.values
       const user = { login: phone ? phone : email, password }
+
       try {
-        await attemptAccess(user)
-          .unwrap()
-          .then(data => {
-            dispatch(authState({ access: data.access, refresh: data.refresh }))
-            dispatch(id(data.user.id))
-            dispatch(userEmail(data.user.email))
-            localStorage.setItem('id', data.user.id.toString())
-          })
-      } catch {
-        console.log('smth went wrong')
+        console.log('=== BEFORE LOGIN API CALL ===')
+        console.log('Current Redux state:', store.getState())
+        console.log('Current authState:', store.getState().user.authState)
+        console.log('Current user object:', store.getState().user)
+        console.log('=== END BEFORE LOGIN ===')
+
+        console.log('LOGIN: Attempting login with:', user)
+
+        const result = await attemptAccess(user).unwrap()
+
+        console.log('LOGIN SUCCESS:', result)
+        console.log('LOGIN: Full result object:', result)
+        console.log('LOGIN: result type:', typeof result)
+
+        // Парсим JSON строку в объект
+        let parsedResult = result
+        if (typeof result === 'string') {
+          try {
+            parsedResult = JSON.parse(result)
+            console.log('LOGIN: Parsed result:', parsedResult)
+          } catch (error) {
+            console.error('LOGIN ERROR: Failed to parse JSON:', error)
+            return
+          }
+        }
+
+        console.log('LOGIN: parsedResult.access:', parsedResult.access)
+        console.log('LOGIN: parsedResult.refresh:', parsedResult.refresh)
+        console.log('LOGIN: parsedResult.user:', parsedResult.user)
+        console.log('LOGIN: parsedResult keys:', Object.keys(parsedResult))
+
+        // Проверяем, что parsedResult.user существует
+        if (!parsedResult.user) {
+          console.error('LOGIN ERROR: User object is missing:', parsedResult)
+          return
+        }
+
+        console.log('LOGIN: User object found:', parsedResult.user)
+        console.log('LOGIN: User ID type:', typeof parsedResult.user.id)
+        console.log('LOGIN: User ID value:', parsedResult.user.id)
+
+        // Проверяем, что parsedResult.user.id существует и валиден
+        if (parsedResult.user.id === undefined || parsedResult.user.id === null || parsedResult.user.id === '') {
+          console.error('LOGIN ERROR: User ID is missing or invalid:', parsedResult.user.id)
+          return
+        }
+
+        console.log('LOGIN: User data validation passed:', parsedResult.user)
+
+        // Проверяем токены перед dispatch
+        if (!parsedResult.access || !parsedResult.refresh) {
+          console.error('LOGIN ERROR: Tokens are missing!')
+          console.error('LOGIN ERROR: parsedResult.access:', parsedResult.access)
+          console.error('LOGIN ERROR: parsedResult.refresh:', parsedResult.refresh)
+          return
+        }
+
+        console.log('LOGIN: Tokens validation passed')
+        console.log('LOGIN: Access token:', parsedResult.access)
+        console.log('LOGIN: Refresh token:', parsedResult.refresh)
+
+        // Сохраняем токены в Redux
+        dispatch(authState({ access: parsedResult.access, refresh: parsedResult.refresh }))
+        dispatch(id(parsedResult.user.id))
+        dispatch(userEmail(parsedResult.user.email))
+        dispatch(auth(true))
+
+        // Сохраняем токены в localStorage
+        localStorage.setItem('access_token', parsedResult.access)
+        localStorage.setItem('refresh_token', parsedResult.refresh)
+        localStorage.setItem('id', parsedResult.user.id.toString())
+        localStorage.setItem('email', parsedResult.user.email)
+
+        console.log('LOGIN: Tokens dispatched to Redux')
+        console.log('LOGIN: Tokens saved to localStorage')
+
+        // Проверим Redux store сразу после dispatch
+        console.log('LOGIN: Redux state immediately after dispatch:', store.getState())
+        console.log('LOGIN: authState after dispatch:', store.getState().user.authState)
+
+        // Проверим Redux store через небольшую задержку
+        setTimeout(() => {
+          console.log('LOGIN: Checking Redux store after 100ms...')
+          console.log('LOGIN: Redux state after 100ms:', store.getState())
+          console.log('LOGIN: authState after 100ms:', store.getState().user.authState)
+        }, 100)
+
+        // Проверим Redux store через большую задержку
+        setTimeout(() => {
+          console.log('LOGIN: Checking Redux store after 500ms...')
+          console.log('LOGIN: Redux state after 500ms:', store.getState())
+          console.log('LOGIN: authState after 500ms:', store.getState().user.authState)
+        }, 500)
+      } catch (error) {
+        console.log('LOGIN ERROR:', error)
       }
     },
   })
+
   const handleSchool = (school: SchoolT) => {
     dispatch(setSchoolName(school.name))
     dispatch(setSchoolId(school.school_id))
@@ -119,55 +209,62 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      getUserInfo()
-        .unwrap()
-        .then(resp => {
-          dispatch(auth(true))
-          dispatch(userName(resp[0]?.username))
-          // dispatch(id(resp[0]?.id))
-          if (DefaultDomains.includes(currentDomain)) {
-            navigate(generatePath(Path.ChooseSchool))
-          } else {
-            if (DomainSuccess && DomainData) {
-              const currentDomainData = DomainData.find(domain => domain.domain_name === currentDomain)
-              if (currentDomainData) {
-                const currentSchoolId = currentDomainData.school
-                dispatch(role(RoleE.Unknown))
-                getSchools()
-                  .unwrap()
-                  .then((data: SchoolT[]) => {
-                    const school = data.find(school => school.school_id === currentSchoolId)
-                    if (school) {
-                      handleSchool(school)
-                      navigate(Path.School + Path.Courses)
-                    }
-                  })
-                  .catch(err => {
-                    if (err.status === 401) {
-                      localStorage.clear()
-                      logout()
-                      dispatch(logoutState())
-                      dispatch(clearUserProfile())
-                      navigate(generatePath(Path.InitialPage))
-                    }
-                  })
-              } else {
-                console.error('No current domain data found.')
-              }
+      console.log('LOGIN SUCCESS - GETTING USER INFO')
+      console.log('LOGIN: Redux state before getUserInfo:', store.getState())
+      console.log('LOGIN: authState before getUserInfo:', store.getState().user.authState)
+
+      // Добавляем задержку для обновления Redux состояния
+      setTimeout(() => {
+        console.log('LOGIN: Delayed getUserInfo call - Redux state:', store.getState())
+        console.log('LOGIN: Delayed getUserInfo call - authState:', store.getState().user.authState)
+
+        getUserInfo()
+          .unwrap()
+          .then(resp => {
+            console.log('LOGIN: getUserInfo success:', resp)
+            dispatch(auth(true))
+            dispatch(userName(resp[0]?.username))
+
+            if (DefaultDomains.includes(currentDomain)) {
+              navigate(generatePath(Path.ChooseSchool))
             } else {
-              console.error('DomainData is not available.')
+              if (DomainSuccess && DomainData) {
+                const currentDomainData = DomainData.find(domain => domain.domain_name === currentDomain)
+                if (currentDomainData) {
+                  const currentSchoolId = currentDomainData.school
+                  dispatch(role(RoleE.Unknown))
+                  getSchools()
+                    .unwrap()
+                    .then((data: SchoolT[]) => {
+                      const school = data.find(school => school.school_id === currentSchoolId)
+                      if (school) {
+                        handleSchool(school)
+                        navigate(Path.School + Path.Courses)
+                      }
+                    })
+                    .catch(err => {
+                      if (err.status === 401) {
+                        localStorage.clear()
+                        logout()
+                        dispatch(logoutState())
+                        dispatch(clearUserProfile())
+                        navigate(generatePath(Path.InitialPage))
+                      }
+                    })
+                }
+              }
             }
-          }
-        })
-        .catch(() => console.log('Error fetching user data'))
+          })
+          .catch(error => {
+            console.log('Error fetching user data:', error)
+            console.log('LOGIN: Redux state after getUserInfo error:', store.getState())
+            console.log('LOGIN: authState after getUserInfo error:', store.getState().user.authState)
+          })
+      }, 100) // Задержка 100ms для обновления Redux состояния
     }
-  }, [isSuccess, isLoading])
+  }, [isSuccess, isLoading, DomainSuccess, DomainData, currentDomain, navigate, dispatch, getSchools, logout])
 
-  //   const handleClose = () => {
-  // //     setShowModal(false)
-  //   }
-
-  const submitformikforgot = async (event: any) => {
+  const submitformikforgot = async (event: React.FormEvent) => {
     event.preventDefault()
     const formdata = new FormData()
     formdata.append('email', email)
@@ -192,14 +289,14 @@ export const LoginPage = () => {
       })
   }
 
-  const submitCode = async (event: any) => {
+  const submitCode = async (event: React.FormEvent) => {
     event.preventDefault()
     const formdata = new FormData()
     formdata.append('email', email)
     formdata.append('token', code)
     await verifyCode(formdata)
       .unwrap()
-      .then(data => {
+      .then(() => {
         toast.current?.show({
           severity: 'success',
           summary: 'Успешно',
@@ -208,7 +305,7 @@ export const LoginPage = () => {
         })
         setStep(3)
       })
-      .catch(error => {
+      .catch(() => {
         toast.current?.show({
           severity: 'error',
           summary: 'Ошибка',
@@ -218,7 +315,7 @@ export const LoginPage = () => {
       })
   }
 
-  const submitNewPassword = async (event: any) => {
+  const submitNewPassword = async (event: React.FormEvent) => {
     event.preventDefault()
     if (password === passwordConfirmation && password.length !== 0) {
       const formdata = new FormData()
@@ -227,7 +324,7 @@ export const LoginPage = () => {
       formdata.append('new_password_again', passwordConfirmation)
       await resetPassword(formdata)
         .unwrap()
-        .then(data => {
+        .then(() => {
           toast.current?.show({
             severity: 'success',
             summary: 'Успех',
@@ -245,7 +342,6 @@ export const LoginPage = () => {
       <div className={styles.loginPage_btnBack}>
         <a href={Path.InitialPage}>
           <Back className={styles.back} />
-          {/*<img src={leftArrow} alt="leftArrow"/>*/}
         </a>
       </div>
       <div className={styles.loginPage_logoWrapper}>
@@ -257,7 +353,6 @@ export const LoginPage = () => {
             <p className={styles.loginPage_formWrapper_form_title}>Авторизация</p>
             <p className={styles.loginPage_formWrapper_form_title_comment}>Введите свои учетные данные</p>
             <div className={styles.loginPage_formWrapper_form_eMailWrapper}>
-              <p className={styles.loginPage_formWrapper_form_eMailWrapper_title}></p>
               <InputAuth
                 name={authVariant}
                 type={authVariant === 'email' ? 'email' : 'tel'}
@@ -266,11 +361,9 @@ export const LoginPage = () => {
                 placeholder={'Адрес электронной почты'}
                 error={error ? true : false}
               />
-              {/* <AuthSelect getInputVariant={getInputVariant}/> */}
               <div className={styles.errors}>{formik.errors.email || (error && 'Неверный логин или пароль')}</div>
             </div>
             <div className={styles.loginPage_formWrapper_form_passwordWrapper}>
-              <p className={styles.loginPage_formWrapper_form_passwordWrapper_title}></p>
               <InputAuth
                 name={'password'}
                 type={security ? 'password' : 'text'}
@@ -284,16 +377,6 @@ export const LoginPage = () => {
               <div className={styles.errors}>{formik.errors.password}</div>
             </div>
             <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
-              {/* <p>Нет Аккаунта?</p>
-              <div className={styles.btn} style={{ marginBottom: '10px' }}>
-                <Button
-                  onClick={handleRegistrationUser}
-                  type="submit"
-                  text={'Зарегистрироваться'}
-                  style={{ borderRadius: '10px' }}
-                  variant={'newLogInHeader'}
-                />
-              </div> */}
               <div className={styles.btn}>
                 <Button type="submit" text={'Вход'} style={{ borderRadius: '10px' }} variant={'newPrimary'} />
               </div>
@@ -308,23 +391,10 @@ export const LoginPage = () => {
                 <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_or_lineRight}></div>
               </div>
               <div className={styles.loginPage_formWrapper_form_btnCreateWrapper_socialMedia}>
-                <a
-                  href={`${
-                    import.meta.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
-                  }/accounts/google/login/`}
-                  className={styles.socialIcon}
-                  style={{ padding: '8px' }}
-                  title="Google"
-                >
+                <a href={`${authBaseUrl}/accounts/google/login/`} className={styles.socialIcon} style={{ padding: '8px' }} title="Google">
                   <img src={google} alt="google" style={{ objectFit: 'fill', width: '100%' }} />
                 </a>
-                <a
-                  href={`${
-                    import.meta.env.VITE_RUN_MODE === 'PRODUCTION' ? 'https://apidev.coursehb.ru' : 'http://sandbox.coursehb.ru'
-                  }/accounts/yandex/login/`}
-                  className={styles.socialIcon}
-                  title="Yandex"
-                >
+                <a href={`${authBaseUrl}/accounts/yandex/login/`} className={styles.socialIcon} style={{ padding: '8px' }} title="Yandex">
                   <img src={yandex} alt="yandex" style={{ objectFit: 'fill', width: '100%' }} />
                 </a>
               </div>
@@ -410,14 +480,16 @@ export const LoginPage = () => {
               <div className={styles.errors_forgot}>{errorReset && 'Пароли не совпадают'}</div>
             </div>
             <div className={styles.loginPage_formWrapper_form_btnCreateWrapper}>
-              <Button
-                onClick={submitNewPassword}
-                variant={(password.length === 0 || passwordConfirmation.length === 0) && password !== passwordConfirmation ? 'disabled' : 'primary'}
-                disabled={password.length === 0 || passwordConfirmation.length === 0 || password !== passwordConfirmation || resetLoading}
-                text={
-                  resetLoading ? <SimpleLoader style={{ position: 'relative', width: '95px', height: '25px' }} loaderColor="white" /> : 'Отправить'
-                }
-              />
+              <div className={styles.btn}>
+                <Button
+                  onClick={submitNewPassword}
+                  variant={(password.length === 0 || passwordConfirmation.length === 0) && password !== passwordConfirmation ? 'disabled' : 'primary'}
+                  disabled={password.length === 0 || passwordConfirmation.length === 0 || password !== passwordConfirmation || resetLoading}
+                  text={
+                    resetLoading ? <SimpleLoader style={{ position: 'relative', width: '95px', height: '25px' }} loaderColor="white" /> : 'Отправить'
+                  }
+                />
+              </div>
             </div>
             <div>
               <p className={styles.loginPage_formWrapper_form_btnCreateWrapper_help}>

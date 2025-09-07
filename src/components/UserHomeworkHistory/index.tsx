@@ -49,7 +49,7 @@ export const UserHomeworkHistory: FC<userHomeworkHistoryT> = ({ homework, today,
             <span>{currentDate.mmddyyyy === mmddyyyy ? hoursAndMinutes : `${mmddyyyy} ${hoursAndMinutes}`}</span>
           </div>
           <div style={{ maxWidth: '500px' }}>
-            <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {homework?.text_files.map((file, index) => (
                 <UploadedFile key={file.id} index={index} name={file.file_url} file={`${file.file}`} size={file.size} isHw />
               ))}

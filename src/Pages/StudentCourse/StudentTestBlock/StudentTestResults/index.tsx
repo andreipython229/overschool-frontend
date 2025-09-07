@@ -116,9 +116,7 @@ export const StudentTestResults: React.FC<TestResultProps> = ({
               <Button
                 text="Далее"
                 onClick={() =>
-                  navigate(
-                    `/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward.type}/${lessonForward.id}`
-                  )
+                  navigate(`/school/${school}/courses/student-course/${courseId}/module/${sectionId}/${lessonForward.type}/${lessonForward.id}`)
                 }
                 variant="newPrimary"
                 className={styles.button_complete}

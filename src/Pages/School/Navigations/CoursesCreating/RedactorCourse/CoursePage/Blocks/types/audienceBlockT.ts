@@ -1,18 +1,18 @@
 export interface CardPropsT {
-  position: number;
-  onDelete: () => void;
-  isFirst?: boolean; 
+  position: number
+  onDelete: () => void
+  isFirst?: boolean
 }
 
 export interface CardDataT {
-  id: number;
-  position: number;
-  photo: string;
-  title: string;
-  description: string;
+  id: number
+  position: number
+  photo: string
+  title: string
+  description: string
 }
 
 export interface AudienceBlockT {
-  description: string,
+  description: string
   chips: CardDataT[]
 }

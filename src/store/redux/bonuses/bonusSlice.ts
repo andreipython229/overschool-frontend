@@ -1,33 +1,32 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { BonusT } from 'types/bonusesT'
 
-
 interface StudentBonusState {
-  studentBonus: BonusT;
+  studentBonus: BonusT
 }
 
 const initialState: StudentBonusState = {
   studentBonus: {
-        id: 0,
-        student_groups: [],
-        logo: '',
-        link: '',
-        text: '',
-        active: false,
-        expire_date: new Date()
-    },
-};
+    id: 0,
+    student_groups: [],
+    logo: '',
+    link: '',
+    text: '',
+    active: false,
+    expire_date: new Date(),
+  },
+}
 
 export const bonusSlice = createSlice({
   name: 'bonuses',
   initialState,
   reducers: {
     setStudentBonus: (state, action: PayloadAction<BonusT>) => {
-      state.studentBonus = action.payload;
+      state.studentBonus = action.payload
     },
   },
-});
+})
 
-export const { setStudentBonus } = bonusSlice.actions;
+export const { setStudentBonus } = bonusSlice.actions
 
-export const bonusReducer = bonusSlice.reducer;
+export const bonusReducer = bonusSlice.reducer

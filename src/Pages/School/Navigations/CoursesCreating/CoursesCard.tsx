@@ -184,8 +184,8 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress, refetc
                           course?.public === 'О' && window.innerWidth > 500
                             ? '16px 40px'
                             : course?.public === 'О' && window.innerWidth <= 500
-                            ? '10px'
-                            : '0',
+                              ? '10px'
+                              : '0',
                       }}
                       className={stylesCard.CourseCardsTS__admin_button_students}
                       to={generatePath(Path.CreateCourse + 'student', {
@@ -217,7 +217,10 @@ export const CoursesCard: FC<courseCard> = ({ course, role, userProgress, refetc
           to={
             course?.public !== 'О' || (course.limit && typeof course.remaining_period === 'number' && course.remaining_period === 0)
               ? '#'
-              : generatePath(Path.School + '/' + Path.Courses + '/' + Student.Course, { school_name: schoolName, course_id: String(course.course_id) })
+              : generatePath(Path.School + '/' + Path.Courses + '/' + Student.Course, {
+                  school_name: schoolName,
+                  course_id: String(course.course_id),
+                })
           }
         >
           <div

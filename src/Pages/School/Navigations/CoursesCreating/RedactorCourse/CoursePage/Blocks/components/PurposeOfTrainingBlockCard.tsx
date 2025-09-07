@@ -1,17 +1,17 @@
-import React, {ChangeEvent, useState, useEffect} from 'react';
-import {CardPropsT} from "../types/audienceBlockT";
-import styles from "./purposeOfTrainingBlockCard.module.scss"
-import { TextareaAutosize, Avatar } from '@mui/material';
-import { DeleteForever } from "@mui/icons-material";
-import {useAppDispatch, useAppSelector} from "store/hooks";
-import { changeBlocks, addFile } from 'store/redux/landing/constructorSlice';
+import React, { ChangeEvent, useState, useEffect } from 'react'
+import { CardPropsT } from '../types/audienceBlockT'
+import styles from './purposeOfTrainingBlockCard.module.scss'
+import { TextareaAutosize, Avatar } from '@mui/material'
+import { DeleteForever } from '@mui/icons-material'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { changeBlocks, addFile } from 'store/redux/landing/constructorSlice'
 
 export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) => {
   const dispatch = useAppDispatch()
   const landing = useAppSelector(state => state.landing.blocks)
 
-  const [titleValue, setTitleValue] = useState<string>(landing.trainingPurpose.chips[position].title);
-  const [descriptionValue, setDescriptionValue] = useState<string>(landing.trainingPurpose.chips[position].description);
+  const [titleValue, setTitleValue] = useState<string>(landing.trainingPurpose.chips[position].title)
+  const [descriptionValue, setDescriptionValue] = useState<string>(landing.trainingPurpose.chips[position].description)
 
   const [cardImage, setCardImage] = useState<string>(landing.trainingPurpose.chips[position].photo)
   const [imgError, setImgError] = useState<string>('')
@@ -28,17 +28,19 @@ export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onD
           const url = URL.createObjectURL(files[0])
           setCardImage(url)
           // сохраняем файл в redux для последующей отправки в составе формы
-          dispatch(addFile({
-            key:`photo_trainingPurpose_${position}`,
-            file: files[0]
-          }))
+          dispatch(
+            addFile({
+              key: `photo_trainingPurpose_${position}`,
+              file: files[0],
+            }),
+          )
 
           // сохраняем временнную ссылку на файл в redux
-          const chips = landing.trainingPurpose.chips.map( item => {
-          if (item.position === position) {
-              return { ...item, photo: url };
+          const chips = landing.trainingPurpose.chips.map(item => {
+            if (item.position === position) {
+              return { ...item, photo: url }
             }
-            return item;
+            return item
           })
 
           // формируем новый объект Лендинга
@@ -46,10 +48,10 @@ export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onD
             ...landing,
             trainingPurpose: {
               ...landing.trainingPurpose,
-              chips: chips
-            }
+              chips: chips,
+            },
           }
-          dispatch(changeBlocks(lndng));
+          dispatch(changeBlocks(lndng))
         } else {
           setImgError('Размер файла не должен превышать 7 МБ')
         }
@@ -61,44 +63,44 @@ export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onD
   const handleChangeTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitleValue(event.target.value)
 
-    const chips = landing.trainingPurpose.chips.map( item => {
+    const chips = landing.trainingPurpose.chips.map(item => {
       if (item.position === position) {
-        return { ...item, title: event.target.value};
+        return { ...item, title: event.target.value }
       }
-      return item;
+      return item
     })
 
     const lndng = {
       ...landing,
       trainingPurpose: {
         ...landing.trainingPurpose,
-        chips: chips
-      }
+        chips: chips,
+      },
     }
 
-    dispatch(changeBlocks(lndng));
-  };
+    dispatch(changeBlocks(lndng))
+  }
 
   const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionValue(event.target.value)
 
-    const chips = landing.trainingPurpose.chips.map( item => {
+    const chips = landing.trainingPurpose.chips.map(item => {
       if (item.position === position) {
-        return { ...item, description: event.target.value};
+        return { ...item, description: event.target.value }
       }
-      return item;
+      return item
     })
 
     const lndng = {
       ...landing,
       trainingPurpose: {
         ...landing.trainingPurpose,
-        chips: chips
-      }
+        chips: chips,
+      },
     }
 
-    dispatch(changeBlocks(lndng));
-  };
+    dispatch(changeBlocks(lndng))
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -108,12 +110,7 @@ export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onD
           src={cardImage}
           sx={{width: 100, height: 100}}
         /> */}
-        <img 
-          src={cardImage}
-          alt={cardImage}
-          width={100}
-          height={100}
-        />
+        <img src={cardImage} alt={cardImage} width={100} height={100} />
         {imgError && <p className={styles.wrapper_imageBox_error}>{imgError}</p>}
       </div>
       {/* <div className={styles.wrapper_title}>
@@ -124,15 +121,11 @@ export const PurposeOfTrainingBlockCard: React.FC<CardPropsT> = ({ position, onD
         />
       </div> */}
       <div className={styles.wrapper_description}>
-        <TextareaAutosize
-          value={descriptionValue}
-          onChange={handleChangeDescription}
-          placeholder="Добавьте описание, если необходимо..."
-        />
+        <TextareaAutosize value={descriptionValue} onChange={handleChangeDescription} placeholder="Добавьте описание, если необходимо..." />
       </div>
       <button onClick={onDelete}>
-        <DeleteForever fontSize="medium"/>
+        <DeleteForever fontSize="medium" />
       </button>
     </div>
-  );
-};
+  )
+}

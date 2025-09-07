@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 
-import {Chats, ChatI, Messages, MessageI, PersonalChatI, PersonalChatForAdminOrTeacherI} from 'types/chatsT'
-import { baseQueryWithReauth } from './baseQueryReauth';
+import { Chats, ChatI, Messages, MessageI, PersonalChatI, PersonalChatForAdminOrTeacherI } from 'types/chatsT'
+import { baseQueryWithReauth } from './baseQueryReauth'
 
 export const chatsService = createApi({
   reducerPath: 'chatsService',
@@ -20,7 +20,7 @@ export const chatsService = createApi({
       query: id => `/chats/${id}/messages`,
       providesTags: ['chats'],
     }),
-    patchChat: build.mutation<void, { formdata: FormData;}>({
+    patchChat: build.mutation<void, { formdata: FormData }>({
       query: arg => {
         return {
           url: `/chats/${arg.formdata.get('chat_uuid')}/`,
@@ -41,7 +41,7 @@ export const chatsService = createApi({
           body: personalChat,
         }
       },
-      invalidatesTags:['chats']
+      invalidatesTags: ['chats'],
     }),
     createPersonalChatForAdminOrTeacher: build.mutation<ChatI, FormData>({
       query: personalChat => {
@@ -51,15 +51,16 @@ export const chatsService = createApi({
           body: personalChat,
         }
       },
-      invalidatesTags:['chats']
-    })
+      invalidatesTags: ['chats'],
+    }),
   }),
 })
 
 export const {
   useLazyFetchMessagesQuery,
   useFetchChatsQuery,
-  useLazyFetchChatQuery ,
+  useLazyFetchChatQuery,
   useCreatePersonalChatMutation,
   usePatchChatMutation,
-  useCreatePersonalChatForAdminOrTeacherMutation} = chatsService
+  useCreatePersonalChatForAdminOrTeacherMutation,
+} = chatsService

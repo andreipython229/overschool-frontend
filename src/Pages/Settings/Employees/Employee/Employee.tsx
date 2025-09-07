@@ -76,35 +76,35 @@ export const Employee: FC<EmployeePropsT> = memo(
             </div>
           </td>
 
-            <td className={styles.employee_user_role}>{userRoleName[role]}</td>
-            <td className={styles.employee_user_roleBtn}>
-              {role === 'Teacher' && (
-                <button className={styles.employee_user_roleBtn_btn} onClick={off}>
-                  Уч. группы
-                </button>
-              )}
-              {contact === 'admin@coursehub.ru' || contact === 'teacher@coursehub.ru' ? (
-                <button className={styles.employee_user_roleBtn_btn} disabled>
-                  <span style={{ color: 'red' }}>Роль постоянна</span>
-                </button>
-              ) : (
-                <button className={styles.employee_user_roleBtn_btn} onClick={handleAddRole}>
-                  Упр. ролями
-                </button>
-              )}
-            </td>
-            <td className={styles.employee_user_roleBtn}>
-              {userId === 154 || (userId !== 154 && contact !== 'admin@coursehub.ru' && contact !== 'teacher@coursehub.ru') ? (
-                <button className={styles.employee_user_roleBtn_btn} onClick={handleDeleteEmployee}>
-                  Удалить
-                </button>
-              ) : (
-                <button className={`${styles.employee_user_roleBtn_btn} ${styles.disabled}`} disabled>
-                  <span style={{ color: 'red' }}>Нельзя удалить</span>
-                </button>
-              )}
-            </td>
-          </tr>
+          <td className={styles.employee_user_role}>{userRoleName[role]}</td>
+          <td className={styles.employee_user_roleBtn}>
+            {role === 'Teacher' && (
+              <button className={styles.employee_user_roleBtn_btn} onClick={off}>
+                Уч. группы
+              </button>
+            )}
+            {contact === 'admin@coursehub.ru' || contact === 'teacher@coursehub.ru' ? (
+              <button className={styles.employee_user_roleBtn_btn} disabled>
+                <span style={{ color: 'red' }}>Роль постоянна</span>
+              </button>
+            ) : (
+              <button className={styles.employee_user_roleBtn_btn} onClick={handleAddRole}>
+                Упр. ролями
+              </button>
+            )}
+          </td>
+          <td className={styles.employee_user_roleBtn}>
+            {userId === 154 || (userId !== 154 && contact !== 'admin@coursehub.ru' && contact !== 'teacher@coursehub.ru') ? (
+              <button className={styles.employee_user_roleBtn_btn} onClick={handleDeleteEmployee}>
+                Удалить
+              </button>
+            ) : (
+              <button className={`${styles.employee_user_roleBtn_btn} ${styles.disabled}`} disabled>
+                <span style={{ color: 'red' }}>Нельзя удалить</span>
+              </button>
+            )}
+          </td>
+        </tr>
         {isModalOpen && (
           <Portal closeModal={on}>
             <ReviewTeacherGroups closeModal={on} name={name} email={contact} id={id} />

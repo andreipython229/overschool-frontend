@@ -42,7 +42,11 @@ export const Pagination: FC<paginationT> = memo(({ onPageChange, currentPage, pa
         </li>
         {paginationRange?.map(pageNumber => {
           if (pageNumber === DOTS) {
-            return <li key={"dots-" + Math.random()} className="pagination-item dots">&#8230;</li>
+            return (
+              <li key={'dots-' + Math.random()} className="pagination-item dots">
+                &#8230;
+              </li>
+            )
           }
 
           return (
@@ -53,7 +57,7 @@ export const Pagination: FC<paginationT> = memo(({ onPageChange, currentPage, pa
               })}
               onClick={() => typeof pageNumber === 'number' && onPageChange(pageNumber)}
             >
-            <span style={{textAlign: "center", width: "100%"}}>{pageNumber}</span>
+              <span style={{ textAlign: 'center', width: '100%' }}>{pageNumber}</span>
             </li>
           )
         })}

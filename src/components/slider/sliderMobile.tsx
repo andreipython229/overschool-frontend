@@ -44,7 +44,7 @@ export const Slider = () => {
 
   return (
     <>
-     {/*  <Swiper
+      {/*  <Swiper
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}

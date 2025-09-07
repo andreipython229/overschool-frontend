@@ -44,7 +44,7 @@
   font-size: 14px;
   color: #000000;
 ;
-  // table-layout: fixed;
+  // table-layout: fixed;table-layout
 
   @media only screen and (min-width : 320px) and (max-width : 375px) {
     margin-top: 0rem;
@@ -150,10 +150,10 @@
         vertical-align: middle;
         transition: background-color 0.4s;
           // @media only screen and (min-width : 320px) and (max-width : 375px) {
-          //   margin-right: -1.5rem;
+          //   margin-right: -1.5rem;margin-right
           // }
           // @media only screen and (min-width : 375px) and (max-width : 480px) {
-          //   margin-right: -1.5rem;
+          //   margin-right: -1.5rem;margin-right
           // }
 
         &:hover {

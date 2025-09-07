@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 import boxesImage from '../../Bonuses/assets/iconsPng/boxes.png'
-import prizeImage from '../../Bonuses/assets/image.png'
+import prizeImage from '../../Bonuses/assets/image-bonus.png'
 import boxImage from '../../Bonuses/assets/box.png'
 import styles from './bonuses.module.scss'
 import {

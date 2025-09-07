@@ -1,9 +1,9 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 @font-face {
   font-family: 'SFPRORegular';
-  src: url(../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format("opentype");
+  src: url(../../../../../assets/fonts/SFProText/SFProText-Regular.ttf) format('opentype');
 }
 
 .wrapper {
@@ -14,7 +14,6 @@
   align-items: center;
   gap: 10px;
   position: relative;
-
 
   &_imageBox {
     display: flex;
@@ -49,12 +48,12 @@
     flex-direction: column;
   }
 
-    &_title {
-        width: 100%;
-        display: flex;
-        justify-content: left;
-        position: relative;
-        margin-bottom: 15px;
+  &_title {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    position: relative;
+    margin-bottom: 15px;
 
     &_text {
       color: $color-darkblue;
@@ -99,7 +98,6 @@
         width: 80px;
         height: 80px;
       }
-
     }
 
     &_title {

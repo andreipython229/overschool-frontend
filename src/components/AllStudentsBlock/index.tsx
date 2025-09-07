@@ -107,10 +107,10 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
     }, [isOpen])
 
     useEffect(() => {
-          if (tableId) {
-            fetchTableHeader({ id: tableId, schoolName })
-          }
-        }, [tableId])
+      if (tableId) {
+        fetchTableHeader({ id: tableId, schoolName })
+      }
+    }, [tableId])
 
     let filteringCategoriesList: FilterItem[] = []
     switch (filterKey) {
@@ -179,7 +179,7 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             <IconSvg width={36} height={36} viewBoxSize="0 0 36 36" path={updateDataIcon} />
           </div>
           <div className={styles.svgSettingsWrapper}>
-            <IconSvg functionOnClick={isSettingsOn} width={30} height={30}  viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
+            <IconSvg functionOnClick={isSettingsOn} width={30} height={30} viewBoxSize={'0 0 16 15'} path={classesSettingIconPath} />
           </div>
           {invite && (
             <div className={styles.button_search_block_wButton}>
@@ -193,12 +193,14 @@ export const AllStudentsBlock: FC<AllStudentsBlockT> = memo(
             </div>
           )}
         </div>
-        {isOpen && <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} headerText={headerText}/>}</Portal>}
+        {isOpen && (
+          <Portal closeModal={on}>{courses && <AddStudentModal setShowModal={on} courses={courses?.results} headerText={headerText} />}</Portal>
+        )}
         {isSettingsOpen && (
-              <Portal closeModal={isSettingsOff}>
-                <SettingStudentTable setShowModal={onToggle} tableId={tableId} />
-              </Portal>
-          )}
+          <Portal closeModal={isSettingsOff}>
+            <SettingStudentTable setShowModal={onToggle} tableId={tableId} />
+          </Portal>
+        )}
       </div>
     )
   },

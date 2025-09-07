@@ -10,10 +10,10 @@ interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
 
-import {ScrollToTopButton} from "@/components/ScrollToTopButton/ScrollToTopButton";
+import { ScrollToTopButton } from '@/components/ScrollToTopButton/ScrollToTopButton'
 
-export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
-    // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
+export const Footer: FC<IFooter> = ({ schoolTariffPlan }) => {
+  // ******** НЕ ИСПОЛЬЗУЕТСЯ ЭТОТ ФУНКЦИОНАЛ ЗАКОММЕНТИРОВАЛ **********
 
   // const currentYear = new Date().getFullYear()
   // const { schoolId } = useAppSelector(schoolSelector)
@@ -27,25 +27,25 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
   // }, [data])
 
   // ****************************
-  const { school_name } = useParams<{ school_name?: string }>();
-  const defaultSchoolName = school_name || "Coursehub";
+  const { school_name } = useParams<{ school_name?: string }>()
+  const defaultSchoolName = school_name || 'Coursehub'
   const { schoolId } = useAppSelector(schoolSelector)
-  const { data } = useFetchSchoolQuery(Number(schoolId))
-  const offerUrl = data?.offer_url;
+  const { data } = useFetchSchoolQuery(schoolId || 0, { skip: !schoolId })
+  const offerUrl = data?.offer_url
 
-    return (
-        <footer className={styles.wrapper}>
-            <div className={styles.wrapper_img}>
-                <img src={footerlogo} alt="footerlogo"/>
-                <ScrollToTopButton/>
-            </div>
-            <div style={{width: '100%'}}>
-                <img src={line} alt="line" style={{width: '100%', objectFit: 'cover'}}/>
-            </div>
-            <div className={styles.wrapper_box}>
-                <div className={styles.wrapper_box_contact}>
-                    <h1>КОНТАКТЫ</h1>
-                    {/* ********* !!!!!!!!! ******** НЕ УДАЛЯТЬ ****** !!!!! ***** */}
+  return (
+    <footer className={styles.wrapper}>
+      <div className={styles.wrapper_img}>
+        <img src={footerlogo} alt="footerlogo" />
+        <ScrollToTopButton />
+      </div>
+      <div style={{ width: '100%' }}>
+        <img src={line} alt="line" style={{ width: '100%', objectFit: 'cover' }} />
+      </div>
+      <div className={styles.wrapper_box}>
+        <div className={styles.wrapper_box_contact}>
+          <h1>КОНТАКТЫ</h1>
+          {/* ********* !!!!!!!!! ******** НЕ УДАЛЯТЬ ****** !!!!! ***** */}
 
           {/* <div className={styles.wrapper_box_contact_pack}>
             <img src={callfooter} alt="callfooter" />
@@ -88,25 +88,33 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
           <h1>СОЦ.СЕТИ</h1>
           <a href="https://www.instagram.com/course___hub" target="_blank" rel="noopener noreferrer">
             <p>Instagram</p>
-          </a> 
+          </a>
           <p>Вконтакте</p>
-         <a href="https://t.me/coursehub_admin" target="_blank" rel="noreferrer">
+          <a href="https://t.me/coursehub_admin" target="_blank" rel="noreferrer">
             <p>Telegram</p>
           </a>
         </div>
         <div className={styles.wrapper_box_users}>
           <h1>ПОЛЬЗОВАТЕЛЯМ</h1>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.CookiePolicy}`}>
-            <p>Политика в отношении<br></br> обработки cookie</p>
+            <p>
+              Политика в отношении<br></br> обработки cookie
+            </p>
           </Link>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.PersonalDataTreatmentPolicy}`}>
-            <p>Политика обработки<br></br> персональных данных</p>
+            <p>
+              Политика обработки<br></br> персональных данных
+            </p>
           </Link>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.CookiePolicyDisclaimer}`}>
-            <p>Отказ в отношении<br></br> обработки cookie</p>
+            <p>
+              Отказ в отношении<br></br> обработки cookie
+            </p>
           </Link>
           <Link to={`/school/${defaultSchoolName}/${FooterPath.PersonalDataProcessing}`}>
-            <p>Отзыв согласия обработки<br></br> персональных данных</p>
+            <p>
+              Отзыв согласия обработки<br></br> персональных данных
+            </p>
           </Link>
           {offerUrl ? (
             <a href={offerUrl} target="_blank" rel="noopener noreferrer">
@@ -128,6 +136,3 @@ export const Footer: FC<IFooter> = ({schoolTariffPlan}) => {
     </footer>
   )
 }
-
-
-

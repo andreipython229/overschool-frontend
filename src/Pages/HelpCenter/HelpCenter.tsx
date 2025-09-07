@@ -5,14 +5,13 @@ import firstStep from '@/assets/img/createProject/firstStep.png'
 import secondStep from '@/assets/img/createProject/secondStep.png'
 import { headerUserRoleName } from '@/config/headerUserRoleName'
 import { useAppSelector } from '@/store/hooks'
-import {selectUser} from '@/selectors'
+import { selectUser } from '@/selectors'
 
 import styles from './HelpCenter.module.scss'
 
-
 export const HelpCenter = () => {
-  const {role} = useAppSelector(selectUser)
-  
+  const { role } = useAppSelector(selectUser)
+
   return (
     <section className={styles.HelpCenterPage}>
       <div className={styles.HelpCenterPage_pageHeader}>
@@ -93,7 +92,6 @@ export const HelpCenter = () => {
             </div>
           </div>
         )}
-
       </div>
       <div className={styles.HelpCenterPage_FAQ}>
         <h1>Часто задаваемые вопросы</h1>

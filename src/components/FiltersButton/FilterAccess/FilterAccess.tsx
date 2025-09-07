@@ -24,18 +24,8 @@ export const AccessFilter: FC<AccessFilterProps> = ({ filterKey }) => {
     <div className={styles.wrapper}>
       <p>Фильтровать студентов по наличию доступа</p>
       <div className={styles.filterButtonContainer}>
-        <Button
-          className={styles.filterButton}
-          text={'Доступ активен'}
-          variant="newPrimary"
-          onClick={() => handleAddFilter('true')}
-        />
-        <Button
-          className={styles.filterButton}
-          text={'Доступ неактивен'}
-          variant="newPrimary"
-          onClick={() => handleAddFilter('false')}
-        />
+        <Button className={styles.filterButton} text={'Доступ активен'} variant="newPrimary" onClick={() => handleAddFilter('true')} />
+        <Button className={styles.filterButton} text={'Доступ неактивен'} variant="newPrimary" onClick={() => handleAddFilter('false')} />
       </div>
     </div>
   )

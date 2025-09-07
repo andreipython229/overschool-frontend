@@ -37,12 +37,12 @@
       &_addContent {
         position: relative;
         @include display(flex, column, center, center);
-        // width: 50%;
+        // width: 50%;width
         width: 100%;
         background: #ffffff;
         text-align: center;
         height: 100%;
-        // border: 2px dashed #ebeef5;
+        // border: 2px dashed #ebeef5;border
         border-radius: 7px;
         margin: 1rem;
 

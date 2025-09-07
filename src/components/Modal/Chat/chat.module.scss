@@ -143,18 +143,18 @@
     }
 
     // &:nth-child(2) {
-    //   background: #e2f6f3;
-    //   color: #72c5b7;
+    //   background: #e2f6f3;background
+    //   color: #72c5b7;color
     // }
 
     // &:nth-child(3) {
-    //   background: #f9dcdc;
-    //   color: #d96b7d;
+    //   background: #f9dcdc;background
+    //   color: #d96b7d;color
     // }
 
     // &:nth-child(4) {
-    //   background: #f1e3f4;
-    //   color: #c97fcf;
+    //   background: #f1e3f4;background
+    //   color: #c97fcf;color
     // }
   }
 
@@ -171,7 +171,7 @@
     justify-content: space-between;
     min-width: 0;
     width: 100%;
-    // gap: 0.4rem;
+    // gap: 0.4rem;gap
     color: #332f36;
     font-size: 14px;
     padding: 10px 0;
@@ -309,7 +309,7 @@
   font-size: smaller;
   width: 40%;
   z-index: 10;
-  // min-width: 468px;
+  // min-width: 468px;min-width
   @media screen and (max-width: 1024px) {
     min-width: 100%;
     width: 100%;
@@ -380,7 +380,7 @@
     }
 
     background: #d3f2f8;
-    // color: #72b0bc;
+    // color: #72b0bc;color
 
     &_userName {
       @include display(flex, column);
@@ -436,18 +436,18 @@
       }
     }
     // &:nth-child(2) {
-    //   background: #e2f6f3;
-    //   color: #72c5b7;
+    //   background: #e2f6f3;background
+    //   color: #72c5b7;color
     // }
 
     // &:nth-child(3) {
-    //   background: #f9dcdc;
-    //   color: #d96b7d;
+    //   background: #f9dcdc;background
+    //   color: #d96b7d;color
     // }
 
     // &:nth-child(4) {
-    //   background: #f1e3f4;
-    //   color: #c97fcf;
+    //   background: #f1e3f4;background
+    //   color: #c97fcf;color
     // }
   }
 }
@@ -625,18 +625,18 @@
   transition: background-color 0.05s ease;
 
   // &:nth-child(2) {
-  //   background: #e2f6f3;
-  //   color: #72c5b7;
+  //   background: #e2f6f3;background
+  //   color: #72c5b7;color
   // }
 
   // &:nth-child(3) {
-  //   background: #f9dcdc;
-  //   color: #d96b7d;
+  //   background: #f9dcdc;background
+  //   color: #d96b7d;color
   // }
 
   // &:nth-child(4) {
-  //   background: #f1e3f4;
-  //   color: #c97fcf;
+  //   background: #f1e3f4;background
+  //   color: #c97fcf;color
   // }
 
   &_avatar {
@@ -676,7 +676,7 @@
   &_right {
     align-self: flex-end;
     justify-content: flex-end;
-    // flex-direction: row-reverse;
+    // flex-direction: row-reverse;flex-direction
   }
 
   &_content_left {
@@ -712,17 +712,17 @@
     background-color: #f3f3f5;
 
     // & > .chatMessage_textwrapper::after {
-    //   content: '';
-    //   border-style: solid;
-    //   border-color: transparent transparent #f3f3f5 transparent;
-    //   width: 0;
-    //   height: 0;
-    //   position: absolute;
-    //   bottom: 0;
-    //   border-width: 10px 0 0 10px;
-    //   background-color: #f3f3f5;
-    //   right: -10px;
-    //   left: auto;
+    //   content: '';content
+    //   border-style: solid;border-style
+    //   border-color: transparent transparent #f3f3f5 transparent;border-color
+    //   width: 0;width
+    //   height: 0;height
+    //   position: absolute;position
+    //   bottom: 0;bottom
+    //   border-width: 10px 0 0 10px;border-width
+    //   background-color: #f3f3f5;background-color
+    //   right: -10px;right
+    //   left: auto;left
     // }
   }
 
@@ -746,15 +746,15 @@
   }
 
   // & > .chatMessage_textwrapper::after {
-  //   content: '';
-  //   border-width: 0 0 10px 10px;
-  //   border-style: solid;
-  //   border-color: transparent transparent #f3f3f5 transparent;
-  //   width: 0;
-  //   height: 0;
-  //   position: absolute;
-  //   bottom: 0;
-  //   left: -10px;
+  //   content: '';content
+  //   border-width: 0 0 10px 10px;border-width
+  //   border-style: solid;border-style
+  //   border-color: transparent transparent #f3f3f5 transparent;border-color
+  //   width: 0;width
+  //   height: 0;height
+  //   position: absolute;position
+  //   bottom: 0;bottom
+  //   left: -10px;left
   // }
   //}
 
@@ -778,7 +778,6 @@
     font-size: 12px;
     text-align: right;
   }
-}
 
 .chatMessageSeparator {
   display: flex;
@@ -954,4 +953,5 @@
   input[type='file'] {
     display: none;
   }
+}
 }

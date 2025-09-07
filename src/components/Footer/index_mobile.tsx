@@ -6,9 +6,9 @@ import { useFetchSchoolQuery } from 'api/schoolService'
 import { useAppSelector } from 'store/hooks'
 import { schoolSelector } from '../../selectors'
 import styles from './footer_mobile.module.scss'
-import { FooterSection } from './FooterSection/FooterSection';
-import { mailIconPath, phoneIconPath } from 'config/commonSvgIconsPath';
-import { IconSvg } from 'components/common/IconSvg/IconSvg';
+import { FooterSection } from './FooterSection/FooterSection'
+import { mailIconPath, phoneIconPath } from 'config/commonSvgIconsPath'
+import { IconSvg } from 'components/common/IconSvg/IconSvg'
 interface IFooter {
   schoolTariffPlan?: (tariff: any) => void
 }
@@ -28,19 +28,23 @@ export const FooterMobile: FC<IFooter> = ({ schoolTariffPlan }) => {
   // }, [data])
 
   // ****************************
-  const { school_name } = useParams<{ school_name?: string }>();
-  const defaultSchoolName = school_name || "Coursehub";
+  const { school_name } = useParams<{ school_name?: string }>()
+  const defaultSchoolName = school_name || 'Coursehub'
   const { schoolId } = useAppSelector(schoolSelector)
-  const { data } = useFetchSchoolQuery(Number(schoolId))
-  const offerUrl = data?.offer_url;
+  const { data } = useFetchSchoolQuery(schoolId || 0, { skip: !schoolId })
+  const offerUrl = data?.offer_url
 
   return (
     <footer className={styles.wrapper}>
       <div className={styles.wrapper_box}>
         <FooterSection title="COURSEHUB">
           <p>Возможности</p>
-          <Link to={FooterPath.TariffPlans}><p>Тарифы</p></Link>
-          <Link to={FooterPath.HelpPage} style={{ marginBottom: '20px' }}><p>Помощь</p></Link>
+          <Link to={FooterPath.TariffPlans}>
+            <p>Тарифы</p>
+          </Link>
+          <Link to={FooterPath.HelpPage} style={{ marginBottom: '20px' }}>
+            <p>Помощь</p>
+          </Link>
         </FooterSection>
         <FooterSection title="СОЦ.СЕТИ">
           <p>Instagram</p>
@@ -101,7 +105,6 @@ export const FooterMobile: FC<IFooter> = ({ schoolTariffPlan }) => {
       <div style={{ width: '100%' }}>
         <p className={styles.footer_ptext}>© 2024, ООО &quot;Курсхаб&quot;. Все права защищены.</p>
       </div>
-
     </footer>
   )
 }

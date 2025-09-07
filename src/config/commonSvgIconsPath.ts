@@ -161,13 +161,13 @@ export const mailIconPath: pathT[] = [
 export const phoneIconPath = [{ d: phoneIcon, fill: '#357EEB' }]
 
 export const arrowLeftNewIconPath: pathT[] = [
-    { d: 'M32,0 A32,32 0 1,0 32,64 A32,32 0 1,0 32,0 Z', fill: '#CFE2FF', stroke: 'none',  },
-    { d: arrowLeftNewIcon, stroke: '#324195', strokeWidth: '3', strokeLinejoin: 'round', strokeLinecap: 'round', fill: 'none',  },
+  { d: 'M32,0 A32,32 0 1,0 32,64 A32,32 0 1,0 32,0 Z', fill: '#CFE2FF', stroke: 'none' },
+  { d: arrowLeftNewIcon, stroke: '#324195', strokeWidth: '3', strokeLinejoin: 'round', strokeLinecap: 'round', fill: 'none' },
 ]
 
 export const arrowRightNewIconPath: pathT[] = [
-    { d: 'M32,0 A32,32 0 1,0 32,64 A32,32 0 1,0 32,0 Z', fill: '#CFE2FF', stroke: 'none',  },
-    { d: arrowRightNewIcon, stroke: '#324195', strokeWidth: '3', strokeLinejoin: 'round', strokeLinecap: 'round', fill: 'none',  },
+  { d: 'M32,0 A32,32 0 1,0 32,64 A32,32 0 1,0 32,0 Z', fill: '#CFE2FF', stroke: 'none' },
+  { d: arrowRightNewIcon, stroke: '#324195', strokeWidth: '3', strokeLinejoin: 'round', strokeLinecap: 'round', fill: 'none' },
 ]
 
 export const addIconPath: pathT[] = [
@@ -176,7 +176,10 @@ export const addIconPath: pathT[] = [
   { d: addIcon.d3, fill: 'white' },
 ]
 
-export const closeHwModalPath = [{ d: cross.d1, fill: '#808080' }, { d: cross.d2, fill: '#808080' }]
+export const closeHwModalPath = [
+  { d: cross.d1, fill: '#808080' },
+  { d: cross.d2, fill: '#808080' },
+]
 
 export const copyIconPath: pathT[] = [{ d: copyIcon.d1, fill: '#7a7a7c' }]
 

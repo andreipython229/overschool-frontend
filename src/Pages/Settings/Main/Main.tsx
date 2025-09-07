@@ -278,7 +278,12 @@ export const Main = memo(() => {
                   <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
                 </div>
               </div>
-              <Button onClick={onChangeTelegram} className={styles.save_button} text="Сохранить" disabled={telegram === data?.telegram_link || isLoadingLink} />
+              <Button
+                onClick={onChangeTelegram}
+                className={styles.save_button}
+                text="Сохранить"
+                disabled={telegram === data?.telegram_link || isLoadingLink}
+              />
             </div>
 
             <div className={styles.text}>
@@ -296,7 +301,12 @@ export const Main = memo(() => {
                   <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
                 </div>
               </div>
-              <Button onClick={onChangeInstagram} className={styles.save_button} text="Сохранить" disabled={instagram === data?.instagram_link || isLoadingLink} />
+              <Button
+                onClick={onChangeInstagram}
+                className={styles.save_button}
+                text="Сохранить"
+                disabled={instagram === data?.instagram_link || isLoadingLink}
+              />
             </div>
 
             <div className={styles.text}>
@@ -333,7 +343,12 @@ export const Main = memo(() => {
                   <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
                 </div>
               </div>
-              <Button onClick={onChangeYoutube} className={styles.save_button} text="Сохранить" disabled={youtube === data?.youtube_link || isLoadingLink} />
+              <Button
+                onClick={onChangeYoutube}
+                className={styles.save_button}
+                text="Сохранить"
+                disabled={youtube === data?.youtube_link || isLoadingLink}
+              />
             </div>
 
             <div className={styles.text}>
@@ -369,7 +384,12 @@ export const Main = memo(() => {
                   <IconSvg width={24} height={24} viewBoxSize="0 0 24 24" path={penIconPath} />
                 </div>
               </div>
-              <Button onClick={onChangeCustomSocial} className={styles.save_button} text="Сохранить" disabled={customSocial === data?.extra_link || isLoadingLink} />
+              <Button
+                onClick={onChangeCustomSocial}
+                className={styles.save_button}
+                text="Сохранить"
+                disabled={customSocial === data?.extra_link || isLoadingLink}
+              />
             </div>
           </div>
         </div>

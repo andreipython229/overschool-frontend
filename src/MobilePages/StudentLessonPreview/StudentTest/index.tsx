@@ -17,7 +17,7 @@ type studentTestT = {
 }
 
 export const StudentTest: FC<studentTestT> = ({ lesson, lessons, params }) => {
-    const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
+  const { course_id: courseId, section_id: sectionId, lesson_id: lessonId, lesson_type: lessonType } = params
 
   const [isOpenTest, { on: closeTest, off: openTest }] = useBoolean()
 

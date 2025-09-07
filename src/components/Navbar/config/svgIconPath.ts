@@ -52,8 +52,6 @@ export const meetingsNavPath: pathT[] = [
   { d: meetingsIcon.d3, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
 ]
 
-
 export const tgNavPath: pathT[] = [
   { d: tgIcon.d, stroke: 'currentColor', fill: '#332F36', strokeWidth: '.1', strokeLinecap: 'round', strokeLinejoin: 'round' },
-
 ]

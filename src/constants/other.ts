@@ -18,7 +18,7 @@ export const arrNumber = [
 export const arrTime = [
   { label: 'минут', value: 'минут' },
   { label: 'часов', value: 'часов' },
-  { label: 'дней', value: 'дней' }
+  { label: 'дней', value: 'дней' },
 ]
 export const coursesSelectLanguage = [
   { value: 'javascript', label: 'Javascript' },

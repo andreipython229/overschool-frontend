@@ -1,17 +1,17 @@
-import React, {ChangeEvent, useState, useEffect} from 'react';
-import {CardPropsT} from "../types/audienceBlockT";
-import styles from "./audienceBlockCard.module.scss"
-import { TextareaAutosize, Avatar } from '@mui/material';
-import { DeleteForever } from "@mui/icons-material";
-import {useAppDispatch, useAppSelector} from "store/hooks";
-import { changeBlocks, addFile } from 'store/redux/landing/constructorSlice';
+import React, { ChangeEvent, useState, useEffect } from 'react'
+import { CardPropsT } from '../types/audienceBlockT'
+import styles from './audienceBlockCard.module.scss'
+import { TextareaAutosize, Avatar } from '@mui/material'
+import { DeleteForever } from '@mui/icons-material'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
+import { changeBlocks, addFile } from 'store/redux/landing/constructorSlice'
 
 export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) => {
   const dispatch = useAppDispatch()
   const landing = useAppSelector(state => state.landing.blocks)
 
-  const [titleValue, setTitleValue] = useState<string>(landing.audience.chips[position].title);
-  const [descriptionValue, setDescriptionValue] = useState<string>(landing.audience.chips[position].description);
+  const [titleValue, setTitleValue] = useState<string>(landing.audience.chips[position].title)
+  const [descriptionValue, setDescriptionValue] = useState<string>(landing.audience.chips[position].description)
 
   const [cardImage, setCardImage] = useState<string>(landing.audience.chips[position].photo)
   const [imgError, setImgError] = useState<string>('')
@@ -28,17 +28,19 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
           const url = URL.createObjectURL(files[0])
           setCardImage(url)
           // сохраняем файл в redux для последующей отправки в составе формы
-          dispatch(addFile({
-            key:`photo_audience_${position}`,
-            file: files[0]
-          }))
+          dispatch(
+            addFile({
+              key: `photo_audience_${position}`,
+              file: files[0],
+            }),
+          )
 
           // сохраняем временнную ссылку на файл в redux
-          const chips = landing.audience.chips.map( item => {
-          if (item.position === position) {
-              return { ...item, photo: url };
+          const chips = landing.audience.chips.map(item => {
+            if (item.position === position) {
+              return { ...item, photo: url }
             }
-            return item;
+            return item
           })
 
           // формируем новый объект Лендинга
@@ -46,10 +48,10 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
             ...landing,
             audience: {
               ...landing.audience,
-              chips: chips
-            }
+              chips: chips,
+            },
           }
-          dispatch(changeBlocks(lndng));
+          dispatch(changeBlocks(lndng))
         } else {
           setImgError('Размер файла не должен превышать 7 МБ')
         }
@@ -61,44 +63,44 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
   const handleChangeTitle = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTitleValue(event.target.value)
 
-    const chips = landing.audience.chips.map( item => {
+    const chips = landing.audience.chips.map(item => {
       if (item.position === position) {
-        return { ...item, title: event.target.value};
+        return { ...item, title: event.target.value }
       }
-      return item;
+      return item
     })
 
     const lndng = {
       ...landing,
       audience: {
         ...landing.audience,
-        chips: chips
-      }
+        chips: chips,
+      },
     }
 
-    dispatch(changeBlocks(lndng));
-  };
+    dispatch(changeBlocks(lndng))
+  }
 
   const handleChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionValue(event.target.value)
 
-    const chips = landing.audience.chips.map( item => {
+    const chips = landing.audience.chips.map(item => {
       if (item.position === position) {
-        return { ...item, description: event.target.value};
+        return { ...item, description: event.target.value }
       }
-      return item;
+      return item
     })
 
     const lndng = {
       ...landing,
       audience: {
         ...landing.audience,
-        chips: chips
-      }
+        chips: chips,
+      },
     }
 
-    dispatch(changeBlocks(lndng));
-  };
+    dispatch(changeBlocks(lndng))
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -108,23 +110,11 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
           src={cardImage}
           sx={{width: 125, height: 125}}
         /> */}
-        <img
-          src={cardImage}
-          alt={cardImage}
-          width={170}
-          height={170}
-          onError={() => setImgError('Ошибка загрузки изображения')}
-        />
+        <img src={cardImage} alt={cardImage} width={170} height={170} onError={() => setImgError('Ошибка загрузки изображения')} />
         {imgError && <p className={styles.wrapper_imageBox_error}>{imgError}</p>}
       </div>
       <div className={styles.wrapper_title}>
-        <TextareaAutosize
-          value={titleValue}
-          onChange={handleChangeTitle}
-          placeholder="Заголовок карточки"
-          maxRows={2}
-          maxLength={35}
-        />
+        <TextareaAutosize value={titleValue} onChange={handleChangeTitle} placeholder="Заголовок карточки" maxRows={2} maxLength={35} />
       </div>
       <div className={styles.wrapper_description}>
         <TextareaAutosize
@@ -136,8 +126,8 @@ export const AudienceBlockCard: React.FC<CardPropsT> = ({ position, onDelete }) 
         />
       </div>
       <button onClick={onDelete}>
-        <DeleteForever fontSize="medium"/>
+        <DeleteForever fontSize="medium" />
       </button>
     </div>
-  );
-};
+  )
+}

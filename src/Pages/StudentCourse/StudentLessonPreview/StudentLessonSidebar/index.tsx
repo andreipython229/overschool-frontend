@@ -29,7 +29,7 @@ export const StudentLessonSidebar: FC<studentLessonSidebar> = memo(
         return false
       }
       const someNotViewed = lessonsComp?.lessons.slice(0, lessonIndex).some(lesson => !lesson.viewed)
-      return lessonIndex > activeLessonIndex && nextDisabled || someNotViewed
+      return (lessonIndex > activeLessonIndex && nextDisabled) || someNotViewed
     }
 
     const updateLessonViewed = (lessonIndex: number, viewed: boolean) => {

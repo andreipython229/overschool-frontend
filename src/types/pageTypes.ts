@@ -2,8 +2,8 @@ import { ButtonHTMLAttributes, ChangeEvent, DetailedHTMLProps } from 'react'
 
 import { studentsGroupsT } from './studentsGroup'
 import { CoursesDataT } from './CoursesT'
-import {EmployeeT} from "./userT";
-import {BonusT} from "./bonusesT";
+import { EmployeeT } from './userT'
+import { BonusT } from './bonusesT'
 
 export type CoursesMiniCardT = {
   photo?: string

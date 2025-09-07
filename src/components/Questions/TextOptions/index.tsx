@@ -38,26 +38,32 @@ export const TextOptions: FC<PropsQuestionBlockT> = ({ question, answers, title,
     <>
       <div className={styles.wrapper}>
         <div className={styles.wrapper_button}>
-          <Button
-            onClick={handleGetTypeQuestion}
-            variant={'cancel'}
-            text={'Удалить'}
-          />
+          <Button onClick={handleGetTypeQuestion} variant={'cancel'} text={'Удалить'} />
         </div>
-        <h2 className={styles.wrapper_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
+        <h2 className={styles.wrapper_question_count}>
+          Вопрос {questions && question && questions?.indexOf(question) + 1} из {questions?.length}
+        </h2>
         <div className={styles.wrapper_drop_down_menu}>
-          <h2 className={styles.wrapper_drop_down_menu_question_count}>Вопрос {questions && question && questions?.indexOf(question)+1} из {questions?.length}</h2>
+          <h2 className={styles.wrapper_drop_down_menu_question_count}>
+            Вопрос {questions && question && questions?.indexOf(question) + 1} из {questions?.length}
+          </h2>
           <QuestionHeader title={title} id={id} testId={testId} questions={questions} question={question} multiple_answer={multiple_answer} />
           <div>
             <div className={styles.settings_list}>
               {answersToRender
                 ? orderBy(answersToRender, 'answer_id').map((answer, index) => (
-                  <AnswerOption key={`${answer.body}_${index}`} id={id} answer={answer} question={question} multiple_answer={multiple_answer || false}/>
-                ))
+                    <AnswerOption
+                      key={`${answer.body}_${index}`}
+                      id={id}
+                      answer={answer}
+                      question={question}
+                      multiple_answer={multiple_answer || false}
+                    />
+                  ))
                 : ''}
             </div>
             <Button
-              text={isLoading ? <SimpleLoader style={{width: '1em', height: '1em'}}/> : '+ Добавить вариант'}
+              text={isLoading ? <SimpleLoader style={{ width: '1em', height: '1em' }} /> : '+ Добавить вариант'}
               style={{ lineHeight: '16.71px', fontWeight: '600', fontSize: '14px', marginTop: '10px' }}
               variant={'newPrimary'}
               onClick={handleAddAnswer}

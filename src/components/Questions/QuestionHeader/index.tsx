@@ -10,17 +10,18 @@ type QuestionHeaderT = {
   children?: ReactNode
 }
 
-export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({ title, id, children, questions, question, testId, multiple_answer }) => {
-  return (
-    <div className={styles.header}>
-      {children}
-      <div className={styles.header_container}>
-        <Avatar className={styles.avatar}>{questions && question && questions?.indexOf(question) + 1}</Avatar>
-        <div className={styles.header_container_question}>
-          <Question id={id} title={title} testId={testId} multiple_answer={multiple_answer} />
+export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(
+  ({ title, id, children, questions, question, testId, multiple_answer }) => {
+    return (
+      <div className={styles.header}>
+        {children}
+        <div className={styles.header_container}>
+          <Avatar className={styles.avatar}>{questions && question && questions?.indexOf(question) + 1}</Avatar>
+          <div className={styles.header_container_question}>
+            <Question id={id} title={title} testId={testId} multiple_answer={multiple_answer} />
+          </div>
         </div>
-      </div>
-      {/* <div className={styles.header_controlIconWrapper}>sss */}
+        {/* <div className={styles.header_controlIconWrapper}>sss */}
         {/* <div className={styles.header_controlIconWrapper_timer}>
           <IconSvg width={15} height={15} viewBoxSize="0 0 19 19">
             <g clipPath="url(#clip0_2875_4565)">
@@ -59,6 +60,7 @@ export const QuestionHeader: FC<QuestionHeaderT & PropsQuestionBlockT> = memo(({
         {/*  <IconSvg width={21} height={14} viewBoxSize="0 0 21 14" path={grabIconPath} />*/}
         {/*</div>*/}
       </div>
-    // </div>
-  )
-})
+      // </div>
+    )
+  },
+)

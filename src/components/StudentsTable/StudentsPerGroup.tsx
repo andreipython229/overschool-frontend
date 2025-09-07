@@ -8,9 +8,9 @@ import { AllStudentsBlock } from 'components/AllStudentsBlock'
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 import { addFilters, removeFilter } from 'store/redux/filters/slice'
 import { useFetchStudentsTablesHeaderQuery } from 'api/studentTableService'
-import styles from "../../Pages/HomeWork/home_work.module.scss";
-import {Pagination} from "../Pagination/Pagination";
-import {useDebounceFunc, usePagination} from "../../customHooks";
+import styles from '../../Pages/HomeWork/home_work.module.scss'
+import { Pagination } from '../Pagination/Pagination'
+import { useDebounceFunc, usePagination } from '../../customHooks'
 
 export const StudentsPerGroup: FC = () => {
   const { group_id } = useParams()
@@ -47,19 +47,19 @@ export const StudentsPerGroup: FC = () => {
 
   const handleReloadTable = () => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[1].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      const studentsTableInfo = tablesHeader[1].students_table_info || []
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
       if (checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
+        fetchStudents({
+          filters,
+          page,
           id: group_id,
           schoolName,
-          fields: checkedFields
-        });
+          fields: checkedFields,
+        })
       }
     } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
+      console.log('tablesHeader is undefined or does not have enough elements')
     }
   }
 
@@ -79,11 +79,11 @@ export const StudentsPerGroup: FC = () => {
 
   const updateStudents = (value: string) => {
     // setSearchTerm(value)
-    debounce(addFilters({ key: 'studentsPerGroup', filters: {'search_value': value } }));
+    debounce(addFilters({ key: 'studentsPerGroup', filters: { search_value: value } }))
   }
 
   const handleAddSortToFilters = (sort_by_value: string, sort_order_value: string) => {
-      dispatch(addFilters({key: 'studentsPerGroup', filters: {'sort_by': sort_by_value, 'sort_order': sort_order_value}}))
+    dispatch(addFilters({ key: 'studentsPerGroup', filters: { sort_by: sort_by_value, sort_order: sort_order_value } }))
   }
 
   // Фильтра для студентов группы
@@ -106,21 +106,21 @@ export const StudentsPerGroup: FC = () => {
   // Перезагрузка после смены страницы пагинатора
   useEffect(() => {
     if (tablesHeader && tablesHeader.length > 2) {
-      const studentsTableInfo = tablesHeader[1].students_table_info || [];
-      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name);
+      const studentsTableInfo = tablesHeader[1].students_table_info || []
+      const checkedFields = studentsTableInfo.filter((field: any) => field.checked).map((field: any) => field.name)
       if (checkedFields) {
-        fetchStudents({ 
-          filters, 
-          page, 
+        fetchStudents({
+          filters,
+          page,
           id: group_id,
           schoolName,
-          fields: checkedFields
-        });
+          fields: checkedFields,
+        })
       }
     } else {
-      console.log('tablesHeader is undefined or does not have enough elements');
+      console.log('tablesHeader is undefined or does not have enough elements')
     }
-  }, [page, isGroupingStudents, tablesHeader]);
+  }, [page, isGroupingStudents, tablesHeader])
 
   return (
     <>
@@ -155,12 +155,7 @@ export const StudentsPerGroup: FC = () => {
         isGrouping={isGroupingStudents}
         tableType={'Группа'}
       />
-      <Pagination
-          className={styles.pagination}
-          paginationRange={paginationRange}
-          currentPage={page}
-          onPageChange={onPageChange}
-      />
+      <Pagination className={styles.pagination} paginationRange={paginationRange} currentPage={page} onPageChange={onPageChange} />
     </>
   )
 }

@@ -24,14 +24,14 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
   const [avatarFile, setAvatarFile] = useState<File | Blob>()
   const [avatarUrl, setAvatarUrl] = useState<string>('')
   const dispatch = useAppDispatch()
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 600);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    const handleResize = () => setIsMobile(window.innerWidth <= 600)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const { data, isFetching, isSuccess: profileIsSuccess } = useFetchProfileDataQuery()
   const [updateProfile, { isSuccess }] = useUpdateProfileMutation()
@@ -183,7 +183,7 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
   }
 
   return (
-    <form style={{width: '100%'}} className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
+    <form style={{ width: '100%' }} className={styles.container + ' ' + formStyles.form} onSubmit={handleSubmit}>
       {(isSubmitting || isFetching) && (
         <div className={styles.profile_loader}>
           <SimpleLoader style={{ width: '50px', height: '50px' }} />
@@ -206,13 +206,7 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
         <>
           <div className={formStyles.form_avatarWrapperMobile}>
             <div className={formStyles.form_avatarWrapper_avatarBlock}>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={onChangeAvatar}
-                style={{ display: 'none' }}
-                id="avatar-input-mobile"
-              />
+              <input type="file" accept="image/*" onChange={onChangeAvatar} style={{ display: 'none' }} id="avatar-input-mobile" />
               <label htmlFor="avatar-input-mobile" style={{ cursor: 'pointer' }}>
                 {avatarUrl || avatar_url ? (
                   <div className={styles.profile_block}>
@@ -226,23 +220,21 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
             {avatarError && <p className={formStyles.form_avatarWrapper_error}>{avatarError}</p>}
           </div>
           <div className={styles.profile_headerInfoMobile}>
-            <div className={styles.profile_headerField}><span>Имя пользователя:</span> <span>{first_name}</span></div>
-            <div className={styles.profile_headerField}><span>Email:</span> <span>{email}</span></div>
+            <div className={styles.profile_headerField}>
+              <span>Имя пользователя:</span> <span>{first_name}</span>
+            </div>
+            <div className={styles.profile_headerField}>
+              <span>Email:</span> <span>{email}</span>
+            </div>
           </div>
         </>
       ) : (
         <table className={styles.profile_table}>
           <tr>
             <td>
-              <div className={formStyles.form_avatarWrapper} style={{marginLeft: '-20px', marginBottom: '30px'}}>
+              <div className={formStyles.form_avatarWrapper} style={{ marginLeft: '-20px', marginBottom: '30px' }}>
                 <div className={formStyles.form_avatarWrapper_avatarBlock}>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={onChangeAvatar}
-                    style={{ display: 'none' }}
-                    id="avatar-input-desktop"
-                  />
+                  <input type="file" accept="image/*" onChange={onChangeAvatar} style={{ display: 'none' }} id="avatar-input-desktop" />
                   <label htmlFor="avatar-input-desktop" style={{ cursor: 'pointer' }}>
                     {avatarUrl || avatar_url ? (
                       <div className={styles.profile_block}>
@@ -258,45 +250,45 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
             </td>
             <td>
               <tr>
-                <span style={{fontWeight:'500'}}>Имя пользователя:</span>
-                <span style={{fontWeight:'400'}}>{first_name}</span>
+                <span style={{ fontWeight: '500' }}>Имя пользователя:</span>
+                <span style={{ fontWeight: '400' }}>{first_name}</span>
               </tr>
               <tr>
-                <span style={{fontWeight:'500'}}>Email:</span>
-                <span style={{fontWeight:'400'}}>{email}</span>
+                <span style={{ fontWeight: '500' }}>Email:</span>
+                <span style={{ fontWeight: '400' }}>{email}</span>
               </tr>
             </td>
           </tr>
         </table>
       )}
-      <div style={{marginTop:'20px'}} className={styles.profile_block}>
+      <div style={{ marginTop: '20px' }} className={styles.profile_block}>
         <Input
           name={'first_name'}
-          variant='teacherInput'
+          variant="teacherInput"
           type={'text'}
           label={'Имя:'}
           onChange={handleChange}
           value={first_name as string}
           disabled={isRestrictedUser}
           placeholder={'Данные пользователя'}
-          />
+        />
       </div>
       <div className={styles.profile_block}>
         <Input
           name={'last_name'}
-          variant='teacherInput'
+          variant="teacherInput"
           type={'text'}
           label={'Фамилия:'}
           onChange={handleChange}
           value={last_name as string}
           disabled={isRestrictedUser}
           placeholder={'Данные пользователя'}
-          />
+        />
       </div>
       <div className={styles.profile_block}>
         <Input
           name={'patronymic'}
-          variant='teacherInput'
+          variant="teacherInput"
           type={'text'}
           label={'Отчество:'}
           onChange={handleChange}
@@ -308,7 +300,7 @@ export const AboutUser: FC<AboutUserT> = memo(({ handleSubmitAboutUser }) => {
       <div className={styles.profile_block}>
         <Input
           name={'phone_number'}
-          variant='teacherInput'
+          variant="teacherInput"
           type={'text'}
           label={'Телефон:'}
           onChange={handleChange}
