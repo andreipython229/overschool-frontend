@@ -1,5 +1,5 @@
-@use "@/scss/mixin.scss" as *;
-@use "@/scss/variable.scss" as *;
+@use '@/scss/mixin.scss' as *;
+@use '@/scss/variable.scss' as *;
 
 @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 
@@ -108,7 +108,7 @@
 
 .generateLinkButton {
   width: 290px;
-  height: 54px;
+  height: 70px;
   border-radius: 10px;
   padding: 16px 40px 16px 40px;
   gap: 10px;
@@ -231,7 +231,9 @@
   padding: 8px 16px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .noLinksMessage {
