@@ -86,7 +86,7 @@ export const CoureCatalogPreview: FC = () => {
       fetchLanding(Number(params.courseId))
         .then(response => {
           console.log('API response:', response)
-          if (response.data) {
+          if ('data' in response && response.data) {
             console.log('f_landing before dispatch:', response.data)
             dispatch(changeBlocks(response.data))
           }
