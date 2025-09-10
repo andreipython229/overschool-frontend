@@ -19,7 +19,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
     - name: Build
-      run: yarn rsbuild build --mode production
+      run: rsbuild build
 
       - name: Deploy to Sandbox
         run: |
