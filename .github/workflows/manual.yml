@@ -18,8 +18,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build
-        run: npm run build --no-check
+    - name: Build
+      run: yarn rsbuild build
 
       - name: Deploy to Sandbox
         run: |
