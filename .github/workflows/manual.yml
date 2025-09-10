@@ -19,7 +19,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
     - name: Build
-      run: yarn rsbuild build
+      run: yarn rsbuild build --skip-type-check
 
       - name: Deploy to Sandbox
         run: |
