@@ -1,0 +1,35 @@
+name: Deploy to Sandbox
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Sandbox
+        run: |
+          # Установить SSH-ключ
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          # Добавить сервер в known_hosts
+          ssh-keyscan sandbox.coursehb.ru >> ~/.ssh/known_hosts
+
+          # Загрузить файлы на сервер
+          scp -i ~/.ssh/id_ed25519 -r dist/* user@sandbox.coursehb.ru:/var/www/html/
