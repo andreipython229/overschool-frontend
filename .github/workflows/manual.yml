@@ -18,25 +18,11 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-    - name: Build
-      run: npx rsbuild build
-      
-    - name: Deploy to Sandbox
-      run: |
-        # Установить SSH-ключ
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        
-        # Добавить сервер в known_hosts
-        ssh-keyscan sandbox.coursehb.ru >> ~/.ssh/known_hosts
-        
-        # Попробовать разные варианты пользователей и путей
-        echo "Trying ubuntu user..."
-        scp -i ~/.ssh/id_ed25519 -r dist/* ubuntu@sandbox.coursehb.ru:/var/www/html/ || echo "ubuntu failed"
-        
-        echo "Trying root user..."
-        scp -i ~/.ssh/id_ed25519 -r dist/* root@sandbox.coursehb.ru:/var/www/html/ || echo "root failed"
-        
-        echo "Trying deploy user..."
-        scp -i ~/.ssh/id_ed25519 -r dist/* deploy@sandbox.coursehb.ru:/var/www/html/ || echo "deploy failed"
+      - name: Build
+        run: npx rsbuild build
+
+      - name: Show build result
+        run: |
+          echo "Build completed successfully!"
+          ls -la dist/
+          echo "Files ready for manual upload to sandbox"
