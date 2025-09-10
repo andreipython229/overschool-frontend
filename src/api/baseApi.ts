@@ -19,7 +19,7 @@ export const baseQuery = fetchBaseQuery({
       // eslint-disable-next-line no-undef
       console.log('state.user.authState.access:', state.user?.authState?.access)
 
-      let token = state.user?.authState?.access
+      let token: string | null = state.user?.authState?.access
 
       // Fallback на localStorage если Redux пустой
       if (!token || token === '') {

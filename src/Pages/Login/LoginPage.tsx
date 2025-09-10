@@ -142,7 +142,7 @@ export const LoginPage = () => {
         console.log('LOGIN: User ID value:', parsedResult.user.id)
 
         // Проверяем, что parsedResult.user.id существует и валиден
-        if (parsedResult.user.id === undefined || parsedResult.user.id === null || parsedResult.user.id === '') {
+        if (parsedResult.user.id === undefined || parsedResult.user.id === null || parsedResult.user.id === '' || parsedResult.user.id === 0) {
           console.error('LOGIN ERROR: User ID is missing or invalid:', parsedResult.user.id)
           return
         }
