@@ -21,8 +21,33 @@ jobs:
       - name: Build
         run: npx rsbuild build
 
-      - name: Show build result
+      - name: Deploy to Sandbox
         run: |
-          echo "Build completed successfully!"
-          ls -la dist/
-          echo "Files ready for manual upload to sandbox"
+          # Установить SSH-ключ
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          # Добавить сервер в known_hosts
+          ssh-keyscan sandbox.coursehb.ru >> ~/.ssh/known_hosts
+
+          # Попробовать разные варианты пользователей и путей
+          echo "Trying to deploy to sandbox.coursehb.ru..."
+
+          # Вариант 1: ubuntu user, /var/www/html/
+          if scp -i ~/.ssh/id_ed25519 -r dist/* ubuntu@sandbox.coursehb.ru:/var/www/html/ 2>/dev/null; then
+            echo "✅ Deployed successfully to ubuntu@sandbox.coursehb.ru:/var/www/html/"
+          # Вариант 2: root user, /var/www/html/
+          elif scp -i ~/.ssh/id_ed25519 -r dist/* root@sandbox.coursehb.ru:/var/www/html/ 2>/dev/null; then
+            echo "✅ Deployed successfully to root@sandbox.coursehb.ru:/var/www/html/"
+          # Вариант 3: deploy user, /var/www/html/
+          elif scp -i ~/.ssh/id_ed25519 -r dist/* deploy@sandbox.coursehb.ru:/var/www/html/ 2>/dev/null; then
+            echo "✅ Deployed successfully to deploy@sandbox.coursehb.ru:/var/www/html/"
+          # Вариант 4: ubuntu user, /home/ubuntu/
+          elif scp -i ~/.ssh/id_ed25519 -r dist/* ubuntu@sandbox.coursehb.ru:/home/ubuntu/ 2>/dev/null; then
+            echo "✅ Deployed successfully to ubuntu@sandbox.coursehb.ru:/home/ubuntu/"
+          else
+            echo "❌ All deployment attempts failed"
+            echo "Build completed successfully, but deployment failed"
+            ls -la dist/
+          fi
