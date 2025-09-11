@@ -31,20 +31,29 @@ jobs:
           # Добавить сервер в known_hosts
           ssh-keyscan sandbox.coursehb.ru >> ~/.ssh/known_hosts
 
+          # Проверить доступность сервера
+          echo "Testing server connectivity..."
+          ping -c 3 sandbox.coursehb.ru || echo "Ping failed"
+
+          # Проверить SSH порт
+          echo "Testing SSH port..."
+          nc -zv sandbox.coursehb.ru 22 || echo "SSH port not accessible"
+
           # Попробовать разные варианты пользователей и путей
           echo "Trying to deploy to sandbox.coursehb.ru..."
 
           # Вариант 1: ubuntu user, /var/www/html/
-          if scp -i ~/.ssh/id_ed25519 -r dist/* ubuntu@sandbox.coursehb.ru:/var/www/html/ 2>/dev/null; then
+          echo "Trying ubuntu@sandbox.coursehb.ru:/var/www/html/"
+          if scp -i ~/.ssh/id_ed25519 -r dist/* ubuntu@sandbox.coursehb.ru:/var/www/html/; then
             echo "✅ Deployed successfully to ubuntu@sandbox.coursehb.ru:/var/www/html/"
           # Вариант 2: root user, /var/www/html/
-          elif scp -i ~/.ssh/id_ed25519 -r dist/* root@sandbox.coursehb.ru:/var/www/html/ 2>/dev/null; then
+          elif echo "Trying root@sandbox.coursehb.ru:/var/www/html/" && scp -i ~/.ssh/id_ed25519 -r dist/* root@sandbox.coursehb.ru:/var/www/html/; then
             echo "✅ Deployed successfully to root@sandbox.coursehb.ru:/var/www/html/"
           # Вариант 3: deploy user, /var/www/html/
-          elif scp -i ~/.ssh/id_ed25519 -r dist/* deploy@sandbox.coursehb.ru:/var/www/html/ 2>/dev/null; then
+          elif echo "Trying deploy@sandbox.coursehb.ru:/var/www/html/" && scp -i ~/.ssh/id_ed25519 -r dist/* deploy@sandbox.coursehb.ru:/var/www/html/; then
             echo "✅ Deployed successfully to deploy@sandbox.coursehb.ru:/var/www/html/"
           # Вариант 4: ubuntu user, /home/ubuntu/
-          elif scp -i ~/.ssh/id_ed25519 -r dist/* ubuntu@sandbox.coursehb.ru:/home/ubuntu/ 2>/dev/null; then
+          elif echo "Trying ubuntu@sandbox.coursehb.ru:/home/ubuntu/" && scp -i ~/.ssh/id_ed25519 -r dist/* ubuntu@sandbox.coursehb.ru:/home/ubuntu/; then
             echo "✅ Deployed successfully to ubuntu@sandbox.coursehb.ru:/home/ubuntu/"
           else
             echo "❌ All deployment attempts failed"
